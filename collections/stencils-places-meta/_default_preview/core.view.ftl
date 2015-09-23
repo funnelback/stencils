@@ -22,21 +22,21 @@
 <#import "project.view.ftl" as project_view />
 <#import "project.controller.ftl" as project_controller />
 
-<#-- 
+<#--
   The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
-  The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/
+  The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
   and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 
-  Note: The full path has been added to ensure that the correct folder is being picked up  
+  Note: The full path has been added to ensure that the correct folder is being picked up
 -->
 <#list stencils as stencil>
-  <#assign controller = "/web/templates/modernui/stencils-libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
-  <#assign view ="/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />  
+  <#assign controller = "/share/stencils/libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+  <#assign view ="/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
   <@'<#import controller as ${stencilNamespaceController}>'?interpret />
   <@'<#import view as ${stencilNamespaceView}>'?interpret />
 </#list>
 
-<#-- 
+<#--
   If for any reason you need to modify a controller (not recommended as it will no longer be upgraded as part of the stencils release cycle), you can remove the stencil from the stencils array, take a copy of the controller and move it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/. You will then need to import it using the following:
 
   <#import "<stencil name>.controller.ftl" as <stencil name>_controller>
@@ -45,14 +45,14 @@
   e.g. If you are using the core and base stencil but you want to override the base.controller.ftl
 
   You will need to:
-  - Copy base.controller.ftl from  $SEARCH_HOME/web/templates/modernui/stencils-libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+  - Copy base.controller.ftl from  $SEARCH_HOME/share/stencils/libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
   - Change 'stencils = ["core", "base"]' to 'stencils = ["core"]'
   - Add '<#import "base.controller.ftl" as base_controller>' to the top of your file
   - Add '<#import "base.view.ftl" as base_view>' to the top of your file
---> 
+-->
 
 <#-- Import the main macros used to put together this app -->
-<#import "/web/templates/modernui/stencils-libraries/core.controller.ftl" as core_controller/>
+<#import "/share/stencils/libraries/core.controller.ftl" as core_controller/>
 
 <#--
   Results Wrapper
@@ -85,13 +85,13 @@
           <h2 class="fb-title">Events on ${s.result.eventDate?date}</h2>
         </#if>
       <#else>
-        
+
          <@project_view.ResultViewRouter />
-        
+
       </#if>
     </@s.Results>
     </ol>
- 
+
 </#macro>
 
 <#macro NavBar>
@@ -111,14 +111,14 @@
     <div class="col-xs-7 col-md-3 pull-right">
       <div class="btn-group btn-group-sm pull-right" style="margin-top:10px">
         <a href="#search-advanced" class="btn btn-default" data-toggle="collapse" title="Advanced search"><span class="glyphicon glyphicon-cog"></span> <span class="visible-md-inline visible-lg-inline">Advanced Search</span></a>
-        
+
         <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
         <a href="#" class="btn btn-default" data-ng-class="{active: isDisplayed('history')}" data-ng-click="toggleHistory()" title="Search History"><span class="glyphicon glyphicon-time"></span></a>
         </#if>
         <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
         <a href="#" class="btn btn-default" data-ng-class="{active: isDisplayed('cart')}" data-ng-click="toggleCart()" title="{{cart.length}} item(s) in your selection"><span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span></a>
         </#if>
-        
+
         <div class="btn-group btn-group-sm dropdown pull-right">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
           <span class="glyphicon glyphicon-question-sign"></span>

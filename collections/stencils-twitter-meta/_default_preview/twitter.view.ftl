@@ -15,7 +15,7 @@
 
 <#-- ################### C. Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/web/templates/modernui/stencils-libraries/" >
+<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
 <#assign TwitterResourcesPrefix = "${SearchPrefix}stencils-resources/twitter/" >
 <#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
@@ -33,7 +33,7 @@
 <#assign stencils=["core","base"] />
 	<#--
 	The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
-	The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/
+	The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
 	and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 	-->
 <@stencils_utilities.ImportStencils stencils=stencils>

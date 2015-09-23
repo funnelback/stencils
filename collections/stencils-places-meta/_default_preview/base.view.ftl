@@ -16,7 +16,7 @@
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import the main macros used to put together this app -->
-<#import "/web/templates/modernui/stencils-libraries/base.controller.ftl" as base_controller/>
+<#import "/share/stencils/libraries/base.controller.ftl" as base_controller/>
 
 <#--
   Sample implementation of a facet breadcrumb which allows users
@@ -29,12 +29,12 @@
      <small>Refined by</small><br>
       <@base_controller.BreadCrumbs>
           <@base_controller.BreadCrumb tag="span" >
-           
+
             <a href="<@base_controller.BreadCrumbUrl />" class="label label-default" style="margin-right:0.1em">
                 <i class="fa fa-times" style="color:#fff;"></i>
                 <@base_controller.BreadCrumbName />
             </a>
-          </@base_controller.BreadCrumb>  
+          </@base_controller.BreadCrumb>
       </@base_controller.BreadCrumbs>
     </div>
   </div>
@@ -42,7 +42,7 @@
 </#macro>
 
 
-<#-- 
+<#--
   ResultsDisplaySelectbox
   @author Robert Prib
   @desc Creates a select box that allows the user to select between different search results layouts
@@ -63,12 +63,12 @@
         <span class="glyphicon glyphicon-th"></span> Grid
       </a>
     </li>
-    
+
   </ul>
 </div>
 </#macro>
 
-<#-- 
+<#--
   ResultsPerPageSelectbox
   @author Robert Prib
   @desc Creates a select box that allows the user to select between set number of results per page.
@@ -80,7 +80,7 @@
     Limit &nbsp;&nbsp; <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    
+
     <#-- Result limit options for List view results -->
     <@base_controller.IfDefCGIEquals name="display" value="list"  trueIfEmpty=true>
     <li class="<#compress><@base_controller.IfDefCGIEquals name="num_ranks" value="10" trueIfEmpty=true>active</@base_controller.IfDefCGIEquals></#compress>">
@@ -122,14 +122,14 @@
 </div>
 </#macro>
 
-<#-- 
+<#--
   ResultsGroupPerSelectbox
 
   @author Robert Prib
   @desc Creates a select box that allows the user to select to group results by numeric amount per row.
  -->
 <#macro ResultsGroupPerSelectbox>
- 
+
 <div class="btn-group">
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     Group &nbsp;&nbsp; <span class="caret"></span>
@@ -156,14 +156,14 @@
 </div>
 </#macro>
 
-<#-- 
+<#--
   ResultsSortBySelectbox
 
   @author Robert Prib
   @desc Creates a select box that allows the user to sort results by different options
  -->
 <#macro ResultsSortBySelectbox>
- 
+
 <div class="btn-group">
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
     Sort &nbsp;&nbsp; <span class="caret"></span>

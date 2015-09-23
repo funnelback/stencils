@@ -15,7 +15,7 @@
  -->
 
 <#-- ################### C. Configuration ####################### -->
-<#assign StencilsLibrariesPrefix = "/web/templates/modernui/stencils-libraries/" >
+<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
 
 <#-- Import Utilities -->
 <#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
@@ -29,7 +29,7 @@
 <#-- Import Stencils -->
 	<#--
 	The following code imports and assigns stencil namespaces automatically eg. core_controller.
-	The code expects that the controller files are located under /web/templates/modernui/stencils-libraries/
+	The code expects that the controller files are located under /share/stencils/libraries/
  *Note view files should not be imported to to the controller
 	-->
 <@stencils_utilities.ImportStencilsControllers stencils=stencils>

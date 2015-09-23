@@ -18,21 +18,21 @@
 <#-- Stencils which are to be included -->
 <#assign stencils = ["core", "base", "places"] />
 
-<#-- 
+<#--
   The following code imports and assigns stencil namespaces automatically eg. core and core_view.
-  The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/
+  The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
   and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 
   Note: The full path has been added to ensure that the correct folder is being picked up
 -->
 <#list stencils as stencil>
-  <#assign controller = "/web/templates/modernui/stencils-libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
-  <#assign view ="/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />  
+  <#assign controller = "/share/stencils/libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+  <#assign view ="/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
   <@'<#import controller as ${stencilNamespaceController}>'?interpret />
   <@'<#import view as ${stencilNamespaceView}>'?interpret />
 </#list>
 
-<#-- 
+<#--
   If for any reason you need to modify a controller (not recommended as it will no longer be upgraded as part of the stencils release cycle), you can remove the stencil from the stencils array, take a copy of the controller and move it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/. You will then need to import it using the following:
 
   <#import "<stencil name>.controller.ftl" as <stencil name>_controller>
@@ -41,24 +41,24 @@
   e.g. If you are using the core and base stencil but you want to override the base.controller.ftl
 
   You will need to:
-  - Copy base.controller.ftl from  $SEARCH_HOME/web/templates/modernui/stencils-libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+  - Copy base.controller.ftl from  $SEARCH_HOME/share/stencils/libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
   - Change 'stencils = ["core", "base"]' to 'stencils = ["core"]'
   - Add '<#import "base.controller.ftl" as base_controller>' to the top of your file
   - Add '<#import "base.view.ftl" as base_view>' to the top of your file
---> 
+-->
 
 <#-- Import the main macros used to put together this app -->
 <#import "project.view.ftl" as project_view />
 <#import "project.controller.ftl" as project_controller />
 
-<#-- 
+<#--
   The following functions are generic layout code which can be copied and customised
   to suit individual implementations.
 
   Note: Before the tab layout can be used, you must enable the full facet list by addition the following to collection.cfg
-  
+
   ui.modern.full_facets_list=true
-  
+
   It is also best practice to hide the facet group which has been used to populate the tabs from the list of available facets
 --->
 
@@ -69,16 +69,16 @@
   @desc Buisiness Logic for routing to different 'display' views.
 -->
 <#macro ResultViewRouter>
-  
+
   <#local groupSize><@base_controller.GetCGIValue name="groupSize" default="2" /></#local>
 
   <#-- Display: List  -->
-  <@base_controller.IfDefCGIEquals name="display" value="list" trueIfEmpty=true> 
+  <@base_controller.IfDefCGIEquals name="display" value="list" trueIfEmpty=true>
       <li data-fb-result=${s.result.indexUrl}>
         <@ResultStyleRouter />
       </li>
   </@base_controller.IfDefCGIEquals>
-  
+
   <#-- Display: Grid  -->
   <@base_controller.IfDefCGIEquals name="display" value="grid"  >
     <#local columnOpen><li class="row"><ol class="list-unstyled"></#local>
@@ -89,7 +89,7 @@
       </li>
     </@base_controller.GroupResults>
   </@base_controller.IfDefCGIEquals>
-  
+
   <#-- Display: Masonry  -->
   <@base_controller.IfDefCGIEquals name="display" value="masonry"  >
     <li data-fb-result=${s.result.indexUrl} class="  col-md-${(12/groupSize?number)?floor}" data-masonry-item>
@@ -107,7 +107,7 @@
   @requirements Requires setting up a metadata result attribute that defines the owning collection name of the result. Named as "collection".
 -->
 <#macro ResultCollectionRouter>
-  
+
 
    <#-- Collection: stencils-facebook-custom -->
     <@base_controller.ResultIsCollection name=".." >
@@ -116,39 +116,39 @@
 
 </#macro>
 
-<#-- Result Style Routers 
+<#-- Result Style Routers
   Business Logic for routing result to different 'style' views.
 
   Template
   <#macro <STYLE_ROUTER_NAME>ResultStyleRouter>
-    <@base_controller.IfDefCGIEquals name="resultStyle" value="<STYLE_ROUTE_NAME>" trueIfEmpty=<STYLE_ROUTE_IS_DEFAULT> > 
+    <@base_controller.IfDefCGIEquals name="resultStyle" value="<STYLE_ROUTE_NAME>" trueIfEmpty=<STYLE_ROUTE_IS_DEFAULT> >
       ... <REFERENCE_TO_STYLE_VIEW_TO_PRINT> ...
     </@base_controller.IfDefCGIEquals>
   </#macro>
 -->
 
-<#-- 
+<#--
   Result Style Router
 
   @author Robert Prib
   @desc Business Logic for routing result to different 'style' views.
  -->
 <#macro ResultStyleRouter>
-  
+
   <#-- Style: Basic -->
-  <@base_controller.IfDefCGIEquals name="commonResultStyle" value="basic" trueIfEmpty=true> 
+  <@base_controller.IfDefCGIEquals name="commonResultStyle" value="basic" trueIfEmpty=true>
     <@ResultBasic />
   </@base_controller.IfDefCGIEquals>
 
   <#-- Style: Card-->
-  <@base_controller.IfDefCGIEquals name="commonResultStyle" value="card" > 
+  <@base_controller.IfDefCGIEquals name="commonResultStyle" value="card" >
     <@ResultCard />
   </@base_controller.IfDefCGIEquals>
-  
+
 </#macro>
 
-<#-- 
-  Result Style: Basic 
+<#--
+  Result Style: Basic
  -->
 <#macro ResultBasic>
 <div class="panel panel-default">
@@ -159,7 +159,7 @@
       <i class="fa fa-map-marker active-hide"></i>
       <@s.boldicize><@s.Truncate length=70>${s.result.title}</@s.Truncate></@s.boldicize>
     </h4>
-  </div>   
+  </div>
 
     <div class="panel-body">
       <@s.Quicklinks>
@@ -189,18 +189,18 @@
           </#if>
         </#if>
       </@s.Quicklinks>
-        
+
       <address class="list-group-item-text">
         <strong><@CategoryIcon />${s.result.metaData.officeType}</strong><br>
         <small class="text-muted">${s.result.metaData.address} ${s.result.metaData.suburb}, ${s.result.metaData.state} <#if s.result.metaData.postcode??>${s.result.metaData.postcode}</#if></small>
       </address>
 
-     <button type="button" class="btn btn-default pull-right" data-stencils-mapresultlink data-stencils-mapresultlink-zoom='10' data-stencils-mapid="map" data-stencils-markerid="${s.result.displayUrl}" class="panel-heading map-heading" title="Show ${s.result.title} on map"> 
+     <button type="button" class="btn btn-default pull-right" data-stencils-mapresultlink data-stencils-mapresultlink-zoom='10' data-stencils-mapid="map" data-stencils-markerid="${s.result.displayUrl}" class="panel-heading map-heading" title="Show ${s.result.title} on map">
         <small class="text-muted" ><i class="fa fa-location-arrow active-show"></i>
         <i class="fa fa-map-marker active-hide"></i> Show on map
       </small>
     </button>
-     
+
       <#if s.result.summary??>
         <p class="list-group-item-text">${s.result.summary}</p>
       </#if>

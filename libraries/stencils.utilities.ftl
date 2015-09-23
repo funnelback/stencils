@@ -17,14 +17,14 @@
  <#--
 	ImportStencils
 	@author Robert Prib
-	@desc The following code imports and assigns stencil namespaces automatically eg. core and core_view. The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+	@desc The following code imports and assigns stencil namespaces automatically eg. core and core_view. The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 -->
 <#macro ImportStencils stencils>
 	<#assign imports ="" in .namespace>
 
 	<#list stencils as stencil>
-		<#local controller = 	"/web/templates/modernui/stencils-libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
-		<#local view =				"/web/templates/modernui/stencils-libraries/${stencil}/views/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
+		<#local controller = 	"/share/stencils/libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+		<#local view =				"/share/stencils/libraries/${stencil}/views/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
 		<#noescape>
 		<#assign imports in .namespace>
 			<#t>${.namespace.imports!}
@@ -40,12 +40,12 @@
  <#--
 	ImportStencilsControllers
 	@author Robert Prib
-	@desc The following code imports and assigns stencil namespaces automatically eg. core and core_view. The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+	@desc The following code imports and assigns stencil namespaces automatically eg. core and core_view. The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 -->
 <#macro ImportStencilsControllers stencils>
 	<#assign importsControllers ="" in .namespace>
 	<#list stencils as stencil>
-		<#local controller = "/web/templates/modernui/stencils-libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+		<#local controller = "/share/stencils/libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
 		<#noescape>
 		<#assign importsControllers in .namespace>
 			<#t>${.namespace.importsControllers!}

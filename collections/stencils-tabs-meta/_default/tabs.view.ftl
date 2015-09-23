@@ -26,13 +26,13 @@
 
 <#--
 	The following code imports and assigns stencil namespaces automatically eg. core and core_view.
-	The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/
+	The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
 	and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 
 	Note: The full path has been added to ensure that the correct folder is being picked up
 -->
 <#list stencils as stencil>
-	<#assign controller = "/web/templates/modernui/stencils-libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+	<#assign controller = "/share/stencils/libraries/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
 	<#assign view ="/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
 	<@'<#import controller as ${stencilNamespaceController}>'?interpret />
 	<@'<#import view as ${stencilNamespaceView}>'?interpret />
@@ -47,14 +47,14 @@
 	e.g. If you are using the core and base stencil but you want to override the base.controller.ftl
 
 	You will need to:
-	- Copy base.controller.ftl from  $SEARCH_HOME/web/templates/modernui/stencils-libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+	- Copy base.controller.ftl from  $SEARCH_HOME/share/stencils/libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 	- Change 'stencils = ["core", "base"]' to 'stencils = ["core"]'
 	- Add '<#import "base.controller.ftl" as base_controller>' to the top of your file
 	- Add '<#import "base.view.ftl" as base_view>' to the top of your file
 -->
 
 <#-- Import the main macros used to put together this app -->
-<#import "/web/templates/modernui/stencils-libraries/tabs.controller.ftl" as tabs_controller/>
+<#import "/share/stencils/libraries/tabs.controller.ftl" as tabs_controller/>
 
 <#--
 	The following functions are generic layout code which can be copied and customised

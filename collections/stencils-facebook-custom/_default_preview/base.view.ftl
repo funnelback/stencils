@@ -16,7 +16,7 @@
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import the main macros used to put together this app -->
-<#import "/web/templates/modernui/stencils-libraries/base.controller.ftl" as base_controller/>
+<#import "/share/stencils/libraries/base.controller.ftl" as base_controller/>
 
 <#--
   Sample implementation of a facet breadcrumb which allows users
@@ -25,16 +25,16 @@
 <#macro BreadCrumb>
   <@base_controller.BreadCrumbSearch>
     <div class="js-refinements refinements">
-      Refined by 
+      Refined by
       <@base_controller.BreadCrumbs>
           <@base_controller.BreadCrumb tag="span" class="">
             <a href="<@base_controller.BreadCrumbUrl />">
               <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove"></span> 
+                <span class="glyphicon glyphicon-remove"></span>
                 <@base_controller.BreadCrumbName />
               </button>
             </a>
-          </@base_controller.BreadCrumb>  
+          </@base_controller.BreadCrumb>
       </@base_controller.BreadCrumbs>
     </div>
   </@base_controller.BreadCrumbSearch>

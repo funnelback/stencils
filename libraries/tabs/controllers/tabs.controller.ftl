@@ -21,7 +21,7 @@
 
 <#escape x as x?html>
 
-<#assign StencilsLibrariesPrefix = "/web/templates/modernui/stencils-libraries/" >
+<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
 <#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
@@ -31,7 +31,7 @@
 <#assign stencils=["core","base"] />
 <#--
 	The following code imports and assigns stencil namespaces automatically eg. core_controller.
-	The code expects that the controller files are located under $SEARCH_HOME/web/templates/modernui/stencils-libraries/
+	The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
 
  	Note: View files should not be imported to to the controller
 -->
@@ -48,7 +48,7 @@
 	e.g. If you are using the core and base stencil but you want to override the base.controller.ftl
 
 	You will need to:
-	- Copy base.controller.ftl from  $SEARCH_HOME/web/templates/modernui/stencils-libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+	- Copy base.controller.ftl from  $SEARCH_HOME/share/stencils/libraries/ and store it under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 	- Change 'stencils = ["core", "base"]' to 'stencils = ["core"]'
 	- Add '<#import "base.controller.ftl" as base_controller>' to the top of your file
 	- Add '<#import "base.view.ftl" as base_view>' to the top of your file

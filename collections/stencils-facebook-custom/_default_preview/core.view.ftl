@@ -16,6 +16,6 @@
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import the main macros used to put together this app -->
-<#import "/web/templates/modernui/stencils-libraries/core.controller.ftl" as core_controller/>
+<#import "/share/stencils/libraries/core.controller.ftl" as core_controller/>
 
 </#escape>
