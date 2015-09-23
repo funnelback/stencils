@@ -1,0 +1,23 @@
+# Admin UI backup files (e.g. file-201411301350.cfg)
+*-20*
+# Other backup & misc files
+*.bak*
+*backup
+*.tmp
+*.state
+crawl_scheduler.cfg
+# Files modified by the customers and/or generated
+best_bets.cfg
+*.csv
+external_metadata.cfg
+# PADRE patched binaries (No binaries in Git)
+padre-sw*
+padre-iw*
+# XML source folders (should be under data/)
+xml_source/
+xml_offline/
+xml_backup/
+# Mac files
+.DS_Store
+# Archives (should be in data or elsewhere)
+*.gz

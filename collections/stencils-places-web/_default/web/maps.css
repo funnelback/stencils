@@ -1,0 +1,129 @@
+/*
+// Funnelback Stencil: Maps
+// CSS By: Steve Chan
+// Last Update: 23/1/2015
+*/
+
+/* Resets */
+#search-branding, #search-facets, .container-fluid .mw-3, #search-maps-side{ max-width:400px !important}
+#search-advanced{ margin-bottom:0; border-radius:0; background-image:url("/search/images/bg.png") center top} 
+
+/* Spinner / pre-loader */
+#layoutMapTabs .tab-content .tab-pane{ backfackground:url("/search/images/loader.gif") center center no-repeat #fff}
+
+/* MAKE COLOUMNS 100% */
+body{padding-top:54px;}
+body, html, #search-main, #search-main > div, #mapResults, #layoutMapTabs,#layoutMapTabs .tab-content, #layoutMapTabs .tab-content .tab-pane{ height:100% !important; }
+html, #search-main, #search-main > div, #mapResults {overflow:hidden}
+#search-main{ height:100%; background: url("/search/images/bg.png") center top; background-color:#eee }
+#search-maps-side{ padding:15px; background: url("/search/images/bg.png") #eee }
+footer{ display:none}
+
+/* Map Styles*/
+
+#search-maps-side{overflow-y: auto !important;}
+#search-content{ padding:0}
+
+#search-results > li{ display:block;  background:#fff}
+#search-results > li:first-child{ padding-top:10px}
+#search-results > li:last-child{ padding-bottom:20px}
+#search-results > .search-tier{ padding:0}
+#search-results h4{ margin-top:0 !important; font-size:16px}
+#search-results > li p{ padding:0; margin:0}
+#search-results cite, #search-results cite + div { display:none; font-size:13px; color:#84BB52}
+
+#search-result-count { 
+  background:#a9a9a9; 
+  margin-bottom:0;
+  background:  #F5F5F5;
+  margin-bottom: 0;
+  padding: 8px 20px;
+}
+#search-results > li a{ display:block; padding:10px 20px 10px ;}
+#search-results > li a:hover{ background:#ededed}
+
+.navbar-toggle{ float:left; display:block}
+
+
+#search-maps-side.collapse { position:fixed; display:block; left:-100%; }
+#search-maps-side.collapse.in { position: relative; display:block; left:0;}
+#search-content{transition:width 333ms ease;}
+/* Theme */
+
+
+
+a{ color:#2C6B9F}
+.btn-primary{ background-color:#2C6B9F}
+.navbar-fixed-top{ padding:0 15px; background:#fff; box-shadow: 0px 0px 4px #888}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{ background-color:#2C6B9F}
+
+
+
+/* When Tabbed View */
+.collapse.in + #search-content > #layoutMapTabs { margin: 15px 15px 0 0;}
+#layoutMapTabs .tab-content .tab-pane{
+  background-color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#layoutMapTabs .nav-tabs{ padding-top:10px; background:#fff;  }
+#layoutMapTabs .nav-tabs{ padding:10px 25px 0}
+#layoutMapTabs .nav-tabs > li a { padding-left:0; padding-right:0; margin-right:25px; color:#aaa; border-width:0 0 5px; border-color: transparent}
+#layoutMapTabs .nav-tabs > li a:hover  { background: transparent; color:#333}
+#layoutMapTabs .nav-tabs > li.active a{ color:#333}
+#layoutMapTabs .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{  border-width:0 0 5px; border-color:#2c6b9f; outline:none; font-weight:500}
+.nav-tabs > li.active > a:focus{ outline:none !important}
+#mapsListView #search-results{ width:100%;}
+#mapsListView #search-results cite{ display:block}
+#mapsListView #search-results cite, #search-pagination{  padding:0 25px 10px}
+#mapsListView #search-results h4 a{ background-color: transparent !important}
+
+#search-results li.active a{ background:#F3F3F3; color:#333; font-weight:500; outline:none; text-decoration:none }
+.revert-view-all {background-color: #e4e4e4 !important;padding: 10px !important;}
+
+/* Fixes */
+.ui-autocomplete ui{ z-index:1030}
+
+/* Media Queries */
+
+/* Extra Small Devices, .visible-xs-* */
+@media (max-width: 767px) { }
+ 
+/* Small Devices, .visible-sm-* */
+@media (min-width: 768px) and (max-width: 991px) {}
+ 
+/* Medium Devices, .visible-md-* */
+@media (min-width: 992px) and (max-width: 1199px) {}
+ 
+/* Large Devices, .visible-lg-* */
+@media (min-width: 1200px) {}
+ 
+ 
+ 
+ 
+/* Max Widths*/
+ 
+/* Extra Small Devices */
+@media (max-width: 767px) {
+.brand-wrapper{ width:100%; display:block; text-align:center; position: absolute; z-index:2; top:0}
+.brand-wrapper > *{ display:inline-block; pointer-events: none;}
+.brand-wrapper {
+  clear: both;
+  display: block;
+  margin-left: -25px;
+  padding: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}}
+/* Small Devices */
+@media (max-width: 991px) {
+body{ padding-top:100px !important}  #layoutMapTabs .tab-content .tab-pane{} #layoutMapTabs { margin:  0 0;}
+#search-maps-side.collapse.in {padding: 15px 10px 0  10px;}
+#search-branding a{  pointer-events: none ;}}
+/* Medium Devices */
+@media (max-width: 1199px) { }
+/* Large Devices */
+@media (min-width: 1200px) {} 

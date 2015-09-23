@@ -1,0 +1,8 @@
+/*
+  Stencil: Facebook
+  Description: Styles specifically for facebook stencil.
+*/
+.stencils-facebook-page-info img {width: 100%;}
+
+/* Styles for Columns of 4 */
+.columns-3 .stencils-facebook-page-info, .columns-4 .stencils-facebook-page-info {display:none;}

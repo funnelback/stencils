@@ -1,0 +1,89 @@
+/*
+  Stencil: Core
+  Description: Styles specifically for core stencil.
+*/
+/*
+Funnelback Search Default Styles
+*/
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.search-initial { padding: 40px 15px; }
+
+#search-advanced select.input-sm {
+    border-color: #ccc;
+}
+
+#search-result-count { margin-bottom: 10px; }
+
+#search-results li h4,
+#search-best-bets h4 {
+  margin-bottom: 0;
+}
+#search-results li h4 { margin-top: 24px; }
+#search-results li .panel h4 { margin-top: 0; }
+
+.facet h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.search-collapsed { text-indent: 8px; }
+
+.search-metrics td div.metric { border: solid 1px #ddd; }
+
+svg line,
+svg rect { stroke: #777; }
+
+svg rect.query   { fill: #f2dede; }
+svg rect.literal { fill: #dff0d8; }
+svg rect.logical { fill: #fcf8e3; }
+svg rect.set     { fill: #d9edf7; }
+
+.ui-helper-hidden-accessible,
+.ui-help-hidden { display: none; }
+
+.ui-menu { background-color: white; }
+
+.ui-menu { width: 200px; border: solid 1px #e6e6e6;}
+.ui-menu, .ui-menu li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.ui-menu-item a, li.ui-autocomplete-category { display: block; padding: 2px; }
+li.ui-autocomplete-category { background-color: #e6e6e6; font-weight: bold;}
+
+.ui-state-focus {
+  background-color: #428bca;
+  color: white;
+}
+
+#search-results { word-break: break-word;}
+
+/*Facets styling fix*/
+#search-facets .category {
+  display: block;
+  float: left;
+  width:100%;
+  margin-bottom: 0.2em;
+  padding-bottom: 0.2em;
+  border-bottom:1px dotted #aaa7a7;
+}
+
+#search-facets .category > span { max-width: 80%; display: block; float: left;;}
+
+/*Stencils*/
+.stencils-core-location { margin: 0;display: inline;}
+.stencils-core-thumbnail { margin:0 0 10px 10px;}
+.columns-3 .stencils-core-thumbnail, .columns-4 .stencils-core-thumbnail { margin:0; padding: 0; width: 100%;float:none!important;border: 2px solid rgba(0, 0, 0, 0.3);
+border-radius: 15px;}
+
+/* Styles for Columns of 4 */
+.columns-2 .lead {font-size: 18px}
+.columns-4 .lead, .columns-3 .lead {font-size: 14px}
+.columns-2 .stencils-core-thumbnail { margin:0; padding: 0; max-width: 150px;}
+.columns-3 .stencils-core-thumbnail, .columns-4 .stencils-core-thumbnail { margin:0; padding: 0; width: 100%;float:none!important;border: 2px solid rgba(0, 0, 0, 0.3);
+border-radius: 15px;}

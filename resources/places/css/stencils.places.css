@@ -1,0 +1,99 @@
+/*
+// Funnelback Stencil: Maps
+// CSS By: Steve Chan
+// Last Update: 23/1/2015
+*/
+
+/* Resets */
+
+#search-advanced{ margin-bottom:0; border-radius:0;} 
+
+/* Spinner / pre-loader */
+#layoutMapTabs .tab-content .tab-pane{ background:url("/search/images/loader.gif") center center no-repeat #fff}
+
+/* MAKE COLOUMNS 100% */
+body, html, #search-main > div, #mapResults{ height:100% !important; }
+#search-main{ max-height:90% !important; }
+html, #search-main, #search-main > div, #mapResults {overflow:hidden}
+#search-main{ height:100%; background-color:#eee }
+#search-maps-side{ padding:15px;}
+footer{ display:none}
+
+/* Map Styles*/
+
+#search-maps-side{overflow-y: auto !important;}
+#search-content{ padding:0}
+
+
+#search-result-count { 
+  background:#a9a9a9; 
+  margin-bottom:0;
+  background:  #F5F5F5;
+  margin-bottom: 0;
+  padding: 8px 20px;
+}
+
+
+
+/* Theme */
+a{ color:#2C6B9F}
+.btn-primary{ background-color:#2C6B9F}
+.navbar-fixed-top{ padding:0 15px; background:#fff; box-shadow: 0px 0px 4px #888}
+
+
+
+
+.revert-view-all {background-color: #e4e4e4 !important;padding: 10px !important;}
+
+#mapResults {height:500px;} 
+#mapnoresults {z-index:500; position:absolute; top: 46%; left: 0; bottom: 0; right: 0}
+#mapnoresults p {text-align:center;}
+#mapnoresults span {background:#fff; padding:5px; border: 3px solid #f00; border-radius:5px}
+
+/*Core overrides*/
+#search-result-count{margin-bottom:10px}
+#search-results li h4, #search-best-bets h4{margin-bottom:0}
+#search-results li h4{margin-top:24px}
+h3{font-size:20px}
+#search-facets h3{font-size:14px;margin:0}
+.search-collapsed{text-indent:8px}
+.search-metrics td div.metric{border:solid 1px #ddd}
+
+.ui-helper-hidden-accessible + #query{border-bottom-left-radius:4px!important;border-top-left-radius:4px!important}
+.ui-menu{background-color:#fff;width:200px;border:solid 1px #e6e6e6}
+.ui-menu, .ui-menu li{list-style-type:none;margin:0;padding:0}
+.ui-menu-item a, li.ui-autocomplete-category{display:block;padding:2px}
+li.ui-autocomplete-category{background-color:#e6e6e6;font-weight:700}
+.ui-state-focus{background-color:#428bca;color:#fff}
+
+#search-form-query{max-width:967px}
+
+/* Fixes */
+.ui-autocomplete ui{ z-index:1030}
+
+#app-demo-intro{ background-color:#b0d5f8}
+
+.panel .map-heading {
+	cursor: pointer;
+}
+
+.panel .map-heading:hover {
+	background-color:#3E5E80; 
+}
+
+.panel .map-heading.active {
+	background-color: #0B1117;
+}
+ 
+
+.active-show {display: none;}
+.active .active-show { display: inline-block;}
+.active .active-hide {display: none;}
+
+ /* Maps leaflet fixes*/
+ .leaflet-popup-pane button, button.leaflet-control  { cursor: pointer; }
+
+/*Maps*/
+.usermarker {text-shadow: 1px 1px 10px #46CAFA; color: #0087ff;font-size: 2.5em;-webkit-text-stroke: 1px white;}
+ 
+

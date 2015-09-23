@@ -1,0 +1,36 @@
+ol#search-results>li 
+{
+  position: relative;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+/* Publications Tab */
+.fb-scroll-listing
+{
+  overflow-y: scroll;
+  max-height: 200px; 
+}
+
+/* Researcher menu system */
+.fb-result-menu
+{
+  position: absolute;
+  right:10px;
+  top: 10px;
+}
+
+.fb-result-menu .fb-summary
+{
+
+}
+
+.fb-result-menu .fb-collaborations
+{
+  
+}
+
+.fb-result-menu .fb-contact-details
+{
+  
+}

@@ -1,0 +1,39 @@
+# Admin UI backup files (e.g. file-201411301350.cfg)
+*-20*
+# Other backup & misc files
+*.bak*
+*backup
+*BAK
+*.tmp
+*.temp
+*.swp
+tmp/
+temp/
+*.diff
+*.state
+*.pan.txt
+*.groovy.*
+*testing
+nohup.out
+crawl_scheduler.cfg
+# Generated files
+*.csv
+external_metadata.cfg
+kill.cfg
+# PADRE patched binaries (No binaries in Git)
+padre-sw*
+padre-iw*
+# XML source folders (should be under data/)
+xml_source/
+xml_offline/
+xml_backup/
+test-data/
+test_data/
+synthetic-data/
+# Mac & Windows files
+.DS_Store
+*.ini
+# Archives (should be in data or elsewhere)
+*.gz
+# Classic UI
+rss.xsl

@@ -1,0 +1,112 @@
+[
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.name",
+    "selector": "td div h2",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Name"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.position",
+    "selector": "td div>p:first-of-type",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Position"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.faculty",
+    "selector": "td div>p:nth-child(3) strong",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Faculty"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.department",
+    "selector": "td div>p:nth-child(3)",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Person department"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.detailts.1",
+    "selector": "td div>p:nth-child(4)",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Personal details - 1"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.detailts.2",
+    "selector": "td div>p:nth-child(5)",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Personal details - 2"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.detailts.3",
+    "selector": "td div>p:nth-child(6)",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Personal details - 3"
+  },  
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.thumbnail",
+    "selector": "img.staffPhoto",
+    "extractionType": "ATTR",
+    "attributeName": "src",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Thumbnail"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.description",
+    "selector": "blockquote",
+    "extractionType": "text",
+    "attributeName": "",
+    "processMode": "regex",
+    "value": "(.+)",
+    "description": "Description"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "people.initial",
+    "selector": "meta[name=people.name]",
+    "extractionType": "attr",
+    "attributeName": "content",
+    "processMode": "regex",
+    "value": "([a-zA-Z]{1}).+",
+    "description": "Initial"
+  },
+  {
+    "url": "www\\.swinburne\\.edu\\.au/",
+    "metadataName": "robots",
+    "selector": "meta[name=people.name]",
+    "negate": true,
+    "processMode": "constant",
+    "value": "noindex",
+    "description": "Prevents the page from being index if no name is found"
+  }   
+
+]
