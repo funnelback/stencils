@@ -17,15 +17,15 @@
 <#escape x as x?html>
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign BaseResourcesPrefix = "${SearchPrefix}stencils-resources/base/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign baseResourcesPrefix = "${SearchPrefix}stencils-resources/base/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}base/controllers/base.controller.ftl" as base_controller/>
+<#import "${librariesPrefix}base/controllers/base.controller.ftl" as base_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -47,10 +47,10 @@
  -->
 <#macro CSS>
 	<!-- base.view.ftl.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${StencilsThirdpartyResourcesPrefix}bootstrap/v3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${StencilsThirdpartyResourcesPrefix}font-awesome/v4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}font-awesome/v4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${SearchPrefix}stencils-resources/base/css/stencils.base.css">
-	<link rel="stylesheet" href="${BaseResourcesPrefix}css/stencils.base.css">
+	<link rel="stylesheet" href="${baseResourcesPrefix}css/stencils.base.css">
 </#macro>
 
 <#---
@@ -58,9 +58,9 @@
 -->
 <#macro JS>
 	<!-- base.view.ftl.view.ftl :: JS -->
-	<script src="${StencilsThirdpartyResourcesPrefix}matchHeight/jquery.matchHeight.min.js"></script>
-	<script src="${StencilsThirdpartyResourcesPrefix}bootstrap/v3.3.5/js/bootstrap.min.js"></script>
-	<script src="${BaseResourcesPrefix}js/stencils.base.js"></script>
+	<script src="${thirdPartyResourcesPrefix}matchHeight/jquery.matchHeight.min.js"></script>
+	<script src="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/js/bootstrap.min.js"></script>
+	<script src="${baseResourcesPrefix}js/stencils.base.js"></script>
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->

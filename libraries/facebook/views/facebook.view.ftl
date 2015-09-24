@@ -18,15 +18,15 @@
 
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign FacebookResourcesPrefix = "${SearchPrefix}stencils-resources/facebook/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign facebookResourcesPrefix = "${SearchPrefix}stencils-resources/facebook/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}facebook/controllers/facebook.controller.ftl" as facebook_controller/>
+<#import "${librariesPrefix}facebook/controllers/facebook.controller.ftl" as facebook_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -48,7 +48,7 @@
  -->
 <#macro CSS>
 	<!-- facebook.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${FacebookResourcesPrefix}css/stencils.facebook.css">
+	<link rel="stylesheet" href="${facebookResourcesPrefix}css/stencils.facebook.css">
 </#macro>
 
 <#---
@@ -57,7 +57,7 @@
 <#macro JS>
 	<!-- facebook.view.ftl :: JS -->
 	<#-- This commented out because stencils.facebook.js is not required currently -->
-	<#-- <script src="${FacebookResourcesPrefix}js/stencils.facebook.js"></script> -->
+	<#-- <script src="${facebookResourcesPrefix}js/stencils.facebook.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Category - Configuration -->
 <#-- ################### Views ####################### -->

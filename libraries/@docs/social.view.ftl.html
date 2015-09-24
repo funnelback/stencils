@@ -64,10 +64,10 @@
 <h1>social.view.ftl</h1>
 <div id="page-contents">
     <h3>Description</h3><br />
-    
+
          <p>Provides views for Social media components.</p> <p>These compontents include items such as ... well just not much at the moment.</p> <p>This should generally not include to anything componets specific to a singluar social media source, these should be added to the invidual social media stencils.</p> <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options for Social Media Stencil.</li> </ul>
-    
-    
+
+
 </div>
 
 
@@ -77,17 +77,17 @@
         <td colspan="2" class="heading">Macro and Function Summary</td>
     </tr>
 
-    
-        
+
+
             <tr>
                 <td colspan="2" class="category">
-                
+
                     Category <em>Configuration</em>
-                
+
                 </td>
             </tr>
 
-            
+
                 <tr>
                     <td>
                         <code>macro</code>
@@ -98,21 +98,21 @@
                                 <code>
                                     <strong><a href="#CSS">CSS</a></strong>
                                 </code>
-                                
-    
-        
-        
-    
+
+
+
+
+
 
 
                             </dt>
                             <dd>
-                                 Stylesheet dependencies 
+                                 Stylesheet dependencies
                             </dd>
                         </dl>
                     </td>
                 </tr>
-            
+
                 <tr>
                     <td>
                         <code>macro</code>
@@ -123,23 +123,23 @@
                                 <code>
                                     <strong><a href="#JS">JS</a></strong>
                                 </code>
-                                
-    
-        
-        
-    
+
+
+
+
+
 
 
                             </dt>
                             <dd>
-                                 JavaScript dependencies 
+                                 JavaScript dependencies
                             </dd>
                         </dl>
                     </td>
                 </tr>
-            
-            
-        
+
+
+
 </table>
 
 
@@ -155,41 +155,41 @@
         <dt>
             macro
             <tt><a name="CSS">CSS</a></tt>
-            
-    
-        
-        
-    
+
+
+
+
+
 
             <br /><br />
         </dt>
         <dd>
-            
-                 Stylesheet dependencies 
-            
+
+                 Stylesheet dependencies
+
             <dl>
-                
-	
 
-                
-    
 
-                
-    
 
-                
-    
 
-                
-    
 
-                
-    
+
+
+
+
+
+
+
+
+
+
+
+
         <dt><b>Category</b></dt>
         <dd>Configuration</dd>
-    
 
-                
+
+
 <dt><a href="javascript:toggle('sc_CSS');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_CSS">
@@ -197,7 +197,8 @@
 
 
 
-<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;social.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${SocialResourcesPrefix}</span><span class="textblock">css/stencils.social.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;social.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${socialResourcesPrefix
+flickrResourcesPrefix}</span><span class="textblock">css/stencils.social.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -213,41 +214,41 @@
         <dt>
             macro
             <tt><a name="JS">JS</a></tt>
-            
-    
-        
-        
-    
+
+
+
+
+
 
             <br /><br />
         </dt>
         <dd>
-            
-                 JavaScript dependencies 
-            
+
+                 JavaScript dependencies
+
             <dl>
-                
-	
 
-                
-    
 
-                
-    
 
-                
-    
 
-                
-    
 
-                
-    
+
+
+
+
+
+
+
+
+
+
+
+
         <dt><b>Category</b></dt>
         <dd>Configuration</dd>
-    
 
-                
+
+
 <dt><a href="javascript:toggle('sc_JS');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_JS">
@@ -255,7 +256,8 @@
 
 
 
-<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;social.view.ftl&nbsp;::&nbsp;JS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;This&nbsp;commented&nbsp;out&nbsp;because&nbsp;stencils.social.js&nbsp;is&nbsp;not&nbsp;required&nbsp;currently&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;script&nbsp;src=&quot;${SocialResourcesPrefix}js/stencils.social.js&quot;&gt;&lt;/script&gt;&nbsp;--&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;social.view.ftl&nbsp;::&nbsp;JS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;This&nbsp;commented&nbsp;out&nbsp;because&nbsp;stencils.social.js&nbsp;is&nbsp;not&nbsp;required&nbsp;currently&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;script&nbsp;src=&quot;${socialResourcesPrefix
+flickrResourcesPrefix}js/stencils.social.js&quot;&gt;&lt;/script&gt;&nbsp;--&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -265,7 +267,7 @@
             </dl>
         </dd>
     </dl>
-    
+
 
 
 

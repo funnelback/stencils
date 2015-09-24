@@ -54,7 +54,7 @@
 
 <#-- Quick reference to Places Web Resources -->
 <#assign PlacesResourcesPrefix = "${SearchPrefix}stencils-resources/places/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#--
   CSS
@@ -64,9 +64,9 @@
  -->
 <#macro CSS>
   <link rel="stylesheet" href="${PlacesResourcesPrefix}css/stencils.places.css" />
-  <link rel="stylesheet" href="${StencilsThirdpartyResourcesPrefix}leaflet/leaflet.css" />
-  <link rel="stylesheet" href="${StencilsThirdpartyResourcesPrefix}leaflet/MarkerCluster.css" />
-  <link rel="stylesheet" href="${StencilsThirdpartyResourcesPrefix}leaflet/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="${thirdPartyResourcesPrefix}leaflet/leaflet.css" />
+  <link rel="stylesheet" href="${thirdPartyResourcesPrefix}leaflet/MarkerCluster.css" />
+  <link rel="stylesheet" href="${thirdPartyResourcesPrefix}leaflet/MarkerCluster.Default.css" />
 </#macro>
 
 <#--
@@ -77,16 +77,16 @@
  -->
 <#macro JS>
   <!-- Javascript required for maps -->
-  <script src="${StencilsThirdpartyResourcesPrefix}leaflet/leaflet.js"></script>
-  <script src="${StencilsThirdpartyResourcesPrefix}leaflet/leaflet.markercluster.js"></script>
-  <script src="${StencilsThirdpartyResourcesPrefix}leaflet/leaflet.spin.js"></script>
+  <script src="${thirdPartyResourcesPrefix}leaflet/leaflet.js"></script>
+  <script src="${thirdPartyResourcesPrefix}leaflet/leaflet.markercluster.js"></script>
+  <script src="${thirdPartyResourcesPrefix}leaflet/leaflet.spin.js"></script>
 
   <#-- Only required if using google tileservice -->
   <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-  <script src="${StencilsThirdpartyResourcesPrefix}gmaps/Google.js"></script>
+  <script src="${thirdPartyResourcesPrefix}gmaps/Google.js"></script>
 
   <!-- Plugin to display loading icon -->
-  <script src="${StencilsThirdpartyResourcesPrefix}spin/spin.min.js"></script>
+  <script src="${thirdPartyResourcesPrefix}spin/spin.min.js"></script>
 
   <script src="${PlacesResourcesPrefix}js/stencils.places.js"></script>
 

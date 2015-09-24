@@ -44,7 +44,7 @@ stencils.filter.scraper.metadata_scraper.delimiter=<delimiter>
 
 The default value is ```|```
 
-### filter.metadata_scraper.json
+### stencils.filter.scraper.metadata_scraper.json
 
 The next step is to configure the filter by creating ```stencils.filter.scraper.metadata_scraper.json``` under the collection root folder.
 

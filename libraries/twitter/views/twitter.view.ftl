@@ -13,15 +13,15 @@
 <#escape x as x?html>
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign TwitterResourcesPrefix = "${SearchPrefix}stencils-resources/twitter/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign twitterResourcesPrefix = "${SearchPrefix}stencils-resources/twitter/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}twitter/controllers/twitter.controller.ftl" as twitter_controller/>
+<#import "${librariesPrefix}twitter/controllers/twitter.controller.ftl" as twitter_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -43,7 +43,7 @@
  -->
 <#macro CSS>
 	<!-- twitter.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${TwitterResourcesPrefix}css/stencils.twitter.css">
+	<link rel="stylesheet" href="${twitterResourcesPrefix}css/stencils.twitter.css">
 </#macro>
 
 <#---
@@ -52,7 +52,7 @@
 <#macro JS>
 	<!-- twitter.view.ftl :: JS -->
 	<#-- This commented out because stencils.twitter.js is not required currently -->
-	<#-- <script src="${TwitterResourcesPrefix}js/stencils.twitter.js"></script> -->
+	<#-- <script src="${twitterResourcesPrefix}js/stencils.twitter.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Category - Configuration -->
 <#-- ################### Views ####################### -->

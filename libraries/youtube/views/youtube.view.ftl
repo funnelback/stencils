@@ -15,15 +15,15 @@
 
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign YoutubeResourcesPrefix = "${SearchPrefix}stencils-resources/youtube/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign youtubeResourcesPrefix = "${SearchPrefix}stencils-resources/youtube/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}youtube/controllers/youtube.controller.ftl" as youtube_controller/>
+<#import "${librariesPrefix}youtube/controllers/youtube.controller.ftl" as youtube_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -45,7 +45,7 @@
  -->
 <#macro CSS>
 	<!-- youtube.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${YoutubeResourcesPrefix}css/stencils.youtube.css">
+	<link rel="stylesheet" href="${youtubeResourcesPrefix}css/stencils.youtube.css">
 </#macro>
 
 <#---
@@ -54,7 +54,7 @@
 <#macro JS>
 	<!-- youtube.view.ftl :: JS -->
 	<#-- This commented out because stencils.youtube.js is not required currently -->
-	<#-- <script src="${YoutubeResourcesPrefix}js/stencils.youtube.js"></script> -->
+	<#-- <script src="${youtubeResourcesPrefix}js/stencils.youtube.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Cateogry - Configuration -->
 <#-- ################### Views ####################### -->

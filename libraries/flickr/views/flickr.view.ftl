@@ -13,15 +13,15 @@
 <#escape x as x?html>
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign FlickrResourcesPrefix = "${SearchPrefix}stencils-resources/flickr/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign flickrResourcesPrefix = "${SearchPrefix}stencils-resources/flickr/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}flickr/controllers/flickr.controller.ftl" as flickr_controller/>
+<#import "${librariesPrefix}flickr/controllers/flickr.controller.ftl" as flickr_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -43,7 +43,7 @@
  -->
 <#macro CSS>
 	<!-- flickr.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${FlickrResourcesPrefix}css/stencils.flickr.css">
+	<link rel="stylesheet" href="${flickrResourcesPrefix}css/stencils.flickr.css">
 </#macro>
 
 <#---
@@ -52,7 +52,7 @@
 <#macro JS>
 	<!-- flickr.view.ftl :: JS -->
 	<#-- This commented out because stencils.flickr.js is not required currently -->
-	<#-- <script src="${FlickrResourcesPrefix}js/stencils.flickr.js"></script> -->
+	<#-- <script src="${flickrResourcesPrefix}js/stencils.flickr.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ################### Views ####################### -->

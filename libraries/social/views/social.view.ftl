@@ -13,15 +13,15 @@
 
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign SocialResourcesPrefix = "${SearchPrefix}stencils-resources/social/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign socialResourcesPrefix = "${SearchPrefix}stencils-resources/social/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${StencilsLibrariesPrefix}social/controllers/social.controller.ftl" as social_controller/>
+<#import "${librariesPrefix}social/controllers/social.controller.ftl" as social_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
@@ -43,7 +43,7 @@
  -->
 <#macro CSS>
 	<!-- social.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${SocialResourcesPrefix}css/stencils.social.css">
+	<link rel="stylesheet" href="${socialResourcesPrefix}css/stencils.social.css">
 </#macro>
 
 <#---
@@ -52,7 +52,7 @@
 <#macro JS>
 	<!-- social.view.ftl :: JS -->
 	<#-- This commented out because stencils.social.js is not required currently -->
-	<#-- <script src="${SocialResourcesPrefix}js/stencils.social.js"></script> -->
+	<#-- <script src="${socialResourcesPrefix}js/stencils.social.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->

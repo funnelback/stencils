@@ -28,11 +28,11 @@
 -->
 <#escape x as x?html>
 
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import the main macros used to put together this app -->
 <#import "/share/stencils/libraries/tabs/controllers/tabs.controller.ftl" as tabs_controller/>

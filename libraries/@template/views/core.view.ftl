@@ -29,15 +29,15 @@
 
 <#-- ################### C. Configuration ####################### -->
 
-<#assign StencilsLibrariesPrefix = "/share/stencils/libraries/" >
-<#assign CoreResourcesPrefix = "${SearchPrefix}stencils-resources/core/" >
-<#assign StencilsThirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign librariesPrefix = "/share/stencils/libraries/" >
+<#assign coreResourcesPrefix = "${SearchPrefix}stencils-resources/core/" >
+<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities - Functions used to conveniently load related Stencil libraries -->
-<#import "${StencilsLibrariesPrefix}stencils.utilities.ftl" as stencils_utilities />
+<#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller - Import the controller relating to this Stencil -->
-<#import "${StencilsLibrariesPrefix}core/controllers/core.controller.ftl" as core_controller/>
+<#import "${librariesPrefix}core/controllers/core.controller.ftl" as core_controller/>
 
 <#-- Import Stencils -->
 <#assign stencils=["base"] />
@@ -59,7 +59,7 @@
  -->
 <#macro CSS>
 	<!-- core.view.ftl.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${CoreResourcesPrefix}css/stencils.core.css">
+	<link rel="stylesheet" href="${coreResourcesPrefix}css/stencils.core.css">
 </#macro>
 
 <#---
@@ -80,7 +80,7 @@
 		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${SearchPrefix}js/funnelback-session.js"></script>
 	</#if>
-	<script src="${CoreResourcesPrefix}js/stencils.core.js"></script>
+	<script src="${coreResourcesPrefix}js/stencils.core.js"></script>
 </#macro>
 
 <#-- ################### V. Views ####################### -->
