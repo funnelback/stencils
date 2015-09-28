@@ -42,7 +42,7 @@ The following is the config required to set the delimiter:
 stencils.filter.scraper.metadata_scraper.delimiter=<delimiter>
 ```
 
-The default value is ```|```
+* ```delimiter```: The delimiter to use. The default value is ```|```
 
 ### stencils.filter.scraper.metadata_scraper.json
 
@@ -55,14 +55,15 @@ This file needs to contain a JSON object specifying how the metadata scraper sho
 ```json
 [
 	{
-		"url": "<url>",
-		"metadataName": "<metadata name>",
-		"selector": "<selector>",
-		"extractionType": "<extraction type>",
-		"attributeName": "<attribute name>",
-		"processMode": "<process mode>",
-		"value": "<value>",
-		"description": "<description>"
+		"url" : "<url>",
+		"metadataName" : "<metadata name>",
+		"selector" : "<selector>",
+		"negate" : "<negate",
+		"extractionType" : "<extraction type>",
+		"attributeName" : "<attribute name>",
+		"processMode" : "<process mode>",
+		"value" : "<value>",
+		"description" : "<description>"
 	}
 ]
 ```
@@ -70,6 +71,7 @@ This file needs to contain a JSON object specifying how the metadata scraper sho
 * ```url```: The url pattern to apply the rule to as a regular expression
 * ```metadata name```: The name of the new metadata
 * ```selector```: The css style selector in which to obtain the contents
+* ```negate```: optional - *true* / *false* - Reverses the logic of the selector so that the rule only runs if the selector is not found. If this option is set to *true*, the ```processMode``` must be set to __constant__.
 * ```extraction type```: text, attr or html
 
 	__text__ - Instructs the script to extract all content in between the tags. e.g  ```<div>text to be extracted</div>```. Note: if text is selected, you will need to specify a blank <attribute name>
@@ -115,45 +117,45 @@ http://www.swinburne.edu.au/business-law/staff-profiles/view.php?who=mgilding
 
 ```json
 [
-  {
-    "url": "www\\.swinburne\\.edu\\.au/",
-    "metadataName": "people.name",
-    "selector": "td div h2",
-    "extractionType": "text",
-    "attributeName": "",
-    "processMode": "regex",
-    "value": "(.+)",
-    "description": "Name"
-  },
-  {
-    "url": "www\\.swinburne\\.edu\\.au/",
-    "metadataName": "people.position",
-    "selector": "td div>p:first-of-type",
-    "extractionType": "text",
-    "attributeName": "",
-    "processMode": "regex",
-    "value": "(.+)",
-    "description": "Position"
-  },
-  {
-    "url": "www\\.swinburne\\.edu\\.au/",
-    "metadataName": "people.faculty",
-    "selector": "td div>p:nth-child(3) strong",
-    "extractionType": "text",
-    "attributeName": "",
-    "processMode": "regex",
-    "value": "(.+)",
-    "description": "Faculty"
-  },
-  {
-    "url": "www\\.swinburne\\.edu\\.au/",
-    "metadataName": "robots",
-    "selector": "meta[name=people.name]",
-    "negate": true,
-    "processMode": "constant",
-    "value": "noindex",
-    "description": "Prevents the page from being index if no name is found"
-  }
+	{
+		"url": "www\\.swinburne\\.edu\\.au/",
+		"metadataName": "people.name",
+		"selector": "td div h2",
+		"extractionType": "text",
+		"attributeName": "",
+		"processMode": "regex",
+		"value": "(.+)",
+		"description": "Name"
+	},
+	{
+		"url": "www\\.swinburne\\.edu\\.au/",
+		"metadataName": "people.position",
+		"selector": "td div>p:first-of-type",
+		"extractionType": "text",
+		"attributeName": "",
+		"processMode": "regex",
+		"value": "(.+)",
+		"description": "Position"
+	},
+	{
+		"url": "www\\.swinburne\\.edu\\.au/",
+		"metadataName": "people.faculty",
+		"selector": "td div>p:nth-child(3) strong",
+		"extractionType": "text",
+		"attributeName": "",
+		"processMode": "regex",
+		"value": "(.+)",
+		"description": "Faculty"
+	},
+	{
+		"url": "www\\.swinburne\\.edu\\.au/",
+		"metadataName": "robots",
+		"selector": "meta[name=people.name]",
+		"negate": true,
+		"processMode": "constant",
+		"value": "noindex",
+		"description": "Prevents the page from being index if no name is found"
+	}
 ]
 
 ```
