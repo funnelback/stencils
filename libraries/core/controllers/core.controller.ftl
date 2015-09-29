@@ -1134,6 +1134,20 @@
 </#compress></#macro>
 
 <#---
+	Conditional Display - Runs the nested code if there is at least one selected facet.
+
+	<p>
+		Aims to provide a means for the user to unselect facet categories
+	</p>
+-->
+<#macro HasSelectedFacets>
+	<#if (question.selectedFacets)!?has_content
+		&& question.selectedFacets?size &gt; 0>
+		<#nested>
+	</#if>
+</#macro>
+
+<#---
 	Sets up the namespace variables to display the facet breadcrumb which
 	includes nested selected values for hierarchical facets.
 
@@ -1241,7 +1255,6 @@
 				<#-- Last flag signifies if the current selected facet is the last node in the breadcrimb -->
 				<#assign facetBreadCrumbLastFlag = last in .namespace>
 				<#assign facetBreadCrumbName = valueLabel in .namespace>
-
 
 				<#nested>
 

@@ -963,6 +963,38 @@
 	</@core_controller.FacetedSearch>
 </#macro>
 
+<#---
+	Displays the faceted navigation breadcrumb which allows users to remove any active facets.
+
+	<p>
+		This macro is very similar to the faceted navigation macro except it
+		only outputs the breadcrumn aspects.
+	</p>
+-->
+<#macro FacetedBreadCrumbSummary>
+	<@core_controller.HasSelectedFacets>
+		<@core_controller.FacetedSearch>
+			<div class="js-refinements refinements">
+				Refined by
+				<@core_controller.Facets>
+					<@core_controller.Facet>
+						<@core_controller.FacetSummary>
+							<@core_controller.FacetBreadCrumb>
+								<a href="<@core_controller.FacetBreadCrumbUrl />">
+									<button type="button" class="btn btn-default"	>
+										<span class="glyphicon glyphicon-remove"></span>
+										<@core_controller.FacetBreadCrumbName />
+									</button>
+								</a>
+							</@core_controller.FacetBreadCrumb>
+						</@core_controller.FacetSummary>
+					</@core_controller.Facet>
+				</@core_controller.Facets>
+			</div>
+		</@core_controller.FacetedSearch>
+	</@core_controller.HasSelectedFacets>
+</#macro>
+
 <#-- ###  Results Features ### -->
 <#---
 	Displays the scope.

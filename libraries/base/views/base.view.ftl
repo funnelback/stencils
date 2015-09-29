@@ -86,27 +86,6 @@
 <#-- @end --><#-- / Category - Facets -->
 <#-- @begin Results Features -->
 <#---
-	Facet breadcrumb view which allows users	to remove active facets
--->
-<#macro BreadCrumb>
-	<@base_controller.BreadCrumbSearch>
-		<div class="js-refinements refinements">
-			Refined by
-			<@base_controller.BreadCrumbs>
-					<@base_controller.BreadCrumb>
-						<a href="<@base_controller.BreadCrumbUrl />">
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-remove"></span>
-								<@base_controller.BreadCrumbName />
-							</button>
-						</a>
-					</@base_controller.BreadCrumb>
-			</@base_controller.BreadCrumbs>
-		</div>
-	</@base_controller.BreadCrumbSearch>
-</#macro>
-
-<#---
 	View for UI to switch the results view format layout such as a grid or list format.
 -->
 <#macro ResultsViewSelectorView>
