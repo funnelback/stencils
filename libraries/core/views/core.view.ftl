@@ -971,12 +971,12 @@
 		only outputs the breadcrumn aspects.
 	</p>
 -->
-<#macro FacetedBreadCrumbSummary>
+<#macro FacetedBreadCrumbSummary name="" names=[]>
 	<@core_controller.HasSelectedFacets>
 		<@core_controller.FacetedSearch>
 			<div class="js-refinements refinements">
 				Refined by
-				<@core_controller.Facets>
+				<@core_controller.Facets name="" names=[]>
 					<@core_controller.Facet>
 						<@core_controller.FacetSummary>
 							<@core_controller.FacetBreadCrumb>
