@@ -14,8 +14,8 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign flickrResourcesPrefix = "${SearchPrefix}stencils-resources/flickr/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign flickrResourcesPrefix = "/stencils/resources/flickr/" >
+<#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
@@ -43,7 +43,7 @@
  -->
 <#macro CSS>
 	<!-- flickr.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${flickrResourcesPrefix}css/stencils.flickr.css">
+	<link rel="stylesheet" href="${flickrResourcesPrefix}css/flickr.css">
 </#macro>
 
 <#---

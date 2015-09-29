@@ -18,8 +18,8 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign baseResourcesPrefix = "${SearchPrefix}stencils-resources/base/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign baseResourcesPrefix = "/stencils/resources/base/" >
+<#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
@@ -47,10 +47,9 @@
  -->
 <#macro CSS>
 	<!-- base.view.ftl.view.ftl :: CSS -->
+	<link rel="stylesheet" href="${baseResourcesPrefix}css/base.css">
 	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}font-awesome/v4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${SearchPrefix}stencils-resources/base/css/stencils.base.css">
-	<link rel="stylesheet" href="${baseResourcesPrefix}css/stencils.base.css">
 </#macro>
 
 <#---
@@ -58,9 +57,9 @@
 -->
 <#macro JS>
 	<!-- base.view.ftl.view.ftl :: JS -->
+	<script src="${baseResourcesPrefix}js/base.js"></script>
 	<script src="${thirdPartyResourcesPrefix}matchHeight/jquery.matchHeight.min.js"></script>
 	<script src="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/js/bootstrap.min.js"></script>
-	<script src="${baseResourcesPrefix}js/stencils.base.js"></script>
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->

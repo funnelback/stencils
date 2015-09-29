@@ -16,13 +16,13 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign youtubeResourcesPrefix = "${SearchPrefix}stencils-resources/youtube/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign youtubeResourcesPrefix = "/stencils/resources/youtube/" >
+<#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
-<#-- Import Controller -->
+<#-- Import controller -->
 <#import "${librariesPrefix}youtube/controllers/youtube.controller.ftl" as youtube_controller/>
 
 <#-- Import libraries -->
@@ -32,9 +32,9 @@
 <#-- Import Stencils -->
 <#assign stencils=["core","base"] />
 	<#--
-	The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
-	The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
-	and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+		The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
+		The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
+		and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 	-->
 <@stencils_utilities.ImportStencils stencils=stencils>
 	<@stencils_utilities.imports?interpret />
@@ -45,7 +45,7 @@
  -->
 <#macro CSS>
 	<!-- youtube.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${youtubeResourcesPrefix}css/stencils.youtube.css">
+	<link rel="stylesheet" href="${youtubeResourcesPrefix}css/youtube.css">
 </#macro>
 
 <#---

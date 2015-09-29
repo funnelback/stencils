@@ -23,8 +23,8 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign coreResourcesPrefix = "${SearchPrefix}stencils-resources/core/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign coreResourcesPrefix = "/stencils/resources/core/" >
+<#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities - Functions used to conveniently load related Stencil libraries -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
@@ -52,7 +52,7 @@
  -->
 <#macro CSS>
 	<!-- core.view.ftl.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${coreResourcesPrefix}css/stencils.core.css">
+	<link rel="stylesheet" href="${coreResourcesPrefix}css/core.css">
 </#macro>
 
 <#---
@@ -128,9 +128,9 @@
 			</@core_controller.ErrorOther>
 
 			<#-- Placeholder for the default message. It will only display if no other messages are available -->
-			<@core_controller.ErrorMessage showAlways=true>
+			<@core_controller.ErrorDefaultMessage showAlways=true>
 				An unkown error has occured. Please try again in a few minutes.
-			</@core_controller.ErrorMessage>
+			</@core_controller.ErrorDefaultMessage>
 
 		</div>
 		<br><br>

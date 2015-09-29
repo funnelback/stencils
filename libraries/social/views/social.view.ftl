@@ -14,8 +14,8 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign socialResourcesPrefix = "${SearchPrefix}stencils-resources/social/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign socialResourcesPrefix = "/stencils/resources/social/" >
+<#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
@@ -30,9 +30,9 @@
 <#-- Import Stencils -->
 <#assign stencils=["core","base"] />
 	<#--
-	The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
-	The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
-	and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
+		The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
+		The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
+		and the view files located under $SEARCH_HOME/conf/$COLLECTION_NAME/<profile>/
 	-->
 <@stencils_utilities.ImportStencils stencils=stencils>
 	<@stencils_utilities.imports?interpret />
@@ -43,7 +43,7 @@
  -->
 <#macro CSS>
 	<!-- social.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${socialResourcesPrefix}css/stencils.social.css">
+	<link rel="stylesheet" href="${socialResourcesPrefix}css/social.css">
 </#macro>
 
 <#---
