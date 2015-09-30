@@ -79,6 +79,32 @@
 </#function>
 
 <#---
+	Remove from query string parameter of given name and value.
+
+	@param queryString The query string in which the @name and @value pair are to be removed
+	@param parameter The name of the matching CGI paramter
+	@param value The value of the matching CGI paramter
+
+	@return String The query string with the matching CGI parameter and value removed
+-->
+<#function removeParamWithValue queryString parameter value>
+	<#local queries = queryString?split("&",'r')>
+	<#list queries as query>
+		<#local params = query?split("=", "r")>
+		<#if urlDecode(params[0]) == urlDecode(parameter) && urlDecode(params[1]) == urlDecode(value)>
+			<#if query_index == 0>
+				<#local queries = queries[query_index+1..] />
+			<#elseif !query_has_next>
+				<#local queries = queries[0..query_index-1] />
+			<#else>
+				<#local queries = queries[0..query_index-1] + queries[query_index+1..] >
+			</#if>
+		</#if>
+	</#list>
+	<#return queries?join('&')>
+</#function>
+
+<#---
 	Generate URls for changing display format query.
 	<p><strong>Example</strong</p>
 	<code>&lt;@CreateSearchUrl CGI=[&quot;name=value&quot;, &quot;query=test&quot;] /&gt; or &lt;@base_controller.CreateSearchUrl CGIs=[&quot;display=list&quot;,&quot;num_ranks=10&quot;] /&gt;</code>
@@ -173,6 +199,7 @@
 			${default}
 	</#if>
  </#compress></#macro>
+
 
 <#---
 	Converts URLs within text to html links.

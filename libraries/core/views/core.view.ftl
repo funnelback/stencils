@@ -346,7 +346,7 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${SearchPrefix}stencils-resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback logo"></a>
+			<a href="http://funnelback.com/"><img src="/stencils/resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback logo"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
@@ -394,7 +394,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><img src="${SearchPrefix}stencils-resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback" style="height: 17px;"></a>
+			<a class="navbar-brand" href="#"><img src="/stencils/resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback" style="height: 17px;"></a>
 		</div>
 
 		<div class="collapse navbar-collapse">
