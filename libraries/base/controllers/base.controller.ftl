@@ -308,6 +308,19 @@
 	</@core_controller.AfterSearchOnly>
 </#macro>
 
+<#---
+	Displays a link that will clear all the facets.
+-->
+<#macro ClearFacetsLink>
+  <#compress>
+    <#-- generate the link that can be used to reset all of the facets -->
+    <#if question.selectedCategoryValues?has_content>
+      <#assign clearAllFacetsLink = question.collection.configuration.value("ui.modern.search_link")+"?"+removeParam(QueryString, question.  selectedCategoryValues?keys+["start_rank","facetScope"])/>
+      ${clearAllFacetsLink}
+    </#if>
+  </#compress>
+</#macro>
+
 <#-- @end --><#-- / Category - Facets -->
 <#-- @begin  Results Features -->
 
