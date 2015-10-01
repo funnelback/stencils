@@ -73,7 +73,8 @@
 		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${SearchPrefix}js/funnelback-session.js"></script>
 	</#if>
-	<script src="${coreResourcesPrefix}js/stencils.core.js"></script>
+
+	<script src="${coreResourcesPrefix}js/core.js"></script>
 </#macro>
 <#-- @end Configuration -->
 <#-- ################### Views ####################### -->

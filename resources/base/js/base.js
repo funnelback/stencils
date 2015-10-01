@@ -136,11 +136,11 @@ stencils.module.base = (function ($, window, stencils, undefined) {
   //On DOM Ready
   $(function () {
    //Get third party dependencies
-    $.getScript("/search/stencils-resources/base/js/masonry.pkgd.min.js", function () {
+    $.getScript("/stencils/resources/base/js/masonry.pkgd.min.js", function () {
       masonryjs();
     });
 
-    $.getScript("/search/stencils-resources/base/js/moment.min.2.10.3.js", function () {
+    $.getScript("/stencils/resources/base/js/moment.min.2.10.3.js", function () {
       momentjs();
     });
 
