@@ -58,8 +58,9 @@
 <#macro JS>
 	<!-- base.view.ftl.view.ftl :: JS -->
 	<script src="${baseResourcesPrefix}js/base.js"></script>
-	<script src="${thirdPartyResourcesPrefix}matchHeight/jquery.matchHeight.min.js"></script>
 	<script src="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/js/bootstrap.min.js"></script>
+	<script src="${thirdPartyResourcesPrefix}matchHeight/v0.6.0/jquery.matchHeight-min.js"></script>
+	<script src="${thirdPartyResourcesPrefix}moment.js/v2.10.6/moment.min.js"></script>
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
