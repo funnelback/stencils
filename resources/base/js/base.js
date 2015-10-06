@@ -150,15 +150,8 @@ stencils.module.base = (function ($, window, stencils, undefined) {
 
   //On DOM Ready
   $(function () {
-   //Get third party dependencies
-    $.getScript("/stencils/resources/base/js/masonry.pkgd.min.js", function () {
-      masonryjs();
-    });
-
-    $.getScript("/stencils/resources/base/js/moment.min.2.10.3.js", function () {
-      momentjs();
-    });
-
+    masonryjs();
+    momentjs();
     buttonShowjs();
     buttonHidejs();
     clickablePanels();
