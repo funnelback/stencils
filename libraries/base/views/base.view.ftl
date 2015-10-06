@@ -12,6 +12,7 @@
 			<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
 			<li><strong>Results:</strong> Results wrapper views </li>
 			<li><strong>Result:</strong> Result views e.g. panels ...</li>
+			<li><strong>Print:</strong> Views for print buttons, and print friendly view.</li>
 		</ul>
 -->
 <#escape x as x?html>
@@ -50,6 +51,14 @@
 	<link rel="stylesheet" href="${baseResourcesPrefix}css/base.css">
 	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}font-awesome/v4.3.0/css/font-awesome.min.css">
+</#macro>
+
+<#---
+	Print Stylesheet dependencies
+ -->
+<#macro printCSS>
+	<!-- base.view.ftl.view.ftl :: CSS -->
+	<link rel="stylesheet" href="${baseResourcesPrefix}css/print.css">
 </#macro>
 
 <#---
@@ -683,4 +692,30 @@
 </#macro>
 <#-- /ResultDefaultModal-->
 <#-- @end --><#-- / Category - Result -->
+
+<#-- @begin Print -->
+<#---
+	Template view print button.
+-->
+<#macro PrintResults>
+	<!-- base.view.ftl :: PrintResults -->
+	<div class="row" style="margin-bottom:0.5em;">
+		<div class="col-md-12">
+			<div class="pull-right"><a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print</a></div>
+		</div>
+	</div>
+</#macro>
+
+<#---
+	Template view print button.
+-->
+<#macro PrintMessage>
+	<!-- base.view.ftl :: PrintResults -->
+	<div class="msg screen-only">
+		<h2>Print friendly view</h2>
+		<button class="btn" data-print-btn>Print</button> <a class="btn" href="?${base_controller.removeParamWithValue(QueryString,"form","printFriendly")}">Return to search.</a>
+	</div>
+</#macro>
+<#-- @end -->
+<#-- / Category - Print -->
 </#escape>

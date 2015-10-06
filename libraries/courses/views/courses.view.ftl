@@ -90,9 +90,11 @@
 			<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
 				<@core_controller.boldicize>
 					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName}</@core_controller.Truncate>
-					<#if core_controller.result.metaData.stencilsCoursesCode??><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></#if>
 				</@core_controller.boldicize>
 			</a>
+				<#if core_controller.result.metaData.stencilsCoursesCode??>
+				 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></@core_controller.boldicize>
+				</#if>
 		</h4>
 		<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
 			${core_controller.result.metaData.stencilsCoursesLevel}
@@ -200,7 +202,7 @@
 
 	</div>
 	<#-- /panel-body -->
-	<div class="panel-footer pd-hide">
+	<div class="panel-footer pd-hide print-friendly-hide">
 		<#--	Result tools -->
 		<div class="btn-group">
 			<div class="btn-group">
@@ -274,16 +276,12 @@
 						<#-- ResultTitle -->
 						<h4>
 							<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-								<@core_controller.boldicize>
-									<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName}</@core_controller.Truncate>
-									<#if core_controller.result.metaData.stencilsCoursesCode??><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></#if>
-								</@core_controller.boldicize>
+								${core_controller.result.metaData.stencilsCoursesName}
 							</a>
+								<#if core_controller.result.metaData.stencilsCoursesCode??>
+								 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small>
+								</#if>
 						</h4>
-						<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-							${core_controller.result.metaData.stencilsCoursesLevel}
-						</em></small></#if>
-
 						<#-- /ResultTitle -->
 					</div>
 					<div class="modal-body">

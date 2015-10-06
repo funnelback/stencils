@@ -144,6 +144,14 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     });
   }
 
+  function printBtn(){
+    $("[data-print-btn]").click(function(){
+      window.print();
+    });
+  }
+
+
+
   /*
     Runtime logic and event bindings
   */
@@ -155,6 +163,7 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     buttonShowjs();
     buttonHidejs();
     clickablePanels();
+    printBtn();
   });
 
   //Progressively run after a couple of images have loaded
