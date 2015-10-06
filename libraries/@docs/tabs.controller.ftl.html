@@ -107,7 +107,7 @@
 
                             </dt>
                             <dd>
-                                 Displays the result count tab
+                                 Displays the result count of the tab
                             </dd>
                         </dl>
                     </td>
@@ -188,7 +188,7 @@
 
                             </dt>
                             <dd>
-                                 Runs the nested code if the tab returns no results
+                                 Conditional display - Runs the nested code if the tab will return no results
                             </dd>
                         </dl>
                     </td>
@@ -333,7 +333,7 @@
 
                             </dt>
                             <dd>
-                                
+                                 Prints the preview link will will show more results from the selected facet.
                             </dd>
                         </dl>
                     </td>
@@ -520,7 +520,7 @@
         </dt>
         <dd>
             
-                 Displays the result count tab
+                 Displays the result count of the tab
             
             <dl>
                 
@@ -687,7 +687,7 @@
         </dt>
         <dd>
             
-                 Runs the nested code if the tab returns no results
+                 Conditional display - Runs the nested code if the tab will return no results
             
             <dl>
                 
@@ -987,8 +987,25 @@
         </dt>
         <dd>
             
+                 Prints the preview link will will show more results from the selected facet.<#
+            
             <dl>
                 
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>code</code> - The code of the tab/facet preview e.g. for meta data based facets, it would be the metadata class such as <code> a </code>. For gscope based facets, it would be the gscope number such as <code> 11 </code><br>
+			
+				<code>value</code> - The value of the tab/facet of the preview e.g. e.g. for meta data based facets, it would be the metadata value such as "funnelback". For gscope based facets, it would be the gscope label<br>
+			
+				<code>name</code> - Optional Name of the facet group. If none is specified, it will attempt to obtain the name from the namespace (as assigned by #TabPane macro)<br>
+			
+				<code>params</code> - List of cgi options to retain. These can include things such as scope, gscope1, fmo etc. Defaults to query, profile and collection.<br>
+			
+		</dd>
 	
 
                 
@@ -1014,7 +1031,7 @@
 
 
 
-<span class="directive">&lt;#macro&nbsp;PreviewMoreLink&nbsp;code&nbsp;value&nbsp;name=&quot;&quot;&nbsp;params=[&quot;query&quot;,&nbsp;&quot;profile&quot;,&nbsp;&quot;collection&quot;]&nbsp;&nbsp;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Determine&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;selected&nbsp;tab&nbsp;group&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;name!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;tabGroup&nbsp;=&nbsp;name&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;tabGroup&nbsp;=&nbsp;.namespace.tabGroup&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Generate&nbsp;the&nbsp;parameter&nbsp;for&nbsp;the&nbsp;new&nbsp;tab&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;paramName&nbsp;=&nbsp;&quot;f.&quot;&nbsp;+&nbsp;tabGroup&nbsp;+&nbsp;&quot;|&quot;&nbsp;+&nbsp;code&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Generate&nbsp;the&nbsp;more&nbsp;link&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;searchLink&nbsp;=&nbsp;question.collection.configuration.value(&quot;ui.modern.search_link&quot;)&nbsp;+&nbsp;&quot;?&quot;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;moreLink&nbsp;=&nbsp;base_controller.buildQueryString(params,&nbsp;searchLink)&nbsp;+&nbsp;&quot;&amp;&quot;&nbsp;+&nbsp;paramName?url&nbsp;+&nbsp;&quot;=&quot;&nbsp;+&nbsp;value?url&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${moreLink}</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+<span class="directive">&lt;#macro&nbsp;PreviewMoreLink&nbsp;code&nbsp;value&nbsp;name=&quot;&quot;&nbsp;params=[&quot;query&quot;,&nbsp;&quot;profile&quot;,&nbsp;&quot;collection&quot;]&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Determine&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;selected&nbsp;tab&nbsp;group&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;name!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;tabGroup&nbsp;=&nbsp;name&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;tabGroup&nbsp;=&nbsp;.namespace.tabGroup&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Generate&nbsp;the&nbsp;parameter&nbsp;for&nbsp;the&nbsp;new&nbsp;tab&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;paramName&nbsp;=&nbsp;&quot;f.&quot;&nbsp;+&nbsp;tabGroup&nbsp;+&nbsp;&quot;|&quot;&nbsp;+&nbsp;code&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Generate&nbsp;the&nbsp;more&nbsp;link&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;searchLink&nbsp;=&nbsp;question.collection.configuration.value(&quot;ui.modern.search_link&quot;)&nbsp;+&nbsp;&quot;?&quot;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;moreLink&nbsp;=&nbsp;base_controller.buildQueryString(params,&nbsp;searchLink)&nbsp;+&nbsp;&quot;&amp;&quot;&nbsp;+&nbsp;paramName?url&nbsp;+&nbsp;&quot;=&quot;&nbsp;+&nbsp;value?url&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${moreLink}</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -1047,6 +1064,9 @@
 	
 
                 
+    
+        <dt><b>Requires</b></dt>
+        <dd>Preview</dd>
     
 
                 
@@ -1168,7 +1188,7 @@
 		</dt>
 		<dd>
 			
-				<code>facet</code> - - Represents facet group which to derive the tabs from<br>
+				<code>facet</code> - Represents facet group which to derive the tabs from<br>
 			
 		</dd>
 	

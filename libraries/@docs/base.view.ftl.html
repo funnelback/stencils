@@ -64,10 +64,10 @@
 <h1>base.view.ftl</h1>
 <div id="page-contents">
     <h3>Description</h3><br />
-
-         This contains basic utility views which can be used across all stencils and general implementations. <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options for Base Stencil.</li> <li><strong>General:</strong> General search helpers.</li> <li><strong>Search forms:</strong> Advanced search form, simple search form ....</li> <li><strong>Sessions:</strong> Favorites/Cart, search history.</li> <li><strong>Facets:</strong> Faceted navigation, search breadcrumbs, spelling suggestions</li> <li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li> <li><strong>Results:</strong> Results wrapper views </li> <li><strong>Result:</strong> Result views e.g. panels ...</li> </ul>
-
-
+    
+         This contains basic utility views which can be used across all stencils and general implementations. <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options for Base Stencil.</li> <li><strong>General:</strong> General search helpers.</li> <li><strong>Search forms:</strong> Advanced search form, simple search form ....</li> <li><strong>Sessions:</strong> Favorites/Cart, search history.</li> <li><strong>Facets:</strong> Faceted navigation, search breadcrumbs, spelling suggestions</li> <li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li> <li><strong>Results:</strong> Results wrapper views </li> <li><strong>Result:</strong> Result views e.g. panels ...</li> <li><strong>Print:</strong> Views for print buttons, and print friendly view.</li> </ul>
+    
+    
 </div>
 
 
@@ -77,17 +77,17 @@
         <td colspan="2" class="heading">Macro and Function Summary</td>
     </tr>
 
-
-
+    
+        
             <tr>
                 <td colspan="2" class="category">
-
+                
                     Category <em>Configuration</em>
-
+                
                 </td>
             </tr>
 
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -98,21 +98,21 @@
                                 <code>
                                     <strong><a href="#CSS">CSS</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
                             <dd>
-                                 Stylesheet dependencies
+                                 Stylesheet dependencies 
                             </dd>
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -123,11 +123,11 @@
                                 <code>
                                     <strong><a href="#JS">JS</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -137,21 +137,46 @@
                         </dl>
                     </td>
                 </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#printCSS">printCSS</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
 
 
-
-
-
-
+                            </dt>
+                            <dd>
+                                 Print Stylesheet dependencies 
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+        
+        
             <tr>
                 <td colspan="2" class="category">
-
+                
                     Category <em>General</em>
-
+                
                 </td>
             </tr>
 
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -162,11 +187,11 @@
                                 <code>
                                     <strong><a href="#Modals">Modals</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -176,19 +201,81 @@
                         </dl>
                     </td>
                 </tr>
-
-
-
-
+            
+            
+        
+        
             <tr>
                 <td colspan="2" class="category">
-
-                    Category <em>Result</em>
-
+                
+                    Category <em>Print</em>
+                
                 </td>
             </tr>
 
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#PrintMessage">PrintMessage</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
 
+
+                            </dt>
+                            <dd>
+                                 Template view print button.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#PrintResults">PrintResults</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Template view print button.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Result</em>
+                
+                </td>
+            </tr>
+
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -199,11 +286,11 @@
                                 <code>
                                     <strong><a href="#ResultModal">ResultModal</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -213,7 +300,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -224,11 +311,11 @@
                                 <code>
                                     <strong><a href="#ResultPanel">ResultPanel</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -238,19 +325,19 @@
                         </dl>
                     </td>
                 </tr>
-
-
-
-
+            
+            
+        
+        
             <tr>
                 <td colspan="2" class="category">
-
+                
                     Category <em>Results</em>
-
+                
                 </td>
             </tr>
 
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -261,11 +348,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewGrid">ResultsViewGrid</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -275,7 +362,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -286,11 +373,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewList">ResultsViewList</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -300,44 +387,19 @@
                         </dl>
                     </td>
                 </tr>
-
-
-
-
+            
+            
+        
+        
             <tr>
                 <td colspan="2" class="category">
-
+                
                     Category <em>Results Features</em>
-
+                
                 </td>
             </tr>
 
-
-                <tr>
-                    <td>
-                        <code>macro</code>
-                    </td>
-                    <td>
-                        <dl>
-                            <dt>
-                                <code>
-                                    <strong><a href="#BreadCrumb">BreadCrumb</a></strong>
-                                </code>
-
-
-
-
-
-
-
-                            </dt>
-                            <dd>
-                                 Facet breadcrumb view which allows users	to remove active facets
-                            </dd>
-                        </dl>
-                    </td>
-                </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -348,11 +410,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewSelectorColumns">ResultsViewSelectorColumns</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -362,7 +424,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -373,11 +435,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewSelectorLimit">ResultsViewSelectorLimit</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -387,7 +449,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -398,11 +460,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewSelectors">ResultsViewSelectors</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -412,7 +474,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -423,11 +485,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewSelectorSort">ResultsViewSelectorSort</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -437,7 +499,7 @@
                         </dl>
                     </td>
                 </tr>
-
+            
                 <tr>
                     <td>
                         <code>macro</code>
@@ -448,11 +510,11 @@
                                 <code>
                                     <strong><a href="#ResultsViewSelectorView">ResultsViewSelectorView</a></strong>
                                 </code>
-
-
-
-
-
+                                
+    
+        
+        
+    
 
 
                             </dt>
@@ -462,13 +524,13 @@
                         </dl>
                     </td>
                 </tr>
-
-
-
-
-
-
-
+            
+            
+        
+        
+        
+        
+        
 </table>
 
 
@@ -483,100 +545,42 @@
     <dl>
         <dt>
             macro
-            <tt><a name="BreadCrumb">BreadCrumb</a></tt>
-
-
-
-
-
-
-            <br /><br />
-        </dt>
-        <dd>
-
-                 Facet breadcrumb view which allows users	to remove active facets
-
-            <dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <dt><b>Category</b></dt>
-        <dd>Results Features</dd>
-
-
-
-<dt><a href="javascript:toggle('sc_BreadCrumb');">Source Code</a></dt>
-<dd>
-<div class="sourcecode" id="sc_BreadCrumb">
-
-
-
-
-<span class="directive">&lt;#macro&nbsp;BreadCrumb&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.BreadCrumbSearch&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;js-refinements&nbsp;refinements&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refined&nbsp;by<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.BreadCrumbs&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.BreadCrumb&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;</span><span class="userdirective">&lt;@base_controller.BreadCrumbUrl&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=&quot;button&quot;&nbsp;class=&quot;btn&nbsp;btn-default&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&nbsp;class=&quot;glyphicon&nbsp;glyphicon-remove&quot;&gt;&lt;/span&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.BreadCrumbName&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@base_controller.BreadCrumb&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@base_controller.BreadCrumbs&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@base_controller.BreadCrumbSearch&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
-
-
-
-</div>
-</dd>
-
-            </dl>
-        </dd>
-    </dl>
-    <hr>
-
-    <dl>
-        <dt>
-            macro
             <tt><a name="CSS">CSS</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
-                 Stylesheet dependencies
-
+            
+                 Stylesheet dependencies 
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Configuration</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_CSS');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_CSS">
@@ -584,7 +588,7 @@
 
 
 
-<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">bootstrap/v3.3.5/css/bootstrap.min.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">font-awesome/v4.3.0/css/font-awesome.min.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${SearchPrefix}</span><span class="textblock">stencils-resources/base/css/base.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${BaseResourcesPrefix}</span><span class="textblock">css/base.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${baseResourcesPrefix}</span><span class="textblock">css/base.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">bootstrap/v3.3.5/css/bootstrap.min.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">font-awesome/v4.3.0/css/font-awesome.min.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -600,41 +604,41 @@
         <dt>
             macro
             <tt><a name="JS">JS</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  JavaScript dependencies
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Configuration</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_JS');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_JS">
@@ -642,7 +646,7 @@
 
 
 
-<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;JS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">matchHeight/jquery.matchHeight.min.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">bootstrap/v3.3.5/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${BaseResourcesPrefix}</span><span class="textblock">js/stencils.base.js&quot;&gt;&lt;/script&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;JS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${baseResourcesPrefix}</span><span class="textblock">js/base.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">bootstrap/v3.3.5/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">matchHeight/v0.6.0/jquery.matchHeight-min.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">moment.js/v2.10.6/moment.min.js&quot;&gt;&lt;/script&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -658,41 +662,41 @@
         <dt>
             macro
             <tt><a name="Modals">Modals</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  Container for all modals.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>General</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_Modals');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_Modals">
@@ -715,42 +719,216 @@
     <dl>
         <dt>
             macro
-            <tt><a name="ResultModal">ResultModal</a></tt>
-
-
-
-
-
+            <tt><a name="printCSS">printCSS</a></tt>
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
-                 Template view for search result modal.
-
+            
+                 Print Stylesheet dependencies 
+            
             <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Configuration</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_printCSS');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_printCSS">
 
 
 
 
+<span class="directive">&lt;#macro&nbsp;printCSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${baseResourcesPrefix}</span><span class="textblock">css/print.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="PrintMessage">PrintMessage</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Template view print button.
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Print</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_PrintMessage');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_PrintMessage">
 
 
 
 
+<span class="directive">&lt;#macro&nbsp;PrintMessage&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;PrintResults&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;msg&nbsp;screen-only&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Print&nbsp;friendly&nbsp;view&lt;/h2&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;class=&quot;btn&quot;&nbsp;data-print-btn&gt;Print&lt;/button&gt;&nbsp;&lt;a&nbsp;class=&quot;btn&quot;&nbsp;href=&quot;?</span><span class="interpolation">${base_controller.removeParamWithValue(QueryString,&quot;form&quot;,&quot;printFriendly&quot;)}</span><span class="textblock">&quot;&gt;Return&nbsp;to&nbsp;search.&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="PrintResults">PrintResults</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Template view print button.
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Print</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_PrintResults');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_PrintResults">
 
 
 
 
+<span class="directive">&lt;#macro&nbsp;PrintResults&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;PrintResults&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;row&quot;&nbsp;style=&quot;margin-bottom:0.5em;&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;col-md-12&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;pull-right&quot;&gt;&lt;a&nbsp;class=&quot;btn&nbsp;btn-default&quot;&nbsp;href=&quot;</span><span class="userdirective">&lt;@base_controller.CreateSearchUrl&nbsp;&nbsp;cgis=[&quot;form=printFriendly&quot;]/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-print&quot;&gt;&lt;/i&gt;&nbsp;Print&lt;/a&gt;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
+</div>
+</dd>
 
+            </dl>
+        </dd>
+    </dl>
+    <hr>
 
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultModal">ResultModal</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Template view for search result modal.
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
         <dt><b>Category</b></dt>
         <dd>Result</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultModal');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultModal">
@@ -774,41 +952,41 @@
         <dt>
             macro
             <tt><a name="ResultPanel">ResultPanel</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  Template view for Search Result as a panel variation.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Result</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultPanel');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultPanel">
@@ -832,41 +1010,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewGrid">ResultsViewGrid</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  Template view for results view as a grid layout.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewGrid');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewGrid">
@@ -890,41 +1068,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewList">ResultsViewList</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  Template view for results view as a list layout.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewList');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewList">
@@ -948,41 +1126,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewSelectorColumns">ResultsViewSelectorColumns</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  View for select UI that allows the user to select to group results by numeric amount per row.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results Features</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewSelectorColumns');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewSelectorColumns">
@@ -1006,41 +1184,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewSelectorLimit">ResultsViewSelectorLimit</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  View for select widget to change the number of results shown per page.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results Features</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewSelectorLimit');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewSelectorLimit">
@@ -1064,41 +1242,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewSelectors">ResultsViewSelectors</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  View for the group of UI select components to display above the search results area.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results Features</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewSelectors');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewSelectors">
@@ -1122,41 +1300,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewSelectorSort">ResultsViewSelectorSort</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  View for a select UI that allows the user to sort results by different options
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results Features</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewSelectorSort');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewSelectorSort">
@@ -1180,41 +1358,41 @@
         <dt>
             macro
             <tt><a name="ResultsViewSelectorView">ResultsViewSelectorView</a></tt>
-
-
-
-
-
+            
+    
+        
+        
+    
 
             <br /><br />
         </dt>
         <dd>
-
+            
                  View for UI to switch the results view format layout such as a grid or list format.
-
+            
             <dl>
+                
+	
 
+                
+    
 
+                
+    
 
+                
+    
 
+                
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+                
+    
         <dt><b>Category</b></dt>
         <dd>Results Features</dd>
+    
 
-
-
+                
 <dt><a href="javascript:toggle('sc_ResultsViewSelectorView');">Source Code</a></dt>
 <dd>
 <div class="sourcecode" id="sc_ResultsViewSelectorView">
@@ -1232,7 +1410,7 @@
             </dl>
         </dd>
     </dl>
-
+    
 
 
 
