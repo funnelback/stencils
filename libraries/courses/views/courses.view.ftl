@@ -1,38 +1,35 @@
 <#ftl encoding="utf-8" />
 <#---
-	This contains basic utility views which can be used across all stencils and general implementations.
+	 <p>Provides views for Courses components.</p>
+	 <p>These compontents include items such as ...</p>
+	 <p>...</p>
 
-		<h2>Table of Contents</h2>
-		<ul>
-			<li><strong>Configuration:</strong> Configuration options for Base Stencil.</li>
-			<li><strong>General:</strong> General search helpers.</li>
-			<li><strong>Search forms:</strong> Advanced search form, simple search form ....</li>
-			<li><strong>Sessions:</strong> Favorites/Cart, search history.</li>
-			<li><strong>Facets:</strong> Faceted navigation, search breadcrumbs, spelling suggestions</li>
-			<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
-			<li><strong>Results:</strong> Results wrapper views </li>
-			<li><strong>Result:</strong> Result views e.g. panels ...</li>
-		</ul>
+	 <h2>Table of Contents</h2>
+	 <ul>
+		 <li><strong>Configuration:</strong> Configuration options.</li>
+		 <li><strong>Results:</strong></li>
+	 </ul>
 -->
 <#escape x as x?html>
+
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign baseResourcesPrefix = "/stencils/resources/base/" >
+<#assign coursesResourcesPrefix = "/stencils/resources/courses/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
 
 <#-- Import Controller -->
-<#import "${librariesPrefix}base/controllers/base.controller.ftl" as base_controller/>
+<#import "${librariesPrefix}courses/controllers/courses.controller.ftl" as courses_controller/>
 
 <#-- Import libraries -->
 <#import "/web/templates/modernui/funnelback_classic.ftl" as s/>
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import Stencils -->
-<#assign stencils=["core"] />
+<#assign stencils=["core","base"] />
 	<#--
 		The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
 		The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
@@ -46,287 +43,86 @@
 	Stylesheet dependencies
  -->
 <#macro CSS>
-	<!-- base.view.ftl.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${baseResourcesPrefix}css/base.css">
-	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${thirdPartyResourcesPrefix}font-awesome/v4.3.0/css/font-awesome.min.css">
+	<!-- courses.view.ftl :: CSS -->
+	<#-- <link rel="stylesheet" href="${coursesResourcesPrefix}css/courses.css"> -->
 </#macro>
 
 <#---
 	JavaScript dependencies
--->
+ -->
 <#macro JS>
-	<!-- base.view.ftl.view.ftl :: JS -->
-	<script src="${baseResourcesPrefix}js/base.js"></script>
-	<script src="${thirdPartyResourcesPrefix}matchHeight/jquery.matchHeight.min.js"></script>
-	<script src="${thirdPartyResourcesPrefix}bootstrap/v3.3.5/js/bootstrap.min.js"></script>
+	<!-- courses.view.ftl :: JS -->
+	<#-- This commented out because stencils.courses.js is not required currently -->
+	<#-- <script src="${coursesResourcesPrefix}js/stencils.courses.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
-<#-- @begin  General -->
-<#---
-	Container for all modals.
--->
-<#macro Modals>
-	<!-- base.view.ftl :: ResultsModals -->
-	<#-- Modals for results -->
-	<@core_controller.Results>
-		<#if core_controller.result.class.simpleName == "TierBar">
-		<#else>
-			<@ResultModal />
-		</#if>
-	</@core_controller.Results>
-</#macro>
-<#-- @end --><#-- / Category - General -->
-<#-- @begin  Search Forms -->
-<#-- @end --><#-- / Category - Search Forms -->
-<#-- @begin  Sessions -->
-<#-- @end --><#-- / Category - Sessions -->
-<#-- @begin  Facets -->
-<#-- @end --><#-- / Category - Facets -->
-<#-- @begin Results Features -->
-<#---
-	View for UI to switch the results view format layout such as a grid or list format.
--->
-<#macro ResultsViewSelectorView>
-<!-- base.view.ftl :: ResultsViewSelectorView -->
-<@core_controller.Select name="resultsView" options=["=List", "grid=Grid"]>
-	<span class="label label-default">View</span>
-	<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
-		<@core_controller.SelectOptions>
-			<#switch core_controller.selectOptionValue>
-				<#case "grid">
-					<#local icon><span class="glyphicon glyphicon-th"></span></#local>
-					<#local href><@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}","num_ranks=${base_controller.setResultsLimitGrid(10)}"] /></#local>
-					<#break>
-				<#case ""> <#-- Case List -->
-				<#default>
-					<#local icon><span class="glyphicon glyphicon-th-list"></#local>
-					<#local href><@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}"] /></#local>
-			</#switch>
-			<#noescape>
-				<a class="btn btn-default <@core_controller.IsSelectOptionSelected>active</@core_controller.IsSelectOptionSelected>" href="${href!}">
-					${icon!} <@core_controller.SelectOptionName />
-				</a>
-			</#noescape>
-		</@core_controller.SelectOptions>
-	</div>
-</@core_controller.Select>
-</#macro>
 
-<#---
-	View for select widget to change the number of results shown per page.
--->
-<#macro ResultsViewSelectorLimit>
-	<!-- base.view.ftl :: ResultsViewSelectorLimit -->
-	<#-- Options for view limit -->
-	<#local options=["=10", "50=50", "100=100"] >
-	<@base_controller.IfDefCGIEquals name="resultsView" value="grid">
-		<#-- If we are using a Grid layout calulcate a new number of for limit based on columns times	 -->
-		<#local options = ["${base_controller.setResultsLimitGrid(10)}=${base_controller.setResultsLimitGrid(10)}",
-											"${base_controller.setResultsLimitGrid(20)}=${base_controller.setResultsLimitGrid(20)}",
-											"${base_controller.setResultsLimitGrid(30)}=${base_controller.setResultsLimitGrid(30)}"] />
-	</@base_controller.IfDefCGIEquals>
-	<@core_controller.Select name="num_ranks" options=options>
-		<div name="ResultsViewSelectorLimit" id="ResultsViewSelectorLimit" class="btn-group">
-			<@core_controller.SelectOptions>
-				<@core_controller.IsSelectOptionSelected>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					<span class="label label-default">Limit:</span>
-						<@core_controller.SelectOptionName />
-					&nbsp;&nbsp;
-					<span class="caret"></span>
-				</button>
-				</@core_controller.IsSelectOptionSelected>
-			</@core_controller.SelectOptions>
-
-			<ul class="dropdown-menu" role="menu">
-			<#-- Display the options -->
-			<@core_controller.SelectOptions>
-				<@core_controller.IsSelectOptionSelected negate=true>
-				<li>
-					<a href="<@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}"] />">
-						<@core_controller.SelectOptionName />
-					</a>
-				</li>
-				</@core_controller.IsSelectOptionSelected>
-			</@core_controller.SelectOptions>
-			</ul>
-		</div>
-	</@core_controller.Select>
-</#macro>
-
-<#---
-	View for select UI that allows the user to select to group results by numeric amount per row.
--->
-<#macro ResultsViewSelectorColumns>
-<!-- base.view.ftl :: ResultsViewSelectorColumns -->
-<@base_controller.IfDefCGIEquals name="resultsView" value="grid">
-	<@core_controller.Select name="resultsColumns" options=["=2", "3=3", "4=4"]>
-		<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
-			<@core_controller.SelectOptions>
-				<@core_controller.IsSelectOptionSelected>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					<span class="label label-default">Columns:</span>
-						<@core_controller.SelectOptionName />
-					&nbsp;&nbsp;
-					<span class="caret"></span>
-				</button>
-				</@core_controller.IsSelectOptionSelected>
-			</@core_controller.SelectOptions>
-
-			<ul class="dropdown-menu" role="menu">
-			<#-- Display the options -->
-			<@core_controller.SelectOptions>
-				<@core_controller.IsSelectOptionSelected negate=true>
-				<li>
-					<#if core_controller.selectOptionValue == "">
-						<#local columns = 2 >
-					<#else>
-						<#local columns = core_controller.selectOptionValue?number >
-					</#if>
-
-					<a href="<@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}","num_ranks=${base_controller.setResultsLimitGrid(10,columns)}" ] />">
-						<@core_controller.SelectOptionName />
-					</a>
-				</li>
-				</@core_controller.IsSelectOptionSelected>
-			</@core_controller.SelectOptions>
-			</ul>
-		</div>
-	</@core_controller.Select>
-</@base_controller.IfDefCGIEquals>
-</#macro>
-
-<#---
-	View for a select UI that allows the user to sort results by different options
--->
-<#macro ResultsViewSelectorSort>
-<!-- base.view.ftl :: ResultsViewSelectorSort -->
-<@core_controller.Select name="sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=Url (A-Z)", "durl=Url (Z-A)", "shuffle=Shuffle"]>
-	<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
-		<@core_controller.SelectOptions>
-			<@core_controller.IsSelectOptionSelected>
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-				<span class="label label-default">Sort:</span>
-					<@core_controller.SelectOptionName />
-				&nbsp;&nbsp;
-				<span class="caret"></span>
-			</button>
-			</@core_controller.IsSelectOptionSelected>
-		</@core_controller.SelectOptions>
-
-		<ul class="dropdown-menu" role="menu">
-		<#-- Display the options -->
-		<@core_controller.SelectOptions>
-			<@core_controller.IsSelectOptionSelected negate=true>
-			<li>
-				<a href="<@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}"] />">
-					<@core_controller.SelectOptionName />
-				</a>
-			</li>
-			</@core_controller.IsSelectOptionSelected>
-		</@core_controller.SelectOptions>
-		</ul>
-	</div>
-</@core_controller.Select>
-</#macro>
-
-<#---
-	View for the group of UI select components to display above the search results area.
--->
-<#macro ResultsViewSelectors>
-	<#if (response.resultPacket.resultsWithTierBars)!?has_content>
-	<!-- base.view.ftl :: ResultsViewSelectors -->
-	<div class="row" style="margin-bottom:0.5em">
-		<div class="col-md-12">
-			<div class="pull-right">
-				<@ResultsViewSelectorLimit />
-				<@ResultsViewSelectorSort />
-			</div>
-		</div>
-	</div>
-	</#if>
-</#macro>
-<#-- @end --><#-- / Category - Results Features -->
-<#-- @begin  Results -->
-<#---
-	Template view for results view as a list layout.
--->
-<#macro ResultsViewList>
-	<@base_controller.IfDefCGIEquals name="resultsView" value="list" trueIfEmpty=true>
-	<!-- base.view.ftl :: ResultsViewList -->
-		<li data-fb-result=${core_controller.result.indexUrl}>
-			<@ResultPanel />
-		</li>
-	</@base_controller.IfDefCGIEquals>
-</#macro>
-
-<#---
-	Template view for results view as a grid layout.
--->
-<#macro ResultsViewGrid>
-	<@base_controller.IfDefCGIEquals name="resultsView" value="grid">
-	<!-- base.view.ftl :: ResultsViewGrid -->
-		<@base_controller.ResultsColumns>
-			<@base_controller.ResultsColumnsIsOpen>
-			<li class="row" data-results-column-rank="${base_controller.resultsColumnsIndex!}">
-				<ol class="list-unstyled">
-			</@base_controller.ResultsColumnsIsOpen>
-					<#local cssColWidth = (12/base_controller.resultsColumnsNumber!1)?floor?c >
-					<li data-fb-result=${core_controller.result.indexUrl} class="col-md-${cssColWidth!} columns-${base_controller.resultsColumnsNumber!}">
-						<@ResultPanel />
-					</li>
-			<@base_controller.ResultsColumnsIsClosed>
-				</ol>
-			</li>
-			</@base_controller.ResultsColumnsIsClosed>
-		</@base_controller.ResultsColumns>
-	</@base_controller.IfDefCGIEquals>
-</#macro>
-<#-- @end --><#-- / Category - Results -->
 <#-- @begin  Result -->
 <#---
-	Template view for Search Result as a panel variation.
+	Template view for Search Result as a course.
+
+	<h2>Data Model</h2>
+		<p><strong>core_controller.result ;</strong></p>
+		<ul>
+			<li>...</li>
+		</ul>
+		<p><strong>core_controller.result.metaData ;</strong></p>
+		<ul>
+			<li><strong>	c (description) :</strong> course summary.</li>
+			<li><strong>stencilsCoursesDuration</strong></li>
+			<li><strong>stencilsCoursesLevel</strong></li>
+			<li><strong>stencilsCoursesCampus</strong></li>
+			<li><strong>stencilsCoursesName</strong></li>
+			<li><strong>stencilsCoursesCode</strong></li>
+			<li><strong>stencilsCoursesMode</strong></li>
+		</ul>
+		<p><strong>courses_controller ;</strong></p>
+
+	@requires core_controller.Results
 -->
-<#macro ResultPanel>
+<#macro Result>
 <!-- base.view.ftl :: ResultPanel -->
 <div class="panel panel-default">
 	<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
-		<small class="text-muted">
-			<i class="fa fa-pencil"></i> Published
-			<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if>
-			<#-- ResultAuthor -->
-			<#if core_controller.result.metaData.a??>
-				by <@core_controller.boldicize>${core_controller.result.metaData.a}</@core_controller.boldicize>
-			<#elseif core_controller.result.metaData.p?? >
-				by <@core_controller.boldicize>${core_controller.result.metaData.p}</@core_controller.boldicize>
-			</#if>
-			<#-- /ResultAuthor -->
-			<#-- ResultSource -->
-			via
-			<cite data-url="${core_controller.result.displayUrl}" class="text-success">
-				<@core_controller.cut cut="http://">
-					<@core_controller.boldicize>
-						${core_controller.result.displayUrl}
-					</@core_controller.boldicize>
-				</@core_controller.cut>
-			</cite>
-			<#--	/ResultSource -->
-		</small>
-	</div>
-	<#-- /panel-heading -->
-	<div class="panel-body" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
 		<#-- ResultTitle -->
 		<h4>
 			<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-				<@core_controller.boldicize><@core_controller.Truncate length=70>${core_controller.result.title}</@core_controller.Truncate></@core_controller.boldicize>
+				<@core_controller.boldicize>
+					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName}</@core_controller.Truncate>
+					<#if core_controller.result.metaData.stencilsCoursesCode??><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></#if>
+				</@core_controller.boldicize>
 			</a>
-			<#if core_controller.result.fileType!?matches("(doc|docx|ppt|pptx|rtf|xls|xlsx|xlsm|pdf)", "r")>
-				<small class="text-muted">${core_controller.result.fileType?upper_case} (${filesize(core_controller.result.fileSize!0)})</small>
-			</#if>
 		</h4>
+		<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
+			${core_controller.result.metaData.stencilsCoursesLevel}
+		</em></small></#if>
+
 		<#-- /ResultTitle -->
+	</div>
+	<#-- /panel-heading -->
+	<div class="panel-body" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
+
+		<#-- Course details -->
+		<div class="text-muted">
+			<small>Study</small>
+
+			<#if core_controller.result.metaData.stencilsCoursesMode??>
+			<small>
+				 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode}</strong>
+			</small>
+			</#if>
+
+			<#if core_controller.result.metaData.stencilsCoursesCampus??>
+			<small>
+				at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus} Campus</strong>
+			</small>
+			</#if>
+
+			<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
+				<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration}
+			</em></small></#if>
+		</div>
 
 		<#-- ResultThumbnail -->
 		<#if core_controller.result.metaData.stencilsCoreThumbnailUrl?? >
@@ -402,24 +198,6 @@
 		</@core_controller.Collapsed>
 		<#-- /ResultCollaspe -->
 
-		<#-- ResultMetadataSummary -->
-		<#if core_controller.result.metaData["a"]?? || core_controller.result.metaData["s"]?? || core_controller.result.metaData["p"]??>
-			<dl class="<#if (base_controller.resultsColumnsNumber!1)?number lt 3>dl-horizontal</#if> text-muted">
-				<#if core_controller.result.metaData["a"]??>
-					<dt>by</dt>
-					<dd>${core_controller.result.metaData["a"]!?replace("|", ", ")}</dd>
-				</#if>
-				<#if core_controller.result.metaData["s"]??>
-					<dt>Keywords:</dt>
-					<dd>${core_controller.result.metaData["s"]!?replace("|", ", ")}</dd>
-				</#if>
-				<#if core_controller.result.metaData["p"]??>
-					<dt>Publisher:</dt>
-					<dd>${core_controller.result.metaData["p"]!?replace("|", ", ")}</dd>
-				</#if>
-			</dl>
-		</#if>
-		<#-- /ResultMetadataSummary	-->
 	</div>
 	<#-- /panel-body -->
 	<div class="panel-footer">
@@ -493,39 +271,42 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published
-							<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if>
-							<#-- ResultAuthor -->
-							<#if core_controller.result.metaData.a??>
-								by <@core_controller.boldicize>${core_controller.result.metaData.a}</@core_controller.boldicize>
-							<#elseif core_controller.result.metaData.p?? >
-								by <@core_controller.boldicize>${core_controller.result.metaData.p}</@core_controller.boldicize>
-							</#if>
-							<#-- /ResultAuthor -->
-							<#-- ResultSource -->
-							via
-							<cite data-url="${core_controller.result.displayUrl}" class="text-success">
-								<@core_controller.cut cut="http://">
-									<@core_controller.boldicize>
-										${core_controller.result.displayUrl}
-									</@core_controller.boldicize>
-								</@core_controller.cut>
-							</cite>
-							<#--	/ResultSource -->
-						</small>
-					</div>
-					<div class="modal-body">
 						<#-- ResultTitle -->
 						<h4>
 							<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-								<@core_controller.boldicize><@core_controller.Truncate length=70>${core_controller.result.title}</@core_controller.Truncate></@core_controller.boldicize>
+								<@core_controller.boldicize>
+									<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName}</@core_controller.Truncate>
+									<#if core_controller.result.metaData.stencilsCoursesCode??><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></#if>
+								</@core_controller.boldicize>
 							</a>
-							<#if core_controller.result.fileType!?matches("(doc|docx|ppt|pptx|rtf|xls|xlsx|xlsm|pdf)", "r")>
-								<small class="text-muted">${core_controller.result.fileType?upper_case} (${filesize(core_controller.result.fileSize!0)})</small>
-							</#if>
 						</h4>
+						<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
+							${core_controller.result.metaData.stencilsCoursesLevel}
+						</em></small></#if>
+
 						<#-- /ResultTitle -->
+					</div>
+					<div class="modal-body">
+						<#-- Course details -->
+						<div class="text-muted">
+							<small>Study</small>
+
+							<#if core_controller.result.metaData.stencilsCoursesMode??>
+							<small>
+								 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode}</strong>
+							</small>
+							</#if>
+
+							<#if core_controller.result.metaData.stencilsCoursesCampus??>
+							<small>
+								at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus} Campus</strong>
+							</small>
+							</#if>
+
+							<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
+								<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration}
+							</em></small></#if>
+						</div>
 
 						<#-- ResultThumbnail -->
 						<#if core_controller.result.metaData.stencilsCoreThumbnailUrl?? >
@@ -603,24 +384,6 @@
 						</@core_controller.Collapsed>
 						<#-- /ResultCollaspe -->
 
-						<#-- ResultMetadataSummary -->
-						<#if core_controller.result.metaData["a"]?? || core_controller.result.metaData["s"]?? || core_controller.result.metaData["p"]??>
-							<dl class="dl-horizontal text-muted">
-								<#if core_controller.result.metaData["a"]??>
-									<dt>by</dt>
-									<dd>${core_controller.result.metaData["a"]!?replace("|", ", ")}</dd>
-								</#if>
-								<#if core_controller.result.metaData["s"]??>
-									<dt>Keywords:</dt>
-									<dd>${core_controller.result.metaData["s"]!?replace("|", ", ")}</dd>
-								</#if>
-								<#if core_controller.result.metaData["p"]??>
-									<dt>Publisher:</dt>
-									<dd>${core_controller.result.metaData["p"]!?replace("|", ", ")}</dd>
-								</#if>
-							</dl>
-						</#if>
-						<#-- /ResultMetadataSummary	-->
 					</div>
 					<div class="modal-footer">
 						<#--	Result tools -->
@@ -682,4 +445,5 @@
 </#macro>
 <#-- /ResultDefaultModal-->
 <#-- @end --><#-- / Category - Result -->
+
 </#escape>
