@@ -83,7 +83,7 @@
 -->
 <#macro Result>
 <!-- base.view.ftl :: ResultPanel -->
-<div class="panel panel-default">
+<div class="panel panel-default progressive-disclosure" data-clickable-panel="result">
 	<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 		<#-- ResultTitle -->
 		<h4>
@@ -200,7 +200,7 @@
 
 	</div>
 	<#-- /panel-body -->
-	<div class="panel-footer">
+	<div class="panel-footer pd-hide">
 		<#--	Result tools -->
 		<div class="btn-group">
 			<div class="btn-group">

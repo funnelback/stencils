@@ -129,6 +129,21 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     });
   }
 
+  /* Allows panels to be clickable and adds a highlight class that change the view state.*/
+  function clickablePanels(){
+    //globals
+    var NAME = "clickable-panel";
+    var ACTIVE_CLASS = "panel-highlight";
+
+    $("[data-"+ NAME +"]").click(function(){
+      var $panel = $(this);
+      var isSelected = $panel.is("." + ACTIVE_CLASS);
+      var group = $panel.data(NAME);
+      $("[data-"+ NAME +"= " + group + "]").removeClass(ACTIVE_CLASS);
+      if(!isSelected) $panel.addClass(ACTIVE_CLASS);
+    });
+  }
+
   /*
     Runtime logic and event bindings
   */
@@ -146,6 +161,7 @@ stencils.module.base = (function ($, window, stencils, undefined) {
 
     buttonShowjs();
     buttonHidejs();
+    clickablePanels();
   });
 
   //Progressively run after a couple of images have loaded
