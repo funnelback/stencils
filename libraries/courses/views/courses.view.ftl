@@ -89,15 +89,15 @@
 		<h4>
 			<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
 				<@core_controller.boldicize>
-					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName}</@core_controller.Truncate>
+					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
 				</@core_controller.boldicize>
 			</a>
 				<#if core_controller.result.metaData.stencilsCoursesCode??>
-				 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small></@core_controller.boldicize>
+				 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
 				</#if>
 		</h4>
 		<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-			${core_controller.result.metaData.stencilsCoursesLevel}
+			${core_controller.result.metaData.stencilsCoursesLevel!}
 		</em></small></#if>
 
 		<#-- /ResultTitle -->
@@ -111,18 +111,18 @@
 
 			<#if core_controller.result.metaData.stencilsCoursesMode??>
 			<small>
-				 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode}</strong>
+				 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
 			</small>
 			</#if>
 
 			<#if core_controller.result.metaData.stencilsCoursesCampus??>
 			<small>
-				at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus} Campus</strong>
+				at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
 			</small>
 			</#if>
 
 			<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
-				<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration}
+				<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
 			</em></small></#if>
 		</div>
 
@@ -256,6 +256,8 @@
 					</small>
 				</a>
 			</#if>
+
+			<@base_view.CompareCheckbox />
 		</div>
 		<#-- /ResultTools -->
 	</div>
@@ -276,10 +278,10 @@
 						<#-- ResultTitle -->
 						<h4>
 							<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-								${core_controller.result.metaData.stencilsCoursesName}
+								${core_controller.result.metaData.stencilsCoursesName!}
 							</a>
 								<#if core_controller.result.metaData.stencilsCoursesCode??>
-								 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode}</small>
+								 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small>
 								</#if>
 						</h4>
 						<#-- /ResultTitle -->
@@ -291,18 +293,18 @@
 
 							<#if core_controller.result.metaData.stencilsCoursesMode??>
 							<small>
-								 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode}</strong>
+								 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
 							</small>
 							</#if>
 
 							<#if core_controller.result.metaData.stencilsCoursesCampus??>
 							<small>
-								at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus} Campus</strong>
+								at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
 							</small>
 							</#if>
 
 							<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
-								<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration}
+								<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
 							</em></small></#if>
 						</div>
 
@@ -434,6 +436,7 @@
 									</small>
 								</a>
 							</#if>
+
 						</div>
 						<#-- /ResultTools -->
 					</div>

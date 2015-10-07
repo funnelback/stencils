@@ -294,6 +294,20 @@
 		</@base_controller.ResultsColumns>
 	</@base_controller.IfDefCGIEquals>
 </#macro>
+
+<#---
+	Results wrapper format for just without tiers results.
+	@returns nested
+-->
+<#macro ResultsOnly>
+	<!-- base.view.ftl :: ResultsOnly -->
+	<@core_controller.Results>
+		<#if core_controller.result.class.simpleName == "TierBar">
+		<#else>
+			<#nested>
+		</#if>
+	</@core_controller.Results>
+</#macro>
 <#-- @end --><#-- / Category - Results -->
 <#-- @begin  Result -->
 <#---
@@ -697,13 +711,9 @@
 <#---
 	Template view print button.
 -->
-<#macro PrintResults>
+<#macro PrintFriendlyBtn>
 	<!-- base.view.ftl :: PrintResults -->
-	<div class="row" style="margin-bottom:0.5em;">
-		<div class="col-md-12">
-			<div class="pull-right"><a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print</a></div>
-		</div>
-	</div>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
 </#macro>
 
 <#---
@@ -716,6 +726,26 @@
 		<button class="btn" data-print-btn>Print</button> <a class="btn" href="?${base_controller.removeParamWithValue(QueryString,"form","printFriendly")}">Return to search.</a>
 	</div>
 </#macro>
-<#-- @end -->
-<#-- / Category - Print -->
+<#-- @end --><#-- / Category - Print -->
+
+<#-- @begin Compare -->
+<#---
+	Button for compare.
+-->
+<#macro CompareBtn group="">
+	<!-- base.view.ftl :: CompareBtn -->
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=compare"]/>" data-compare-btn="${group}"><i class="fa fa-exchange"></i> Compare</a>
+</#macro>
+
+<#---
+	Checkbox for adding item to compare.
+-->
+<#macro CompareCheckbox value="" group="">
+	<!-- base.view.ftl :: CompareCheckbox -->
+	<label class="btn btn-default">
+    <input type="checkbox" value="${value}" data-compare-checkbox name="${group}"> <small>Select for comparison.</small>
+  </label>
+	<@CompareBtn group=group />
+</#macro>
+<#-- @end --><#-- / Category - Compare -->
 </#escape>
