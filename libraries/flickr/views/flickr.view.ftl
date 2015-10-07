@@ -14,7 +14,7 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign flickrResourcesPrefix = "/stencils/resources/flickr/" >
+<#assign flickrResourcesPrefix = "/stencils/resources/flickr/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->

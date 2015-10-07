@@ -23,7 +23,8 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign coreResourcesPrefix = "/stencils/resources/core/" >
+<#assign coreResourcesPrefix = "/stencils/resources/core/v14.2.0/" >
+<#assign baseResourcesPrefix = "/stencils/resources/base/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities - Functions used to conveniently load related Stencil libraries -->
@@ -347,7 +348,7 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="/stencils/resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback logo"></a>
+			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="Funnelback logo"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
@@ -395,7 +396,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><img src="/stencils/resources/base/images/funnelback-logo-small-v2.png" alt="Funnelback" style="height: 17px;"></a>
+			<a class="navbar-brand" href="#"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="Funnelback" style="height: 17px;"></a>
 		</div>
 
 		<div class="collapse navbar-collapse">

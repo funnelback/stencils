@@ -16,7 +16,7 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign youtubeResourcesPrefix = "/stencils/resources/youtube/" >
+<#assign youtubeResourcesPrefix = "/stencils/resources/youtube/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->

@@ -29,7 +29,7 @@
 <#escape x as x?html>
 
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign tabsResourcesPrefix = "/stencils/resources/tabs/" >
+<#assign tabsResourcesPrefix = "/stencils/resources/tabs/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->

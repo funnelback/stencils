@@ -14,7 +14,7 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign socialResourcesPrefix = "/stencils/resources/social/" >
+<#assign socialResourcesPrefix = "/stencils/resources/social/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "/stencils/resources/thirdparty/" >
 
 <#-- Import Utilities -->

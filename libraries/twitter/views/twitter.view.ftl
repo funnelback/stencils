@@ -14,7 +14,7 @@
 <#-- ################### Configuration ####################### -->
 <#-- @begin Configuration -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign twitterResourcesPrefix = "${SearchPrefix}stencils-resources/twitter/" >
+<#assign twitterResourcesPrefix = "${SearchPrefix}stencils-resources/twitter/v14.2.0/" >
 <#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
