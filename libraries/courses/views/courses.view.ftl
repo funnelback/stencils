@@ -257,7 +257,6 @@
 				</a>
 			</#if>
 
-			<@base_view.CompareCheckbox />
 		</div>
 		<#-- /ResultTools -->
 	</div>

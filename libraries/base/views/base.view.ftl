@@ -12,7 +12,6 @@
 			<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
 			<li><strong>Results:</strong> Results wrapper views </li>
 			<li><strong>Result:</strong> Result views e.g. panels ...</li>
-			<li><strong>No Result:</strong> Formats for no results such as results to display when there are no results.</li>
 			<li><strong>Print:</strong> Views for print buttons, and print friendly view.</li>
 		</ul>
 -->
@@ -750,31 +749,4 @@
 </#macro>
 <#-- @end --><#-- / Category - Compare -->
 
-<#-- begin No Results -->
-<#---
-	Results to display when no results are returned.
-
-	@requires <code>core_controller.ExtraResults</code>  In Collection config<code>stencils.base.no_results_display.extraSearch=allResults</code>
--->
-<#macro NoResultResults>
-	<!-- base.view.ftl :: NoResultResults -->
-	<@core_controller.ExtraResults name=question.collection.configuration.value("stencils.base.no_results_display.extraSearch") >
-		<h2>Recommended Results</h2>
-		<@core_view.Results />
-	</@core_controller.ExtraResults>
-</#macro>
-
-<#---
-	Results to display when no results are returned.
-
-	@requires <code>core_controller.ExtraResults</code>  In Collection config<code>stencils.base.no_results_display.extraSearch=allResults</code>
--->
-<#macro NoResultFacets>
-	<!-- base.view.ftl :: NoResultResults -->
-	<@core_controller.ExtraResults name=question.collection.configuration.value("stencils.base.no_results_display.extraSearch") >
-		<@core_view.Facets />
-	</@core_controller.ExtraResults>
-</#macro>
-
-<#-- @end --><#-- / Category - No Results -->
 </#escape>

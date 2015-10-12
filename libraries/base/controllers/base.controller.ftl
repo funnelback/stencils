@@ -348,11 +348,21 @@
 
 <#---
 	Conditional Display - Runs the nested code only if at least one result is found
+	@param negate {boolean} Reverse condition, to HasNoResults. Set to true / false. Default is false.
 -->
-<#macro HasResults>
-	<#if (response.resultPacket.resultsSummary.totalMatching)!?has_content
-	 && response.resultPacket.resultsSummary.totalMatching &gt; 0>
-	 <#nested>
+<#macro HasResults negate=false>
+	<#if negate>
+		<#-- Has No Results -->
+		<#if !( (response.resultPacket.resultsSummary.totalMatching)!?has_content )
+		 || !(response.resultPacket.resultsSummary.totalMatching &gt; 0) >
+		 <#nested>
+		</#if>
+	<#else>
+		<#-- Has Results-->
+		<#if (response.resultPacket.resultsSummary.totalMatching)!?has_content
+		 && response.resultPacket.resultsSummary.totalMatching &gt; 0>
+		 <#nested>
+		</#if>
 	</#if>
 </#macro>
 
