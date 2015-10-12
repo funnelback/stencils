@@ -26,7 +26,7 @@ Enabling and configuring the metadata scraper filter is done via ```collection.c
 To enable the metadata scraper filter, you will need to do is add the ```com.funnelback.stencils.filter.scraper.MetaDataScraperFilter```  to the [filter chain](http://docs.funnelback.com/filter_classes_collection_cfg.html). Below is an example:
 
 ```
-filter.classes=CombinerFilterProvider,TikaFilterProvider,ExternalFilterProvider:DocumentFixerFilterProvider:com.funnelback.stencils.filter.scraper.MetaDataScraperFilter
+filter.classes=CombinerFilterProvider,TikaFilterProvider,ExternalFilterProvider:DocumentFixerFilterProvider:com.funnelback.stencils.filter.scraper.MetadataScraperFilter
 ```
 
 #### Delimiter
@@ -48,7 +48,7 @@ stencils.filter.scraper.metadata_scraper.delimiter=<delimiter>
 
 The next step is to configure the filter by creating ```stencils.filter.scraper.metadata_scraper.json``` under the collection root folder.
 
-i.e. ```$SEARCH_HOME/conf/$COLLECTION_NAME/stencils.filter.scraper.metadata-scraper.json```
+i.e. ```$SEARCH_HOME/conf/$COLLECTION_NAME/stencils.filter.scraper.metadata_scraper.json```
 
 This file needs to contain a JSON object specifying how the metadata scraper should run in the following format:
 
