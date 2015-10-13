@@ -67,10 +67,7 @@
 	@requires OpenSearch
 -->
 <#macro OpenSearchTitle><#compress>
- <#local title><#nested></#local>
-	<#if ! title?? || title == "">
-		"Search " + ${question.collection.configuration.value("service_name")}
-	</#if>
+	Search ${question.collection.configuration.value("service_name")}
 </#compress></#macro>
 
 <#---
