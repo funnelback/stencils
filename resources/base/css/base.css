@@ -22,10 +22,11 @@
 /* Show any hidden progressive disclosure elements*/
 .panel-highlight.progressive-disclosure .pd-hide {
 	opacity: 1;
-	transition-property: none;
-	-webkit-transition-property: none; /* Safari */
-	-moz-transition-property: none; /* FF */
-	-o-transition-property:none;/* Opera */
+	transition-property: all;
+	-webkit-transition-property: all; /* Safari */
+	-moz-transition-property: all; /* FF */
+	-o-transition-property: all;/* Opera */
+
 }
 
 @-webkit-keyframes popOut {
@@ -62,10 +63,10 @@
 /* Progressive discolure */
 .progressive-disclosure .pd-hide {
 	opacity: 0;
-  transition-property: opacity;
-	-webkit-transition-property: opacity; /* Safari */
-	-moz-transition-property: opacity; /* FF */
-	-o-transition-property: opacity; /* Opera */
+  transition-property: all;
+	-webkit-transition-property: all; /* Safari */
+	-moz-transition-property: all; /* FF */
+	-o-transition-property: all; /* Opera */
 	transition-timing-function: ease-in-out;
 	-webkit-transition-timing-function: ease-in-out;
 	-moz-transition-timing-function: ease-in-out;
@@ -78,4 +79,5 @@
 	/* Show on hover*/
 	.progressive-disclosure:hover .pd-hide, .progressive-disclosure:focus .pd-hide  {
 		opacity: 1;
+
 	}

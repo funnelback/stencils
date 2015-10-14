@@ -69,7 +69,7 @@
 <#macro OpenSearchTitle><#compress>
  <#local title><#nested></#local>
 	<#if ! title?? || title == "">
-		"Search " + ${question.collection.configuration.value("service_name")}
+		Search  ${question.collection.configuration.value("service_name")}
 	</#if>
 </#compress></#macro>
 
@@ -1146,6 +1146,17 @@
 		<#nested>
 	</#if>
 </#macro>
+
+<#---
+	Display content if facetLabelName matches provided name.
+	@param name This is the name of the facetLabel to test for.
+	@requires Facet
+-->
+<#macro IsFacetLabel name=""><#compress>
+	<#if name = core_controller.facetLabel>
+		<#nested>
+	</#if>
+</#compress></#macro>
 
 <#---
 	Sets up the namespace variables to display the facet breadcrumb which
@@ -2382,6 +2393,7 @@
 	<#if .namespace.result.collapsed??>
 		<#assign collapsedUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${.namespace.result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
 		<#assign collapsedCount = .namespace.result.collapsed.count in .namespace>
+
 		<#nested>
 	</#if>
 </#macro>
@@ -2436,6 +2448,21 @@
 			${.namespace.collapsedCount}
 	</#if>
 </#compress></#macro>
+
+<#---
+	Gets the Collasped Results
+	@param column Test against which columns you want returned
+	@requires Collapsed
+-->
+<#macro CollapsedResults>
+	<#list .namespace.result.collapsed.results as result>
+		<#assign collapsedResult = result in .namespace >
+		<#nested>
+	</#list>
+</#macro>
+
+
+
 
 <#--- @end -->
 

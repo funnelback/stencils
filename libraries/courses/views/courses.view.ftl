@@ -1,3 +1,4 @@
+
 <#ftl encoding="utf-8" />
 <#---
 	 <p>Provides views for Courses components.</p>
@@ -179,24 +180,45 @@
 		<#-- Metadata summary based on fields mapped to the metadata "c" -->
 		<#if core_controller.result.metaData["c"]??><p><@core_controller.boldicize>${core_controller.result.metaData["c"]!}</@core_controller.boldicize></p></#if>
 
+
+
 		<#-- ResultCollaspe Generate the result collapsing link -->
 		<@core_controller.Collapsed>
-			<div class="search-collapsed">
-				<small>
-					<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-					<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
-						<!-- Message for exact count -->
-						<@core_controller.CollapsedLabel>
-							<@core_controller.CollapsedCount /> very similar results
-						</@core_controller.CollapsedLabel>
+		<div class="search-collapsed panel-group" id="accordion">
+		  <div class="panel panel-default">
+		    <div class="panel-heading">
+		      <h5 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
+							<small>
+							<!-- Message for exact count -->
+							<@core_controller.CollapsedLabel>
+								<@core_controller.CollapsedCount /> very similar courses
+							</@core_controller.CollapsedLabel>
 
-						<!-- Alternative message for approximate count -->
-						<@core_controller.CollapsedApproximateLabel>
-							About <@core_controller.CollapsedCount /> very similar results
-						</@core_controller.CollapsedApproximateLabel>
-					</a>
-				</small>
+							<!-- Alternative message for approximate count -->
+							<@core_controller.CollapsedApproximateLabel>
+								About <@core_controller.CollapsedCount /> very similar courses
+							</@core_controller.CollapsedApproximateLabel>
+							</small>
+						</a>
+					</h5>
+				</div>
+    		<div id="collapseOne" class="panel-collapse collapse">
+      		<div class="panel-body">
+						<div class="list-group ">
+							<@CollapsedResult />
+						</div>
+
+						<#if core_controller.collapsedCount?number gt core_controller.result.collapsed.results?size >
+						<div class="pull-right" style="margin-top:0.5em">
+							<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
+						</div>
+						</#if>
+					</div>
+				</div>
 			</div>
+		</div>
 		</@core_controller.Collapsed>
 		<#-- /ResultCollaspe -->
 
@@ -377,6 +399,7 @@
 										<@core_controller.CollapsedApproximateLabel>
 											About <@core_controller.CollapsedCount /> very similar results
 										</@core_controller.CollapsedApproximateLabel>
+
 									</a>
 								</small>
 							</div>
@@ -445,5 +468,32 @@
 </#macro>
 <#-- /ResultDefaultModal-->
 <#-- @end --><#-- / Category - Result -->
+
+<#-- @begin Result Collasping  -->
+<#---
+	View of a collasped result
+	-->
+<#macro CollapsedResult>
+	<@core_controller.CollapsedResults>
+	<a class="list-group-item col-md-3" data-mh="collapsed-result" href="${core_controller.collapsedResult.clickTrackingUrl}" title="${core_controller.collapsedResult.liveUrl}">
+		<#-- ResultTitle -->
+		<h6 class="list-group-item-heading">
+			<@core_controller.boldicize>
+				<@core_controller.Truncate length=70>${core_controller.collapsedResult.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+			</@core_controller.boldicize>
+		</h6>
+
+		<p class="list-group-item-text">
+			<#if core_controller.collapsedResult.metaData.stencilsCoursesCode??>
+			 <@core_controller.boldicize><small class="badge">${core_controller.collapsedResult.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
+			</#if>
+			<#if core_controller.collapsedResult.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
+				${core_controller.collapsedResult.metaData.stencilsCoursesLevel!}
+			</em></small></#if>
+		</p>
+	</a>
+	</@core_controller.CollapsedResults>
+</#macro>
+<#-- @end -->
 
 </#escape>

@@ -135,7 +135,8 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     var NAME = "clickable-panel";
     var ACTIVE_CLASS = "panel-highlight";
 
-    $("[data-"+ NAME +"]").click(function(){
+    $("[data-"+ NAME +"]").click(function(e){
+      // e.stopPropagation();
       var $panel = $(this);
       var isSelected = $panel.is("." + ACTIVE_CLASS);
       var group = $panel.data(NAME);

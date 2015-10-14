@@ -780,7 +780,7 @@
 <#macro SearchHistory>
 	<!-- core.controller.ftl :: SearchHistory -->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-		<div id="search-history" data-ng-cloak data-ng-show="isDisplayed('history')">
+		<div id="search-history-info" data-ng-cloak data-ng-show="isDisplayed('history')">
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideHistory()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
@@ -897,6 +897,12 @@
 						<@core_controller.Facet>
 							<#-- Display the facet name otherwise known as the heading -->
 							<@core_controller.FacetLabel />
+
+							<!-- Tooltips -->
+							<#-- Use to add tooltips for a specific facet label -->
+							<#-- <@core_controller.IsFacetLabel name="...Enter facet label name Here...">
+								<@base_view.HelpToolTip>...Enter tooltip text here ...</@base_view.HelpToolTip>
+							</@core_controller.IsFacetLabel> -->
 
 							<#--
 								Display the summary. In this case, it is the clear all link which removes
