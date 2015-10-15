@@ -84,15 +84,25 @@
 -->
 <#macro Result>
 <!-- base.view.ftl :: ResultPanel -->
-<div class="panel panel-default progressive-disclosure" data-clickable-panel="result">
-	<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
+<div id="result-${core_controller.result.rank}" class="panel panel-default stencils-progressive-disclosure">
+	<div class="panel-heading stencils-clickable js-stencils-popout"
+		data-mh="group-heading-${base_controller.resultsColumnsIndex!}"
+		data-toggle="collapse" data-parent="[data-fb-result]" href="#result-open-${core_controller.result.rank}"
+		data-stencils-popout-target="#result-${core_controller.result.rank}" data-stencils-popout-group="results" >
 		<#-- ResultTitle -->
+
+		<div class="pull-right
+			stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected
+			stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
+				 <span class="stencils-popout__hide-when-selected">Expand</span>
+				 <span class="stencils-hide stencils-popout__show-when-selected">Close</span>
+				 <i class="fa fa-expand"></i> 
+		</div>
+
 		<h4>
-			<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
 				<@core_controller.boldicize>
 					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
 				</@core_controller.boldicize>
-			</a>
 				<#if core_controller.result.metaData.stencilsCoursesCode??>
 				 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
 				</#if>
@@ -103,8 +113,27 @@
 
 		<#-- /ResultTitle -->
 	</div>
+
 	<#-- /panel-heading -->
 	<div class="panel-body" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
+		<#-- Display the result summary -->
+		<#if core_controller.result.summary??>
+			<p>
+				<span class="search-summary">
+					<@core_controller.boldicize>
+						<#noescape>
+							${core_controller.result.summary}
+						</#noescape>
+					</@core_controller.boldicize>
+				</span>
+			</p>
+		</#if>
+
+		<#-- Metadata summary based on fields mapped to the metadata "c" -->
+		<#if core_controller.result.metaData["c"]??><p><@core_controller.boldicize>${core_controller.result.metaData["c"]!}</@core_controller.boldicize></p></#if>
+
+	</div>
+	<div id="result-open-${core_controller.result.rank}" class="panel-body panel-collapse collapse" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
 
 		<#-- Course details -->
 		<div class="text-muted">
@@ -164,23 +193,6 @@
 		</@core_controller.Quicklinks>
 		<#--	/ResultQuicklinks -->
 
-		<#-- Display the result summary -->
-		<#if core_controller.result.summary??>
-			<p>
-				<span class="search-summary">
-					<@core_controller.boldicize>
-						<#noescape>
-							${core_controller.result.summary}
-						</#noescape>
-					</@core_controller.boldicize>
-				</span>
-			</p>
-		</#if>
-
-		<#-- Metadata summary based on fields mapped to the metadata "c" -->
-		<#if core_controller.result.metaData["c"]??><p><@core_controller.boldicize>${core_controller.result.metaData["c"]!}</@core_controller.boldicize></p></#if>
-
-
 
 		<#-- ResultCollaspe Generate the result collapsing link -->
 		<@core_controller.Collapsed>
@@ -224,61 +236,62 @@
 
 	</div>
 	<#-- /panel-body -->
-	<div class="panel-footer pd-hide print-friendly-hide">
-		<#--	Result tools -->
-		<div class="btn-group">
+	<div class="panel-footer print-friendly-hide">
+		<div class="stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
+			<#--	Result tools -->
 			<div class="btn-group">
-				<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
-					<span class="sr-only">Result tools</span>
-				</button>
-				<ul class="dropdown-menu">
-					<li>
-						<#-- General the cache link which is used to display the version of the document when it was crawled -->
-						<#if core_controller.result.cacheUrl??>
-							<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
-						</#if>
-					</li>
-					<#-- Generate the explore url which is used to find similar results -->
-					<@core_controller.Explore>
+				<div class="btn-group">
+					<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+						<span class="sr-only">Result tools</span>
+					</button>
+					<ul class="dropdown-menu">
 						<li>
-							<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+							<#-- General the cache link which is used to display the version of the document when it was crawled -->
+							<#if core_controller.result.cacheUrl??>
+								<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
+							</#if>
 						</li>
-					</@core_controller.Explore>
-					<#-- Show the optimise button when viewed from the admin UI -->
-					<@core_controller.Optimise>
-						<li>
-							<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
-								Optimise
-							</a>
-						</li>
-					</@core_controller.Optimise>
-				</ul>
-			</div>
+						<#-- Generate the explore url which is used to find similar results -->
+						<@core_controller.Explore>
+							<li>
+								<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+							</li>
+						</@core_controller.Explore>
+						<#-- Show the optimise button when viewed from the admin UI -->
+						<@core_controller.Optimise>
+							<li>
+								<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
+									Optimise
+								</a>
+							</li>
+						</@core_controller.Optimise>
+					</ul>
+				</div>
 
-			<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-				<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
-					<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
+				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+					<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
+						<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
+					</button>
+				</#if>
+
+				<#-- Open modal -->
+				<button class="btn btn-default" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
+					<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
 				</button>
-			</#if>
 
-			<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-				<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
-			</a>
+				<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+					<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
+						<small class="text-warning">
+							<span class="glyphicon glyphicon-time"></span>
+							Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+						</small>
+					</a>
+				</#if>
 
-			<#-- Open modal -->
-			<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-				<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
-			</button>
-
-			<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-				<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
-					<small class="text-warning">
-						<span class="glyphicon glyphicon-time"></span>
-						Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
-					</small>
+				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
+					<i class="fa fa-external-link"></i> <span >View Course</span>
 				</a>
-			</#if>
-
+			</div><#-- /Wrapper for Progressive discolure -->
 		</div>
 		<#-- /ResultTools -->
 	</div>
