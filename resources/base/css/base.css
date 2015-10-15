@@ -135,3 +135,35 @@
 	{
 		opacity: 1;
 	}
+
+	/*------------------------------------*\
+      #BOOSTRAP extended
+ 		 These classes extend boostrap
+
+  \*------------------------------------*/
+/*
+	Use to nest multiple panel bodies into one panel
+*/
+.panel-body.no-padding-bottom {
+	padding-bottom: 0 ;
+}
+
+.panel-body.no-padding-top {
+	padding-top: 0 ;
+}
+
+.panel-heading.no-padding {
+	padding: 0;
+}
+
+.panel-heading > /*a.*/.panel-heading-clickable {
+	padding: 10px 15px;
+	display: block;
+	color: inherit;
+}
+
+.panel-heading > /*a.*/.panel-heading-clickable:hover,
+.panel-heading > /*a.*/.panel-heading-clickable:active {
+	text-decoration: none;
+	background-color: #E6E4E4;
+}

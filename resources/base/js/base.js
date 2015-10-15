@@ -167,8 +167,6 @@ stencils.module.base = (function ($, window, stencils, undefined) {
           $groupBlock.data(NAME + "-selected","false");
         });
 
-        console.log(selected);
-
         if( selected === "false" ) {
           $clickBlock.data(NAME+ "-selected","true");
           $target

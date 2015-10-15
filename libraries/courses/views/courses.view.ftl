@@ -85,37 +85,37 @@
 <#macro Result>
 <!-- base.view.ftl :: ResultPanel -->
 <div id="result-${core_controller.result.rank}" class="panel panel-default stencils-progressive-disclosure">
-	<div class="panel-heading stencils-clickable js-stencils-popout"
-		data-mh="group-heading-${base_controller.resultsColumnsIndex!}"
-		data-toggle="collapse" data-parent="[data-fb-result]" href="#result-open-${core_controller.result.rank}"
-		data-stencils-popout-target="#result-${core_controller.result.rank}" data-stencils-popout-group="results" >
+	<div class="panel-heading no-padding" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
+		<a class="js-stencils-popout panel-heading-clickable"
+			data-toggle="collapse" data-parent="[data-fb-result]" href="#result-open-${core_controller.result.rank}"
+			data-stencils-popout-target="#result-${core_controller.result.rank}" data-stencils-popout-group="results" >
 		<#-- ResultTitle -->
 
-		<div class="pull-right
-			stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected
-			stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
-				 <span class="stencils-popout__hide-when-selected">Expand</span>
-				 <span class="stencils-hide stencils-popout__show-when-selected">Close</span>
-				 <i class="fa fa-expand"></i> 
-		</div>
+			<div class="pull-right
+				stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected
+				stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
+					 <span class="stencils-popout__hide-when-selected">Expand</span>
+					 <span class="stencils-hide stencils-popout__show-when-selected">Close</span>
+					 <i class="fa fa-expand"></i>
+			</div>
 
-		<h4>
-				<@core_controller.boldicize>
-					<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
-				</@core_controller.boldicize>
-				<#if core_controller.result.metaData.stencilsCoursesCode??>
-				 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
-				</#if>
-		</h4>
-		<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-			${core_controller.result.metaData.stencilsCoursesLevel!}
-		</em></small></#if>
-
+			<h4>
+					<@core_controller.boldicize>
+						<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+					</@core_controller.boldicize>
+					<#if core_controller.result.metaData.stencilsCoursesCode??>
+					 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
+					</#if>
+			</h4>
+			<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
+				${core_controller.result.metaData.stencilsCoursesLevel!}
+			</em></small></#if>
+		</a>
 		<#-- /ResultTitle -->
 	</div>
 
 	<#-- /panel-heading -->
-	<div class="panel-body" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
+	<div class="panel-body no-padding-bottom" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
 		<#-- Display the result summary -->
 		<#if core_controller.result.summary??>
 			<p>
@@ -133,7 +133,8 @@
 		<#if core_controller.result.metaData["c"]??><p><@core_controller.boldicize>${core_controller.result.metaData["c"]!}</@core_controller.boldicize></p></#if>
 
 	</div>
-	<div id="result-open-${core_controller.result.rank}" class="panel-body panel-collapse collapse" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
+
+	<div id="result-open-${core_controller.result.rank}" class="panel-body panel-collapse collapse">
 
 		<#-- Course details -->
 		<div class="text-muted">
@@ -192,56 +193,53 @@
 			</#if>
 		</@core_controller.Quicklinks>
 		<#--	/ResultQuicklinks -->
+	</div>
+	<#-- /panel-body -->
 
-
+	<div class="panel-body no-padding-top">
 		<#-- ResultCollaspe Generate the result collapsing link -->
 		<@core_controller.Collapsed>
-		<div class="search-collapsed panel-group" id="accordion">
-		  <div class="panel panel-default">
-		    <div class="panel-heading">
-		      <h5 class="panel-title">
-		        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-							<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-							<small>
-							<!-- Message for exact count -->
-							<@core_controller.CollapsedLabel>
-								<@core_controller.CollapsedCount /> very similar courses
-							</@core_controller.CollapsedLabel>
+		<div class="search-collapsed" id="search-collapsed-${core_controller.result.rank}">
 
-							<!-- Alternative message for approximate count -->
-							<@core_controller.CollapsedApproximateLabel>
-								About <@core_controller.CollapsedCount /> very similar courses
-							</@core_controller.CollapsedApproximateLabel>
-							</small>
-						</a>
-					</h5>
-				</div>
-    		<div id="collapseOne" class="panel-collapse collapse">
-      		<div class="panel-body">
-						<div class="list-group ">
-							<@CollapsedResult />
-						</div>
+      <h5>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
+					<small>
+					<!-- Message for exact count -->
+					<@core_controller.CollapsedLabel>
+						<@core_controller.CollapsedCount /> very similar courses
+					</@core_controller.CollapsedLabel>
 
-						<#if core_controller.collapsedCount?number gt core_controller.result.collapsed.results?size >
-						<div class="pull-right" style="margin-top:0.5em">
-							<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
-						</div>
-						</#if>
-					</div>
+					<!-- Alternative message for approximate count -->
+					<@core_controller.CollapsedApproximateLabel>
+						About <@core_controller.CollapsedCount /> very similar courses
+					</@core_controller.CollapsedApproximateLabel>
+					</small>
+				</a>
+			</h5>
+
+  		<div id="collapseOne" class="panel-collapse collapse">
+				<div class="list-group ">
+					<@CollapsedResult />
 				</div>
+
+				<#if core_controller.collapsedCount?number gt core_controller.result.collapsed.results?size >
+				<div class="pull-right" style="margin-top:0.5em">
+					<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
+				</div>
+				</#if>
 			</div>
 		</div>
 		</@core_controller.Collapsed>
 		<#-- /ResultCollaspe -->
-
 	</div>
-	<#-- /panel-body -->
+
 	<div class="panel-footer print-friendly-hide">
 		<div class="stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
 			<#--	Result tools -->
 			<div class="btn-group">
 				<div class="btn-group">
-					<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+					<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 						<span class="sr-only">Result tools</span>
 					</button>
 					<ul class="dropdown-menu">
@@ -305,7 +303,7 @@
 -->
 <#macro ResultModal>
 	<!-- base.view.ftl :: ResultDefaultModal -->
-		<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-labelledby="result-modal-${core_controller.result.rank!}" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -424,7 +422,7 @@
 						<#--	Result tools -->
 						<div class="btn-group">
 							<div class="btn-group">
-								<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+								<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 									<span class="sr-only">Result tools</span>
 								</button>
 								<ul class="dropdown-menu">

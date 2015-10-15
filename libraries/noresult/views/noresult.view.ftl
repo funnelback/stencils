@@ -52,6 +52,7 @@
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
+
 <#macro Content>
 	<@core_view.NoResultSummary />
 	<@noresult_controller.NoResult>
@@ -84,7 +85,11 @@
 
 <#macro Aside>
 	<@noresult_controller.NoResult>
-		<@core_view.Facets />
+		<#--
+		 	Do not use facets for now as this will not work as intended see
+			https://jira.cbr.au.funnelback.com/browse/FUNNELAPPS-183
+		-->
+		<#-- <@core_view.Facets /> -->
 	</@noresult_controller.NoResult>
 </#macro>
 
