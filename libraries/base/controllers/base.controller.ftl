@@ -10,6 +10,7 @@
 		<li><strong>Facets:</strong> Faceted navigation, search breadcrumbs.</li>
 		<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
 		<li><strong>Result:</strong> Result helpers e.g. panels ...</li>
+		<li><strong>Share Tools:</strong> Email and social sharing buttons.</li>
 	</ul>
 -->
 <#escape x as x?html>
@@ -463,5 +464,25 @@
 	</#if>
 </#macro>
 <#-- @end --><#-- / Category - Result -->
+
+
+<#-- @begin Share Tools  -->
+<#---
+	Constructor for share tools
+-->
+<#macro ShareTools>
+<#if question.collection.configuration.value("stencils.base.result.share_tools") = "enabled" >
+	<#assign shareToolsID in .namespace><@ShareToolsID /></#assign>
+	<#nested>
+</#if>
+</#macro>
+
+<#--
+	Get the ID for the share tools plugin
+ -->
+<#macro ShareToolsID><#compress>
+${question.collection.configuration.value("stencils.base.result.share_tools.id")}
+</#compress></#macro>
+<#-- @end --><#-- / Category - Share tools -->
 
 </#escape>

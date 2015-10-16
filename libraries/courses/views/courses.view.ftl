@@ -116,6 +116,7 @@
 
 	<#-- /panel-heading -->
 	<div class="panel-body no-padding-bottom" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
+
 		<#-- Display the result summary -->
 		<#if core_controller.result.summary??>
 			<p>
@@ -235,9 +236,9 @@
 	</div>
 
 	<div class="panel-footer print-friendly-hide">
-		<div class="stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
-			<#--	Result tools -->
-			<div class="btn-group">
+		<#--	Result tools -->
+		<div class="row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
+			<div class="btn-group col-md-8">
 				<div class="btn-group">
 					<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 						<span class="sr-only">Result tools</span>
@@ -289,11 +290,15 @@
 				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
 					<i class="fa fa-external-link"></i> <span >View Course</span>
 				</a>
-			</div><#-- /Wrapper for Progressive discolure -->
-		</div>
-		<#-- /ResultTools -->
-	</div>
-	<#-- /panel-footer -->
+			</div>
+			<#-- /ResultTools -first column -->
+
+			<div class="col-md-4">
+				<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.metaData.stencilsCoursesName! />
+			</div>
+			<#-- /ResultTools - second column -->
+		</div><#-- / ResultTools - Wrapper for Progressive discolure -->
+	</div><#-- /panel-footer -->
 </div>
 </#macro>
 <#-- /ResultPanel-->
@@ -302,180 +307,185 @@
 	Template view for search result modal.
 -->
 <#macro ResultModal>
-	<!-- base.view.ftl :: ResultDefaultModal -->
-		<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-labelledby="result-modal-${core_controller.result.rank!}" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<#-- ResultTitle -->
-						<h4>
-							<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-								${core_controller.result.metaData.stencilsCoursesName!}
-							</a>
-								<#if core_controller.result.metaData.stencilsCoursesCode??>
-								 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small>
-								</#if>
-						</h4>
-						<#-- /ResultTitle -->
-					</div>
-					<div class="modal-body">
-						<#-- Course details -->
-						<div class="text-muted">
-							<small>Study</small>
-
-							<#if core_controller.result.metaData.stencilsCoursesMode??>
-							<small>
-								 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
-							</small>
-							</#if>
-
-							<#if core_controller.result.metaData.stencilsCoursesCampus??>
-							<small>
-								at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
-							</small>
-							</#if>
-
-							<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
-								<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
-							</em></small></#if>
-						</div>
-
-						<#-- ResultThumbnail -->
-						<#if core_controller.result.metaData.stencilsCoreThumbnailUrl?? >
-							<img src="${core_controller.result.metaData.stencilsCoreThumbnailUrl!}" class="stencils-core-result-thumbnail pull-right" alt="${core_controller.result.metaData.c!}" />
+<!-- base.view.ftl :: ResultDefaultModal -->
+<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-labelledby="result-modal-${core_controller.result.rank!}" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+				<#-- ResultTitle -->
+				<h4>
+					<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
+						${core_controller.result.metaData.stencilsCoursesName!}
+					</a>
+						<#if core_controller.result.metaData.stencilsCoursesCode??>
+						 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small>
 						</#if>
-						<#-- /ResultThumbnail -->
+				</h4>
+				<#-- /ResultTitle -->
+			</div>
+			<div class="modal-body">
+				<#-- Course details -->
+				<div class="text-muted">
+					<small>Study</small>
 
-						<#--	ResultQuicklinks -->
-						<@core_controller.Quicklinks>
-							<ul class="list-inline">
-									<@core_controller.QuickRepeat><li><a href="${core_controller.ql.url}" title="${core_controller.ql.text}">${core_controller.ql.text}</a></li></@core_controller.QuickRepeat>
-							</ul>
-							<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
-							&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
-								<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-									<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-											<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-											<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-											<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-											<div class="row">
-												<div class="col-md-4">
-												<div class="input-group input-sm">
-													<input required title="Search query" name="query" type="text" class="form-control" placeholder="Search ${core_controller.result.quickLinks.domain}&hellip;">
-													<div class="input-group-btn">
-														<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
-													</div>
-												</div>
+					<#if core_controller.result.metaData.stencilsCoursesMode??>
+					<small>
+						 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
+					</small>
+					</#if>
+
+					<#if core_controller.result.metaData.stencilsCoursesCampus??>
+					<small>
+						at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
+					</small>
+					</#if>
+
+					<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
+						<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
+					</em></small></#if>
+				</div>
+
+				<#-- ResultThumbnail -->
+				<#if core_controller.result.metaData.stencilsCoreThumbnailUrl?? >
+					<img src="${core_controller.result.metaData.stencilsCoreThumbnailUrl!}" class="stencils-core-result-thumbnail pull-right" alt="${core_controller.result.metaData.c!}" />
+				</#if>
+				<#-- /ResultThumbnail -->
+
+				<#--	ResultQuicklinks -->
+				<@core_controller.Quicklinks>
+					<ul class="list-inline">
+							<@core_controller.QuickRepeat><li><a href="${core_controller.ql.url}" title="${core_controller.ql.text}">${core_controller.ql.text}</a></li></@core_controller.QuickRepeat>
+					</ul>
+					<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
+					&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
+						<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
+							<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
+									<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+									<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
+									<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
+									<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
+									<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+									<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+									<div class="row">
+										<div class="col-md-4">
+										<div class="input-group input-sm">
+											<input required title="Search query" name="query" type="text" class="form-control" placeholder="Search ${core_controller.result.quickLinks.domain}&hellip;">
+											<div class="input-group-btn">
+												<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 											</div>
 										</div>
-									</form>
-								</#if>
-							</#if>
-						</@core_controller.Quicklinks>
-						<#--	/ResultQuicklinks -->
-
-						<#-- Display the result summary -->
-						<#if core_controller.result.summary??>
-						<div class="search-summary">
-								<#noescape>
-									<@base_controller.Linkify>${core_controller.result.summary}</@base_controller.Linkify>
-								</#noescape>
-						</div>
+									</div>
+								</div>
+							</form>
 						</#if>
+					</#if>
+				</@core_controller.Quicklinks>
+				<#--	/ResultQuicklinks -->
 
-						<#-- Metadata summary based on fields mapped to the metadata "c" -->
-						<#if core_controller.result.metaData["c"]??>
-						<div class="search-summary">
-								<#noescape>
-									<@base_controller.Linkify>${core_controller.result.metaData["c"]}</@base_controller.Linkify>
-								</#noescape>
-						</div>
-						</#if>
+				<#-- Display the result summary -->
+				<#if core_controller.result.summary??>
+				<div class="search-summary">
+						<#noescape>
+							<@base_controller.Linkify>${core_controller.result.summary}</@base_controller.Linkify>
+						</#noescape>
+				</div>
+				</#if>
 
-						<#-- ResultCollaspe Generate the result collapsing link -->
-						<@core_controller.Collapsed>
-							<div class="search-collapsed">
-								<small>
-									<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-									<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
-										<!-- Message for exact count -->
-										<@core_controller.CollapsedLabel>
-											<@core_controller.CollapsedCount /> very similar results
-										</@core_controller.CollapsedLabel>
+				<#-- Metadata summary based on fields mapped to the metadata "c" -->
+				<#if core_controller.result.metaData["c"]??>
+				<div class="search-summary">
+						<#noescape>
+							<@base_controller.Linkify>${core_controller.result.metaData["c"]}</@base_controller.Linkify>
+						</#noescape>
+				</div>
+				</#if>
 
-										<!-- Alternative message for approximate count -->
-										<@core_controller.CollapsedApproximateLabel>
-											About <@core_controller.CollapsedCount /> very similar results
-										</@core_controller.CollapsedApproximateLabel>
+				<#-- ResultCollaspe Generate the result collapsing link -->
+				<@core_controller.Collapsed>
+					<div class="search-collapsed">
+						<small>
+							<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
+							<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
+								<!-- Message for exact count -->
+								<@core_controller.CollapsedLabel>
+									<@core_controller.CollapsedCount /> very similar results
+								</@core_controller.CollapsedLabel>
 
-									</a>
-								</small>
-							</div>
-						</@core_controller.Collapsed>
-						<#-- /ResultCollaspe -->
+								<!-- Alternative message for approximate count -->
+								<@core_controller.CollapsedApproximateLabel>
+									About <@core_controller.CollapsedCount /> very similar results
+								</@core_controller.CollapsedApproximateLabel>
 
-					</div>
-					<div class="modal-footer">
-						<#--	Result tools -->
-						<div class="btn-group">
-							<div class="btn-group">
-								<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
-									<span class="sr-only">Result tools</span>
-								</button>
-								<ul class="dropdown-menu">
-									<li>
-										<#-- General the cache link which is used to display the version of the document when it was crawled -->
-										<#if core_controller.result.cacheUrl??>
-											<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
-										</#if>
-									</li>
-									<#-- Generate the explore url which is used to find similar results -->
-									<@core_controller.Explore>
-										<li>
-											<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
-										</li>
-									</@core_controller.Explore>
-									<#-- Show the optimise button when viewed from the admin UI -->
-									<@core_controller.Optimise>
-										<li>
-											<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
-												Optimise
-											</a>
-										</li>
-									</@core_controller.Optimise>
-								</ul>
-							</div>
-
-							<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-								<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
-									<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
-								</button>
-							</#if>
-
-							<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-								<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 							</a>
-
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-							<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-								<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
-									<small class="text-warning">
-										<span class="glyphicon glyphicon-time"></span>
-										Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
-									</small>
-								</a>
-							</#if>
-
-						</div>
-						<#-- /ResultTools -->
+						</small>
 					</div>
-				</div><#-- /modal-content-->
-			</div><#-- /modal-dialog -->
-		</div><#-- /modal -->
+				</@core_controller.Collapsed>
+				<#-- /ResultCollaspe -->
+			</div>
+			<#-- /Modal Body -->
+
+			<div class="modal-footer">
+				<#--	Result tools -->
+				<div class="row">
+					<div class="col-md-8 btn-group">
+						<div class="btn-group">
+							<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+								<span class="sr-only">Result tools</span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<#-- General the cache link which is used to display the version of the document when it was crawled -->
+									<#if core_controller.result.cacheUrl??>
+										<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
+									</#if>
+								</li>
+								<#-- Generate the explore url which is used to find similar results -->
+								<@core_controller.Explore>
+									<li>
+										<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+									</li>
+								</@core_controller.Explore>
+								<#-- Show the optimise button when viewed from the admin UI -->
+								<@core_controller.Optimise>
+									<li>
+										<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
+											Optimise
+										</a>
+									</li>
+								</@core_controller.Optimise>
+							</ul>
+						</div>
+
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+							<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
+								<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
+							</button>
+						</#if>
+
+						<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
+							<i class="fa fa-external-link"></i> <span >View Course</span>
+						</a>
+
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+							<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
+								<small class="text-warning">
+									<span class="glyphicon glyphicon-time"></span>
+									Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+								</small>
+							</a>
+						</#if>
+					</div>
+					<#-- /ResultTools -first column -->
+					<div class="col-md-4">
+						<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.metaData.stencilsCoursesName! />
+					</div>
+					<#-- /ResultTools - second column -->
+				</div> <#-- /ResultTools - Wrapper-->
+			</div><#-- /ResultTools -->
+		</div><#-- /modal-content-->
+	</div><#-- /modal-dialog -->
+</div><#-- /modal -->
 </#macro>
 <#-- /ResultDefaultModal-->
 <#-- @end --><#-- / Category - Result -->

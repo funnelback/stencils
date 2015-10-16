@@ -13,6 +13,7 @@
 			<li><strong>Results:</strong> Results wrapper views </li>
 			<li><strong>Result:</strong> Result views e.g. panels ...</li>
 			<li><strong>Print:</strong> Views for print buttons, and print friendly view.</li>
+			<li><strong>Share Tools:</strong> Email and social sharing buttons.</li>
 		</ul>
 -->
 <#escape x as x?html>
@@ -769,6 +770,34 @@
 </#macro>
 <#-- @end --><#-- / Category - Compare -->
 
+<#-- @begin Share Tools  -->
+<#---
+	Scripts to get share tools working.
+  -->
+<#macro ShareToolsScripts>
+	<@base_controller.ShareTools>
+		<!-- base.view.ftl :: ShareToolsScripts -->
+		<#-- Addthis tool https://www.addthis.com/ -->
+		<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=${base_controller.shareToolsID}" async="async"></script>
+	</@base_controller.ShareTools>
+</#macro>
+
+<#---
+	Scripts to get share tools working.
+
+	@param url {string} The full URL to share
+	@param title {string} The text to use as the title for the share.
+  -->
+<#macro ShareTools url title>
+	<@base_controller.ShareTools>
+		<!-- base.view.ftl :: ShareTools -->
+		<#-- Addthis tool https://www.addthis.com/ -->
+		<div class="addthis_sharing_toolbox pull-right" <#if url??>data-url="${url!}"</#if> <#if title??>data-title="${title}"</#if>></div>
+	</@base_controller.ShareTools>
+</#macro>
+
+
+<#-- @end --><#-- / Category - Share tools -->
 
 
 
