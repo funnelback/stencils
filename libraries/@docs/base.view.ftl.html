@@ -65,7 +65,7 @@
 <div id="page-contents">
     <h3>Description</h3><br />
     
-         This contains basic utility views which can be used across all stencils and general implementations. <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options for Base Stencil.</li> <li><strong>General:</strong> General search helpers.</li> <li><strong>Search forms:</strong> Advanced search form, simple search form ....</li> <li><strong>Sessions:</strong> Favorites/Cart, search history.</li> <li><strong>Facets:</strong> Faceted navigation, search breadcrumbs, spelling suggestions</li> <li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li> <li><strong>Results:</strong> Results wrapper views </li> <li><strong>Result:</strong> Result views e.g. panels ...</li> <li><strong>Print:</strong> Views for print buttons, and print friendly view.</li> </ul>
+         This contains basic utility views which can be used across all stencils and general implementations. <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options for Base Stencil.</li> <li><strong>General:</strong> General search helpers.</li> <li><strong>Search forms:</strong> Advanced search form, simple search form ....</li> <li><strong>Sessions:</strong> Favorites/Cart, search history.</li> <li><strong>Facets:</strong> Faceted navigation, search breadcrumbs, spelling suggestions</li> <li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li> <li><strong>Results:</strong> Results wrapper views </li> <li><strong>Result:</strong> Result views e.g. panels ...</li> <li><strong>Print:</strong> Views for print buttons, and print friendly view.</li> <li><strong>Share Tools:</strong> Email and social sharing buttons.</li> </ul>
     
     
 </div>
@@ -244,6 +244,31 @@
                 </td>
             </tr>
 
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HelpToolTip">HelpToolTip</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 A help tooltip
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
             
                 <tr>
                     <td>
@@ -624,6 +649,72 @@
         
         
         
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Share Tools</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ShareTools">ShareTools</a></strong>
+                                </code>
+                                
+    
+        
+            <code>url</code>
+        
+            <code>title</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Scripts to get share tools working.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ShareToolsScripts">ShareToolsScripts</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Scripts to get share tools working.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
 </table>
 
 
@@ -804,6 +895,64 @@
 
 
 <span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${baseResourcesPrefix}</span><span class="textblock">css/base.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">bootstrap/v3.3.5/css/bootstrap.min.css&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">font-awesome/v4.3.0/css/font-awesome.min.css&quot;&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HelpToolTip">HelpToolTip</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 A help tooltip
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HelpToolTip');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HelpToolTip">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HelpToolTip&gt;</span><span class="textblock"><br>&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;HelpToolTip&nbsp;--&gt;<br></span><span class="directive">&lt;#local&nbsp;nestedClean&gt;</span><span class="userdirective">&lt;@core_controller.StripHtml&gt;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="userdirective">&lt;/@core_controller.StripHtml&gt;</span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;#&quot;&nbsp;data-toggle=&quot;tooltip&quot;&nbsp;title=&quot;</span><span class="interpolation">${nestedClean}</span><span class="textblock">&quot;&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-question-circle&quot;&gt;&lt;/i&gt;&nbsp;&lt;span&nbsp;class=&quot;sr-only&quot;&gt;Help&lt;/span&gt;&lt;/a&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;Generated&nbsp;markup&nbsp;by&nbsp;the&nbsp;plugin&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;tooltip&nbsp;top&quot;&nbsp;role=&quot;tooltip&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;tooltip-arrow&quot;&gt;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;tooltip-inner&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 
@@ -1674,6 +1823,137 @@
 
 
 <span class="directive">&lt;#macro&nbsp;ResultsViewSelectorView&gt;</span><span class="textblock"><br>&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;ResultsViewSelectorView&nbsp;--&gt;<br></span><span class="userdirective">&lt;@core_controller.Select&nbsp;name=&quot;resultsView&quot;&nbsp;options=[&quot;=List&quot;,&nbsp;&quot;grid=Grid&quot;]&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&nbsp;class=&quot;label&nbsp;label-default&quot;&gt;View&lt;/span&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;name=&quot;ResultsViewSelectorSort&quot;&nbsp;id=&quot;ResultsViewSelectorSort&quot;&nbsp;class=&quot;btn-group&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@core_controller.SelectOptions&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#switch&nbsp;core_controller.selectOptionValue&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#case&nbsp;&quot;grid&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;icon&gt;</span><span class="textblock">&lt;span&nbsp;class=&quot;glyphicon&nbsp;glyphicon-th&quot;&gt;&lt;/span&gt;</span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;href&gt;</span><span class="userdirective">&lt;@base_controller.CreateSearchUrl&nbsp;cgis=[&quot;${core_controller.selectName}=${core_controller.selectOptionValue}&quot;,&quot;num_ranks=${base_controller.setResultsLimitGrid(10)}&quot;]&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#case&nbsp;&quot;&quot;&gt;</span><span class="textblock">&nbsp;</span><span class="comment">&lt;#--&nbsp;Case&nbsp;List&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#default&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;icon&gt;</span><span class="textblock">&lt;span&nbsp;class=&quot;glyphicon&nbsp;glyphicon-th-list&quot;&gt;</span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;href&gt;</span><span class="userdirective">&lt;@base_controller.CreateSearchUrl&nbsp;cgis=[&quot;${core_controller.selectName}=${core_controller.selectOptionValue}&quot;]&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#switch&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;class=&quot;btn&nbsp;btn-default&nbsp;</span><span class="userdirective">&lt;@core_controller.IsSelectOptionSelected&gt;</span><span class="textblock">active</span><span class="userdirective">&lt;/@core_controller.IsSelectOptionSelected&gt;</span><span class="textblock">&quot;&nbsp;href=&quot;</span><span class="interpolation">${href!}</span><span class="textblock">&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${icon!}</span><span class="textblock">&nbsp;</span><span class="userdirective">&lt;@core_controller.SelectOptionName&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@core_controller.SelectOptions&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br></span><span class="userdirective">&lt;/@core_controller.Select&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ShareTools">ShareTools</a></tt>
+            
+    
+        
+            <code>url</code>
+        
+            <code>title</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Scripts to get share tools working. 
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>url</code> - {string} The full URL to share<br>
+			
+				<code>title</code> - {string} The text to use as the title for the share.<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Share Tools</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ShareTools');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ShareTools">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ShareTools&nbsp;url&nbsp;title&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.ShareTools&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;ShareTools&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Addthis&nbsp;tool&nbsp;https://www.addthis.com/&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;addthis_sharing_toolbox&nbsp;pull-right&quot;&nbsp;</span><span class="directive">&lt;#if&nbsp;url??&gt;</span><span class="textblock">data-url=&quot;</span><span class="interpolation">${url!}</span><span class="textblock">&quot;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock">&nbsp;</span><span class="directive">&lt;#if&nbsp;title??&gt;</span><span class="textblock">data-title=&quot;</span><span class="interpolation">${title}</span><span class="textblock">&quot;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock">&gt;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@base_controller.ShareTools&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ShareToolsScripts">ShareToolsScripts</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Scripts to get share tools working. 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Share Tools</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ShareToolsScripts');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ShareToolsScripts">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ShareToolsScripts&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@base_controller.ShareTools&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;base.view.ftl&nbsp;::&nbsp;ShareToolsScripts&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Addthis&nbsp;tool&nbsp;https://www.addthis.com/&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/javascript&quot;&nbsp;src=&quot;//s7.addthis.com/js/300/addthis_widget.js#pubid=</span><span class="interpolation">${base_controller.shareToolsID}</span><span class="textblock">&quot;&nbsp;async=&quot;async&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@base_controller.ShareTools&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 

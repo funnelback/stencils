@@ -1,6 +1,6 @@
 <#ftl encoding="utf-8" />
 <#---
-	<p>Provides helpers for building courses Media components.</p>
+	<p>Provides helpers for building courses components.</p>
 	<p>This includes helpers for courses Media ... there is actually nothing useful in here for now.</p>
 -->
 <#escape x as x?html>
