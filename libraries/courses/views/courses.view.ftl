@@ -8,7 +8,7 @@
 	 <h2>Table of Contents</h2>
 	 <ul>
 		 <li><strong>Configuration:</strong> Configuration options.</li>
-		 <li><strong>Results:</strong></li>
+		 <li><strong>Result Course: Views for course type results.</strong></li>
 	 </ul>
 -->
 <#escape x as x?html>
@@ -45,6 +45,7 @@
  -->
 <#macro CSS>
 	<!-- courses.view.ftl :: CSS -->
+	<#-- This commented out because courses.css is not required currently -->
 	<#-- <link rel="stylesheet" href="${coursesResourcesPrefix}css/courses.css"> -->
 </#macro>
 
@@ -53,13 +54,14 @@
  -->
 <#macro JS>
 	<!-- courses.view.ftl :: JS -->
-	<#-- This commented out because stencils.courses.js is not required currently -->
+	<#-- This commented out because courses.js is not required currently -->
 	<#-- <script src="${coursesResourcesPrefix}js/stencils.courses.js"></script> -->
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
 
-<#-- @begin  Result -->
+<#-- @begin  Result (Course)  -->
+
 <#---
 	Template view for Search Result as a course.
 
@@ -529,6 +531,6 @@
 	</@core_controller.CollapsedResults>
 </#macro>
 <#-- @end -->
-
+<#--  / Catgegory - Result (Course)-->
 
 </#escape>
