@@ -471,7 +471,7 @@
 	Constructor for share tools
 -->
 <#macro ShareTools>
-<#if question.collection.configuration.value("stencils.base.result.share_tools") = "enabled" >
+<#if question.collection.configuration.value("stencils.base.share_tools") = "enabled" >
 	<#assign shareToolsID in .namespace><@ShareToolsID /></#assign>
 	<#nested>
 </#if>
@@ -481,7 +481,7 @@
 	Get the ID for the share tools plugin
  -->
 <#macro ShareToolsID><#compress>
-${question.collection.configuration.value("stencils.base.result.share_tools.id")}
+${question.collection.configuration.value("stencils.base.share_tools.id")}
 </#compress></#macro>
 <#-- @end --><#-- / Category - Share tools -->
 

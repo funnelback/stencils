@@ -755,7 +755,7 @@
 -->
 <#macro CompareBtn group="">
 	<!-- base.view.ftl :: CompareBtn -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=compare"]/>" data-compare-btn="${group}"><i class="fa fa-exchange"></i> Compare</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=compare"]/>" data-compare-btn="${group!}"><i class="fa fa-exchange"></i> Compare</a>
 </#macro>
 
 <#---
@@ -764,7 +764,7 @@
 <#macro CompareCheckbox value="" group="">
 	<!-- base.view.ftl :: CompareCheckbox -->
 	<label class="btn btn-default">
-    <input type="checkbox" value="${value}" data-compare-checkbox name="${group}"> <small>Select for comparison.</small>
+    <input type="checkbox" value="${value!}" data-compare-checkbox name="${group!}"> <small>Select for comparison.</small>
   </label>
 	<@CompareBtn group=group />
 </#macro>

@@ -2461,8 +2461,17 @@
 	</#list>
 </#macro>
 
-
-
+<#---
+	Displays content if Collasped Results has more results than set for display
+	in -collapsing_num_ranks setting.
+	@param negate set to true to reverse condition.
+	@requires CollapsedResults
+-->
+<#macro CollapsedResultsHasMoreResults negate=false>
+	<#if (.namespace.collapsedCount?number gt .namespace.result.collapsed.results?size) && (!negate) >
+		<#nested>
+	</#if>
+</#macro>
 
 <#--- @end -->
 

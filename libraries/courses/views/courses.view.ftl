@@ -86,11 +86,11 @@
 -->
 <#macro Result>
 <!-- base.view.ftl :: ResultPanel -->
-<div id="result-${core_controller.result.rank}" class="panel panel-default stencils-progressive-disclosure">
+<div id="result-${core_controller.result.rank!}" class="panel panel-default stencils-progressive-disclosure">
 	<div class="panel-heading no-padding" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 		<a class="js-stencils-popout panel-heading-clickable"
-			data-toggle="collapse" data-parent="[data-fb-result]" href="#result-open-${core_controller.result.rank}"
-			data-stencils-popout-target="#result-${core_controller.result.rank}" data-stencils-popout-group="results" >
+			data-toggle="collapse" data-parent="[data-fb-result]" href="#result-open-${core_controller.result.rank!}"
+			data-stencils-popout-target="#result-${core_controller.result.rank!}" data-stencils-popout-group="results" >
 		<#-- ResultTitle -->
 
 			<div class="pull-right
@@ -202,10 +202,10 @@
 	<div class="panel-body no-padding-top">
 		<#-- ResultCollaspe Generate the result collapsing link -->
 		<@core_controller.Collapsed>
-		<div class="search-collapsed" id="search-collapsed-${core_controller.result.rank}">
+		<div class="search-collapsed" id="search-collapsed-${core_controller.result.rank}!">
 
       <h5>
-        <a data-toggle="collapse" data-parent="#search-collapsed-${core_controller.result.rank}" href="#collapseOne-${core_controller.result.rank}">
+        <a data-toggle="collapse" data-parent="#search-collapsed-${core_controller.result.rank!}" href="#collapseOne-${core_controller.result.rank!}">
 					<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
 					<small>
 					<!-- Message for exact count -->
@@ -226,11 +226,11 @@
 					<@CollapsedResult />
 				</div>
 
-				<#if core_controller.collapsedCount?number gt core_controller.result.collapsed.results?size >
+				<@core_controller.CollapsedResultsHasMoreResults>
 				<div class="pull-right" style="margin-top:0.5em">
 					<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
 				</div>
-				</#if>
+				</@core_controller.CollapsedResultsHasMoreResults>
 			</div>
 		</div>
 		</@core_controller.Collapsed>
@@ -429,11 +429,11 @@
 							<@CollapsedResult />
 						</div>
 
-						<#if core_controller.collapsedCount?number gt core_controller.result.collapsed.results?size >
+						<@core_controller.CollapsedResultsHasMoreResults>
 						<div class="pull-right" style="margin-top:0.5em">
 							<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
 						</div>
-						</#if>
+						</@core_controller.CollapsedResultsHasMoreResults>
 					</div>
 				</div>
 				</@core_controller.Collapsed>
