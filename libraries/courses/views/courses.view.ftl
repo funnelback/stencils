@@ -120,12 +120,12 @@
 	<div class="panel-body no-padding-bottom" data-mh="group-body-${base_controller.resultsColumnsIndex!}">
 
 		<#-- Display the result summary -->
-		<#if core_controller.result.summary??>
+		<#if core_controller.result.summary?has_content>
 			<p>
 				<span class="search-summary">
 					<@core_controller.boldicize>
 						<#noescape>
-							${core_controller.result.summary}
+							<@core_controller.Truncate length=255>${core_controller.result.summary}</@core_controller.Truncate>
 						</#noescape>
 					</@core_controller.boldicize>
 				</span>
@@ -133,7 +133,7 @@
 		</#if>
 
 		<#-- Metadata summary based on fields mapped to the metadata "c" -->
-		<#if core_controller.result.metaData["c"]??><p><@core_controller.boldicize>${core_controller.result.metaData["c"]!}</@core_controller.boldicize></p></#if>
+		<#if core_controller.result.metaData["c"]?has_content><p><@core_controller.boldicize><@core_controller.Truncate length=255>${core_controller.result.metaData["c"]!}</@core_controller.Truncate></@core_controller.boldicize></p></#if>
 
 	</div>
 
