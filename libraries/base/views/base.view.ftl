@@ -742,9 +742,9 @@
 -->
 <#macro PrintMessage>
 	<!-- base.view.ftl :: PrintResults -->
-	<div class="msg screen-only">
+	<div class="stencils-print__msg stencils-print__screen-only">
 		<h2>Print friendly view</h2>
-		<button class="btn" data-print-btn>Print</button> <a class="btn" href="?${base_controller.removeParamWithValue(QueryString,"form","printFriendly")}">Return to search.</a>
+		<button class="stencils-print__btn" data-print-btn>Print</button> <a class="stencils-print__btn" href="?${base_controller.removeParamWithValue(QueryString,"form","printFriendly")}">Return to search</a>
 	</div>
 </#macro>
 <#-- @end --><#-- / Category - Print -->

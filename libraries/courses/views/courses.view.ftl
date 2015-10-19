@@ -93,7 +93,7 @@
 			data-stencils-popout-target="#result-${core_controller.result.rank!}" data-stencils-popout-group="results" >
 		<#-- ResultTitle -->
 
-			<div class="pull-right
+			<div class="stencils-print__hide pull-right
 				stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected
 				stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
 					 <span class="stencils-popout__hide-when-selected">Expand</span>
@@ -168,13 +168,13 @@
 
 		<#--	ResultQuicklinks -->
 		<@core_controller.Quicklinks>
-			<ul class="list-inline">
+			<ul class="list-inline stencils-print__hide">
 					<@core_controller.QuickRepeat><li><a href="${core_controller.ql.url}" title="${core_controller.ql.text}">${core_controller.ql.text}</a></li></@core_controller.QuickRepeat>
 			</ul>
 			<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 			&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 				<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-					<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
+					<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search" class="stencils-print__hide">
 							<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
 							<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
 							<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
@@ -202,7 +202,7 @@
 	<div class="panel-body no-padding-top">
 		<#-- ResultCollaspe Generate the result collapsing link -->
 		<@core_controller.Collapsed>
-		<div class="search-collapsed" id="search-collapsed-${core_controller.result.rank}!">
+		<div class="search-collapsed stencils-print__hide" id="search-collapsed-${core_controller.result.rank}!">
 
       <h5>
         <a data-toggle="collapse" data-parent="#search-collapsed-${core_controller.result.rank!}" href="#collapseOne-${core_controller.result.rank!}">
@@ -237,11 +237,11 @@
 		<#-- /ResultCollaspe -->
 	</div>
 
-	<div class="panel-footer print-friendly-hide">
+	<div class="panel-footer">
 		<#--	Result tools -->
 		<div class="row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
 			<div class="btn-group col-md-8">
-				<div class="btn-group">
+				<div class="btn-group stencils-print__hide">
 					<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 						<span class="sr-only">Result tools</span>
 					</button>
@@ -270,18 +270,18 @@
 				</div>
 
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-					<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
+					<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default stencils-print__hide">
 						<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to shortlist</span>
 					</button>
 				</#if>
 
 				<#-- Open modal -->
-				<button class="btn btn-default" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
+				<button class="btn btn-default stencils-print__hide" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
 					<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
 				</button>
 
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-					<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
+					<a title="Click history" href="#" class="text-warning btn btn-default stencils-print__hide" data-ng-click="toggleHistory()">
 						<small class="text-warning">
 							<span class="glyphicon glyphicon-time"></span>
 							Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
@@ -289,13 +289,13 @@
 					</a>
 				</#if>
 
-				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
+				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default stencils-print__show-title" title="'${core_controller.result.liveUrl!}'">
 					<i class="fa fa-external-link"></i> <span >View Course</span>
 				</a>
 			</div>
 			<#-- /ResultTools -first column -->
 
-			<div class="col-md-4">
+			<div class="col-md-4 stencils-print__hide">
 				<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.metaData.stencilsCoursesName! />
 			</div>
 			<#-- /ResultTools - second column -->
