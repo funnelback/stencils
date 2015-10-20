@@ -899,10 +899,13 @@
 							<@core_controller.FacetLabel />
 
 							<!-- Tooltips -->
-							<#-- Use to add tooltips for a specific facet label -->
-							<#-- <@core_controller.IsFacetLabel name="...Enter facet label name Here...">
-								<@base_view.HelpToolTip>...Enter tooltip text here ...</@base_view.HelpToolTip>
-							</@core_controller.IsFacetLabel> -->
+							<@core_controller.IsFacetLabel name="Author">
+								<@base_view.HelpToolTip>Filter by name of person who wrote the document.</@base_view.HelpToolTip>
+							</@core_controller.IsFacetLabel>
+
+							<@core_controller.IsFacetLabel name="Date">
+								<@base_view.HelpToolTip>Filter by published date of documents.</@base_view.HelpToolTip>
+							</@core_controller.IsFacetLabel>
 
 							<#--
 								Display the summary. In this case, it is the clear all link which removes
@@ -1487,7 +1490,7 @@
 	<#-- Displays the result title which can be used to navigate to the source page -->
 	<h4>
 		<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-			<a href="#" data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}">
+			<a href="#" data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="stencils-print__hide">
 				<small class="glyphicon glyphicon-{{css}}"></small>
 			</a>
 		</#if>
@@ -1499,7 +1502,7 @@
 			<small class="text-muted">${core_controller.result.fileType?upper_case} (${filesize(core_controller.result.fileSize!0)})</small>
 		</#if>
 		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-			<small class="text-warning">
+			<small class="text-warning stencils-print__hide">
 				<span class="glyphicon glyphicon-time"></span>
 				<a title="Click history" href="#" class="text-warning" data-ng-click="toggleHistory()">
 				Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
@@ -1519,7 +1522,7 @@
 	</cite>
 
 	<#-- ResultTools -->
-	<div class="btn-group">
+	<div class="btn-group stencils-print__hide">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small></a>
 		<ul class="dropdown-menu">
 			<#-- General the cache link which is used to display the version of the document when it was crawled -->
@@ -1550,7 +1553,7 @@
 
 	<#--  ResultQuicklinks -->
 	<@core_controller.Quicklinks>
-		<ul class="list-inline">
+		<ul class="list-inline stencils-print__hide">
 			<@core_controller.QuickLink>
 				<li>
 					<a href="<@core_controller.QuickLinkUrl />" title="<@core_controller.QuickLinkText />"><@core_controller.QuickLinkText /></a>
@@ -1612,7 +1615,7 @@
 
 	<#-- ResultCollased - Display the link to access collapse results which represents similar results which have been hidden for clarity -->
 	<@core_controller.Collapsed>
-		<div class="search-collapsed">
+		<div class="search-collapsed stencils-print__hide">
 			<small>
 				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
 				<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
