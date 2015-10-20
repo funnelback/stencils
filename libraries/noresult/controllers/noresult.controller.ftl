@@ -39,7 +39,7 @@
 -->
 <#macro NoResult>
 	<@base_controller.HasResults negate=true >
-		<@core_controller.ExtraResults name=question.collection.configuration.value("stencils.base.no_result_search.extra_search_name") >
+		<@core_controller.ExtraResults name=question.collection.configuration.value("stencils.noresult.extra_search_name") >
 		 	<#nested>
 		 </@core_controller.ExtraResults>
 	</@base_controller.HasResults>

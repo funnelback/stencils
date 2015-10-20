@@ -61,14 +61,6 @@
 
 		<h2>Have you tried?</h2>
 
-		<div class="row" style="margin-bottom:0.5em;">
-			<div class="col-md-12">
-					<div class="pull-right">
-						<@base_view.PrintFriendlyBtn />
-					</div>
-			</div>
-		</div>
-
 		<@core_view.Blending />
 		<@core_view.CuratorExhibits />
 		<@core_view.Spelling />
@@ -89,7 +81,7 @@
 		 	Do not use facets for now as this will not work as intended see
 			https://jira.cbr.au.funnelback.com/browse/FUNNELAPPS-183
 		-->
-		<#-- <@core_view.Facets /> -->
+		<@core_view.Facets />
 	</@noresult_controller.NoResult>
 </#macro>
 
