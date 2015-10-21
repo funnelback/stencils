@@ -451,6 +451,48 @@
 </#macro>
 <#-- @end --><#-- / Category - Result Features -->
 
+<#-- @begin Collapsed Results -->
+<#---
+	Gets the Collapsed Results ready to print
+	@requires core_controller.Collapsed
+-->
+<#macro CollapsedResults>
+	<#assign collapsedResultsCount = getCollapsedResultsCount() in .namespace>
+	<#list core_controller.result.collapsed.results as result>
+		<#assign collapsedResults = result in .namespace >
+		<#nested>
+	</#list>
+</#macro>
+
+<#---
+	Gets the number of Collapsed Results that are available to print
+	@requires core_controller.Collapsed
+-->
+<#function getCollapsedResultsCount>
+<#return core_controller.result.collapsed.results?size >
+</#function>
+
+<#---
+	Displays content if Collapsed Results has more results than set for display
+	in -collapsing_num_ranks setting.
+	@param negate set to true to reverse condition.
+	@requires CollapsedResults
+-->
+<#macro CollapsedResultsHasMoreResults negate=false>
+	<#if !negate >
+		<#-- Show #nested if there are more collasped results than area available to print in view  -->
+		<#if core_controller.collapsedCount?number gt collapsedResultsCount>
+			<#nested>
+		</#if>
+	<#else>
+		<#-- Show #nested if there all the collasped results are avaible to print in view -->
+		<#if core_controller.collapsedCount?number lte collapsedResultsCount>
+			<#nested>
+		</#if>
+	</#if>
+</#macro>
+<#-- @end -->
+<#-- / Category - Collapsed Results  -->
 <#-- @begin  Result -->
 <#--
 	Checks the collection source of a results for meta collection.

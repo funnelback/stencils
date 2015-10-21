@@ -200,41 +200,7 @@
 	<#-- /panel-body -->
 
 	<div class="panel-body no-padding-top">
-		<#-- ResultCollaspe Generate the result collapsing link -->
-		<@core_controller.Collapsed>
-		<div class="search-collapsed stencils-print__hide" id="search-collapsed-${core_controller.result.rank}!">
-
-      <h5>
-        <a data-toggle="collapse" data-parent="#search-collapsed-${core_controller.result.rank!}" href="#collapseOne-${core_controller.result.rank!}">
-					<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-					<small>
-					<!-- Message for exact count -->
-					<@core_controller.CollapsedLabel>
-						<@core_controller.CollapsedCount /> very similar courses
-					</@core_controller.CollapsedLabel>
-
-					<!-- Alternative message for approximate count -->
-					<@core_controller.CollapsedApproximateLabel>
-						About <@core_controller.CollapsedCount /> very similar courses
-					</@core_controller.CollapsedApproximateLabel>
-					</small>
-				</a>
-			</h5>
-
-  		<div id="collapseOne-${core_controller.result.rank}" class="panel-collapse collapse">
-				<div class="list-group ">
-					<@CollapsedResult />
-				</div>
-
-				<@core_controller.CollapsedResultsHasMoreResults>
-				<div class="pull-right" style="margin-top:0.5em">
-					<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
-				</div>
-				</@core_controller.CollapsedResultsHasMoreResults>
-			</div>
-		</div>
-		</@core_controller.Collapsed>
-		<#-- /ResultCollaspe -->
+		<@CollapsedResults />
 	</div>
 
 	<div class="panel-footer">
@@ -403,41 +369,7 @@
 				</div>
 				</#if>
 
-				<#-- ResultCollaspe Generate the result collapsing link -->
-				<@core_controller.Collapsed>
-				<div class="search-collapsed row" id="search-collapsed-modal-${core_controller.result.rank}">
-
-		      <h5>
-		        <a data-toggle="collapse" data-parent="#search-collapsed-modal-${core_controller.result.rank}" href="#collapseOne-modal-${core_controller.result.rank}">
-							<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-							<small>
-							<!-- Message for exact count -->
-							<@core_controller.CollapsedLabel>
-								<@core_controller.CollapsedCount /> very similar courses
-							</@core_controller.CollapsedLabel>
-
-							<!-- Alternative message for approximate count -->
-							<@core_controller.CollapsedApproximateLabel>
-								About <@core_controller.CollapsedCount /> very similar courses
-							</@core_controller.CollapsedApproximateLabel>
-							</small>
-						</a>
-					</h5>
-
-		  		<div id="collapseOne-modal-${core_controller.result.rank}" class="panel-collapse collapse">
-						<div class="list-group ">
-							<@CollapsedResult />
-						</div>
-
-						<@core_controller.CollapsedResultsHasMoreResults>
-						<div class="pull-right" style="margin-top:0.5em">
-							<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
-						</div>
-						</@core_controller.CollapsedResultsHasMoreResults>
-					</div>
-				</div>
-				</@core_controller.Collapsed>
-				<#-- /ResultCollaspe -->
+				<@CollapsedResults />
 			</div>
 			<#-- /Modal Body -->
 			<div class="modal-footer">
@@ -507,28 +439,69 @@
 
 <#-- @begin Result Collasping  -->
 <#---
-	View of a collasped result
+	View for Collapsed Results
+  -->
+<#macro CollapsedResults>
+<#--  course.view.ftl::CollapsedResults -->
+<#-- ResultCollaspe Generate the result collapsing link -->
+	<@core_controller.Collapsed>
+	<div class="search-collapsed row" id="search-collapsed-modal-${core_controller.result.rank}">
+
+		<h5>
+			<a data-toggle="collapse" data-parent="#search-collapsed-modal-${core_controller.result.rank}" href="#collapseOne-modal-${core_controller.result.rank}">
+				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
+				<small>
+				<!-- Message for exact count -->
+				<@core_controller.CollapsedLabel>
+					<@core_controller.CollapsedCount /> very similar courses
+				</@core_controller.CollapsedLabel>
+
+				<!-- Alternative message for approximate count -->
+				<@core_controller.CollapsedApproximateLabel>
+					About <@core_controller.CollapsedCount /> very similar courses
+				</@core_controller.CollapsedApproximateLabel>
+				</small>
+			</a>
+		</h5>
+
+		<div id="collapseOne-modal-${core_controller.result.rank}" class="panel-collapse collapse">
+			<div class="list-group ">
+				<@CollapsedResult />
+			</div>
+
+			<@base_controller.CollapsedResultsHasMoreResults>
+			<div class="pull-right" style="margin-top:0.5em">
+				<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
+			</div>
+			</@base_controller.CollapsedResultsHasMoreResults>
+		</div>
+	</div>
+	</@core_controller.Collapsed>
+</#macro>
+<#---
+	View of a collapsed result
 	-->
 <#macro CollapsedResult>
-	<@core_controller.CollapsedResults>
-	<a class="list-group-item col-md-3" data-mh="collapsed-result" href="${core_controller.collapsedResult.clickTrackingUrl}" title="${core_controller.collapsedResult.liveUrl}">
+<#--  course.view.ftl::CollaspedResult -->
+	<@base_controller.CollapsedResults>
+	<a class="list-group-item col-md-3" data-mh="collapsed-result" href="${base_controller.collapsedResults.clickTrackingUrl}" title="${base_controller.collapsedResults.liveUrl}">
 		<#-- ResultTitle -->
 		<h6 class="list-group-item-heading">
 			<@core_controller.boldicize>
-				<@core_controller.Truncate length=70>${core_controller.collapsedResult.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+				<@core_controller.Truncate length=70>${base_controller.collapsedResults.metaData.stencilsCoursesName!}</@core_controller.Truncate>
 			</@core_controller.boldicize>
 		</h6>
 
 		<p class="list-group-item-text">
-			<#if core_controller.collapsedResult.metaData.stencilsCoursesCode??>
-			 <@core_controller.boldicize><small class="badge">${core_controller.collapsedResult.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
+			<#if base_controller.collapsedResults.metaData.stencilsCoursesCode??>
+			 <@core_controller.boldicize><small class="badge">${base_controller.collapsedResults.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
 			</#if>
-			<#if core_controller.collapsedResult.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-				${core_controller.collapsedResult.metaData.stencilsCoursesLevel!}
+			<#if base_controller.collapsedResults.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
+				${base_controller.collapsedResults.metaData.stencilsCoursesLevel!}
 			</em></small></#if>
 		</p>
 	</a>
-	</@core_controller.CollapsedResults>
+	</@base_controller.CollapsedResults>
 </#macro>
 <#-- @end -->
 <#--  / Catgegory - Result (Course)-->
