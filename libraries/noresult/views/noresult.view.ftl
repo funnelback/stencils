@@ -54,24 +54,24 @@
 <#-- ###################  Views ####################### -->
 
 <#macro Content>
+
+	<@core_view.QueryHistory />
+	<@core_view.SearchHistory />
+	<@core_view.FacetedBreadCrumbSummary />
+	<@core_view.Scope />
+	<@core_view.Count />
 	<@core_view.NoResultSummary />
+	<@core_view.Blending />
+	<@core_view.CuratorExhibits />
+	<@core_view.Spelling />
+	<@core_view.EntityDefinition />
+	<@core_view.CuratorExhibitsList />
+	<@core_view.BestBets />
+	<@core_view.ContextualNavigation />
+
 	<@noresult_controller.NoResult>
-
-		<@core_view.QueryHistory />
-
 		<h2>Have you tried?</h2>
-
-		<@core_view.Blending />
-		<@core_view.CuratorExhibits />
-		<@core_view.Spelling />
-
-		<@core_view.EntityDefinition />
-		<@core_view.CuratorExhibitsList />
-		<@core_view.BestBets />
-
 		<@core_view.Results />
-		<@core_view.Pagination />
-		<@core_view.ContextualNavigation />
 	</@noresult_controller.NoResult>
 </#macro>
 
