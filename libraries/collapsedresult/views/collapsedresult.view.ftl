@@ -65,17 +65,17 @@
 	<div class="search-collapsed row" id="search-collapsed-modal-${core_controller.result.rank}">
 
 		<h5>
-			<a data-toggle="collapse" data-parent="#search-collapsed-modal-${core_controller.result.rank}" href="#collapseOne-modal-${core_controller.result.rank}">
+			<a data-toggle="collapse" data-parent="#search-collapsed-modal-${core_controller.result.rank}" href="#collapseOne-modal-${core_controller.result.rank}" class="btn btn-default">
 				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
 				<small>
 				<!-- Message for exact count -->
 				<@collapsedresult_controller.CollapsedHasExactCount>
-					<@collapsedresult_controller.CollapsedCount /> very similar courses
+					<@collapsedresult_controller.CollapsedCount /> very similar results
 				</@collapsedresult_controller.CollapsedHasExactCount>
 
 				<!-- Alternative message for approximate count -->
 				<@collapsedresult_controller.CollapsedHasExactCount negate=true>
-					About <@collapsedresult_controller.CollapsedCount /> very similar courses
+					About <@collapsedresult_controller.CollapsedCount /> very similar results
 				</@collapsedresult_controller.CollapsedHasExactCount>
 				</small>
 			</a>
@@ -88,7 +88,7 @@
 
 			<@collapsedresult_controller.ResultsHasMoreResults>
 			<div class="pull-right" style="margin-top:0.5em">
-				<a class="search-collapsed  btn btn-default" href="<@collapsedresult_controller.CollapsedUrl />">See all similar courses</a>
+				<a class="search-collapsed  btn btn-default" href="<@collapsedresult_controller.CollapsedUrl />">See all similar results</a>
 			</div>
 			</@collapsedresult_controller.ResultsHasMoreResults>
 		</div>
