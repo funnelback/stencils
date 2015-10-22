@@ -435,7 +435,7 @@
 </div><#-- /modal -->
 </#macro>
 <#-- /ResultDefaultModal-->
-<#-- @end --><#-- / Category - Result -->
+<#-- @end --><#-- / Category - Result (Course) -->
 
 <#-- @begin Result Collasping  -->
 <#---
@@ -504,6 +504,6 @@
 	</@base_controller.CollapsedResults>
 </#macro>
 <#-- @end -->
-<#--  / Catgegory - Result (Course)-->
+<#--  / Catgegory - Result Collasping -->
 
 </#escape>
