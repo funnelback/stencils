@@ -30,7 +30,7 @@
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import Stencils -->
-<#assign stencils=["core","base"] />
+<#assign stencils=["core","base","collapsedresult"] />
 	<#--
 		The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
 		The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
@@ -444,7 +444,7 @@
 <#macro CollapsedResults>
 <#--  course.view.ftl::CollapsedResults -->
 <#-- ResultCollaspe Generate the result collapsing link -->
-	<@core_controller.Collapsed>
+	<@collapsedresult_controller.Collapsed>
 	<div class="search-collapsed row" id="search-collapsed-modal-${core_controller.result.rank}">
 
 		<h5>
@@ -452,14 +452,14 @@
 				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
 				<small>
 				<!-- Message for exact count -->
-				<@core_controller.CollapsedLabel>
+				<@collapsedresult_controller.CollapsedHasExactCount>
 					<@core_controller.CollapsedCount /> very similar courses
-				</@core_controller.CollapsedLabel>
+				</@collapsedresult_controller.CollapsedHasExactCount>
 
 				<!-- Alternative message for approximate count -->
-				<@core_controller.CollapsedApproximateLabel>
+				<@collapsedresult_controller.CollapsedHasExactCount negate=true>
 					About <@core_controller.CollapsedCount /> very similar courses
-				</@core_controller.CollapsedApproximateLabel>
+				</@collapsedresult_controller.CollapsedHasExactCount>
 				</small>
 			</a>
 		</h5>
@@ -469,39 +469,44 @@
 				<@CollapsedResult />
 			</div>
 
-			<@base_controller.CollapsedResultsHasMoreResults>
+			<@collapsedresult_controller.ResultsHasMoreResults>
 			<div class="pull-right" style="margin-top:0.5em">
 				<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
 			</div>
-			</@base_controller.CollapsedResultsHasMoreResults>
+			</@collapsedresult_controller.ResultsHasMoreResults>
 		</div>
 	</div>
-	</@core_controller.Collapsed>
+	</@collapsedresult_controller.Collapsed>
 </#macro>
 <#---
 	View of a collapsed result
 	-->
 <#macro CollapsedResult>
 <#--  course.view.ftl::CollaspedResult -->
-	<@base_controller.CollapsedResults>
-	<a class="list-group-item col-md-3" data-mh="collapsed-result" href="${base_controller.collapsedResults.clickTrackingUrl}" title="${base_controller.collapsedResults.liveUrl}">
+	<@collapsedresult_controller.Results>
+	<a class="list-group-item col-md-3" data-mh="collapsed-result" href="${collapsedresult_controller.result.clickTrackingUrl}" title="${collapsedresult_controller.result.liveUrl}">
 		<#-- ResultTitle -->
 		<h6 class="list-group-item-heading">
 			<@core_controller.boldicize>
-				<@core_controller.Truncate length=70>${base_controller.collapsedResults.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+				<@core_controller.Truncate length=70>${collapsedresult_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
 			</@core_controller.boldicize>
 		</h6>
 
-		<p class="list-group-item-text">
-			<#if base_controller.collapsedResults.metaData.stencilsCoursesCode??>
-			 <@core_controller.boldicize><small class="badge">${base_controller.collapsedResults.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
-			</#if>
-			<#if base_controller.collapsedResults.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-				${base_controller.collapsedResults.metaData.stencilsCoursesLevel!}
-			</em></small></#if>
-		</p>
+		<#if collapsedresult_controller.result.metaData.stencilsCoursesCode??>
+		<div>
+		 <@core_controller.boldicize><small class="badge">${collapsedresult_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
+	 	</div>
+		</#if>
+		<#if collapsedresult_controller.result.metaData.stencilsCoursesLevel??>
+		<div>
+			<small class="text-muted">
+				<em>${collapsedresult_controller.result.metaData.stencilsCoursesLevel!}</em>
+			</small>
+		</div>
+		</#if>
+
 	</a>
-	</@base_controller.CollapsedResults>
+	</@collapsedresult_controller.Results>
 </#macro>
 <#-- @end -->
 <#--  / Catgegory - Result Collasping -->
