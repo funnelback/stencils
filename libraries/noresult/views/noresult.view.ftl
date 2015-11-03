@@ -54,7 +54,7 @@
 <#-- ###################  Views ####################### -->
 
 <#macro Content>
-	<@base_controller.HasResults negate=true>
+	<@noresult_controller.NoResult>
 		<@core_view.QueryHistory />
 		<@core_view.SearchHistory />
 		<@core_view.FacetedBreadCrumbSummary />
@@ -68,17 +68,19 @@
 		<@core_view.CuratorExhibitsList />
 		<@core_view.BestBets />
 		<@core_view.ContextualNavigation />
-	</@base_controller.HasResults>
 
-	<@noresult_controller.NoResult>
 		<h2>Have you tried?</h2>
-		<@core_view.Results />
+		<@noresult_controller.NoResultSearch>
+			<@core_view.Results />
+		</@noresult_controller.NoResultSearch>
 	</@noresult_controller.NoResult>
 </#macro>
 
 <#macro Aside>
 	<@noresult_controller.NoResult>
-		<@core_view.Facets />
+		<@noresult_controller.NoResultSearch>
+			<@core_view.Facets />
+		</@noresult_controller.NoResultSearch>
 	</@noresult_controller.NoResult>
 </#macro>
 
