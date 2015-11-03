@@ -68,15 +68,15 @@
 	<h2>Data Model</h2>
 		<p><strong>core_controller.result ;</strong></p>
 		<ul>
-			<li>...</li>
+			<li><strong>	title :</strong> course name.</li>
 		</ul>
 		<p><strong>core_controller.result.metaData ;</strong></p>
 		<ul>
+			<li><strong>	t (title) :</strong> course name.</li>
 			<li><strong>	c (description) :</strong> course summary.</li>
 			<li><strong>stencilsCoursesDuration</strong></li>
 			<li><strong>stencilsCoursesLevel</strong></li>
 			<li><strong>stencilsCoursesCampus</strong></li>
-			<li><strong>stencilsCoursesName</strong></li>
 			<li><strong>stencilsCoursesCode</strong></li>
 			<li><strong>stencilsCoursesMode</strong></li>
 		</ul>
@@ -103,7 +103,7 @@
 
 			<h4>
 					<@core_controller.boldicize>
-						<@core_controller.Truncate length=70>${core_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+						<@core_controller.Truncate length=70>${core_controller.result.title!}</@core_controller.Truncate>
 					</@core_controller.boldicize>
 					<#if core_controller.result.metaData.stencilsCoursesCode??>
 					 <@core_controller.boldicize><small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small></@core_controller.boldicize>
@@ -262,7 +262,7 @@
 			<#-- /ResultTools -first column -->
 
 			<div class="col-md-4 stencils-print__hide">
-				<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.metaData.stencilsCoursesName! />
+				<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.title! />
 			</div>
 			<#-- /ResultTools - second column -->
 		</div><#-- / ResultTools - Wrapper for Progressive discolure -->
@@ -284,7 +284,7 @@
 				<#-- ResultTitle -->
 				<h4>
 					<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-						${core_controller.result.metaData.stencilsCoursesName!}
+						${core_controller.result.title!}
 					</a>
 						<#if core_controller.result.metaData.stencilsCoursesCode??>
 						 <small class="badge">${core_controller.result.metaData.stencilsCoursesCode!}</small>
@@ -425,7 +425,7 @@
 					</div>
 					<#-- /ResultTools -first column -->
 					<div class="col-md-4">
-						<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.metaData.stencilsCoursesName! />
+						<@base_view.ShareTools url=core_controller.result.liveUrl! title=core_controller.result.title! />
 					</div>
 					<#-- /ResultTools - second column -->
 				</div> <#-- /ResultTools - Wrapper-->
@@ -488,7 +488,7 @@
 		<#-- ResultTitle -->
 		<h6 class="list-group-item-heading">
 			<@core_controller.boldicize>
-				<@core_controller.Truncate length=70>${collapsedresult_controller.result.metaData.stencilsCoursesName!}</@core_controller.Truncate>
+				<@core_controller.Truncate length=70>${collapsedresult_controller.result.title!}</@core_controller.Truncate>
 			</@core_controller.boldicize>
 		</h6>
 

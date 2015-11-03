@@ -54,20 +54,21 @@
 <#-- ###################  Views ####################### -->
 
 <#macro Content>
-
-	<@core_view.QueryHistory />
-	<@core_view.SearchHistory />
-	<@core_view.FacetedBreadCrumbSummary />
-	<@core_view.Scope />
-	<@core_view.Count />
-	<@core_view.NoResultSummary />
-	<@core_view.Blending />
-	<@core_view.CuratorExhibits />
-	<@core_view.Spelling />
-	<@core_view.EntityDefinition />
-	<@core_view.CuratorExhibitsList />
-	<@core_view.BestBets />
-	<@core_view.ContextualNavigation />
+	<@base_controller.HasResults negate=true>
+		<@core_view.QueryHistory />
+		<@core_view.SearchHistory />
+		<@core_view.FacetedBreadCrumbSummary />
+		<@core_view.Scope />
+		<@core_view.Count />
+		<@core_view.NoResultSummary />
+		<@core_view.Blending />
+		<@core_view.CuratorExhibits />
+		<@core_view.Spelling />
+		<@core_view.EntityDefinition />
+		<@core_view.CuratorExhibitsList />
+		<@core_view.BestBets />
+		<@core_view.ContextualNavigation />
+	</@base_controller.HasResults>
 
 	<@noresult_controller.NoResult>
 		<h2>Have you tried?</h2>
@@ -77,10 +78,6 @@
 
 <#macro Aside>
 	<@noresult_controller.NoResult>
-		<#--
-		 	Do not use facets for now as this will not work as intended see
-			https://jira.cbr.au.funnelback.com/browse/FUNNELAPPS-183
-		-->
 		<@core_view.Facets />
 	</@noresult_controller.NoResult>
 </#macro>
