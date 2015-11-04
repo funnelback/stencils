@@ -1573,7 +1573,7 @@
 						<div class="row">
 							<div class="col-md-4">
 							<div class="input-group input-sm">
-								<input required title="Search query" name="query" type="text" class="form-control" placeholder="Search ${s.result.quickLinks.domain}&hellip;">
+								<input required title="Search query" name="query" type="text" class="form-control" placeholder="Search ${core_controller.result.quickLinks.domain}&hellip;">
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 								</div>
