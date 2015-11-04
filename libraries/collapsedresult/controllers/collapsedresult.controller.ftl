@@ -139,7 +139,7 @@ ${.namespace.collapsed.results?size}
 	@requires core_controller.Collapsed
 -->
 <#macro Results>
-	<#list core_controller.result.collapsed.results as r>
+	<#list .namespace.collapsed.results as r>
 		<#assign result = r in .namespace >
 		<#nested>
 	</#list>

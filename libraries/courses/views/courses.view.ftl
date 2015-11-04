@@ -471,7 +471,7 @@
 
 			<@collapsedresult_controller.ResultsHasMoreResults>
 			<div class="pull-right" style="margin-top:0.5em">
-				<a class="search-collapsed  btn btn-default" href="<@core_controller.CollapsedUrl />">See all similar courses</a>
+				<a class="search-collapsed  btn btn-default" href="<@collapsedresult_controller.CollapsedUrl />">See all similar courses</a>
 			</div>
 			</@collapsedresult_controller.ResultsHasMoreResults>
 		</div>
