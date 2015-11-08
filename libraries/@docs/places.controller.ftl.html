@@ -65,6 +65,8 @@
 <div id="page-contents">
     <h3>Description</h3><br />
     
+         <p>Provides helpers for building places components.</p> <p>This includes helpers for places ....</p>
+    
     
 </div>
 
@@ -94,57 +96,7 @@
                         <dl>
                             <dt>
                                 <code>
-                                    <strong><a href="#CSS">CSS</a></strong>
-                                </code>
-                                
-    
-        
-        
-    
-
-
-                            </dt>
-                            <dd>
-                                
-                            </dd>
-                        </dl>
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <code>macro</code>
-                    </td>
-                    <td>
-                        <dl>
-                            <dt>
-                                <code>
                                     <strong><a href="#GetMapDataURL">GetMapDataURL</a></strong>
-                                </code>
-                                
-    
-        
-        
-    
-
-
-                            </dt>
-                            <dd>
-                                
-                            </dd>
-                        </dl>
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>
-                        <code>macro</code>
-                    </td>
-                    <td>
-                        <dl>
-                            <dt>
-                                <code>
-                                    <strong><a href="#JS">JS</a></strong>
                                 </code>
                                 
     
@@ -173,59 +125,6 @@
     <tr><td colspan="2" class="heading">Macro and Function Detail</td></tr>
 </table>
 
-
-    <dl>
-        <dt>
-            macro
-            <tt><a name="CSS">CSS</a></tt>
-            
-    
-        
-        
-    
-
-            <br /><br />
-        </dt>
-        <dd>
-            
-            <dl>
-                
-	
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-<dt><a href="javascript:toggle('sc_CSS');">Source Code</a></dt>
-<dd>
-<div class="sourcecode" id="sc_CSS">
-
-
-
-
-<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${PlacesResourcesPrefix}</span><span class="textblock">css/stencils.places.css&quot;&nbsp;/&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/leaflet.css&quot;&nbsp;/&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/MarkerCluster.css&quot;&nbsp;/&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/MarkerCluster.Default.css&quot;&nbsp;/&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
-
-
-
-</div>
-</dd>
-
-            </dl>
-        </dd>
-    </dl>
-    <hr>
 
     <dl>
         <dt>
@@ -269,59 +168,6 @@
 
 
 <span class="directive">&lt;#macro&nbsp;GetMapDataURL&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br></span><span class="directive">&lt;#local&nbsp;profile&nbsp;=&nbsp;&quot;mapservice&quot;&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;</span><span class="directive">&lt;#if&nbsp;question.profile?contains(&quot;_preview&quot;)&nbsp;&gt;</span><span class="textblock"><br>&nbsp;</span><span class="directive">&lt;#local&nbsp;profile&nbsp;=&nbsp;&quot;mapservice_preview&quot;&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;#noescape&gt;</span><span class="textblock"><br></span><span class="interpolation">${question.collection.configuration.value(&quot;ui.modern.search_link&quot;)}</span><span class="textblock">?</span><span class="interpolation">${removeParam(QueryString,[&quot;form&quot;,&quot;profile&quot;])}</span><span class="textblock">&amp;form=geojson&amp;profile=mapservice<br></span><span class="directive">&lt;/#noescape&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
-
-
-
-</div>
-</dd>
-
-            </dl>
-        </dd>
-    </dl>
-    <hr>
-
-    <dl>
-        <dt>
-            macro
-            <tt><a name="JS">JS</a></tt>
-            
-    
-        
-        
-    
-
-            <br /><br />
-        </dt>
-        <dd>
-            
-            <dl>
-                
-	
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-    
-
-                
-<dt><a href="javascript:toggle('sc_JS');">Source Code</a></dt>
-<dd>
-<div class="sourcecode" id="sc_JS">
-
-
-
-
-<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;!--&nbsp;Javascript&nbsp;required&nbsp;for&nbsp;maps&nbsp;--&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/leaflet.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leaflet/leaflet.spin.js&quot;&gt;&lt;/script&gt;<br><br>&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Only&nbsp;required&nbsp;if&nbsp;using&nbsp;google&nbsp;tileservice&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;https://maps.googleapis.com/maps/api/js?sensor=false&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">gmaps/Google.js&quot;&gt;&lt;/script&gt;<br><br>&nbsp;&nbsp;&lt;!--&nbsp;Plugin&nbsp;to&nbsp;display&nbsp;loading&nbsp;icon&nbsp;--&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">spin/spin.min.js&quot;&gt;&lt;/script&gt;<br><br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${PlacesResourcesPrefix}</span><span class="textblock">js/stencils.places.js&quot;&gt;&lt;/script&gt;<br><br><br></span><span class="directive">&lt;/#macro&gt;</span>
 
 
 

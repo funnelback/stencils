@@ -246,7 +246,7 @@
 						<img class="media-object" src="${facebook_controller.postUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
 					<div class="media-body">
-						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a}</@core_controller.boldicize></a> </div>
+						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
 							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 							<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
