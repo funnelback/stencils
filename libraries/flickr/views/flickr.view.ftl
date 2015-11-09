@@ -97,7 +97,7 @@
 <#macro Result>
 	<@flickr_controller.Picture>
 	<!-- flickr.view.ftl :: Result -->
-		<div id="result-${core_controller.result.rank!}" class="panel panel-default" data-flickr-photo-id="${core_controller.result.metaData.stencilsFlickrPhotoID!}">
+		<div id="result-${core_controller.result.rank!}" class="panel panel-default stencils-progressive-disclosure" data-flickr-photo-id="${core_controller.result.metaData.stencilsFlickrPhotoID!}">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div data-flickr-username="${core_controller.result.metaData.stencilsFlickrPhotoOwnerUserName!}">${core_controller.result.metaData.a!}</div>
@@ -141,58 +141,60 @@
 			<#-- /panel-body -->
 			<div class="panel-footer">
 				<#--	Result tools -->
-				<div class="btn-group">
-					<div class="btn-group">
-						<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
-							<span class="sr-only">Result tools</span>
-						</button>
-						<ul class="dropdown-menu">
-							<li>
-								<#-- General the cache link which is used to display the version of the document when it was crawled -->
-								<#if core_controller.result.cacheUrl??>
-									<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
-								</#if>
-							</li>
-							<#-- Generate the explore url which is used to find similar results -->
-							<@core_controller.Explore>
+				<div class="row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
+					<div class="btn-group col-md-8">
+						<div class="btn-group">
+							<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+								<span class="sr-only">Result tools</span>
+							</button>
+							<ul class="dropdown-menu">
 								<li>
-									<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+									<#-- General the cache link which is used to display the version of the document when it was crawled -->
+									<#if core_controller.result.cacheUrl??>
+										<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
+									</#if>
 								</li>
-							</@core_controller.Explore>
-							<#-- Show the optimise button when viewed from the admin UI -->
-							<@core_controller.Optimise>
-								<li>
-									<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
-										Optimise
-									</a>
-								</li>
-							</@core_controller.Optimise>
-						</ul>
-					</div>
+								<#-- Generate the explore url which is used to find similar results -->
+								<@core_controller.Explore>
+									<li>
+										<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+									</li>
+								</@core_controller.Explore>
+								<#-- Show the optimise button when viewed from the admin UI -->
+								<@core_controller.Optimise>
+									<li>
+										<a class="search-optimise" href="<@core_controller.OptimiseUrl />">
+											Optimise
+										</a>
+									</li>
+								</@core_controller.Optimise>
+							</ul>
+						</div>
 
-					<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-						<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
-							<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
-						</button>
-					</#if>
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+							<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
+								<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
+							</button>
+						</#if>
 
-					<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-						<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
-					</a>
-
-					<#-- Open modal -->
-					<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-						<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
-					</button>
-
-					<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-						<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
-							<small class="text-warning">
-								<span class="glyphicon glyphicon-time"></span>
-								Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
-							</small>
+						<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
+							<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 						</a>
-					</#if>
+
+						<#-- Open modal -->
+						<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
+							<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+						</button>
+
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+							<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
+								<small class="text-warning">
+									<span class="glyphicon glyphicon-time"></span>
+									Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+								</small>
+							</a>
+						</#if>
+					</div>
 				</div>
 				<#-- /ResultTools -->
 			</div>
@@ -340,5 +342,53 @@
 <#-- /ResultModal -->
 
 <#-- @end --><#-- / Category - Result -->
+
+<#-- @begin Cart -->
+
+<#---
+	Displays the session cart.
+
+	The cart feature allows users to save inidividual search results so
+	that they viewed later and compared side by side.
+
+	This has been altered to be a shortlist view.
+-->
+<#macro Cart>
+	<!-- core.controller.ftl :: Cart -->
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
+					<h2><i class="fa fa-heart"></i> Favourites
+						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+					</h2>
+
+					<ul class="list-unstyled">
+						<li data-ng-repeat="item in cart">
+								<@CartResult />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</#if>
+</#macro>
+
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResult>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Youtube Video: {{item.title}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#-- @end -->
+<#-- / Category - Cart -->
 
 </#escape>

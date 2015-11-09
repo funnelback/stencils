@@ -69,7 +69,8 @@
 		in the collection.cfg
 	-->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular.js"></script>
+		<script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script>
+		<#-- <script src="${SearchPrefix}thirdparty/angular-1.0.7/angular.js"></script> -->
 		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${SearchPrefix}js/funnelback-session.js"></script>
 	</#if>

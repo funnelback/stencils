@@ -525,7 +525,7 @@
 <#macro ResultEvent>
 	<@facebook_controller.Event>
 	<!-- facebook.view.ftl :: ResultEvent -->
-		<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+		<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
@@ -897,7 +897,7 @@
 <#macro ResultPage>
 	<@facebook_controller.Page>
 	<!-- facebook.view.ftl :: ResultPage -->
-	<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+	<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 		<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 			<div class="media">
 				<a href="${core_controller.result.clickTrackingUrl!}" title="${core_controller.result.liveUrl!}" class="pull-left stencils-facebook-page-info media-object">
@@ -1116,5 +1116,82 @@
 </#macro>
 <#-- /ResultPageEmbed -->
 <#-- @end --><#-- /Category - Result Page -->
+
+<#-- @begin Cart -->
+
+<#---
+	Displays the session cart.
+
+	The cart feature allows users to save inidividual search results so
+	that they viewed later and compared side by side.
+
+	This has been altered to be a shortlist view.
+-->
+<#macro Cart>
+	<!-- core.controller.ftl :: Cart -->
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
+					<h2><i class="fa fa-heart"></i> Favourites
+						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+					</h2>
+
+					<ul class="list-unstyled">
+						<li data-ng-repeat="item in cart">
+							<ng-switch on="item.metaData.stencilsFacebookType">
+							  <div ng-switch-when="POST"><@CartResultPost /></div>
+							  <div ng-switch-when="EVENT"><@CartResultEvent /></div>
+								<div ng-switch-when="PAGE"><@CartResultPage /></div>
+							</ng-switch>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</#if>
+</#macro>
+
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultPost>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsFacebookPostID" title="{{item.indexUrl}}">Facebook post: {{item.metaData.stencilsFacebookPostID}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultEvent>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook event: {{item.title|truncate:150}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultPage>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook page: {{item.title|truncate:150}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#-- @end -->
+<#-- / Category - Cart -->
+
 
 </#escape>

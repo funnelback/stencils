@@ -24,7 +24,6 @@
 
 	<#list stencils as stencil>
 		<#local controller = 	"/share/stencils/libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
-		<#-- <#local view =				"/share/stencils/libraries/${stencil}/views/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" /> -->
 		<#local view =				"/conf/${question.collection.id}/${question.profile}/${stencil}.view.ftl" stencilNamespaceView="${stencil?lower_case}_view" />
 		<#noescape>
 		<#assign imports in .namespace>
