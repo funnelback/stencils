@@ -382,7 +382,7 @@
 <#macro CartResult>
 	<h4>
 		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Youtube Video: {{item.title}}</a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Flickr Image: {{item.title}}</a>
 	</h4>
 	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
 	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>

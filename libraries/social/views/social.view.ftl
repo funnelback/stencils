@@ -84,17 +84,11 @@
 								<div ng-switch-when="PAGE"><@facebook_view.CartResultPage /></div>
 							</ng-switch>
 
-							<div ng-if=" item.metaData.collection == 'stencils-twitter-custom' ">
-								<@twitter_view.CartResult />
-							</div>
-
-							<div ng-if=" item.metaData.collection == 'stencils-youtube-custom' ">
-								<@youtube_view.CartResult />
-							</div>
-
-							<div ng-if=" item.metaData.collection == 'stencils-flickr-custom' ">
-								<@flickr_view.CartResult />
-							</div>
+							<ng-switch on="item.metaData.collection">
+								<div ng-switch-when="stencils-twitter-custom"><@twitter_view.CartResult /></div>
+								<div ng-switch-when="stencils-youtube-custom"><@youtube_view.CartResult /></div>
+								<div ng-switch-when="stencils-flickr-custom"><@flickr_view.CartResult /></div>
+							</ng-switch>
 
 						</li>
 					</ul>
