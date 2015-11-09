@@ -91,7 +91,7 @@
 <#macro Result>
 	<@twitter_controller.Tweet>
 	<!-- twitter.view.ftl :: Result -->
-		<div id="result-${core_controller.result.rank!}" class="panel panel-default">
+		<div id="result-${core_controller.result.rank!}" class="panel panel-default panel-default stencils-progressive-disclosure">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">

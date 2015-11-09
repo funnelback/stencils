@@ -78,9 +78,10 @@
 	Shared footer view for result variations.
 -->
 <#macro ResultFooter>
-	<!-- facebook.view.ftl :: ResultFooter -->
-	<#--	Result tools -->
-	<div class="btn-group">
+<!-- facebook.view.ftl :: ResultFooter -->
+<#--	Result tools -->
+<div class="stencils-print__hide row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
+	<div class="btn-group col-md-8">
 		<div class="btn-group">
 			<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 				<span class="sr-only">Result tools</span>
@@ -133,7 +134,8 @@
 			</a>
 		</#if>
 	</div>
-	<#-- /ResultTools -->
+</div>
+<#-- /ResultTools -->
 </#macro>
 
 <#---
@@ -237,14 +239,16 @@
 <#macro ResultPost>
 	<@facebook_controller.Post>
 	<!-- facebook.view.ftl :: ResultPost -->
-		<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+		<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
+					<#if core_controller.result.metaData.a??>
 					 <a href="${facebook_controller.postUserProfileUrl!}" class="pull-left">
 						<#-- *Note: Because	facebook_controller.postUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 						<img class="media-object" src="${facebook_controller.postUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
+					</#if>
 					<div class="media-body">
 						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
@@ -350,7 +354,9 @@
 								<img class="media-object" src="${facebook_controller.postUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 							</a>
 							<div class="media-body">
+								<#if core_controller.result.metaData.a??>
 								<div><a href="${facebook_controller.postUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
+								</#if>
 								<small class="text-muted">
 									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 									<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
@@ -523,10 +529,12 @@
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
+					<#if core_controller.result.metaData.a??>
 					 <a href="${facebook_controller.eventUserProfileUrl!}" class="pull-left">
 						<#-- *Note: Because	facebook_controller.eventUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 						<img class="media-object" src="${facebook_controller.eventUserProfileImageUrl!}?width=40&&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
+					</#if>
 					<div class="media-body">
 						<div><a href="${facebook_controller.eventUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
@@ -641,10 +649,12 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<div class="media">
+							<#if core_controller.result.metaData.a??>
 							 <a href="${facebook_controller.eventUserProfileUrl!}" class="pull-left">
 								<#-- *Note: Because	facebook_controller.eventUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 								<img class="media-object" src="${facebook_controller.eventUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 							</a>
+							</#if>
 							<div class="media-body">
 								<div><a href="${facebook_controller.eventUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
 								<small class="text-muted">
