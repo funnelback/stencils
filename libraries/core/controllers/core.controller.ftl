@@ -1153,7 +1153,7 @@
 	@requires Facet
 -->
 <#macro IsFacetLabel name=""><#compress>
-	<#if name = core_controller.facetLabel>
+	<#if name = .namespace.facetLabel>
 		<#nested>
 	</#if>
 </#compress></#macro>
