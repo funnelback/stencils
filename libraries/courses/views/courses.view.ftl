@@ -110,7 +110,10 @@
 					</#if>
 			</h4>
 			<#if core_controller.result.metaData.stencilsCoursesLevel??><small class="text-muted"><em>
-				${core_controller.result.metaData.stencilsCoursesLevel!}
+				<strong>${core_controller.result.metaData.stencilsCoursesLevel!}</strong>
+				<#if core_controller.result.metaData.stencilsCoursesAward??>
+					- ${core_controller.result.metaData.stencilsCoursesAward!}
+				</#if>
 			</em></small></#if>
 		</a>
 		<#-- /ResultTitle -->
