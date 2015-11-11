@@ -45,7 +45,7 @@
 <#macro ImportStencilsControllers stencils>
 	<#assign importsControllers ="" in .namespace>
 	<#list stencils as stencil>
-		<#local controller = "/share/stencils/libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
+		<#local controller = 	"/share/stencils/libraries/${stencil}/controllers/${stencil}.controller.ftl" stencilNamespaceController="${stencil?lower_case}_controller" />
 		<#noescape>
 		<#assign importsControllers in .namespace>
 			<#t>${.namespace.importsControllers!}
