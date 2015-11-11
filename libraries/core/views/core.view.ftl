@@ -1673,6 +1673,4 @@
 </#macro>
 <#-- @end Result -->
 <#-- /Category - Result -->
-
-
 </#escape>
