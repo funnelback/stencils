@@ -1,0 +1,2730 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+
+    <title>Documentation for base.controller.ftl</title>
+
+    <style>
+        div.sourcecode {
+            display: none;
+            border : 1px solid Black;
+            background-color : #DDDDDD; /* #E8E8E8; */
+            padding : 3px;
+            margin-top : 8px;
+        }
+
+
+        span {font-family:Courier; font-size:12px}
+        span.directive {color:blue}
+        span.userdirective {color:red}
+        span.interpolation {color:green}
+        span.textblock {color:black}
+        span.comment {color:brown}
+    </style>
+
+    <script language="javascript">
+        function toggle(id) {
+            elem = document.getElementById(id);
+            if(elem.style.display=="block") {
+                elem.style.display="none";
+            } else {
+                elem.style.display="block";
+            }
+        }
+
+        function setTitle() {
+            parent.document.title=document.title;
+        }
+    </script>
+</head>
+
+<body class="ftldoc" onLoad="setTitle();">
+<div id="content">
+
+
+
+
+<div id="categories">
+    <h3>NAVIGATION</h3>
+    <ul>
+        <li class="category"><a href="overview.html">Overview</a></li>
+        <li class="category"><a href="index-all-cat.html">Index (categories)</a></li>
+        <li class="category"><a href="index-all-alpha.html">Index (alphabetical)</a></li>
+    </ul>
+</div>
+
+
+
+<h1>base.controller.ftl</h1>
+<div id="page-contents">
+    <h3>Description</h3><br />
+    
+         This contains basic utilities functions which can be used across all stencils and general implementations. <h2>Table of Contents</h2> <ul> <li><strong>General:</strong> General search helpers.</li> <li><strong>Search forms:</strong> Advanced search form, simple search form ....</li> <li><strong>Sessions:</strong> Favorites/Cart, search history.</li> <li><strong>Facets:</strong> Faceted navigation, search breadcrumbs.</li> <li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li> <li><strong>Result:</strong> Result helpers e.g. panels ...</li> </ul>
+    
+    
+</div>
+
+
+
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <td colspan="2" class="heading">Macro and Function Summary</td>
+    </tr>
+
+    
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Facets</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumb">BreadCrumb</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Sets up the namespace variables for each individual breadcrumb.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumbName">BreadCrumbName</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays the breadcrumb name
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumbs">BreadCrumbs</a></strong>
+                                </code>
+                                
+    
+        
+            <code>name</code>
+        
+            <code>names</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays the facet breadcrumb as list which can be unselected
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumbSearch">BreadCrumbSearch</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional Display - Runs the nested code if there is at least one selected facet.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumbSummary">BreadCrumbSummary</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Sets up the namespace variables in order to display the breadcrumb summary.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#BreadCrumbUrl">BreadCrumbUrl</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays the breadcrumb url
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HasFacets">HasFacets</a></strong>
+                                </code>
+                                
+    
+        
+            <code>negate</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional Display - Runs the nested code if at least one facet has a facet category code if there are no facet with facet catergories.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#NestedBreadCrumbName">NestedBreadCrumbName</a></strong>
+                                </code>
+                                
+    
+        
+            <code>categoryDefinitions</code>
+        
+            <code>selectedCategoryValues</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Recursively generates the breadcrumbs using the facet.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>General</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#buildQueryString">buildQueryString</a></strong>
+                                </code>
+                                
+    
+        (
+        
+            <code>parameters</code>
+            ,
+        
+            <code>urlStem</code>
+            
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 Builds a URL which can be used to navigate the user to another search page while maintaining the specified CGI parameters and their associated values.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CreateSearchUrl">CreateSearchUrl</a></strong>
+                                </code>
+                                
+    
+        
+            <code>cgis</code>
+        
+            <code>append</code>
+        
+            <code>url</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Generate URls for changing display format query.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#GetCGIValue">GetCGIValue</a></strong>
+                                </code>
+                                
+    
+        
+            <code>name</code>
+        
+            <code>default</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Get a CGI parameter's value.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#IfDefCGIEquals">IfDefCGIEquals</a></strong>
+                                </code>
+                                
+    
+        
+            <code>name</code>
+        
+            <code>value</code>
+        
+            <code>trueIfEmpty</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional display - Runs the nested code only if the matching  CGI parameter and value pair is found.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#Linkify">Linkify</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Converts URLs within text to html links.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Result</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ResultIsCollection">ResultIsCollection</a></strong>
+                                </code>
+                                
+    
+        
+            <code>name</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Results Features</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#getResultsColumnsIndex">getResultsColumnsIndex</a></strong>
+                                </code>
+                                
+    
+        (
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 Returns the column set index.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#getResultsColumnsIsLast">getResultsColumnsIsLast</a></strong>
+                                </code>
+                                
+    
+        (
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 Returns if the current result is the last item to be displayed.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#getResultsColumnsNumber">getResultsColumnsNumber</a></strong>
+                                </code>
+                                
+    
+        (
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 Returns the number of columns set.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#getResultsColumnsRank">getResultsColumnsRank</a></strong>
+                                </code>
+                                
+    
+        (
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 Returns current position of the result which takes into account the current start rank.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HasContextNavigationEntries">HasContextNavigationEntries</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional Display - Runs the nested code only when there at least one contextual navigation entry that is not in "Site"
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HasResults">HasResults</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional Display - Runs the nested code only if at least one result is found
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ResultsColumns">ResultsColumns</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Constructor for ResultsColumns, defines how to format the grouping of result into columns.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ResultsColumnsIsClosed">ResultsColumnsIsClosed</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ResultsColumnsIsOpen">ResultsColumnsIsOpen</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Show the nested content if it is the start of a column.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>function</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#setResultsLimitGrid">setResultsLimitGrid</a></strong>
+                                </code>
+                                
+    
+        (
+        
+            <code>limit</code>
+            ,
+        
+            <code>columns</code>
+            
+        
+        )
+    
+
+
+                            </dt>
+                            <dd>
+                                 If a result grid is used change the result limits to match a number divible by the number of columns set.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Search Forms</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HiddenInput">HiddenInput</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Sets up the namespace variables required for each input value.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HiddenInputName">HiddenInputName</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the hidden input name
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HiddenInputs">HiddenInputs</a></strong>
+                                </code>
+                                
+    
+        
+            <code>metadata</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Sets up the namespace variables required for creating hidden input form elements.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#HiddenInputValue">HiddenInputValue</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the hidden input value
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+        
+</table>
+
+
+<br />
+
+
+<table border="1" cellpadding="4" cellspacing="0">
+    <tr><td colspan="2" class="heading">Macro and Function Detail</td></tr>
+</table>
+
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumb">BreadCrumb</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Sets up the namespace variables for each individual breadcrumb.
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>BreadCrumbs</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>${base_controller.facetDef}</code> <br /> <code>${base_controller.facetDef_index}</code> <br /> <code>${base_controller.facetDef_has_next}</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumb');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumb">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumb&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;fn&nbsp;=&nbsp;facetedNavigationConfig(question.collection,&nbsp;question.profile)&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;fn?exists&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Find&nbsp;facet&nbsp;definition&nbsp;in&nbsp;the&nbsp;configuration&nbsp;corresponding<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;facet&nbsp;we're&nbsp;currently&nbsp;displaying<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;fn.facetDefinitions&nbsp;as&nbsp;fdef&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;fdef.name&nbsp;==&nbsp;s.facet.name&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetDef&nbsp;=&nbsp;fdef&nbsp;in&nbsp;s&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetDef_index&nbsp;=&nbsp;fdef_index&nbsp;in&nbsp;s&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetDef_has_next&nbsp;=&nbsp;fdef_has_next&nbsp;in&nbsp;s&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@BreadCrumbSummary&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@BreadCrumbSummary&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumbName">BreadCrumbName</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays the breadcrumb name
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumbName');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumbName">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumbName&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(s.breadCrumbName)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${s.breadCrumbName}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumbs">BreadCrumbs</a></tt>
+            
+    
+        
+            <code>name</code>
+        
+            <code>names</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays the facet breadcrumb as list which can be unselected
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumbs');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumbs">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumbs&nbsp;name=&quot;&quot;&nbsp;names=[]&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;response?exists&nbsp;&amp;&amp;&nbsp;response.facets?exists&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;name&nbsp;==&nbsp;&quot;&quot;&nbsp;&amp;&amp;&nbsp;names?size&nbsp;==&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Iterate&nbsp;over&nbsp;all&nbsp;facets&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;response.facets&nbsp;as&nbsp;f&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;f.hasValues()&nbsp;||&nbsp;question.selectedFacets?seq_contains(f.name)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet&nbsp;=&nbsp;f&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet_index&nbsp;=&nbsp;f_index&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet_has_next&nbsp;=&nbsp;f_has_next&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;response.facets&nbsp;as&nbsp;f&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(f.name&nbsp;==&nbsp;name&nbsp;||&nbsp;names?seq_contains(f.name)&nbsp;)&nbsp;&amp;&amp;&nbsp;(f.hasValues()&nbsp;||&nbsp;question.selectedFacets?seq_contains(f.name))&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet&nbsp;=&nbsp;f&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet_index&nbsp;=&nbsp;f_index&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facet_has_next&nbsp;=&nbsp;f_has_next&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumbSearch">BreadCrumbSearch</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional Display - Runs the nested code if there is at least one selected facet. <p> Aims to provide a means for the user to unselect facet categories </p>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumbSearch');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumbSearch">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumbSearch&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(question.selectedFacets)!?has_content<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;question.selectedFacets?size&nbsp;&amp;gt;&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumbSummary">BreadCrumbSummary</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Sets up the namespace variables in order to display the breadcrumb summary. <p> This is an internal macro that should not be used directly in any views. </p>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>BreadCrumb</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>${base_controller.breadCrumbUrl}</code> <br /> <code>${base_controller.facetDef_index}</code> <br /> <code>${base_controller.facetDef_has_next}</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumbSummary');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumbSummary">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumbSummary&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;We&nbsp;must&nbsp;test&nbsp;various&nbsp;combinations&nbsp;here&nbsp;as&nbsp;different&nbsp;browsers&nbsp;will&nbsp;encode<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some&nbsp;characters&nbsp;differently&nbsp;(i.e.&nbsp;'/'&nbsp;will&nbsp;sometimes&nbsp;be&nbsp;preserved,&nbsp;sometimes<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encoded&nbsp;as&nbsp;'%2F'&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;QueryString?contains(&quot;f.&quot;&nbsp;+&nbsp;s.facetDef.name?url)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;urlDecode(QueryString)?contains(&quot;f.&quot;&nbsp;+&nbsp;s.facetDef.name)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;urlDecode(QueryString)?contains(&quot;f.&quot;&nbsp;+&nbsp;s.facetDef.name?url)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;breadCrumbUrl&nbsp;=&nbsp;question.collection.configuration.value(&quot;ui.modern.search_link&quot;)&nbsp;+&nbsp;&quot;?&quot;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removeParam(facetScopeRemove(QueryString,&nbsp;s.facetDef.allQueryStringParamNames),&nbsp;[&quot;start_rank&quot;]&nbsp;+&nbsp;s.facetDef.allQueryStringParamNames)&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@NestedBreadCrumbName&nbsp;categoryDefinitions=s.facetDef.categoryDefinitions&nbsp;selectedCategoryValues=question.selectedCategoryValues&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@NestedBreadCrumbName&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="BreadCrumbUrl">BreadCrumbUrl</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays the breadcrumb url
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_BreadCrumbUrl');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_BreadCrumbUrl">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;BreadCrumbUrl&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(s.breadCrumbUrl)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${s.breadCrumbUrl}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;</span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="buildQueryString">buildQueryString</a></tt>
+            
+    
+        (
+        
+            <code>parameters</code>
+            ,
+        
+            <code>urlStem</code>
+            
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Builds a URL which can be used to navigate the user to another search page while maintaining the specified CGI parameters and their associated values.
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>parameters</code> - The CGI parameters which are to be maintained<br>
+			
+				<code>urlStem</code> - The base urls in which the paramters are to be attached to<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>String The generated URL as a String</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_buildQueryString');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_buildQueryString">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;buildQueryString(parameters,&nbsp;urlStem&nbsp;=&quot;&quot;)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;url&nbsp;=&nbsp;urlStem&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;for&nbsp;each&nbsp;parameter&nbsp;and&nbsp;append&nbsp;the&nbsp;values&nbsp;to&nbsp;the&nbsp;url<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;a&nbsp;value&nbsp;can&nbsp;be&nbsp;found<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;flag&nbsp;=&nbsp;false&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;parameters&nbsp;as&nbsp;param&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(question.rawInputParameters)!?has_content&nbsp;&amp;&amp;&nbsp;question.rawInputParameters[param]??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Append&nbsp;values&nbsp;for&nbsp;each&nbsp;occurence&nbsp;of&nbsp;the&nbsp;parameter<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i.e.&nbsp;meta_a=peter&amp;meta_a=john<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;question.rawInputParameters[param]&nbsp;as&nbsp;value&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;value?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Appends&nbsp;a&nbsp;&quot;&amp;&quot;&quot;&nbsp;only&nbsp;if&nbsp;this&nbsp;is&nbsp;not&nbsp;the&nbsp;first&nbsp;time&nbsp;a&nbsp;value<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;being&nbsp;added&nbsp;to&nbsp;the&nbsp;url<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;url?matches(&quot;&amp;$&quot;)&nbsp;==&nbsp;false&nbsp;&amp;&amp;&nbsp;flag&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;url&nbsp;=&nbsp;url&nbsp;+&nbsp;&quot;&amp;&quot;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;url&nbsp;=&nbsp;url&nbsp;+&nbsp;param&nbsp;+&nbsp;&quot;=&quot;&nbsp;+&nbsp;value&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;flag&nbsp;=&nbsp;true&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;url&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CreateSearchUrl">CreateSearchUrl</a></tt>
+            
+    
+        
+            <code>cgis</code>
+        
+            <code>append</code>
+        
+            <code>url</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Generate URls for changing display format query. <p><strong>Example</strong</p> <code>&lt;@CreateSearchUrl CGI=[&quot;name=value&quot;, &quot;query=test&quot;] /&gt; or &lt;@base_controller.CreateSearchUrl CGIs=[&quot;display=list&quot;,&quot;num_ranks=10&quot;] /&gt;</code>
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>cgi</code> - Array of cgi parameters as ["name=value", "query=test"].<br>
+			
+				<code>append</code> - Append CGI to existing CGI Query. Default to true. (optional)<br>
+			
+				<code>URL</code> - URL to append CGI parameters to. Defaults to '/s/search.html'. (optional)<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>string</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CreateSearchUrl');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CreateSearchUrl">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CreateSearchUrl&nbsp;cgis=[]&nbsp;append=true&nbsp;url=&quot;/s/search.html&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;</span><span class="directive">query&nbsp;=&nbsp;QueryString</span><span class="directive"></span><span class="directive">key&nbsp;=&quot;&quot;</span><span class="directive"></span><span class="directive">&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;append&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Create&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query&nbsp;string&nbsp;from&nbsp;existing--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;cgis&nbsp;as&nbsp;cgi&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Split&nbsp;out&nbsp;key&nbsp;value&nbsp;&quot;name=value&quot;&nbsp;into&nbsp;&quot;name&quot;&nbsp;&amp;&nbsp;&quot;value&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;cgi?split(&quot;=&quot;)&nbsp;as&nbsp;value&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;value_index&nbsp;=&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;key&nbsp;=&nbsp;value&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;query&nbsp;=&nbsp;changeParam(query,&nbsp;key,&nbsp;value&nbsp;)&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Create&nbsp;new&nbsp;query&nbsp;string&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;cgis&nbsp;as&nbsp;cgi&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;cgi_index&nbsp;=&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;query=cgi&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;query=&nbsp;query&nbsp;+&nbsp;&quot;&amp;&quot;&nbsp;+&nbsp;cgi&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${url&nbsp;+&nbsp;&quot;?&quot;&nbsp;+&nbsp;query}</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#compress&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="GetCGIValue">GetCGIValue</a></tt>
+            
+    
+        
+            <code>name</code>
+        
+            <code>default</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Get a CGI parameter's value. If empty the 'default' parameter is returned. 
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>name</code> - Name of CGI parameter to retrieve value.<br>
+			
+				<code>default</code> - A value to return if CGI parameter is empty or null. Is set to "".<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_GetCGIValue');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_GetCGIValue">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;GetCGIValue&nbsp;name=&quot;&quot;&nbsp;default=&quot;&quot;&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;question?exists&nbsp;&amp;&amp;&nbsp;question.inputParameterMap?exists&nbsp;&amp;&amp;&nbsp;question.inputParameterMap?keys?seq_contains(name)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;result&nbsp;=&nbsp;question.inputParameterMap[name]&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;result=&quot;&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${default}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${result}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${default}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;</span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="getResultsColumnsIndex">getResultsColumnsIndex</a></tt>
+            
+    
+        (
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Returns the column set index. This can be accessed as <code>$&#123;base_controller.resultsColumnsIndex&#125;</code>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>ResultsColumns</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>number</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_getResultsColumnsIndex');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_getResultsColumnsIndex">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;getResultsColumnsIndex&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;(.namespace.resultsColumnsRank&nbsp;/&nbsp;.namespace.resultsColumnsNumber)?floor&nbsp;+&nbsp;1&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;#return&nbsp;0&gt;&nbsp;--&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="getResultsColumnsIsLast">getResultsColumnsIsLast</a></tt>
+            
+    
+        (
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Returns if the current result is the last item to be displayed. This can be accessed as <code>$&#123;base_controller.resultsColumnsIsLast&#125;</code>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>ResultsColumns</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>boolean</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_getResultsColumnsIsLast');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_getResultsColumnsIsLast">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;getResultsColumnsIsLast&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;core_controller.result.rank&nbsp;==&nbsp;response.resultPacket.resultsSummary.currEnd&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="getResultsColumnsNumber">getResultsColumnsNumber</a></tt>
+            
+    
+        (
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Returns the number of columns set. This can be accessed as <code>$&#123;base_controller.resultsColumnsNumber&#125;</code>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>ResultsColumns</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>number</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_getResultsColumnsNumber');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_getResultsColumnsNumber">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;getResultsColumnsNumber&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;x&gt;</span><span class="userdirective">&lt;@GetCGIValue&nbsp;name=&quot;resultsColumns&quot;&nbsp;default=&quot;2&quot;&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;x?number&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="getResultsColumnsRank">getResultsColumnsRank</a></tt>
+            
+    
+        (
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Returns current position of the result which takes into account the current start rank. This can be accessed as <code>$&#123;base_controller.resultsColumnsRank&#125;</code>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>ResultsColumns</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>number</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_getResultsColumnsRank');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_getResultsColumnsRank">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;getResultsColumnsRank&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;core_controller.result.rank&nbsp;-&nbsp;response.resultPacket.resultsSummary.currStart&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HasContextNavigationEntries">HasContextNavigationEntries</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional Display - Runs the nested code only when there at least one contextual navigation entry that is not in "Site"
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HasContextNavigationEntries');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HasContextNavigationEntries">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HasContextNavigationEntries&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;contextFound&nbsp;=&nbsp;false&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@core_controller.AfterSearchOnly&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(response.resultPacket.contextualNavigation.categories)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;response.resultPacket.contextualNavigation.categories&nbsp;as&nbsp;category&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;category.name&nbsp;!=&nbsp;&quot;site&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;contextFound&nbsp;=&nbsp;true&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@core_controller.AfterSearchOnly&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;contextFound&nbsp;==&nbsp;true&nbsp;&amp;&amp;&nbsp;negate&nbsp;==&nbsp;false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#elseif&nbsp;contextFound&nbsp;==&nbsp;false&nbsp;&amp;&amp;&nbsp;negate&nbsp;==&nbsp;true&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HasFacets">HasFacets</a></tt>
+            
+    
+        
+            <code>negate</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional Display - Runs the nested code if at least one facet has a facet category code if there are no facet with facet catergories.
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>negate</code> - Set this to true to reverse the logic of this macro. i.e. Run the nested<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HasFacets');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HasFacets">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HasFacets&nbsp;negate=false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@core_controller.AfterSearchOnly&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetFound&nbsp;=&nbsp;false&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;response.facets??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;response.facets&nbsp;as&nbsp;facet&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;facet.categories??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;facet.categories&nbsp;as&nbsp;category&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;(category.values??&nbsp;&amp;&amp;&nbsp;category.values?size&nbsp;&gt;&nbsp;0)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetFound&nbsp;=&nbsp;true&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#elseif&nbsp;(category.categories??&nbsp;&amp;&amp;&nbsp;category.categories?size&nbsp;&gt;&nbsp;0)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;facetFound&nbsp;=&nbsp;true&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;facetFound&nbsp;==&nbsp;true&nbsp;&amp;&amp;&nbsp;negate&nbsp;==&nbsp;false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#elseif&nbsp;facetFound&nbsp;==&nbsp;false&nbsp;&amp;&amp;&nbsp;negate&nbsp;==&nbsp;true&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@core_controller.AfterSearchOnly&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HasResults">HasResults</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional Display - Runs the nested code only if at least one result is found
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HasResults');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HasResults">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HasResults&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(response.resultPacket.resultsSummary.totalMatching)!?has_content<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;response.resultPacket.resultsSummary.totalMatching&nbsp;&amp;gt;&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HiddenInput">HiddenInput</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Sets up the namespace variables required for each input value.
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>${base_controller.hiddenInputValue}</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Search Forms</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HiddenInput');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HiddenInput">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HiddenInput&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;.namespace.HiddenInputList&nbsp;as&nbsp;value&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;value!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;hiddenInputValue&nbsp;=&nbsp;value&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HiddenInputName">HiddenInputName</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the hidden input name
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Search Forms</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HiddenInputName');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HiddenInputName">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HiddenInputName&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(.namespace.hiddenInputName)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${.namespace.hiddenInputName}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HiddenInputs">HiddenInputs</a></tt>
+            
+    
+        
+            <code>metadata</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Sets up the namespace variables required for creating hidden input form elements.
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>metadata</code> - The metadata name<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>${base_controller.hiddenInputList}</code> <br /> <code>${base_controller.hiddenInputName}</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Search Forms</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HiddenInputs');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HiddenInputs">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HiddenInputs&nbsp;metadata&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(question.rawInputParameters)!?has_content&nbsp;&amp;&amp;&nbsp;question.rawInputParameters[metadata]??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;hiddenInputList&nbsp;=&nbsp;question.rawInputParameters[metadata]&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;hiddenInputName&nbsp;=&nbsp;metadata&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="HiddenInputValue">HiddenInputValue</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the hidden input value
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Search Forms</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_HiddenInputValue');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_HiddenInputValue">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;HiddenInputValue&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(.namespace.hiddenInputValue)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${.namespace.hiddenInputValue}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="IfDefCGIEquals">IfDefCGIEquals</a></tt>
+            
+    
+        
+            <code>name</code>
+        
+            <code>value</code>
+        
+            <code>trueIfEmpty</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional display - Runs the nested code only if the matching  CGI parameter and value pair is found. <h3>Example Usuage</h3> <code> &lt;@IfDefCGIEquals name=&quot;display&quot; value=&quot;list&quot;&gt;&lt;p&gt;Return this&lt;/p&gt;&lt;/@IfDefCGIEquals&gt; or &lt;@base_controller.IfDefCGIEquals name=&quot;display&quot; &gt;active&lt;/@base_controller.IfDefCGIEquals&gt; </code> 
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>value</code> - value to test for a match to CGI parameter's value.<br>
+			
+				<code>name</code> - name of CGI paramater.<br>
+			
+				<code>trueIfEmpty</code> - return true if query param is null or not set<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_IfDefCGIEquals');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_IfDefCGIEquals">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;IfDefCGIEquals&nbsp;name=&quot;&quot;&nbsp;value=&quot;&quot;&nbsp;trueIfEmpty=false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;question?exists&nbsp;&amp;&amp;&nbsp;question.inputParameterMap?exists&nbsp;&amp;&amp;&nbsp;question.inputParameterMap?keys?seq_contains(name)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;result&nbsp;=&nbsp;question.inputParameterMap[name]&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;result=&quot;&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;trueIfEmpty&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;result?matches(value)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;trueIfEmpty&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="Linkify">Linkify</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Converts URLs within text to html links. <p>Warning: Please use this marco with care because this uses noescape. Please do not use on user input fields.</p> 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>General</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_Linkify');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_Linkify">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;Linkify&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;content&gt;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;content??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;content?matches(&quot;(https?://[^\\s]+)&quot;)&nbsp;as&nbsp;match&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${content?replace(match,&nbsp;&quot;&nbsp;&lt;a&nbsp;href='&quot;&nbsp;+&nbsp;match&nbsp;+&nbsp;&quot;'&nbsp;&gt;&quot;&nbsp;+&nbsp;match&nbsp;+&nbsp;&quot;&lt;/a&gt;&quot;,&nbsp;&quot;f&quot;)}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#local&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${content}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${content}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="NestedBreadCrumbName">NestedBreadCrumbName</a></tt>
+            
+    
+        
+            <code>categoryDefinitions</code>
+        
+            <code>selectedCategoryValues</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Recursively generates the breadcrumbs using the facet. <p> This is an internal macro that should not be used directly in any views. </p>
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>categoryDefinitions</code> - List of sub categories (hierarchical).<br>
+			
+				<code>selectedCategoryValues</code> - List of selected values.<br>
+			
+				<code>separator</code> - Separator to use in the breadcrumb.<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Facets</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_NestedBreadCrumbName');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_NestedBreadCrumbName">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;NestedBreadCrumbName&nbsp;categoryDefinitions&nbsp;selectedCategoryValues&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;categoryDefinitions&nbsp;as&nbsp;def&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;def.class.simpleName&nbsp;==&nbsp;&quot;URLFill&quot;&nbsp;&amp;&amp;&nbsp;selectedCategoryValues?keys?seq_contains(def.queryStringParamName)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Special&nbsp;case&nbsp;for&nbsp;URLFill&nbsp;facets:&nbsp;Split&nbsp;on&nbsp;slashes&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;path&nbsp;=&nbsp;selectedCategoryValues[def.queryStringParamName][0]&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;pathBuilding&nbsp;=&nbsp;&quot;&quot;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;path?split(&quot;/&quot;,&nbsp;&quot;r&quot;)&nbsp;as&nbsp;part&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;pathBuilding&nbsp;=&nbsp;pathBuilding&nbsp;+&nbsp;&quot;/&quot;&nbsp;+&nbsp;part&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Don't&nbsp;display&nbsp;bread&nbsp;crumb&nbsp;for&nbsp;parts&nbsp;that&nbsp;are&nbsp;part<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;the&nbsp;root&nbsp;URL&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;!&nbsp;def.data?lower_case?matches(&quot;.*[/\\\\]&quot;+part?lower_case+&quot;[/\\\\].*&quot;)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;part_has_next&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;</span><span class="interpolation">${question.collection.configuration.value(&quot;ui.modern.search_link&quot;)}</span><span class="textblock">?</span><span class="interpolation">${removeParam(facetScopeRemove(QueryString,&nbsp;def.allQueryStringParamNames),&nbsp;[&quot;start_rank&quot;]&nbsp;+&nbsp;def.allQueryStringParamNames)?html}</span><span class="textblock">&amp;amp;</span><span class="interpolation">${def.queryStringParamName}</span><span class="textblock">=</span><span class="interpolation">${pathBuilding?url}</span><span class="textblock">&quot;&gt;</span><span class="interpolation">${part}</span><span class="textblock">&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${part}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;selectedCategoryValues?keys?seq_contains(def.queryStringParamName)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Find&nbsp;the&nbsp;label&nbsp;for&nbsp;this&nbsp;category.&nbsp;For&nbsp;nearly&nbsp;all&nbsp;categories&nbsp;the&nbsp;label&nbsp;is&nbsp;equal<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;value&nbsp;returned&nbsp;by&nbsp;the&nbsp;query&nbsp;processor,&nbsp;but&nbsp;not&nbsp;for&nbsp;date&nbsp;counts&nbsp;for&nbsp;example.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With&nbsp;date&nbsp;counts&nbsp;the&nbsp;label&nbsp;is&nbsp;the&nbsp;actual&nbsp;year&nbsp;&quot;2003&quot;&nbsp;or&nbsp;a&nbsp;&quot;past&nbsp;3&nbsp;weeks&quot;&nbsp;but&nbsp;the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;is&nbsp;the&nbsp;constraint&nbsp;to&nbsp;apply&nbsp;like&nbsp;&quot;d=2003&quot;&nbsp;or&nbsp;&quot;d&gt;12Jun2012&quot;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Use&nbsp;value&nbsp;by&nbsp;default&nbsp;if&nbsp;we&nbsp;can't&nbsp;find&nbsp;a&nbsp;label&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;valueLabel&nbsp;=&nbsp;selectedCategoryValues[def.queryStringParamName][0]&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Iterate&nbsp;over&nbsp;generated&nbsp;facets&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;response.facets&nbsp;as&nbsp;facet&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;def.facetName&nbsp;==&nbsp;facet.name&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Facet&nbsp;located,&nbsp;find&nbsp;current&nbsp;working&nbsp;category&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;fCat&nbsp;=&nbsp;facet.findDeepestCategory([def.queryStringParamName])!&quot;&quot;&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;fCat&nbsp;!=&nbsp;&quot;&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;fCat.values&nbsp;as&nbsp;catValue&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Find&nbsp;the&nbsp;category&nbsp;value&nbsp;for&nbsp;which&nbsp;the&nbsp;query&nbsp;string&nbsp;param<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matches&nbsp;the&nbsp;currently&nbsp;selected&nbsp;value&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;kv&nbsp;=&nbsp;catValue.queryStringParam?split(&quot;=&quot;)&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;valueLabel&nbsp;==&nbsp;urlDecode(kv[1])&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;valueLabel&nbsp;=&nbsp;catValue.label&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Find&nbsp;if&nbsp;we&nbsp;are&nbsp;processing&nbsp;the&nbsp;last&nbsp;selected&nbsp;value&nbsp;(leaf&nbsp;node)&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;last&nbsp;=&nbsp;true&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;def.allQueryStringParamNames&nbsp;as&nbsp;param&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;param&nbsp;!=&nbsp;def.queryStringParamName&nbsp;&amp;&amp;&nbsp;selectedCategoryValues?keys?seq_contains(param)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;last&nbsp;=&nbsp;false&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;last&nbsp;==&nbsp;true&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;breadCrumbName&nbsp;=&nbsp;valueLabel&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;breadCrumbName&nbsp;=&nbsp;valueLabel&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;breadCrumbUrl&nbsp;=&nbsp;question.collection.configuration.value(&quot;ui.modern.search_link&quot;)&nbsp;+&nbsp;&quot;?&quot;&nbsp;+&nbsp;removeParam(facetScopeRemove(QueryString,&nbsp;def.allQueryStringParamNames),&nbsp;[&quot;start_rank&quot;]&nbsp;+&nbsp;def.allQueryStringParamNames)&nbsp;+&nbsp;&quot;&amp;&quot;&nbsp;+&nbsp;def.queryStringParamName&nbsp;+&nbsp;&quot;=&quot;&nbsp;+&nbsp;selectedCategoryValues[def.queryStringParamName][0]&nbsp;in&nbsp;s&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@NestedBreadCrumbName&nbsp;categoryDefinitions=def.subCategories&nbsp;selectedCategoryValues=selectedCategoryValues&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@NestedBreadCrumbName&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;We've&nbsp;displayed&nbsp;one&nbsp;step&nbsp;in&nbsp;the&nbsp;breadcrumb,&nbsp;no&nbsp;need&nbsp;to&nbsp;inspect<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;other&nbsp;category&nbsp;definitions&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&nbsp;/&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultIsCollection">ResultIsCollection</a></tt>
+            
+    
+        
+            <code>name</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Result</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ResultIsCollection');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ResultIsCollection">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ResultIsCollection&nbsp;name=&quot;&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;core_controller.result.collection&nbsp;=&nbsp;name&nbsp;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultsColumns">ResultsColumns</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Constructor for ResultsColumns, defines how to format the grouping of result into columns.
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>$&#123;base_controller.resultsColumnsNumber&#125;</code> <code>$&#123;base_controller.resultsColumnsIsLast&#125;</code> <code>$&#123;base_controller.resultsColumnsRank&#125;</code> <code>$&#123;base_controller.resultsColumnsIndex&#125;</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ResultsColumns');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ResultsColumns">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ResultsColumns&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Define&nbsp;attributes&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;resultsColumnsNumber&nbsp;=&nbsp;getResultsColumnsNumber()&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;resultsColumnsIsLast&nbsp;=&nbsp;getResultsColumnsIsLast()&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;resultsColumnsRank&nbsp;=&nbsp;getResultsColumnsRank()&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;resultsColumnsIndex&nbsp;=&nbsp;getResultsColumnsIndex()&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultsColumnsIsClosed">ResultsColumnsIsClosed</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ResultsColumnsIsClosed');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ResultsColumnsIsClosed">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ResultsColumnsIsClosed&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(.namespace.resultsColumnsRank&nbsp;+&nbsp;1)&nbsp;%&nbsp;.namespace.resultsColumnsNumber&nbsp;==&nbsp;0&nbsp;||&nbsp;.namespace.resultsColumnsIsLast&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultsColumnsIsOpen">ResultsColumnsIsOpen</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Show the nested content if it is the start of a column.
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>ResultsColumns</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Return value</b></dt>
+        <dd>nested</dd>
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ResultsColumnsIsOpen');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ResultsColumnsIsOpen">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ResultsColumnsIsOpen&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;.namespace.resultsColumnsRank&nbsp;%&nbsp;.namespace.resultsColumnsNumber&nbsp;==&nbsp;0&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            function
+            <tt><a name="setResultsLimitGrid">setResultsLimitGrid</a></tt>
+            
+    
+        (
+        
+            <code>limit</code>
+            ,
+        
+            <code>columns</code>
+            
+        
+        )
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 If a result grid is used change the result limits to match a number divible by the number of columns set. The main use case for this helper is for the limit selector.
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>limit</code> - {number} Number of rows show.<br>
+			
+				<code>columns</code> - {number} Number of columns for setting grid limit for. Defaults to currently set number of columns.<br>
+			
+		</dd>
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Results Features</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_setResultsLimitGrid');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_setResultsLimitGrid">
+
+
+
+
+<span class="directive">&lt;#function&nbsp;setResultsLimitGrid&nbsp;limit=1&nbsp;columns=getResultsColumnsNumber()&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#return&nbsp;(limit*columns)?string&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br></span><span class="directive">&lt;/#function&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+

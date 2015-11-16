@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+
+    <title>Documentation for collapsedresult.controller.ftl</title>
+
+    <style>
+        div.sourcecode {
+            display: none;
+            border : 1px solid Black;
+            background-color : #DDDDDD; /* #E8E8E8; */
+            padding : 3px;
+            margin-top : 8px;
+        }
+
+
+        span {font-family:Courier; font-size:12px}
+        span.directive {color:blue}
+        span.userdirective {color:red}
+        span.interpolation {color:green}
+        span.textblock {color:black}
+        span.comment {color:brown}
+    </style>
+
+    <script language="javascript">
+        function toggle(id) {
+            elem = document.getElementById(id);
+            if(elem.style.display=="block") {
+                elem.style.display="none";
+            } else {
+                elem.style.display="block";
+            }
+        }
+
+        function setTitle() {
+            parent.document.title=document.title;
+        }
+    </script>
+</head>
+
+<body class="ftldoc" onLoad="setTitle();">
+<div id="content">
+
+
+
+
+<div id="categories">
+    <h3>NAVIGATION</h3>
+    <ul>
+        <li class="category"><a href="overview.html">Overview</a></li>
+        <li class="category"><a href="index-all-cat.html">Index (categories)</a></li>
+        <li class="category"><a href="index-all-alpha.html">Index (alphabetical)</a></li>
+    </ul>
+</div>
+
+
+
+<h1>collapsedresult.controller.ftl</h1>
+<div id="page-contents">
+    <h3>Description</h3><br />
+    
+         Controllers for Collasped Result <h2>Table of Contents</h2> <ul> <li><strong>Collapsed:</strong> The logic to the collaspsed result.</li> <li><strong>Collapsed Results:</strong> The logic to the collaspsed result's results.</li> </ul>
+    
+    
+</div>
+
+
+
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <td colspan="2" class="heading">Macro and Function Summary</td>
+    </tr>
+
+    
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Collapsed</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#Collapsed">Collapsed</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Sets up the namespace variables required to generate a link to show the results that were collapsed for the current result.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CollapsedCount">CollapsedCount</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the count for the collapsed result.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CollapsedHasExactCount">CollapsedHasExactCount</a></strong>
+                                </code>
+                                
+    
+        
+            <code>signature</code>
+        
+            <code>negate</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Conditional display - Runs the nested code if exact count is avaialble.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CollapsedResultsCount">CollapsedResultsCount</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Gets the number of Collapsed Results that are available to print
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CollapsedUrl">CollapsedUrl</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the url for the collapsed result.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Collapsed Results</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#Results">Results</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Gets the Collapsed Results ready to print
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#ResultsHasMoreResults">ResultsHasMoreResults</a></strong>
+                                </code>
+                                
+    
+        
+            <code>negate</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays content if Collapsed Results has more results than set for display in -collapsing_num_ranks setting.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+</table>
+
+
+<br />
+
+
+<table border="1" cellpadding="4" cellspacing="0">
+    <tr><td colspan="2" class="heading">Macro and Function Detail</td></tr>
+</table>
+
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="Collapsed">Collapsed</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Sets up the namespace variables required to generate a link to show the results that were collapsed for the current result. <p> Result Collapsing is the ability to collapse similar results into one, when displayed on the search results page. Results are considered similar when: <ul> <li> Their content is identical, or nearly identical (as decided by the query processor) </li> <li> They share one or multiple identical metadata fields </li> </ul> <p>
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Results</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Provides</b></dt>
+        <dd><code>${core_controller.collapsedUrl}</code> <br /> <code>${core_controller.collapsedCount}</code></dd>
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_Collapsed');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_Collapsed">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;Collapsed&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;core_controller.result.collapsed??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;collapsed&nbsp;=&nbsp;core_controller.result.collapsed&nbsp;in&nbsp;.namespace&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;collapsedUrl&nbsp;in&nbsp;.namespace&gt;</span><span class="userdirective">&lt;@CollapsedUrl&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#assign&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;collapsedCount&nbsp;in&nbsp;.namespace&gt;</span><span class="userdirective">&lt;@CollapsedCount&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#assign&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;collapsedResultsCount&nbsp;in&nbsp;.namespace&gt;</span><span class="userdirective">&lt;@CollapsedResultsCount&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#assign&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;collapsedHasExactCount&nbsp;in&nbsp;.namespace&gt;</span><span class="userdirective">&lt;@CollapsedHasExactCount&nbsp;/&gt;</span><span class="userdirective"></span><span class="directive">&lt;/#assign&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CollapsedCount">CollapsedCount</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the count for the collapsed result.
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CollapsedCount');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CollapsedCount">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CollapsedCount&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;count&nbsp;=&nbsp;.namespace.collapsed.count&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(count)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${count}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CollapsedHasExactCount">CollapsedHasExactCount</a></tt>
+            
+    
+        
+            <code>signature</code>
+        
+            <code>negate</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Conditional display - Runs the nested code if exact count is avaialble. NOTE: This used to be CollapsedLabel
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>negate</code> - Reverse conditon by setting to true. Will display if has approximate count<br>
+			
+		</dd>
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CollapsedHasExactCount');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CollapsedHasExactCount">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CollapsedHasExactCount&nbsp;signature=&quot;&quot;&nbsp;negate=false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;!negate&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&nbsp;If&nbsp;we&nbsp;have&nbsp;exact&nbsp;count&nbsp;print&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(response.resultPacket.resultsSummary.estimatedCounts)!?has_content&nbsp;==&nbsp;false&nbsp;||&nbsp;response.resultPacket.resultsSummary.estimatedCounts&nbsp;==&nbsp;false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;signature!?has_content&nbsp;==&nbsp;false&nbsp;||&nbsp;((.namespace.collapsed.column)!?has_content&nbsp;&amp;&amp;&nbsp;.namespace.collapsed.column&nbsp;==&nbsp;signature)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;If&nbsp;we&nbsp;do&nbsp;not&nbsp;have&nbsp;exact&nbsp;count&nbsp;print&nbsp;-&nbsp;Runs&nbsp;the&nbsp;nested&nbsp;code&nbsp;if&nbsp;only&nbsp;an&nbsp;approximate&nbsp;count&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(response.resultPacket.resultsSummary.estimatedCounts)!?has_content&nbsp;&amp;&amp;&nbsp;response.resultPacket.resultsSummary.estimatedCounts&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;signature!?has_content&nbsp;==&nbsp;false&nbsp;||&nbsp;((.namespace.result.collapsed.column)!?has_content&nbsp;&amp;&amp;&nbsp;.namespace.result.collapsed.column&nbsp;==&nbsp;signature)&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CollapsedResultsCount">CollapsedResultsCount</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Gets the number of Collapsed Results that are available to print
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CollapsedResultsCount');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CollapsedResultsCount">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CollapsedResultsCount&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br></span><span class="interpolation">${.namespace.collapsed.results?size}</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CollapsedUrl">CollapsedUrl</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the url for the collapsed result.
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CollapsedUrl');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CollapsedUrl">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CollapsedUrl&gt;</span><span class="directive">&lt;#compress&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;searchLink&nbsp;=&nbsp;&quot;${question.collection.configuration.value('ui.modern.search_link')}&quot;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;searchQuery&nbsp;=&nbsp;&quot;${removeParam(QueryString,&nbsp;['start_rank'])?html}&amp;amp;s=%3F:${.namespace.collapsed.signature}&amp;amp;fmo=on&amp;amp;collapsing=off&quot;&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#local&nbsp;url&nbsp;=&nbsp;&quot;${searchLink}?${searchQuery}&quot;&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;(url)!?has_content&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="interpolation">${url}</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#noescape&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#compress&gt;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="Results">Results</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Gets the Collapsed Results ready to print
+            
+            <dl>
+                
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>core_controller.Collapsed</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed Results</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_Results');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_Results">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;Results&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#list&nbsp;.namespace.collapsed.results&nbsp;as&nbsp;r&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#assign&nbsp;result&nbsp;=&nbsp;r&nbsp;in&nbsp;.namespace&nbsp;&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#list&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="ResultsHasMoreResults">ResultsHasMoreResults</a></tt>
+            
+    
+        
+            <code>negate</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays content if Collapsed Results has more results than set for display in -collapsing_num_ranks setting.
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>negate</code> - set to true to reverse condition.<br>
+			
+		</dd>
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>Results</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Collapsed Results</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_ResultsHasMoreResults');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_ResultsHasMoreResults">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;ResultsHasMoreResults&nbsp;negate=false&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#if&nbsp;!negate&nbsp;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Show&nbsp;#nested&nbsp;if&nbsp;there&nbsp;are&nbsp;more&nbsp;collasped&nbsp;results&nbsp;than&nbsp;area&nbsp;available&nbsp;to&nbsp;print&nbsp;in&nbsp;view&nbsp;&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;.namespace.collapsedCount?number&nbsp;gt&nbsp;.namespace.collapsedResultsCount?number&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#else&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Show&nbsp;#nested&nbsp;if&nbsp;there&nbsp;all&nbsp;the&nbsp;collasped&nbsp;results&nbsp;are&nbsp;avaible&nbsp;to&nbsp;print&nbsp;in&nbsp;view&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;.namespace.collapsedCount?number&nbsp;lte&nbsp;.namespace.collapsedResultsCount?number&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#nested&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+

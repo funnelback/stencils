@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+
+    <title>Documentation for tabs.view.ftl</title>
+
+    <style>
+        div.sourcecode {
+            display: none;
+            border : 1px solid Black;
+            background-color : #DDDDDD; /* #E8E8E8; */
+            padding : 3px;
+            margin-top : 8px;
+        }
+
+
+        span {font-family:Courier; font-size:12px}
+        span.directive {color:blue}
+        span.userdirective {color:red}
+        span.interpolation {color:green}
+        span.textblock {color:black}
+        span.comment {color:brown}
+    </style>
+
+    <script language="javascript">
+        function toggle(id) {
+            elem = document.getElementById(id);
+            if(elem.style.display=="block") {
+                elem.style.display="none";
+            } else {
+                elem.style.display="block";
+            }
+        }
+
+        function setTitle() {
+            parent.document.title=document.title;
+        }
+    </script>
+</head>
+
+<body class="ftldoc" onLoad="setTitle();">
+<div id="content">
+
+
+
+
+<div id="categories">
+    <h3>NAVIGATION</h3>
+    <ul>
+        <li class="category"><a href="overview.html">Overview</a></li>
+        <li class="category"><a href="index-all-cat.html">Index (categories)</a></li>
+        <li class="category"><a href="index-all-alpha.html">Index (alphabetical)</a></li>
+    </ul>
+</div>
+
+
+
+<h1>tabs.view.ftl</h1>
+<div id="page-contents">
+    <h3>Description</h3><br />
+    
+         Contains the presentation components required to display search results within tabs. <p> This file aims to store the client specific markup required for implementing tabs. It aims to represent the <em> view </em> aspect of Model-View-Control for the tab stencil. It also contains out-of-the-box markup which can be used as a basis for further customisations. </p> <p> In order to use the tab stencil, facets which represents the tabs needs to be created. The following also needs to be added to the <code> collection.cfg </code> file: <code> ui.modern.full_facets_list=true </code> </p> <p> It is also best practice to hide the facet group which has been used to populate the tabs from the list of available facets </p>
+    
+    
+</div>
+
+
+
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <td colspan="2" class="heading">Macro and Function Summary</td>
+    </tr>
+
+    
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Uncategorized
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#AZListing">AZListing</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays the tabs available for the current search.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CSS">CSS</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the markup to include the CSS dependencies suggested by this stencil.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#JS">JS</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Prints the markup to include the JavaScript dependencies suggested by this Stencil.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#TabMenu">TabMenu</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays the tabs available for the current search.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#TabPreview">TabPreview</a></strong>
+                                </code>
+                                
+    
+        
+            <code>extraSearchName</code>
+        
+            <code>code</code>
+        
+            <code>value</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Displays a preview of the results from another tab.
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+</table>
+
+
+<br />
+
+
+<table border="1" cellpadding="4" cellspacing="0">
+    <tr><td colspan="2" class="heading">Macro and Function Detail</td></tr>
+</table>
+
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="AZListing">AZListing</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays the tabs available for the current search. <p> Sample implementation of tabs which can be used to display an A-Z listing </p>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_AZListing');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_AZListing">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;AZListing&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;tabs.view.ftl&nbsp;::&nbsp;AZListing&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.TabSearch&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&nbsp;class=&quot;pagination&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Tabs&nbsp;name=&quot;Tabs&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Tab&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&nbsp;class=&quot;</span><span class="userdirective">&lt;@tabs_controller.IsActive&gt;</span><span class="textblock">active</span><span class="userdirective">&lt;/@tabs_controller.IsActive&gt;</span><span class="textblock">&nbsp;</span><span class="userdirective">&lt;@tabs_controller.IsDisabled&gt;</span><span class="textblock">disabled</span><span class="userdirective">&lt;/@tabs_controller.IsDisabled&gt;</span><span class="textblock">&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;</span><span class="userdirective">&lt;@tabs_controller.Url&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&nbsp;alt=&quot;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&nbsp;title=&quot;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&nbsp;(</span><span class="userdirective">&lt;@tabs_controller.Count&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">)&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.Tab&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.Tabs&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.TabSearch&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CSS">CSS</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the markup to include the CSS dependencies suggested by this stencil. 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_CSS');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CSS">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="JS">JS</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Prints the markup to include the JavaScript dependencies suggested by this Stencil. 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_JS');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_JS">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="TabMenu">TabMenu</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays the tabs available for the current search. <p> Sample implementation of tabs which can be customised </p>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_TabMenu');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_TabMenu">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;TabMenu&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;tabs.view.ftl&nbsp;::&nbsp;TabMenu&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.TabSearch&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;btn-group&quot;&nbsp;data-input=&quot;pagetype&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Tabs&nbsp;name=&quot;Tabs&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Tab&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=&quot;button&quot;&nbsp;class=&quot;btn&nbsp;btn-default&nbsp;remove-outline&nbsp;</span><span class="userdirective">&lt;@tabs_controller.IsActive&gt;</span><span class="textblock">active</span><span class="userdirective">&lt;/@tabs_controller.IsActive&gt;</span><span class="textblock">&nbsp;</span><span class="userdirective">&lt;@tabs_controller.IsDisabled&gt;</span><span class="textblock">disabled</span><span class="userdirective">&lt;/@tabs_controller.IsDisabled&gt;</span><span class="textblock">&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;</span><span class="userdirective">&lt;@tabs_controller.Url&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&nbsp;alt=&quot;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&nbsp;title=&quot;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Name&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&nbsp;&lt;span&nbsp;class=&quot;text-muted&quot;&gt;&nbsp;(</span><span class="userdirective">&lt;@tabs_controller.Count&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">)&nbsp;&lt;/span&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.Tab&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.Tabs&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.TabSearch&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="TabPreview">TabPreview</a></tt>
+            
+    
+        
+            <code>extraSearchName</code>
+        
+            <code>code</code>
+        
+            <code>value</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Displays a preview of the results from another tab. <p> By using an extra search, this implementation can be used to provide a preview of the results from another tab. </p>
+            
+            <dl>
+                
+	
+		<dt>
+			<b>Parameters</b>
+		</dt>
+		<dd>
+			
+				<code>code</code> - The code of the tab/facet preview e.g. for meta data based facets, it would be the metadata class such as <code> a </code>. For gscope based facets, it would be the gscope number such as <code> 11 </code><br>
+			
+				<code>value</code> - The value of the tab/facet of the preview e.g. e.g. for meta data based facets, it would be the metadata value such as "funnelback". For gscope based facets, it would be the gscope label<br>
+			
+		</dd>
+	
+
+                
+    
+        <dt><b>Requires</b></dt>
+        <dd>TabPane</dd>
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_TabPreview');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_TabPreview">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;TabPreview&nbsp;extraSearchName&nbsp;code&nbsp;value&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;tabs.view.ftl&nbsp;::&nbsp;TabPreview&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.Preview&nbsp;extraSearchName=extraSearchName&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;well&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;More&nbsp;results&nbsp;for&nbsp;'&lt;strong&gt;'</span><span class="userdirective">&lt;@core_controller.QueryClean&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">'&lt;/strong&gt;&nbsp;&lt;/h3&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Display&nbsp;results&nbsp;for&nbsp;the&nbsp;extra&nbsp;search&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@core_view.Results&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Provides&nbsp;a&nbsp;link&nbsp;which&nbsp;provides&nbsp;more&nbsp;results&nbsp;from&nbsp;the&nbsp;extra&nbsp;search&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@tabs_controller.PreviewMoreLinkArea&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=&quot;</span><span class="userdirective">&lt;@tabs_controller.PreviewMoreLink&nbsp;code=code&nbsp;value=value&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&gt;&nbsp;&lt;span&nbsp;class=&quot;glyphicon&nbsp;glyphicon-plus&quot;&gt;&lt;/span&gt;&nbsp;More&nbsp;results&nbsp;from&nbsp;this&nbsp;collection&lt;/a&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.PreviewMoreLinkArea&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;/@tabs_controller.Preview&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
