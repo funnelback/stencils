@@ -34,7 +34,7 @@
 <#import "/web/templates/modernui/funnelback.ftl" as fb/>
 
 <#-- Import Stencils -->
-<#assign stencils=["core","collapsedresult"] />
+<#assign stencils=["core"] />
 	<#--
 		The following code imports and assigns stencil namespaces automatically eg. core_view and core_controller.
 		The code expects that the controller files are located under $SEARCH_HOME/share/stencils/libraries/
