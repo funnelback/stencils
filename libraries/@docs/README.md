@@ -1,33 +1,16 @@
-User Interface Specification
+Documentation Masters
 =================
 
-This page contains shorts snippets which can be fed into the user interface specification document.
+## Introduction
 
-## Document Template
-Find the latest document template attached to; [Production Team - Templates for Client Deliverables](https://confluence.cbr.au.funnelback.com/display/PNS/Production+Team+-+Templates+for+Client+Deliverables).
+This area hosts all the master snippets for the deliverables below. All stencils repositories link to here.
 
-## Wireframes
-All the wireframes are located on confluence on the subpages of [Stencils - Developers - Documentation ](https://confluence.cbr.au.funnelback.com/display/STEN/Stencils+-+Developers+-+Documentation).
+## Deliverables
 
-## Snippets
-These are all the snippets that apply for this stencils;
-* [Course Result](COURSE_RESULT.md)
-* [Query completion configuration](QUERY_COMPLETION_CONFIGURATION.md)
-* [Facet configuration](FACET_CONFIGURATION.md)
-* [Cart Configuration](CART_CONFIGURATION.md)
-* [Collapsed Result Configuration](COLLAPSED_RESULT_CONFIGURATION.md)
-* [Advanced Search Configuration](ADVANCED_SEARCH_CONFIGURATION.md)
-* [Progressive Disclosure Configuration](PROGRESSIVE_DISCLOSURE_CONFIGURATION.md)
+The following are a list of boilerplate snippets which can be fed into client deliverables:
 
-**Core Stencil;**
-* [Results tools](../../../stencils-core-meta/tree/master/@docs/user_interface_specification/RESULTS_TOOLS.md)
-* [Print friendly](../../../stencils-core-meta/tree/master/@docs/user_interface_specification/PRINT_FRIENDLY.md)
-* [Cart](../../../stencils-core-meta/tree/master/@docs/user_interface_specification/Cart.md)
-
-**No Result Stencil;**
-* [No result suggested results](../../../stencils-noresult-meta/tree/master/@docs/user_interface_specification/NO_RESULT_SUGGESTED-RESULTS.md)
-* [No result facets](../../../stencils-noresult-meta/tree/master/@docs/user_interface_specification/NO_RESULT_FACETS.md)
-
-**Collapsed Result Stencil;**
-* [Collapsed Result](../../../stencils-collapsedresult-meta/tree/master/@docs/user_interface_specification/COLLAPSED_RESULT.md)
-* [Progressive Disclosure](../../../stencils-collapsedresult-meta/tree/master/@docs/user_interface_specification/PROGRESSIVE_DISCLOSURE.md)
+1. [Function Specification Snippets](functional_specification)
+2. [Functional Test Plan Snippets](funcitonal_test_plan)
+3. [Non-Functional Specification Snippet](non_functional_specification)
+4. [User Interface Specification Snippets](user_interface_specification)
+5. [Build Specification Snippets](build_specification)

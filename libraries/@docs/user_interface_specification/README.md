@@ -32,3 +32,18 @@ All the wireframes are located on confluence on the subpages of [Stencils - Deve
 * [Collapsed Result Configuration](course/COLLAPSED_RESULT_CONFIGURATION.md)
 * [Advanced Search Configuration](course/ADVANCED_SEARCH_CONFIGURATION.md)
 * [Progressive Disclosure Configuration](course/PROGRESSIVE_DISCLOSURE_CONFIGURATION.md)
+
+**Social** - TBD
+* ...
+
+**Facebook** - TBD
+* ...
+
+**Twitter** - TBD
+* ...
+
+**Flickr** - TBD
+* ...
+
+**Youtube** - TBD
+* ...

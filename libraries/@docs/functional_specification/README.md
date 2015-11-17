@@ -15,20 +15,20 @@ All the wireframes are located on confluence on the subpages of [Stencils - Deve
 
 ## Snippets
 
-**Core Stencil;**
+**Core Stencil;** - TBD
 * [Results tools](#) - TBD
 * [Print friendly](#) - TBD
 * [Cart](#) - TBD
 
-**No Result Stencil;**
+**No Result Stencil;** - TBD
 * [No result suggested results](#) - TBD
 * [No result facets](#) - TBD
 
-**Collapsed Result Stencil;**
+**Collapsed Result Stencil;** - TBD
 * [Collapsed Result](#) - TBD
 * [Progressive Disclosure](#) - TBD
 
-**Courses**
+**Courses** - TBD
 * [Course Result](#) - TBD
 * [Query completion configuration](#) - TBD
 * [Facet configuration](#) - TBD
@@ -36,9 +36,42 @@ All the wireframes are located on confluence on the subpages of [Stencils - Deve
 * [Collapsed Result Configuration](#) - TBD
 * [Advanced Search Configuration](#) - TBD
 * [Progressive Disclosure Configuration](#) - TBD
+* [Facet Definitions](courses/FACET_DEFINITIONS.md) - TBD
+* [Repository Overview](courses/FACET_DEFINITIONS.md) - TBD
+* [Search results template logic](courses/FACET_DEFINITIONS.md) - TBD
+* [Metadata](courses/METADATA.md) - TBD
 
 **Social**
 * [Facet Definitions](social/FACET_DEFINITIONS.md)
 * [Repository Overview](social/FACET_DEFINITIONS.md)
 * [Search results template logic](social/FACET_DEFINITIONS.md)
 * [Social Networks](social/FACET_DEFINITIONS.md)
+* [Metadata](social/METADATA.md)
+
+**Facebook**
+* [Facet Definitions](facebook/FACET_DEFINITIONS.md)
+* [Repository Overview](facebook/FACET_DEFINITIONS.md)
+* [Search results template logic](facebook/FACET_DEFINITIONS.md)
+* [Social Networks](facebook/FACET_DEFINITIONS.md)
+* [Metadata](facebook/METADATA.md)
+
+**Twitter** - TBD
+* [Facet Definitions](twitter/FACET_DEFINITIONS.md) - TBD
+* [Repository Overview](twitter/FACET_DEFINITIONS.md) - TBD
+* [Search results template logic](twitter/FACET_DEFINITIONS.md) - TBD
+* [Social Networks](twitter/FACET_DEFINITIONS.md) - TBD
+* [Metadata](twitter/METADATA.md) - TBD
+
+**Youtube** - TBD
+* [Facet Definitions](youtube/FACET_DEFINITIONS.md) - TBD
+* [Repository Overview](youtube/FACET_DEFINITIONS.md) - TBD
+* [Search results template logic](youtube/FACET_DEFINITIONS.md) - TBD
+* [Social Networks](youtube/FACET_DEFINITIONS.md) - TBD
+* [Metadata](youtube/METADATA.md) - TBD
+
+**Flickr** - TBD
+* [Facet Definitions](flickr/FACET_DEFINITIONS.md) - TBD
+* [Repository Overview](flickr/FACET_DEFINITIONS.md) - TBD
+* [Search results template logic](flickr/FACET_DEFINITIONS.md) - TBD
+* [Social Networks](flickr/FACET_DEFINITIONS.md) - TBD
+* [Metadata](flickr/METADATA.md) - TBD
