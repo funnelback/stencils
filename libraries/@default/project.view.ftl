@@ -3,17 +3,8 @@
 	This contains the controllers specific to this project.
 -->
 <#escape x as x?html>
-<#--
-	##############################################################
-			TABLE OF CONTENTS
-			C. Configuration
-			V. Views
-				V. X
 
-	##############################################################
- -->
-
-<#-- ################### C. Configuration ####################### -->
+<#-- ################### Configuration ####################### -->
 
 <#assign librariesPrefix = "/share/stencils/libraries/" >
 <#assign projectResourcesPrefix = "/s/resources/${question.collection.id}/${question.profile}/" >
@@ -57,8 +48,8 @@
 	<script src="${projectResourcesPrefix}js/project.js"></script>
 </#macro>
 
-<#-- ################### V. Views ####################### -->
-<#-- @begin V. X -->
-<#-- @end --><#-- /V. X -->
+<#-- ################### Views ####################### -->
+<#-- @begin X -->
+<#-- @end --><#-- /Category. X -->
 
 </#escape>

@@ -1,6 +1,6 @@
 <#ftl encoding="utf-8" />
 <#---
-	<p>Provides helpers for building courses Media components.</p>
+	<p>Provides helpers for building courses components.</p>
 	<p>This includes helpers for courses Media ... there is actually nothing useful in here for now.</p>
 -->
 <#escape x as x?html>
@@ -23,7 +23,7 @@
  	Note: View files should not be imported to to the controller
 -->
 <@stencils_utilities.ImportStencilsControllers stencils=stencils>
-	<@stencils_utilities.imports?interpret />
+	<@stencils_utilities.importsControllers?interpret />
 </@stencils_utilities.ImportStencilsControllers>
 
 <#-- ################### Controllers ####################### -->

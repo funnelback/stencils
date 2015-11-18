@@ -1,0 +1,1267 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+
+    <title>Documentation for places.view.ftl</title>
+
+    <style>
+        div.sourcecode {
+            display: none;
+            border : 1px solid Black;
+            background-color : #DDDDDD; /* #E8E8E8; */
+            padding : 3px;
+            margin-top : 8px;
+        }
+
+
+        span {font-family:Courier; font-size:12px}
+        span.directive {color:blue}
+        span.userdirective {color:red}
+        span.interpolation {color:green}
+        span.textblock {color:black}
+        span.comment {color:brown}
+    </style>
+
+    <script language="javascript">
+        function toggle(id) {
+            elem = document.getElementById(id);
+            if(elem.style.display=="block") {
+                elem.style.display="none";
+            } else {
+                elem.style.display="block";
+            }
+        }
+
+        function setTitle() {
+            parent.document.title=document.title;
+        }
+    </script>
+</head>
+
+<body class="ftldoc" onLoad="setTitle();">
+<div id="content">
+
+
+
+
+<div id="categories">
+    <h3>NAVIGATION</h3>
+    <ul>
+        <li class="category"><a href="overview.html">Overview</a></li>
+        <li class="category"><a href="index-all-cat.html">Index (categories)</a></li>
+        <li class="category"><a href="index-all-alpha.html">Index (alphabetical)</a></li>
+    </ul>
+</div>
+
+
+
+<h1>places.view.ftl</h1>
+<div id="page-contents">
+    <h3>Description</h3><br />
+    
+         <p>Provides views for places components.</p> <p>These compontents include items such as ...</p> <p>...</p> <h2>Table of Contents</h2> <ul> <li><strong>Configuration:</strong> Configuration options.</li> <li><strong>Result place: Views for place type results.</strong></li> </ul>
+    
+    
+</div>
+
+
+
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <td colspan="2" class="heading">Macro and Function Summary</td>
+    </tr>
+
+    
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Uncategorized
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CategoryIcon">CategoryIcon</a></strong>
+                                </code>
+                                
+    
+        
+            <code>name</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#Map">Map</a></strong>
+                                </code>
+                                
+    
+        
+            <code>colWidth</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapControlLocate">MapControlLocate</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapControlLocateButton">MapControlLocateButton</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapControlSearchOnMove">MapControlSearchOnMove</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapControlSearchOnMoveButton">MapControlSearchOnMoveButton</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapMarker">MapMarker</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapMarkerIcon">MapMarkerIcon</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapMarkerIconNumbered">MapMarkerIconNumbered</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapMarkerPopup">MapMarkerPopup</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#MapMarkerPopup2">MapMarkerPopup2</a></strong>
+                                </code>
+                                
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#Result">Result</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+        
+            <tr>
+                <td colspan="2" class="category">
+                
+                    Category <em>Configuration</em>
+                
+                </td>
+            </tr>
+
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#CSS">CSS</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 Stylesheet dependencies 
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <code>macro</code>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>
+                                <code>
+                                    <strong><a href="#JS">JS</a></strong>
+                                </code>
+                                
+    
+        
+        
+    
+
+
+                            </dt>
+                            <dd>
+                                 JavaScript dependencies 
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            
+            
+        
+</table>
+
+
+<br />
+
+
+<table border="1" cellpadding="4" cellspacing="0">
+    <tr><td colspan="2" class="heading">Macro and Function Detail</td></tr>
+</table>
+
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CategoryIcon">CategoryIcon</a></tt>
+            
+    
+        
+            <code>name</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_CategoryIcon');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CategoryIcon">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CategoryIcon&nbsp;name=core_controller.result.metaData.officeType?trim?lower_case&gt;</span><span class="textblock"><br>&nbsp;&nbsp;</span><span class="directive">&lt;#switch&nbsp;&nbsp;name&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#case&nbsp;&quot;agent&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-male&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#case&nbsp;&quot;centrelink&nbsp;customer&nbsp;service&nbsp;centre&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-building&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#case&nbsp;&quot;medicare&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-university&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;#case&nbsp;&quot;access&nbsp;point&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-info-circle&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#break&gt;</span><span class="directive"></span><span class="textblock"><br>&nbsp;&nbsp;</span><span class="directive"></span><span class="directive">&lt;/#switch&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="CSS">CSS</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 Stylesheet dependencies 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Configuration</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_CSS');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_CSS">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;CSS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;places.view.ftl&nbsp;::&nbsp;CSS&nbsp;--&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${placesResourcesPrefix}</span><span class="textblock">css/places.css&quot;&nbsp;/&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leafletjs/0.7.7/leaflet.css&quot;&nbsp;/&gt;<br><br>&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;${thirdPartyResourcesPrefix}leaflet/leaflet.css&quot;&nbsp;/&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;${thirdPartyResourcesPrefix}leaflet/MarkerCluster.css&quot;&nbsp;/&gt;<br>&nbsp;&nbsp;&lt;link&nbsp;rel=&quot;stylesheet&quot;&nbsp;href=&quot;${thirdPartyResourcesPrefix}leaflet/MarkerCluster.Default.css&quot;&nbsp;/&gt;&nbsp;--&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="JS">JS</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+                 JavaScript dependencies 
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+        <dt><b>Category</b></dt>
+        <dd>Configuration</dd>
+    
+
+                
+<dt><a href="javascript:toggle('sc_JS');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_JS">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;JS&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;places.view.ftl&nbsp;::&nbsp;JS&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">angularjs/1.4.7/angular.min.js&quot;&gt;&lt;/script&gt;<br><br><br>&nbsp;&nbsp;&lt;!--&nbsp;Javascript&nbsp;required&nbsp;for&nbsp;maps&nbsp;--&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">leafletjs/0.7.7/leaflet.js&quot;&gt;&lt;/script&gt;<br><br>&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;script&nbsp;src=&quot;${thirdPartyResourcesPrefix}leaflet/leaflet.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;${thirdPartyResourcesPrefix}leaflet/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;${thirdPartyResourcesPrefix}leaflet/leaflet.spin.js&quot;&gt;&lt;/script&gt;&nbsp;--&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;Only&nbsp;required&nbsp;if&nbsp;using&nbsp;google&nbsp;tileservice&nbsp;--&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;https://maps.googleapis.com/maps/api/js?sensor=false&quot;&gt;&lt;/script&gt;<br>&nbsp;&nbsp;&lt;script&nbsp;src=&quot;</span><span class="interpolation">${thirdPartyResourcesPrefix}</span><span class="textblock">gmaps/Google.js&quot;&gt;&lt;/script&gt;<br><br>&nbsp;&nbsp;</span><span class="comment">&lt;#--&nbsp;&lt;script&nbsp;src=&quot;${placesResourcesPrefix}js/places.js&quot;&gt;&lt;/script&gt;&nbsp;--&gt;</span><span class="textblock"><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="Map">Map</a></tt>
+            
+    
+        
+            <code>colWidth</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_Map');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_Map">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;Map&nbsp;colWidth&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&lt;div&nbsp;id=&quot;search-content&quot;&nbsp;data-stencils-map&nbsp;data-stencils-mapdataurl=&quot;</span><span class="userdirective">&lt;@places_controller.GetMapDataURL&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock">&quot;&nbsp;data-stencils-mapid=&quot;map&quot;&nbsp;class=&quot;col-lg-</span><span class="interpolation">${colWidth!}</span><span class="textblock">&nbsp;col-sm-12&quot;&nbsp;&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@MapMarkerPopup&nbsp;mapId=&quot;map&quot;&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@MapMarker&nbsp;mapId=&quot;map&quot;&nbsp;&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@MapControlLocate&nbsp;mapId=&quot;map&quot;&nbsp;&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@MapControlSearchOnMove&nbsp;mapId=&quot;map&quot;&nbsp;&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;id=&quot;mapsMapView&quot;&nbsp;style=&quot;height:100%;&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;id=&quot;mapResults&quot;&nbsp;data-mapdiv&gt;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;leaflet&nbsp;width=&quot;100%&quot;&nbsp;height=&quot;480px&quot;&gt;&lt;/leaflet&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&lt;/div&gt;<br><br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapControlLocate">MapControlLocate</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapControlLocate');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapControlLocate">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapControlLocate&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapcontrol=&quot;locate&quot;&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;data-stencils-mapcontrol-containerClass=&quot;stencils-mapcontrol-location&nbsp;btn&nbsp;btn-primary&quot;&nbsp;data-stencils-mapcontrol-isinternal=&quot;true&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-bullseye&quot;&nbsp;title=&quot;My&nbsp;Location&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&gt;My&nbsp;Location&lt;/small&gt;<br>&nbsp;&nbsp;&lt;/script&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapControlLocateButton">MapControlLocateButton</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapControlLocateButton');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapControlLocateButton">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapControlLocateButton&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;button&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapaction=&quot;locate&quot;&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;class=&quot;stencils-mapcontrol-locate&nbsp;btn&nbsp;btn-primary&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-bullseye&quot;&nbsp;title=&quot;My&nbsp;Location&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&gt;My&nbsp;Location&lt;/small&gt;<br>&nbsp;&nbsp;&lt;/button&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapControlSearchOnMove">MapControlSearchOnMove</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapControlSearchOnMove');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapControlSearchOnMove">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapControlSearchOnMove&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapcontrol=&quot;searchOnMove&quot;&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;data-stencils-mapcontrol-containerClass=&quot;stencils-mapcontrol-searchOnMove&nbsp;btn&nbsp;btn-primary&quot;&nbsp;data-stencils-mapcontrol-isinternal=&quot;true&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-location-arrow&quot;&nbsp;title=&quot;Search&nbsp;as&nbsp;I&nbsp;move&nbsp;map&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&gt;Search&nbsp;as&nbsp;I&nbsp;move&nbsp;map&lt;/small&gt;<br>&nbsp;&nbsp;&lt;/script&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapControlSearchOnMoveButton">MapControlSearchOnMoveButton</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapControlSearchOnMoveButton');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapControlSearchOnMoveButton">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapControlSearchOnMoveButton&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;button&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapaction=&quot;searchOnMove&quot;&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;class=&quot;stencils-mapcontrol-searchOnMove&nbsp;btn&nbsp;btn-primary&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-location-arrow&quot;&nbsp;title=&quot;Search&nbsp;as&nbsp;I&nbsp;move&nbsp;map&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&gt;Search&nbsp;as&nbsp;I&nbsp;move&nbsp;map&lt;/small&gt;<br>&nbsp;&nbsp;&lt;/button&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapMarker">MapMarker</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapMarker');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapMarker">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapMarker&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;script&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapmarkerview&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;data-stencils-mapmarkerview-iconSize=&quot;[24,33]&quot;&nbsp;data-stencils-mapmarkerview-className=&quot;&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&nbsp;class=&quot;fa-stack&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-map-marker&nbsp;fa-stack-2x&quot;&nbsp;style=&quot;color:#0CA2E8;&nbsp;font-size:3em;text-shadow:&nbsp;2px&nbsp;2px&nbsp;6px&nbsp;rgba(150,&nbsp;150,&nbsp;150,&nbsp;1);&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-circle&nbsp;fa-stack-2x&quot;&nbsp;style=&quot;color:#0CA2E8&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-stack-1x&quot;&nbsp;style=&quot;color:#FFF;&quot;&nbsp;data-stencils-template=&quot;&quot;&gt;{{properties.rank}}&lt;/i&gt;&lt;/span&gt;<br>&nbsp;&nbsp;&lt;/script&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapMarkerIcon">MapMarkerIcon</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapMarkerIcon');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapMarkerIcon">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapMarkerIcon&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-map-marker&nbsp;active-hide&quot;&gt;&lt;/i&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapMarkerIconNumbered">MapMarkerIconNumbered</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapMarkerIconNumbered');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapMarkerIconNumbered">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapMarkerIconNumbered&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&lt;span&nbsp;class=&quot;fa-stack&nbsp;active-hide&quot;&nbsp;style=&quot;font-size:&nbsp;0.5em;&nbsp;margin-top:&nbsp;-2em;&quot;&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-map-marker&nbsp;fa-stack-2x&quot;&nbsp;style=&quot;color:#0CA2E8;&nbsp;font-size:3em;&quot;&gt;&lt;/i&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-circle&nbsp;fa-stack-2x&quot;&nbsp;style=&quot;color:#0CA2E8&quot;&gt;&lt;/i&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-stack-1x&quot;&nbsp;style=&quot;color:#FFF;&quot;&gt;&nbsp;</span><span class="interpolation">${core_controller.result.rank}</span><span class="textblock">&lt;/i&gt;&lt;/span&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapMarkerPopup">MapMarkerPopup</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapMarkerPopup');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapMarkerPopup">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapMarkerPopup&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&lt;script&nbsp;type=&quot;text/html&quot;&nbsp;data-stencils-mapmarkerpopupview&nbsp;data-stencils-mapid=&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;&nbsp;data-stencils-mapmarkerpopupview-extenddata=&quot;markerpopup&quot;&nbsp;&gt;<br>&lt;div&nbsp;class=&quot;mapitem-popup&quot;&gt;<br>&nbsp;&nbsp;&lt;h4&gt;{{properties.title}}&lt;/h4&gt;<br>&nbsp;&nbsp;&lt;address&nbsp;class='list-group-item-text'&gt;<br>&nbsp;&nbsp;&lt;strong&gt;{{categoryIcon}}Test{{/categoryIcon}}&nbsp;{{properties.metaData.officeType}}&lt;/strong&gt;&lt;br&gt;<br>&nbsp;&nbsp;&lt;small&nbsp;class='text-muted'&gt;{{properties.metaData.address}}&nbsp;{{feature.properties.metaData.suburb}}&nbsp;{{properties.metaData.state}}&nbsp;{{feature.properties.metaData.postcode}}&lt;/small&gt;&lt;/address&gt;<br>&lt;/div&gt;<br>&lt;/script&gt;<br>&lt;script&nbsp;type=&quot;text/json&quot;&nbsp;stencils-mapmarkerpopupview-extenddata=&quot;markerpopup&quot;&nbsp;&gt;<br>{<br>&nbsp;&nbsp;&quot;categoryIcon&quot;&nbsp;:&nbsp;function&nbsp;categoryIcon()&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;function(text,&nbsp;render)&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch(text.toLowerCase()){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;agent&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-male&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;centrelink&nbsp;customer&nbsp;service&nbsp;centre&quot;&nbsp;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-building&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;medicare&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-university&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;access&nbsp;point&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-info-circle&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}<br>&lt;/script&gt;<br>&nbsp;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="MapMarkerPopup2">MapMarkerPopup2</a></tt>
+            
+    
+        
+            <code>mapId</code>
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_MapMarkerPopup2');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_MapMarkerPopup2">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;MapMarkerPopup2&nbsp;mapId=&quot;map&quot;&gt;</span><span class="textblock"><br>&lt;script&gt;<br>jQuery(function(){<br>&nbsp;&nbsp;stencils.module.places.overridePlacesMap(&quot;</span><span class="interpolation">${mapId}</span><span class="textblock">&quot;,&nbsp;&quot;viewMarkerPopup&quot;,<br>&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;popup(feature){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;categoryIcon(name){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;switch(name.toLowerCase()){<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;agent&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-male&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;centrelink&nbsp;customer&nbsp;service&nbsp;centre&quot;&nbsp;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-building&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;medicare&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-university&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;&quot;access&nbsp;point&quot;:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;'&lt;i&nbsp;class=&quot;fa&nbsp;fa-info-circle&quot;&gt;&lt;/i&gt;';<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//check&nbsp;if&nbsp;value&nbsp;is&nbsp;undefined&nbsp;and&nbsp;returns&nbsp;as&nbsp;empty&nbsp;string<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;cn(x){&nbsp;return&nbsp;(typeof&nbsp;x&nbsp;==&nbsp;&quot;undefined&quot;)&nbsp;?&nbsp;&quot;&quot;&nbsp;:&nbsp;x&nbsp;;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;&quot;&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;+=&nbsp;&quot;&lt;div&nbsp;class=\&quot;mapitem-popup\&quot;&gt;&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;+=&nbsp;&quot;&lt;h4&gt;&quot;&nbsp;+&nbsp;cn(feature.properties.title)&nbsp;+&nbsp;&quot;&lt;/h4&gt;&quot;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;+=&nbsp;&quot;&lt;address&nbsp;class='list-group-item-text'&gt;&lt;strong&gt;&quot;+&nbsp;categoryIcon(feature.properties.metaData.officeType)&nbsp;+&nbsp;cn(feature.properties.metaData.officeType)+&quot;&lt;/strong&gt;&lt;br&gt;&quot;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;+=&nbsp;&quot;&nbsp;&lt;small&nbsp;class='text-muted'&gt;&quot;+cn(feature.properties.metaData.address)+&quot;&nbsp;&quot;+cn(feature.properties.metaData.suburb)+&quot;,&nbsp;&quot;+cn(feature.properties.metaData.state)+&quot;&nbsp;&quot;+cn(feature.properties.metaData.postcode)+&quot;&lt;/small&gt;&lt;/address&gt;&quot;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html&nbsp;+=&nbsp;&quot;&lt;/div&gt;&quot;;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;html;<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br><br>});<br><br>&lt;/script&gt;<br>&nbsp;</span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    <hr>
+
+    <dl>
+        <dt>
+            macro
+            <tt><a name="Result">Result</a></tt>
+            
+    
+        
+        
+    
+
+            <br /><br />
+        </dt>
+        <dd>
+            
+            <dl>
+                
+	
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+    
+
+                
+<dt><a href="javascript:toggle('sc_Result');">Source Code</a></dt>
+<dd>
+<div class="sourcecode" id="sc_Result">
+
+
+
+
+<span class="directive">&lt;#macro&nbsp;Result&gt;</span><span class="textblock"><br>&lt;!--&nbsp;places.view.ftl:Result&nbsp;&nbsp;--&gt;<br>&lt;div&nbsp;class=&quot;panel&nbsp;panel-default&quot;&gt;<br><br>&nbsp;&nbsp;&lt;div&nbsp;data-stencils-mapresultlink&nbsp;data-stencils-mapresultlink-zoom='10'&nbsp;data-stencils-mapid=&quot;map&quot;&nbsp;data-stencils-markerid=&quot;</span><span class="interpolation">${core_controller.result.displayUrl}</span><span class="textblock">&quot;&nbsp;class=&quot;panel-heading&nbsp;map-heading&quot;&nbsp;title=&quot;Show&nbsp;</span><span class="interpolation">${core_controller.result.title}</span><span class="textblock">&nbsp;on&nbsp;map&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;h4&nbsp;class=&quot;media-heading&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-location-arrow&nbsp;active-show&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@MapMarkerIconNumbered&nbsp;/&gt;</span><span class="userdirective"></span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="userdirective">&lt;@core_controller.boldicize&gt;</span><span class="userdirective">&lt;@core_controller.Truncate&nbsp;length=70&gt;</span><span class="interpolation">${core_controller.result.title}</span><span class="userdirective">&lt;/@core_controller.Truncate&gt;</span><span class="userdirective">&lt;/@core_controller.boldicize&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/h4&gt;<br>&nbsp;&nbsp;&lt;/div&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;panel-body&quot;&gt;<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;address&nbsp;class=&quot;list-group-item-text&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;</span><span class="userdirective">&lt;@CategoryIcon&nbsp;/&gt;</span><span class="userdirective"></span><span class="interpolation">${core_controller.result.metaData.officeType}</span><span class="textblock">&lt;/strong&gt;&lt;br&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&nbsp;class=&quot;text-muted&quot;&gt;</span><span class="interpolation">${core_controller.result.metaData.address}</span><span class="textblock">&nbsp;</span><span class="interpolation">${core_controller.result.metaData.suburb}</span><span class="textblock">,&nbsp;</span><span class="interpolation">${core_controller.result.metaData.state}</span><span class="textblock">&nbsp;</span><span class="directive">&lt;#if&nbsp;core_controller.result.metaData.postcode??&gt;</span><span class="interpolation">${core_controller.result.metaData.postcode}</span><span class="directive">&lt;/#if&gt;</span><span class="textblock">&lt;/small&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/address&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=&quot;button&quot;&nbsp;class=&quot;btn&nbsp;btn-default&nbsp;pull-right&quot;&nbsp;data-stencils-mapresultlink&nbsp;data-stencils-mapresultlink-zoom='10'&nbsp;data-stencils-mapid=&quot;map&quot;&nbsp;data-stencils-markerid=&quot;</span><span class="interpolation">${core_controller.result.displayUrl}</span><span class="textblock">&quot;&nbsp;class=&quot;panel-heading&nbsp;map-heading&quot;&nbsp;title=&quot;Show&nbsp;</span><span class="interpolation">${core_controller.result.title}</span><span class="textblock">&nbsp;on&nbsp;map&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;small&nbsp;class=&quot;text-muted&quot;&nbsp;&gt;&lt;i&nbsp;class=&quot;fa&nbsp;fa-location-arrow&nbsp;active-show&quot;&gt;&lt;/i&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;i&nbsp;class=&quot;fa&nbsp;fa-map-marker&nbsp;active-hide&quot;&gt;&lt;/i&gt;&nbsp;Show&nbsp;on&nbsp;map<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/small&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/button&gt;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;core_controller.result.summary??&gt;</span><span class="textblock"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&nbsp;class=&quot;list-group-item-text&quot;&gt;</span><span class="interpolation">${core_controller.result.summary}</span><span class="textblock">&lt;/p&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="directive">&lt;#if&nbsp;core_controller.result.metaData[&quot;c&quot;]??&gt;</span><span class="textblock">&lt;p&nbsp;class=&quot;list-group-item-text&quot;&gt;</span><span class="userdirective">&lt;@core_controller.boldicize&gt;</span><span class="interpolation">${core_controller.result.metaData[&quot;c&quot;]!}</span><span class="userdirective">&lt;/@core_controller.boldicize&gt;</span><span class="textblock">&lt;/p&gt;</span><span class="directive">&lt;/#if&gt;</span><span class="textblock"><br><br><br>&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&lt;div&nbsp;class=&quot;panel-footer&quot;&gt;<br><br>&nbsp;&nbsp;&lt;/div&gt;<br>&lt;/div&gt;<br></span><span class="directive">&lt;/#macro&gt;</span>
+
+
+
+</div>
+</dd>
+
+            </dl>
+        </dd>
+    </dl>
+    
+
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
