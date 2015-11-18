@@ -47,8 +47,8 @@ stencils.module.places = (function($, window, stencils, undefined) {
           }
         }
       };
-    /************************* 
-      Private methods 
+    /*************************
+      Private methods
     **************************/
     /*
       init
@@ -107,13 +107,13 @@ stencils.module.places = (function($, window, stencils, undefined) {
     function addMarkerToLayer(feature, latlng) {
       var marker = new L.marker(latlng);
       var popupContent = attrs.createPopup(feature);
-      
+
       if($.trim(popupContent).length) {
         marker.bindPopup(popupContent);
       }
 
       attrs.markers[feature.properties.displayUrl] = marker;
-      
+
       return marker;
     }
     /*
@@ -127,7 +127,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
 
     /*
       addMarkers
-      
+
       @author Robert Prib
       @desc add markers to map layer
       @param {json} options.data - geojson to plot on map.
@@ -145,7 +145,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       }
       //flush old markers
       attrs.markers = {};
-      
+
       attrs.geojsonmarkers = new L.geoJson(options.data, {
         pointToLayer: addMarkerToLayer,
         style: addMarkerStyle
@@ -157,17 +157,17 @@ stencils.module.places = (function($, window, stencils, undefined) {
         marker_clusters.addLayer(attrs.geojsonmarkers);
         attrs.map.addLayer(marker_clusters);
         attrs.geojsonmarkers = marker_clusters;
-      } 
-        
+      }
+
       attrs.map.addLayer(attrs.geojsonmarkers);
       if (options.fitBounds) {
         attrs.map.fitBounds(attrs.geojsonmarkers);
       }
-      
+
     }
-    
+
     /*
-      getMapRadiusKM 
+      getMapRadiusKM
       @author Robert Prib
       @desc Finds the maps radius in KM based on size of map and zoom.
     */
@@ -177,7 +177,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       return mapDistance / 1000;
     }
     /*
-      createLocateControl 
+      createLocateControl
       @author Robert Prib
       @desc Creates a button on map to locate the users current location
     */
@@ -208,10 +208,10 @@ stencils.module.places = (function($, window, stencils, undefined) {
       });
       attrs.map.addControl(new MyControl);
     }
-    
+
     /*
-      createSearchOnMoveControl 
-      
+      createSearchOnMoveControl
+
       @author Robert Prib
       @desc Creates a button on map to redo search as the position and zoom on the map changes
     */
@@ -244,7 +244,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       attrs.map.addControl(new MyControl);
     }
     /*
-      searchByMapCenter 
+      searchByMapCenter
       @author Robert Prib
       @desc Searches Map from center point
     */
@@ -253,14 +253,14 @@ stencils.module.places = (function($, window, stencils, undefined) {
       var origin = attrs.map.getCenter();
       var maxdist = Math.ceil(getMapRadiusKM());
       attrs.map.removeLayer(attrs.geojsonmarkers);
-      
+
       that.mapSearch({
         endPoint: attrs.endPoint + "&origin=" + origin.lat + "," + origin.lng + "&maxdist=" + maxdist,
         fitBounds: false
       });
 
       //update result list
-      $("[data-stencils-mapresultlist][data-stencils-mapid=" + attrs.id + "]").each(function(){   
+      $("[data-stencils-mapresultlist][data-stencils-mapid=" + attrs.id + "]").each(function(){
         $(this).html('<i class="fa fa-spinner fa-pulse"></i> Loading Resuls')
         $(this).load(window.location.href + "&origin=" + origin.lat + "," + origin.lng + "&maxdist=" + maxdist + "&form=resultservice", function(data){
           $(this).html( data.replace(/form\=resultservice/g,""))
@@ -276,8 +276,8 @@ stencils.module.places = (function($, window, stencils, undefined) {
       if (attrs.options.controlLocate) createLocateControl();
       if (attrs.options.controlSearchOnMove) createSearchOnMoveControl();
     }
-    
-    /* 
+
+    /*
        @desc go and grab the mappop from the places.view.ftl if it exists.
        -- R.P to find a more elegenat way to allow this to be editable from the view.
       */
@@ -310,8 +310,8 @@ stencils.module.places = (function($, window, stencils, undefined) {
         getUserOrigin();
       }
     }
-    /************************* 
-      Privileged methods 
+    /*************************
+      Privileged methods
     **************************/
     /*
       createMap
@@ -339,7 +339,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       /*
         mapSearch
         @desc Searches the map with a provided query and and adds new markers to the map.
-        @param {string} options.endPoint - Funnelback mapservice URL to query. Mapservice must return geojson data. See http://geojson.org/ 
+        @param {string} options.endPoint - Funnelback mapservice URL to query. Mapservice must return geojson data. See http://geojson.org/
         @param {boolean} options.fitBounds - Option to zoom in or out map to fit in markers once added. Default is true.
         @param {function} callback(data,err) - Can provide own function to run after search action has completed.
       */
@@ -373,7 +373,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
         bindControlLocateUser
         @author Robert Prib
         @desc Binds the action for locating user on this map
-        @param {jQuery Object} $container - Dom element bind actions and events to. 
+        @param {jQuery Object} $container - Dom element bind actions and events to.
       */
     this.bindControlLocateUser = function bindControlLocateUser($control) {
         var options = {
@@ -435,7 +435,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       options.openPopup = options.openPopup || true;
       options.zoom = options.zoom || attrs.map._zoom;
       var latLng = marker.getLatLng();
-      
+
       attrs.map.setView(latLng, options.zoom);
       if(options.openPopup) marker.openPopup();
       return that;
@@ -448,7 +448,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       };
       $.extend(options,extendOptions);
       attrs.map.addLayer(marker);
-     
+
       if(options.zoomOnAdd) {
          attrs.map.setView(marker.getLatLng(), options.zoom);
       }else {
@@ -526,12 +526,12 @@ stencils.module.places = (function($, window, stencils, undefined) {
 
     /*
      getUserLocation
-      
+
       @author Robert Prib
       @desc Not functional at the moment as code has been ported over.
     */
     this.getUserLocation = function getUserLocation() {
-      
+
       navigator.geolocation.getCurrentPosition(function(position) {
         updateMarkerOnMap(position);
       }, geo_error, geo_options);
@@ -549,7 +549,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       //No need to run if watch is not currently set
       if (typeof attrs.watch === "undefined"){
         return false;
-      } 
+      }
       navigator.geolocation.clearWatch(attrs.watch);
       attrs.map.removeMarker(attrs.marker);
     }
@@ -570,7 +570,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
       map: function Map() {
         var $container = $(this);
         var id = $container.data("stencils-mapid")
-        var endPoint = $container.data("stencils-mapdataurl");     
+        var endPoint = $container.data("stencils-mapdataurl");
         var placesMap = new PlacesMap($container, id, endPoint);
         placesMap.createMap();
         $container.data("placesMap", placesMap);
@@ -585,7 +585,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
 
         var mapId = $container.data("stencils-mapid"),
           markerId = $container.data("stencils-markerid");
-          
+
         var placesMap = getPlacesMapById(mapId);
 
         var $mapResultLinks = $("[data-stencils-mapresultlink][data-stencils-mapid="+ mapId + "]");
@@ -606,7 +606,7 @@ stencils.module.places = (function($, window, stencils, undefined) {
 
         if (placesMap) {
 
-        
+
           $container.on('click', function(e) {
             e.preventDefault();
             if( $(this).is("." + options.activeClass)) return false;
@@ -618,10 +618,10 @@ stencils.module.places = (function($, window, stencils, undefined) {
             }else {//Use maps current zoom state.
               placesMap.setViewToMarker({markerId: markerId});
             }
-            
+
           });
 
-          
+
         }
       },
       mapControlLocateUser: function mapControlLocateUser() {

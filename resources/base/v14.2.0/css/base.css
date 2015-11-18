@@ -3,79 +3,167 @@
 	Description: Styles specifically for base stencil.
 */
 
-/* Highlight Panel on hover */
-[data-clickable-panel] {
+ /*------------------------------------*\
+     #HELPERS
+		 These are generic classes enchance blocks
+
+ \*------------------------------------*/
+
+ /*
+ 	Add styles specific to clickable type elements.
+ 	This is speicifically for elements not marked up as buttons or anchors
+ */
+.stencils-clickable {
 	cursor: pointer;
 }
 
-.panel-highlight {
-	-webkit-animation-name: popOut;
-    animation-name: popOut;
-		-webkit-animation-duration: 0.5s;
-	 animation-duration: 0.25s;
-	 -webkit-animation-fill-mode: both;
-	 animation-fill-mode: both;
-	 -webkit-animation-timing-function: ease-in-out;
-	 animation-timing-function: ease-in-out;
+.stencils-hide {
+	display: none;
 }
 
-/* Show any hidden progressive disclosure elements*/
-.panel-highlight.progressive-disclosure .pd-hide {
-	opacity: 1;
-	transition-property: none;
-	-webkit-transition-property: none; /* Safari */
-	-moz-transition-property: none; /* FF */
-	-o-transition-property:none;/* Opera */
+.stencils-popout--selected .stencils-popout__hide-when-selected {
+	display: none;
 }
 
-@-webkit-keyframes popOut {
-    0% {
+.stencils-popout--selected .stencils-popout__show-when-selected {
+	display: initial;
+}
+
+/*------------------------------------*\
+		#ANIMATIONS
+		These classes can be added to blocks to animate them.
+
+\*------------------------------------*/
+
+/* Add this class to an element on a hover or click event to animate the element popping out */
+.stencils-animation--popout {
+	-webkit-animation-name: stencils-popout;
+  animation-name: stencils-popout;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.25s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+}
+
+	@-webkit-keyframes stencils-popout {
+	    0% {
+				-webkit-box-shadow: none;
+				-moz-box-shadow: none;
+				-o-box-shadow: none;
+				box-shadow: none;
+			}
+	    100% {
+				-webkit-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
+				-moz-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
+				-o-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
+				box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
+				margin: 30px -5px 40px;
+			}
+	}
+	@keyframes stencils-popout {
+		0% {
 			-webkit-box-shadow: none;
 			-moz-box-shadow: none;
 			-o-box-shadow: none;
 			box-shadow: none;
 		}
-    100% {
+		100% {
 			-webkit-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
 			-moz-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
 			-o-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
 			box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
 			margin: 30px -5px 40px;
 		}
-}
-@keyframes popOut {
-	0% {
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
-		-o-box-shadow: none;
-		box-shadow: none;
 	}
-	100% {
-		-webkit-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
-		-moz-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
-		-o-box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
-		box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.27);
-		margin: 30px -5px 40px;
+
+	.stencils-animation--fade-in-on-hover
+	{
+	  transition-property: all;
+		-webkit-transition-property: all; /* Safari */
+		-moz-transition-property: all; /* FF */
+		-o-transition-property: all; /* Opera */
+		transition-timing-function: ease-in-out;
+		-webkit-transition-timing-function: ease-in-out;
+		-moz-transition-timing-function: ease-in-out;
+		-o-transition-timing-function: ease-in-out;
+		transition-duration: 0.5s;
+		-webkit-transition-duration: 0.5s;
+		-moz-transition-duration: 0.5s;
+		-o-transition-duration: 0.5s;
 	}
+
+	/*------------------------------------*\
+			#PROGRESSIVE-DISCLOSURE
+			The ability to hide elements for a block by default then
+			to display them on a hover or click event.
+
+			* Use
+			1. Add the following class to the top level element
+			that should hide /show element inside it on hover
+			'stencils-progressive-disclosure'
+
+			2. Add the followiing classes to the elements to
+			be hidden then shown when the top level element
+			is hovered or selected.
+			'stencils-progressive-disclosure__hiddenBlock
+			stencils-progressive-disclosure__hiddenBlock--showOnSelected
+			stencils-progressive-disclosure__hiddenBlock-showOnHover'
+
+			3. Add some animation to the elements by adding
+			'stencils-animation--fade-in-on-hover'
+			to the hiddenBlocks
+	\*------------------------------------*/
+
+
+/* Show any hidden progressive disclosure blocks*/
+.stencils-progressive-disclosure {}
+
+	/* Hide all progressive discolure blocks by default */
+	.stencils-progressive-disclosure__hiddenBlock {
+		opacity: 0;
+	}
+
+	/* Show progressive disclosure blocks when top level element is selected */
+.stencils-popout--selected .stencils-progressive-disclosure__hiddenBlock--showOnSelected {
+	opacity: 1;
 }
 
-/* Progressive discolure */
-.progressive-disclosure .pd-hide {
-	opacity: 0;
-  transition-property: opacity;
-	-webkit-transition-property: opacity; /* Safari */
-	-moz-transition-property: opacity; /* FF */
-	-o-transition-property: opacity; /* Opera */
-	transition-timing-function: ease-in-out;
-	-webkit-transition-timing-function: ease-in-out;
-	-moz-transition-timing-function: ease-in-out;
-	-o-transition-timing-function: ease-in-out;
-	transition-duration: 0.5s;
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-o-transition-duration: 0.5s;
-}
-	/* Show on hover*/
-	.progressive-disclosure:hover .pd-hide, .progressive-disclosure:focus .pd-hide  {
+	/* Show progressive-disclosure block on hover */
+	.stencils-progressive-disclosure:hover .stencils-progressive-disclosure__hiddenBlock-showOnHover
+	{
 		opacity: 1;
 	}
+
+	/*------------------------------------*\
+      #BOOSTRAP extended
+ 		 These classes extend boostrap
+
+  \*------------------------------------*/
+/*
+	Use to nest multiple panel bodies into one panel
+*/
+.panel-body.no-padding-bottom {
+	padding-bottom: 0 ;
+}
+
+.panel-body.no-padding-top {
+	padding-top: 0 ;
+}
+
+.panel-heading.no-padding {
+	padding: 0;
+}
+
+.panel-heading > /*a.*/.panel-heading-clickable {
+	padding: 10px 15px;
+	display: block;
+	color: inherit;
+}
+
+.panel-heading > /*a.*/.panel-heading-clickable:hover,
+.panel-heading > /*a.*/.panel-heading-clickable:active {
+	text-decoration: none;
+	background-color: #E6E4E4;
+}

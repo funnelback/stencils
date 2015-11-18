@@ -3,18 +3,8 @@
 	This contains the controllers specific to this project.
 -->
 <#escape x as x?html>
-<#--
-	##############################################################
-			TABLE OF CONTENTS
-			C. Configuration
-			CTRL. Controllers
-				CTRL. ...
-			F. Functions
-				F. ...
-	##############################################################
- -->
 
-<#-- ################### C. Configuration ####################### -->
+<#-- ################### Configuration ####################### -->
 <#assign librariesPrefix = "/share/stencils/libraries/" >
 
 <#-- Import Utilities -->
@@ -36,13 +26,9 @@
 	<@stencils_utilities.importsControllers?interpret />
 </@stencils_utilities.ImportStencilsControllers>
 
-<#-- ################### CTRL. Controllers ####################### -->
-<#-- @begin CTRL. <X> -->
-<#-- @end --> <#-- /CTRL. <X> -->
+<#-- ################### Controllers ####################### -->
+<#-- @begin <X> -->
+<#-- @end --> <#-- /Category - <X> -->
 
-
-<#-- ################### F. Functions ####################### -->
-<#-- @begin F. <X> -->
-<#-- @end --> <#-- /F. <X> -->
 
 </#escape>
