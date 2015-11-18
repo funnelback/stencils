@@ -1,6 +1,6 @@
 <#ftl encoding="utf-8" />
 <#---
-	Controllers for Collasped Result
+	Controllers for Collasped Result.
 
 	<h2>Table of Contents</h2>
 	<ul>
