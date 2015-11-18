@@ -37,7 +37,7 @@
 	Note: View files should not be imported to to the controller
 -->
 <@stencils_utilities.ImportStencilsControllers stencils=stencils>
-	<@stencils_utilities.imports?interpret />
+	<@stencils_utilities.importsControllers?interpret />
 </@stencils_utilities.ImportStencilsControllers>
 
 <#-- ################### Controllers ####################### -->
@@ -67,7 +67,10 @@
 	@requires OpenSearch
 -->
 <#macro OpenSearchTitle><#compress>
-	Search ${question.collection.configuration.value("service_name")}
+ <#local title><#nested></#local>
+	<#if ! title?? || title == "">
+		Search  ${question.collection.configuration.value("service_name")}
+	</#if>
 </#compress></#macro>
 
 <#---
@@ -1143,6 +1146,17 @@
 		<#nested>
 	</#if>
 </#macro>
+
+<#---
+	Display content if facetLabelName matches provided name.
+	@param name This is the name of the facetLabel to test for.
+	@requires Facet
+-->
+<#macro IsFacetLabel name=""><#compress>
+	<#if name = .namespace.facetLabel>
+		<#nested>
+	</#if>
+</#compress></#macro>
 
 <#---
 	Sets up the namespace variables to display the facet breadcrumb which
@@ -2379,6 +2393,7 @@
 	<#if .namespace.result.collapsed??>
 		<#assign collapsedUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${.namespace.result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
 		<#assign collapsedCount = .namespace.result.collapsed.count in .namespace>
+
 		<#nested>
 	</#if>
 </#macro>
@@ -2433,7 +2448,6 @@
 			${.namespace.collapsedCount}
 	</#if>
 </#compress></#macro>
-
 <#--- @end -->
 
 <#--- @begin Extra searches -->
@@ -2537,6 +2551,8 @@
 		<!-- No extra results for '${name}' found -->
 	</#if>
 </#macro>
+
+
 
 <#--- @end -->
 

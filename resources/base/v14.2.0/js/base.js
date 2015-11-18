@@ -129,20 +129,61 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     });
   }
 
-  /* Allows panels to be clickable and adds a highlight class that change the view state.*/
-  function clickablePanels(){
+  /* Makes a block popout visually .*/
+  function popOut(){
     //globals
-    var NAME = "clickable-panel";
-    var ACTIVE_CLASS = "panel-highlight";
+    var NAME = "stencils-popout";
+    var POPOUT_CLASS = "stencils-animation--popout";
 
-    $("[data-"+ NAME +"]").click(function(){
-      var $panel = $(this);
-      var isSelected = $panel.is("." + ACTIVE_CLASS);
-      var group = $panel.data(NAME);
-      $("[data-"+ NAME +"= " + group + "]").removeClass(ACTIVE_CLASS);
-      if(!isSelected) $panel.addClass(ACTIVE_CLASS);
+    $(".js-stencils-popout").each(function(){
+      var $block = $(this);
+
+      var options = {
+        group : "",
+        target : "",
+        selected : "false"
+      }
+
+      //extend js options.
+      for(var option in options) {
+        if(options.hasOwnProperty(option)){
+          options[option] = $block.data(NAME + "-" +  option.toLowerCase() ) || options[option];
+        }
+      }
+
+      var $group = $("[data-"+ NAME +"-group= " + options.group + "]");
+      var $target = $(options.target);
+      $block.data(NAME+ "-selected", options.selected);
+
+      $block.click(function(e){
+        var $clickBlock = $(this);
+        var selected = $clickBlock.data(NAME+ "-selected");
+        //remove popout class from group
+        $group.each(function(){
+          $groupBlock = $(this);
+          $( $groupBlock.data(NAME + "-target") )
+            .removeClass(POPOUT_CLASS)
+            .removeClass( NAME + "--selected")
+          $groupBlock.data(NAME + "-selected","false");
+        });
+
+        if( selected === "false" ) {
+          $clickBlock.data(NAME+ "-selected","true");
+          $target
+            .addClass(POPOUT_CLASS)
+            .addClass( NAME + "--selected");
+        }
+      });
     });
   }
+
+  function printBtn(){
+    $("[data-print-btn]").click(function(){
+      window.print();
+    });
+  }
+
+
 
   /*
     Runtime logic and event bindings
@@ -154,7 +195,8 @@ stencils.module.base = (function ($, window, stencils, undefined) {
     momentjs();
     buttonShowjs();
     buttonHidejs();
-    clickablePanels();
+    popOut();
+    printBtn();
   });
 
   //Progressively run after a couple of images have loaded

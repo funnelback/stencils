@@ -30,7 +30,7 @@
  	Note: View files should not be imported to to the controller
 -->
 <@stencils_utilities.ImportStencilsControllers stencils=stencils>
-	<@stencils_utilities.imports?interpret />
+	<@stencils_utilities.importsControllers?interpret />
 </@stencils_utilities.ImportStencilsControllers>
 
 <#-- ################### CTRL. Controllers ####################### -->

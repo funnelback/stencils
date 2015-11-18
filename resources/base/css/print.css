@@ -1,0 +1,96 @@
+/*
+	print.css
+	Styles specific to print friendly version of page.
+*/
+
+/*------------------------------------*\
+		#HELPERS
+		These are generic classes enchance blocks
+
+\*------------------------------------*/
+
+/* Utitlity for hidding elements from print view. */
+.stencils-print__hide {
+	display: none;
+}
+
+/* Utlitlity for hiding elements from print view but allowing on print friendly view*/
+@media print {
+	.stencils-print__screen-only {
+		display: none;
+	}
+}
+
+/* Message container */
+.stencils-print__msg {
+	border: 1px solid;
+	padding: 20px;
+	margin: 0 auto;
+	max-width: 600px;
+	text-align: center;
+}
+
+/* Button */
+.stencils-print__btn {
+	border: 1px solid;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: black;
+	background: white;
+	font-size: 14px;
+	font-family: sans-serif;
+	cursor: pointer;
+}
+
+/* Show title attribute for a link */
+.stencils-print__show-title a[title]:after,  a.stencils-print__show-title[title]:after {
+content: " (" attr(title) ")";
+font-size: 80%;
+}
+
+/* Show href attribute for a link */
+.stencils-print__show-href a[href]:after,  a.stencils-print__show-href[href]:after {
+content: " (" attr(href) ")";
+font-size: 80%;
+}
+
+/*------------------------------------*\
+		#Reset
+		These reset the base styles.
+
+\*------------------------------------*/
+/* Print reset styles */
+body {
+font: 12pt Georgia, "Times New Roman", Times, serif;
+line-height: 1.3;
+}
+
+h1 {
+font-size: 24pt;
+}
+
+h2 {
+font-size: 14pt;
+margin-top: 25px;
+}
+
+aside h2 {
+font-size: 18pt;
+}
+
+img {
+	max-width: 500px;
+}
+
+@page {
+	margin: 0.5cm;
+}
+
+a {
+	color: #000;
+}
+
+q:after {
+content: " (Source: " attr(cite) ")";
+}

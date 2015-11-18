@@ -1,0 +1,13 @@
+EXAMPLE - Functional Specification Snippet Template
+=================
+*&lt; __NOTE:__  This should be appended to X in CLIENT_functional_specification_v_latest &gt;*
+
+<ENTER_INTRODUCTION>
+
+*&lt;  __NOTE:__  INSERT_WIREFRAME ... from [...](...) &gt;*
+
+ID  | Name | ... | ...
+--- | --- | --- | ----
+1 	| ... | ... | ...
+2 	| ... | ... | ...
+3 	| ... | ... | ...
