@@ -10,6 +10,7 @@
 		<li><strong>Facets:</strong> Faceted navigation, search breadcrumbs.</li>
 		<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
 		<li><strong>Result:</strong> Result helpers e.g. panels ...</li>
+		<li><strong>Share Tools:</strong> Email and social sharing buttons.</li>
 	</ul>
 -->
 <#escape x as x?html>
@@ -31,7 +32,7 @@
  	Note: View files should not be imported to to the controller
 -->
 <@stencils_utilities.ImportStencilsControllers stencils=stencils>
-	<@stencils_utilities.imports?interpret />
+	<@stencils_utilities.importsControllers?interpret />
 </@stencils_utilities.ImportStencilsControllers>
 
 <#-- ###################  Controllers ####################### -->
@@ -348,11 +349,21 @@
 
 <#---
 	Conditional Display - Runs the nested code only if at least one result is found
+	@param negate {boolean} Reverse condition, to HasNoResults. Set to true / false. Default is false.
 -->
-<#macro HasResults>
-	<#if (response.resultPacket.resultsSummary.totalMatching)!?has_content
-	 && response.resultPacket.resultsSummary.totalMatching &gt; 0>
-	 <#nested>
+<#macro HasResults negate=false>
+	<#if negate>
+		<#-- Has No Results -->
+		<#if !( (response.resultPacket.resultsSummary.totalMatching)!?has_content )
+		 || !(response.resultPacket.resultsSummary.totalMatching &gt; 0) >
+		 <#nested>
+		</#if>
+	<#else>
+		<#-- Has Results-->
+		<#if (response.resultPacket.resultsSummary.totalMatching)!?has_content
+		 && response.resultPacket.resultsSummary.totalMatching &gt; 0>
+		 <#nested>
+		</#if>
 	</#if>
 </#macro>
 
@@ -453,5 +464,25 @@
 	</#if>
 </#macro>
 <#-- @end --><#-- / Category - Result -->
+
+
+<#-- @begin Share Tools  -->
+<#---
+	Constructor for share tools
+-->
+<#macro ShareTools>
+<#if (question.collection.configuration.value("stencils.base.share_tools"))?has_content && question.collection.configuration.value("stencils.base.share_tools") = "enabled" >
+	<#assign shareToolsID in .namespace><@ShareToolsID /></#assign>
+	<#nested>
+</#if>
+</#macro>
+
+<#--
+	Get the ID for the share tools plugin
+ -->
+<#macro ShareToolsID><#compress>
+${question.collection.configuration.value("stencils.base.share_tools.id")}
+</#compress></#macro>
+<#-- @end --><#-- / Category - Share tools -->
 
 </#escape>

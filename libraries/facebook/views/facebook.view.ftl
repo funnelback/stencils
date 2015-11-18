@@ -78,9 +78,10 @@
 	Shared footer view for result variations.
 -->
 <#macro ResultFooter>
-	<!-- facebook.view.ftl :: ResultFooter -->
-	<#--	Result tools -->
-	<div class="btn-group">
+<!-- facebook.view.ftl :: ResultFooter -->
+<#--	Result tools -->
+<div class="stencils-print__hide row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
+	<div class="btn-group col-md-8">
 		<div class="btn-group">
 			<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 				<span class="sr-only">Result tools</span>
@@ -133,7 +134,8 @@
 			</a>
 		</#if>
 	</div>
-	<#-- /ResultTools -->
+</div>
+<#-- /ResultTools -->
 </#macro>
 
 <#---
@@ -237,16 +239,18 @@
 <#macro ResultPost>
 	<@facebook_controller.Post>
 	<!-- facebook.view.ftl :: ResultPost -->
-		<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+		<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
+					<#if core_controller.result.metaData.a??>
 					 <a href="${facebook_controller.postUserProfileUrl!}" class="pull-left">
 						<#-- *Note: Because	facebook_controller.postUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 						<img class="media-object" src="${facebook_controller.postUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
+					</#if>
 					<div class="media-body">
-						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a}</@core_controller.boldicize></a> </div>
+						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
 							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 							<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
@@ -350,7 +354,9 @@
 								<img class="media-object" src="${facebook_controller.postUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 							</a>
 							<div class="media-body">
+								<#if core_controller.result.metaData.a??>
 								<div><a href="${facebook_controller.postUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
+								</#if>
 								<small class="text-muted">
 									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 									<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
@@ -519,14 +525,16 @@
 <#macro ResultEvent>
 	<@facebook_controller.Event>
 	<!-- facebook.view.ftl :: ResultEvent -->
-		<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+		<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
+					<#if core_controller.result.metaData.a??>
 					 <a href="${facebook_controller.eventUserProfileUrl!}" class="pull-left">
 						<#-- *Note: Because	facebook_controller.eventUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 						<img class="media-object" src="${facebook_controller.eventUserProfileImageUrl!}?width=40&&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
+					</#if>
 					<div class="media-body">
 						<div><a href="${facebook_controller.eventUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
@@ -641,10 +649,12 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<div class="media">
+							<#if core_controller.result.metaData.a??>
 							 <a href="${facebook_controller.eventUserProfileUrl!}" class="pull-left">
 								<#-- *Note: Because	facebook_controller.eventUserProfileImageUrl is a facebook pciture URL you can pass through height and width cgi parameters to set size see https://developers.facebook.com/docs/graph-api/reference/profile-picture-source/ -->
 								<img class="media-object" src="${facebook_controller.eventUserProfileImageUrl!}?width=40&amp;height=40" alt="Profile Image of ${core_controller.result.metaData.a!}">
 							</a>
+							</#if>
 							<div class="media-body">
 								<div><a href="${facebook_controller.eventUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
 								<small class="text-muted">
@@ -887,7 +897,7 @@
 <#macro ResultPage>
 	<@facebook_controller.Page>
 	<!-- facebook.view.ftl :: ResultPage -->
-	<div class="panel panel-default" id="result-${core_controller.result.rank!}">
+	<div class="panel panel-default stencils-progressive-disclosure" id="result-${core_controller.result.rank!}">
 		<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 			<div class="media">
 				<a href="${core_controller.result.clickTrackingUrl!}" title="${core_controller.result.liveUrl!}" class="pull-left stencils-facebook-page-info media-object">
@@ -1106,5 +1116,82 @@
 </#macro>
 <#-- /ResultPageEmbed -->
 <#-- @end --><#-- /Category - Result Page -->
+
+<#-- @begin Cart -->
+
+<#---
+	Displays the session cart.
+
+	The cart feature allows users to save inidividual search results so
+	that they viewed later and compared side by side.
+
+	This has been altered to be a shortlist view.
+-->
+<#macro Cart>
+	<!-- core.controller.ftl :: Cart -->
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
+					<h2><i class="fa fa-heart"></i> Favourites
+						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+					</h2>
+
+					<ul class="list-unstyled">
+						<li data-ng-repeat="item in cart">
+							<ng-switch on="item.metaData.stencilsFacebookType">
+							  <div ng-switch-when="POST"><@CartResultPost /></div>
+							  <div ng-switch-when="EVENT"><@CartResultEvent /></div>
+								<div ng-switch-when="PAGE"><@CartResultPage /></div>
+							</ng-switch>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</#if>
+</#macro>
+
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultPost>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsFacebookPostID" title="{{item.indexUrl}}">Facebook post: {{item.metaData.stencilsFacebookPostID}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultEvent>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook event: {{item.title|truncate:150}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#---
+	View for result format in cart. Uses angular templating.
+  -->
+<#macro CartResultPage>
+	<h4>
+		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook page: {{item.title|truncate:150}}</a>
+	</h4>
+	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
+	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
+</#macro>
+
+<#-- @end -->
+<#-- / Category - Cart -->
+
 
 </#escape>
