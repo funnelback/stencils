@@ -57,45 +57,5 @@
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
 
-<#---
-	Displays the session cart.
-
-	The cart feature allows users to save inidividual search results so
-	that they viewed later and compared side by side.
-
-	This has been altered to be a shortlist view.
--->
-<#macro Cart>
-	<!-- core.controller.ftl :: Cart -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
-			<div class="row">
-				<div class="col-md-12">
-					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><i class="fa fa-heart"></i> Favourites
-						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
-					</h2>
-
-					<ul class="list-unstyled">
-						<li data-ng-repeat="item in cart">
-							<ng-switch on="item.metaData.stencilsFacebookType">
-								<div ng-switch-when="POST"><@facebook_view.CartResultPost /></div>
-								<div ng-switch-when="EVENT"><@facebook_view.CartResultEvent /></div>
-								<div ng-switch-when="PAGE"><@facebook_view.CartResultPage /></div>
-							</ng-switch>
-
-							<ng-switch on="item.metaData.collection">
-								<div ng-switch-when="stencils-twitter-custom"><@twitter_view.CartResult /></div>
-								<div ng-switch-when="stencils-youtube-custom"><@youtube_view.CartResult /></div>
-								<div ng-switch-when="stencils-flickr-custom"><@flickr_view.CartResult /></div>
-							</ng-switch>
-
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</#if>
-</#macro>
 
 </#escape>
