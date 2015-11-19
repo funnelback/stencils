@@ -454,15 +454,19 @@
 <#-- @begin  Result -->
 <#--
 	Checks the collection source of a results for meta collection.
+
+	(Can pass through a list of comma separated collection names as a test)
 	@return nested
 	@parm name The name of the collection.
-	@param nested String to display on condition test.
+	@param nested String to display on condition test. (Can pass through a list of comma separated collection names as a test)
  -->
-<#macro ResultIsCollection name="">
-	<#if core_controller.result.collection = name >
-		<#nested>
-	</#if>
-</#macro>
+ <#macro ResultIsCollection name="">
+ 	<#list name?split(",") as collection>
+ 		<#if core_controller.result.collection = collection >
+ 			<#nested>
+ 		</#if>
+ 	</#list>
+ </#macro>
 <#-- @end --><#-- / Category - Result -->
 
 

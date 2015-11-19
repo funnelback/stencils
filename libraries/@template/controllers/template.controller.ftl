@@ -1,7 +1,8 @@
 <#ftl encoding="utf-8" />
-<#-- Replace **template** with new stencil name and remove this comment  -->
 <#---
-	<ENTER_DESCRIPTION FOR FILES PURPOSE>
+	This file is a starter template for creating new controller libraries.
+
+	<ENTER_DESCRIPTION FOR FILES PURPOSE>.
 
 	<h2>Table of Contents</h2>
 	<ul>
