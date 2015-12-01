@@ -150,7 +150,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" data-target="#search-performance">&times;</button>
-					<h3>Performance</h3>
+					<h3>${(response.translations.menu_help_performance)!"Performance"}</h3>
 				</div>
 				<div class="modal-body">
 					<@PerformanceMetrics class="search-metrics table-striped table table-condensed" tdClass="progress-bar progress-bar-info" width=200 title=""/>
@@ -171,7 +171,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" data-target="#search-syntaxtree">&times;</button>
-					<h3>Query syntax tree</h3>
+					<h3>${(response.translations.menu_help_query_syntax_tree)!"Query syntax tree"}</h3>
 				</div>
 				<div class="modal-body">
 					<#-- Display the syntax tree if it exists -->
@@ -182,7 +182,7 @@
 					<#-- Display an info tip if syntax tree has not been enabled -->
 					<@core_controller.HasSyntaxTree negate=true>
 						<div class="alert alert-warning">
-							Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set.
+							${(response.translations.tools_query_syntax_tree_error)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}
 						</div>
 					</@core_controller.HasSyntaxTree>
 				</div>
@@ -197,7 +197,7 @@
 <#macro Tools>
 	<!-- core.controller.ftl :: Tools -->
 	<section id="search-tools" class="hidden-print">
-		<h2 class="sr-only">Tools</h2>
+		<h2 class="sr-only">${(response.translations.tools_heading)!"Tools"}</h2>
 		<@ToolsPerformance />
 		<@ToolsSyntaxTree />
 	</section>
@@ -213,10 +213,15 @@
 			<div class="col-xs-12 col-md-3 mw-3"></div>
 			<div class="col-xs-12 col-md-9">
 				<hr>
-				<p class="text-muted"><small>
-				<#if (response.resultPacket.details.collectionUpdated)?? >Collection last updated: ${response.resultPacket.details.collectionUpdated?datetime}.<br></#if>
-				Search powered by <a href="http://www.funnelback.com">Funnelback</a>.
-				</small></p>
+				<p class="text-muted">
+					<small>
+						<#if (response.resultPacket.details.collectionUpdated)?? >${(response.translations.collection_updated)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br></#if>
+						<#noescape>${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"Search powered by"}</#noescape>
+						<a href="https://www.funnelback.com" alt="">
+							${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}
+						</a>
+					</small>
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -288,7 +293,7 @@
 	@totalLabel Label to use for the &quot;Total&quot; summary row
 	@jsOnly Do not display the metrics, only output the processing time in the JS console.
 -->
-<#macro PerformanceMetrics width=500 msLabel="ms" totalLabel="Total" jsOnly=false class="search-metrics" tdClass="" title="<h3>Performance</h3>">
+<#macro PerformanceMetrics width=500 msLabel="ms" totalLabel="Total" jsOnly=false class="search-metrics" tdClass="" title="<h3>${(response.translations.tools_performance_heading)!''}</h3>">
 	<!-- coreview :: PerformanceMetrics -->
 	<#if response?? && response.performanceMetrics??>
 		${response.performanceMetrics.stop()}
@@ -349,7 +354,7 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="Funnelback logo"></a>
+			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.funnelback_logo)!'Funnelback logo'}"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
@@ -361,9 +366,9 @@
 				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="input-group">
-					<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control input-lg query">
+					<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.search)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control input-lg query">
 					<div class="input-group-btn">
-						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> Search</button>
+						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.search)!"Search"}</button>
 					</div>
 				</div>
 			</form>
@@ -388,7 +393,7 @@
 <#macro NavBar>
 	<!-- core.view.ftl :: NavBar -->
 	<nav class="navbar navbar-default" role="navigation">
-		<h1 class="sr-only">Search</h1>
+		<h1 class="sr-only">${(response.translations.search)!"Search"}</h1>
 		<#-- Display the mobile tool bar -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -407,23 +412,57 @@
 			<#-- Display the various search tools -->
 			<ul class="nav navbar-nav navbar-right">
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-					<li data-ng-class="{active: isDisplayed('cart')}"><a href="#" data-ng-click="toggleCart()" title="{{cart.length}} item(s) in your selection"><span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span></a></li>
+					<li data-ng-class="{active: isDisplayed('cart')}"><a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.menu_cart_title_suffix)!"item(s) in your selection"}"><span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span></a></li>
 				</#if>
 				<li class="dropdown">
 					<a href="#" title="Advanced Settings" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a data-toggle="collapse" href="#search-advanced" title="Advanced search">Advanced search</a></li>
-						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")><li data-ng-class="{active: isDisplayed('history')}"><a href="#" data-ng-click="toggleHistory()" title="Search History">History</a></li></#if>
+						<li>
+							<a data-toggle="collapse" href="#search-advanced" title="${(response.translations.menu_advanced_search)!'Advance search'}">
+							${(response.translations.menu_advanced_search)!'Advanced Search'}</a>
+						</li>
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")><li data-ng-class="{active: isDisplayed('history')}"><a href="#" data-ng-click="toggleHistory()" title="${(response.translations.menu_search_history)!"Search history"}">${(response.translations.menu_search_history)!"Search History"}</a></li></#if>
 					</ul>
 				</li>
 				<li class="dropdown">
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${SearchPrefix}help/simple_search.html" title="Search help">Help</a></li>
-						<li><a data-toggle="modal" href="#search-performance" title="Performance report">Performance</a></li>
-						<li><a data-toggle="modal" href="#search-syntaxtree" title="Query syntax tree">Query syntax tree</a></li>
+						<li><a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.menu_help_search)!"Search Help"}">${(response.translations.menu_help_search)!"Search Help"}</a></li>
+						<li><a data-toggle="modal" href="#search-performance" title="${(response.translations.menu_help_performance_title)!"Performance"}">${(response.translations.menu_help_performance_title)!"Performance"}</a></li>
+						<li><a data-toggle="modal" href="#search-syntaxtree" title="${(response.translations.menu_help_query_syntax_tree_title)!"Query syntax tree"}">${(response.translations.menu_help_query_syntax_tree)!"Query syntax tree"}</a></li>
 					</ul>
 				</li>
+
+				<li class="dropdown">
+           <a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
+           	<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
+           </a>
+           
+           <ul class="dropdown-menu">                
+              <#noescape>
+              <li role="presentation" class="dropdown-header">Examples</li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>                
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>                
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>                                
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
+              <#--<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>-->
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
+              <li role="presentation" class="divider"></li>
+              <#--
+              <li role="presentation" class="dropdown-header">Extended</li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>                                
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>                
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+              
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+          	-->
+              </#noescape>
+            </ul>            
+        </li>
 			</ul>
 		</div>
 	</nav>
@@ -450,7 +489,7 @@
 		<@core_controller.FacetScope>
 			<div class="checkbox-inline">
 				<input type="checkbox" name="facetScope" id="facetScope" value="<@core_controller.FacetScopeParameter />" checked="checked">
-				<label for="facetScope"> Within selected categories only </label>
+				<label for="facetScope"> ${(response.translations.within_selected_categories_only)!"Within selected categories only"} </label>
 			</div>
 		</@core_controller.FacetScope>
 	</form>
@@ -463,7 +502,7 @@
 <#macro AdvancedForm>
 	<!-- core.view.ftl :: AdvancedForm -->
 	<section id="search-advanced" class="well row collapse <@core_controller.IfDefCGI name="from-advanced">in</@core_controller.IfDefCGI>">
-	<h2 class="sr-only">Advanced Search</h2>
+	<h2 class="sr-only">${(response.translations.menu_advanced_search)!"Advanced Search"}</h2>
 	<div class="row">
 		<div class="col-md-12">
 			<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="form" class="form-horizontal">
@@ -481,59 +520,59 @@
 				<div class="row">
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Contents</legend>
+							<legend>${(response.translations.advanced_fieldset_contents_legend)!''}</legend>
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="query-advanced">Any</label>
+								<label class="col-md-4 control-label" for="query-advanced">${(response.translations.advanced_query_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="e.g. juliet where thou love">
+									<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="${(response.translations.advanced_query_placeholder)!''}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="query_and" class="col-md-4 control-label">All</label>
+								<label for="query_and" class="col-md-4 control-label">${(response.translations.advanced_query_and_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="e.g. juliet where thou love">
+									<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="${(response.translations.advanced_query_and_placeholder)!''}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="query_phrase" class="col-md-4 control-label">Phrase</label>
+								<label for="query_phrase" class="col-md-4 control-label">${(response.translations.advanced_query_phrase_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="e.g. to be or not to be">
+									<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.advanced_query_phrase_placeholder)!''}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="query_not" class="col-md-4 control-label">Not</label>
+								<label for="query_not" class="col-md-4 control-label">${(response.translations.advanced_query_not_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="e.g. brutus othello">
+									<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="${(response.translations.advanced_query_not_placeholder)!''}">
 								</div>
 							</div>
 						</fieldset>
 					</div>
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Metadata</legend>
+							<legend>${(response.translations.advanced_fieldset_metadata_legend)!''}</legend>
 							<div class="form-group">
-								<label for="meta_t" class="col-md-4 control-label">Title</label>
+								<label for="meta_t" class="col-md-4 control-label">${(response.translations.advanced_metadata_title_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="meta_t" name="meta_t" placeholder="e.g. A Midsummer Night's Dream" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
+									<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.advanced_metadata_title_placeholder)!''}" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="meta_a" class="col-md-4 control-label">Author</label>
+								<label for="meta_a" class="col-md-4 control-label">${(response.translations.advanced_metadata_author_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="meta_a" name="meta_a" placeholder="e.g. William Shakespeare" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
+									<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.advanced_metadata_author_placeholder)!''}" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="meta_s" class="col-md-4 control-label">Subject</label>
+								<label for="meta_s" class="col-md-4 control-label">${(response.translations.advanced_metadata_subject_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="meta_s" name="meta_s" placeholder="e.g. comedy" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
+									<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.advanced_metadata_subject_placeholder)!''}" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="meta_f_sand">Format</label>
+								<label class="control-label col-md-4" for="meta_f_sand">${(response.translations.advanced_metadata_format_label)!''}</label>
 								<div class="col-md-8">
 									<#-- Select dropdown for format -->
-									<@core_controller.Select name="meta_f_sand" options=["=Any ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
+									<@core_controller.Select name="meta_f_sand" options=["=${(response.translations.advanced_metadata_format_value_default)!''} ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
 										<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 											<#-- Display the options -->
 											<@core_controller.SelectOptions>
@@ -549,12 +588,12 @@
 					</div>
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Published</legend>
+							<legend>${(response.translations.advanced_fieldset_published_legend)!''}</legend>
 							<div class="form-group">
-								<label class="control-label col-md-4">After</label>
+								<label class="control-label col-md-4">${(response.translations.advanced_metadata_after_label)!''}</label>
 
 								<#-- Select dropdown for year -->
-								<label class="sr-only" for="meta_d1year">Year</label>
+								<label class="sr-only" for="meta_d1year">${(response.translations.advanced_metadata_date_year_default)!''}</label>
 								<@core_controller.Select name="meta_d1year" options=["=Year"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
@@ -568,8 +607,8 @@
 
 
 								<#-- Select dropdown for month -->
-								<label class="sr-only" for="meta_d1month">Month</label>
-								<@core_controller.Select name="meta_d1month" options=["=Month", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]>
+								<label class="sr-only" for="meta_d1month">${(response.translations.advanced_metadata_date_month_default)!''}</label>
+								<@core_controller.Select name="meta_d1month" options=["=Month", "${(response.translations.jan)!''}", "${(response.translations.feb)!''}", "${(response.translations.mar)!''}", "${(response.translations.apr)!''}", "${(response.translations.may)!''}", "${(response.translations.jun)!''}", "${(response.translations.jul)!''}", "${(response.translations.aug)!''}", "${(response.translations.sep)!''}", "${(response.translations.oct)!''}", "${(response.translations.nov)!''}", "${(response.translations.dec)!''}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -581,7 +620,7 @@
 								</@core_controller.Select>
 
 								<#-- Select dropdown for day -->
-								<label class="sr-only" for="meta_d1day">Day</label>
+								<label class="sr-only" for="meta_d1day">${(response.translations.advanced_metadata_date_day_default)!''}</label>
 								<@core_controller.Select name="meta_d1day" options=["=Day"] range="1..31">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
@@ -595,10 +634,10 @@
 							</div>
 
 							<div class="form-group">
-								<label class="control-label col-md-4">Before</label>
+								<label class="control-label col-md-4">${(response.translations.advanced_metadata_before_label)!''}</label>
 
 								<#-- Select dropdown for year -->
-								<label class="sr-only" for="meta_d2year">Year</label>
+								<label class="sr-only" for="meta_d2year">${(response.translations.advanced_metadata_date_year_default)!''}</label>
 								<@core_controller.Select name="meta_d2year" options=["=Year"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
@@ -611,8 +650,8 @@
 								</@core_controller.Select>
 
 								<#-- Select dropdown for month -->
-								<label class="sr-only" for="meta_d2month">Month</label>
-								<@core_controller.Select name="meta_d2month" options=["=Month", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]>
+								<label class="sr-only" for="meta_d2month">${(response.translations.advanced_metadata_date_month_default)!''}</label>
+								<@core_controller.Select name="meta_d2month" options=["=Month", "${(response.translations.jan)!''}", "${(response.translations.feb)!''}", "${(response.translations.mar)!''}", "${(response.translations.apr)!''}", "${(response.translations.may)!''}", "${(response.translations.jun)!''}", "${(response.translations.jul)!''}", "${(response.translations.aug)!''}", "${(response.translations.sep)!''}", "${(response.translations.oct)!''}", "${(response.translations.nov)!''}", "${(response.translations.dec)!''}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -624,7 +663,7 @@
 								</@core_controller.Select>
 
 								<#-- Select dropdown for day -->
-								<label class="sr-only" for="meta_d2day">Day</label>
+								<label class="sr-only" for="meta_d2day">${(response.translations.advanced_metadata_date_day_default)!''}</label>
 								<@core_controller.Select name="meta_d2day" options=["=Day"] range="1..31">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
@@ -642,12 +681,12 @@
 				<div class="row">
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Display</legend>
+							<legend>${(response.translations.advanced_fieldset_display_legend)!''}</legend>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="sort">Sort</label>
+								<label class="control-label col-md-4" for="sort">${(response.translations.advanced_display_sort_label)!''}</label>
 								<div class="col-md-8">
 								<#-- Select dropdown for sort -->
-								<@core_controller.Select name="sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=Url (A-Z)", "durl=Url (Z-A)", "shuffle=Shuffle"]>
+								<@core_controller.Select name="sort" options=["=${(response.translations.advanced_display_sort_value_rel)!''}", "date=${(response.translations.advanced_display_sort_value_date)!''}", "adate=${(response.translations.advanced_display_sort_value_adate)!''}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.advanced_display_sort_value_prox)!''}" "url=${(response.translations.advanced_display_sort_value_url)!''}", "durl=${(response.translations.advanced_display_sort_value_durl)!''}", "shuffle=${(response.translations.advanced_display_sort_value_shuffle)!''}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -663,8 +702,8 @@
 								<label class="control-label col-md-4" for="num_ranks">Results</label>
 								<div class="col-md-8">
 									<div class="input-group">
-										<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="e.g. 10" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
-										<span class="input-group-addon">per page</span>
+										<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.advanced_display_num_ranks_placeholder)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
+										<span class="input-group-addon">${(response.translations.advanced_display_num_ranks_label_suffix)!''}</span>
 									</div>
 								</div>
 							</div>
@@ -672,22 +711,22 @@
 					</div>
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Located</legend>
+							<legend>${(response.translations.advanced_fieldset_location_legend)!''}</legend>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="origin">Origin</label>
+								<label class="control-label col-md-4" for="origin">${(response.translations.advanced_location_origin_label)!''}</label>
 								<div class="col-md-8">
 									<div class="input-group">
 										<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="Locate me!" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
-										<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="Latitude,longitude" placeholder="Latitude, Longitude" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
+										<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="Latitude,longitude" placeholder="${(response.translations.advanced_location_origin_placeholder)!''}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="maxdist">Distance</label>
+								<label class="control-label col-md-4" for="maxdist">${(response.translations.advanced_location_distance_label)!''}</label>
 								<div class="col-md-8">
 									<div class="input-group">
-										<input type="number" min="0" id="maxdist" name="maxdist" placeholder="e.g. 10" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
-										<span class="input-group-addon">km</span>
+										<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.advanced_location_distance_placeholder)!''}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
+										<span class="input-group-addon">${(response.translations.advanced_location_distance_label_suffix)!''}</span>
 									</div>
 								</div>
 							</div>
@@ -695,17 +734,17 @@
 					</div>
 					<div class="col-md-4">
 						<fieldset>
-							<legend>Within</legend>
+							<legend>${(response.translations.advanced_fieldset_within_legend)!''}</legend>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="scope">Domain</label>
+								<label class="control-label col-md-4" for="scope">${(response.translations.advanced_within_scope_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="scope" name="scope" placeholder="e.g. example.com" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
+									<input type="text" id="scope" name="scope" placeholder="${(response.translations.advanced_within_scope_placeholder)!''}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-4" for="meta_v">Path</label>
+								<label class="control-label col-md-4" for="meta_v">${(response.translations.advanced_within_meta_v_label)!''}</label>
 								<div class="col-md-8">
-									<input type="text" id="meta_v" name="meta_v" placeholder="e.g. /plays/romeo-juliet" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
+									<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.advanced_within_meta_v_placeholder)!''}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
 								</div>
 							</div>
 						</fieldset>
@@ -716,7 +755,7 @@
 					<div class="col-md-12">
 						<div class="pull-right">
 							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">Cancel</button>
-							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> Advanced Search</button>
+							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> ${(response.translations.menu_advanced_search)!''}</button>
 						</div>
 					</div>
 				</div>
@@ -748,7 +787,7 @@
 		<#if session.searchHistory?? &&
 			(session.searchHistory?size &gt; 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
 			<div class="breadcrumb" data-ng-controller="SearchHistoryCtrl" data-ng-show="!searchHistoryEmpty">
-					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()"><small class="text-muted"><span class="glyphicon glyphicon-plus"></span> More&hellip;</small></button>
+					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()"><small class="text-muted"><span class="glyphicon glyphicon-plus"></span> ${(response.translations.more)!''}</small></button>
 					<ol class="list-inline" >
 						<li class="text-muted">Recent:</li>
 
@@ -785,14 +824,14 @@
 		<div id="search-history-info" data-ng-cloak data-ng-show="isDisplayed('history')">
 			<div class="row">
 				<div class="col-md-12">
-					<a href="#" data-ng-click="hideHistory()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><span class="glyphicon glyphicon-time"></span> History</h2>
+					<a href="#" data-ng-click="hideHistory()"><span class="glyphicon glyphicon-arrow-left"></span> ${(response.translations.history_back_to_results)!''}</a>
+					<h2><span class="glyphicon glyphicon-time"></span> ${(response.translations.history)!''}</h2>
 
 					<div class="row">
 						<div class="col-md-6" data-ng-controller="ClickHistoryCtrl">
 							<div data-ng-show="!clickHistoryEmpty && <@core_controller.HasClickHistory />">
-								<h3><span class="glyphicon glyphicon-heart"></span> Recently clicked results
-									<button class="btn btn-danger btn-xs" title="Clear click history" data-ng-click="clear('Your history will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.history_click_history_heading)!''}
+									<button class="btn btn-danger btn-xs" title="${(response.translations.history_click_history_clear_title)!''}" data-ng-click="clear('${(response.translations.history_click_history_clear_prompt)!''}')"><span class="glyphicon glyphicon-remove"></span> ${(response.translations.clear)!''}</button>
 								</h3>
 								<ul class="list-unstyled">
 									<@core_controller.ClickHistory>
@@ -809,14 +848,14 @@
 								</ul>
 							</div>
 							<div data-ng-show="clickHistoryEmpty || !<@core_controller.HasClickHistory />">
-								<h3><span class="glyphicon glyphicon-heart"></span> Recently clicked results</h3>
-								<p class="text-muted">Your click history is empty.</p>
+								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.history_click_history_heading)!''}</h3>
+								<p class="text-muted">${(response.translations.history_click_history_empty)!''}</p>
 							</div>
 						</div>
 						<div class="col-md-6" data-ng-controller="SearchHistoryCtrl">
 							<div data-ng-show="!searchHistoryEmpty && <@core_controller.HasSearchHistory />">
 								<h3><span class="glyphicon glyphicon-search"></span> Recent searches
-									<button class="btn btn-danger btn-xs" title="Clear search history" data-ng-click="clear('Your history will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+									<button class="btn btn-danger btn-xs" title="${(response.translations.history_query_history_clear_title)!''}" data-ng-click="clear('${(response.translations.history_query_history_clear_prompt)!''}')"><span class="glyphicon glyphicon-remove"></span> ${(response.translations.clear)!''}</button>
 								</h3>
 								<ul class="list-unstyled">
 									<@core_controller.SearchHistory>
@@ -831,7 +870,7 @@
 							</div>
 							<div data-ng-show="searchHistoryEmpty || !<@core_controller.HasSearchHistory />">
 								<h3><span class="glyphicon glyphicon-search"></span> Recent searches</h3>
-								<p class="text-muted">Your search history is empty.</p>
+								<p class="text-muted">${(response.translations.history_query_history_empty)!''}</p>
 							</div>
 						</div>
 					</div>
@@ -854,14 +893,14 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><span class="glyphicon glyphicon-pushpin"></span> Saved
-						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
+					<h2><span class="glyphicon glyphicon-pushpin"></span> ${(response.translations.saved)!''}
+						<button class="btn btn-danger btn-xs" title="${(response.translations.history_cart_clear_title)!''}" data-ng-click="clear('${(response.translations.history_cart_clear_title)!''}')"><span class="glyphicon glyphicon-remove"></span> ${(response.translations.clear)!''}</button>
 					</h2>
 
 					<ul class="list-unstyled">
 						<li data-ng-repeat="item in cart">
 							<h4>
-								<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+								<a title="${(response.translations.remove)!''}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
 								<a href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
 							</h4>
 							<cite class="text-success">{{item.indexUrl|cut:'http://'}}</cite>
@@ -891,7 +930,7 @@
 	<!-- core.controller.ftl :: Facets -->
 	<@core_controller.FacetedSearch>
 		<div class="col-md-3 col-md-pull-9 hidden-print" id="search-facets">
-			<h2 class="sr-only">Refine</h2>
+			<h2 class="sr-only">${(response.translations.facets_heading)!''}</h2>
 			<@core_controller.Facets name=name names=names>
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -964,9 +1003,9 @@
 						<#--
 							Generate the more/less categories button which will show and hide additonal categories respective
 						-->
-						<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" title="Show more categories from this facet">
+						<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="${(response.translations.more)!''}" data-less="${(response.translations.less)!''}" data-state="more" title="${(response.translations.facets_more_categories_title)!''}">
 							<small class="glyphicon glyphicon-plus"></small>
-							&nbsp;<span>More&hellip;</span>
+							&nbsp;<span>${(response.translations.more)!''}</span>
 						</button>
 					</div>
 				</div>
@@ -1022,9 +1061,9 @@
 	<!-- core.view.ftl :: Scope -->
 	<#if question.inputParameterMap["scope"]!?length != 0>
 		<div class="breadcrumb">
-			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> Scope:</span>
+			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> ${(response.translations.broaden_search_scope)!''}:</span>
 			<@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate>
-			<a class="button btn-xs" title="Remove scope: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
+			<a class="button btn-xs" title="${(response.translations.broaden_search_scope)!''}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
 				<span class="glyphicon glyphicon-remove text-muted"></span>
 			</a>
 		</div>
@@ -1045,22 +1084,22 @@
 	<div id="search-result-count" class="text-muted">
 		<#-- No match results -->
 		<#if response.resultPacket.resultsSummary.totalMatching == 0>
-			<span id="search-total-matching">0</span> search results for <strong><@core_controller.QueryClean /></strong>
+			<span id="search-total-matching">0</span> ${(response.translations.search_results_that_match)!''} <strong><@core_controller.QueryClean /></strong>
 		</#if>
 
 		<#-- Show the result summary for exact matching results -->
 		<#if response.resultPacket.resultsSummary.totalMatching != 0>
 			<span id="search-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
-			<span id="search-page-end">${response.resultPacket.resultsSummary.currEnd}</span> of
+			<span id="search-page-end">${response.resultPacket.resultsSummary.currEnd}</span> ${(response.translations.of)!''}
 			<span id="search-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@core_controller.QueryClean></@core_controller.QueryClean></strong>
+			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>${(response.translations.collapsed)!''}</em> </#if>${(response.translations.search_results_that_match)!''} <strong><@core_controller.QueryClean></@core_controller.QueryClean></strong>
 		</#if>
 
 		<#-- Show the result summary for partially matching results -->
 		<#if (response.resultPacket.resultsSummary.partiallyMatching!0) != 0>
-			where <span id="search-fully-matching">${response.resultPacket.resultsSummary.fullyMatching?string.number}</span>
-			match all words and <span id="search-partially-matching">${response.resultPacket.resultsSummary.partiallyMatching?string.number}</span>
-			match some words.
+			${(response.translations.where)!''} <span id="search-fully-matching">${response.resultPacket.resultsSummary.fullyMatching?string.number}</span>
+			${(response.translations.match_all_words_and)!''} <span id="search-partially-matching">${response.resultPacket.resultsSummary.partiallyMatching?string.number}</span>
+			${(response.translations.match_some_words)!''}.
 		</#if>
 
 		<#-- Show the result summary for collapse results -->
@@ -1088,11 +1127,11 @@
 			<span class="glyphicon glyphicon-info-sign"></span>
 			You're query has been exapanded to: <strong><@core_controller.BlendingTerms /></strong>.
 			<span>
-				Search for
+				${(response.translations.blending_prefix)!''}
 				<a href="<@core_controller.BlendingDisabledUrl />" alt="Disable blending">
 					<em>${question.originalQuery}</em>
 				</a>
-				instead.
+				${(response.translations.blending_suffix)!''}.
 			</span>
 		</div>
 	</@core_controller.Blending>
@@ -1129,14 +1168,14 @@
 <#macro Spelling>
 	<!-- core.view.ftl :: Spelling -->
 	<@core_controller.CheckSpelling>
-		<h3 id="search-spelling"><span class="glyphicon glyphicon-question-sign text-muted"></span> Did you mean
+		<h3 id="search-spelling"><span class="glyphicon glyphicon-question-sign text-muted"></span> ${(response.translations.spelling_prefix)!''}
 			<em>
 				<a href="<@core_controller.CheckSpellingUrl />" alt="spelling suggestion">
 					<span class="funnelback-highlight">
 						<@core_controller.CheckSpellingText />
 					</span>
 				</a>
-			</em>?
+			</em>${(response.translations.spelling_suffix)!''}
 		</h3>
 	</@core_controller.CheckSpelling>
 </#macro>
@@ -1151,15 +1190,15 @@
 -->
 <#macro NoResultSummary>
 	<!-- core.view.ftl :: NoResultSummary -->
-	<h2 class="visible-print">Results</h2>
+	<h2 class="visible-print">${(response.translations.results_heading)!''}</h2>
 
 	<#if response.resultPacket.resultsSummary.totalMatching == 0>
-		<h3><span class="glyphicon glyphicon-warning-sign"></span> No results</h3>
-		<p>Your search for <strong>${question.originalQuery!}</strong> did not return any results. Please ensure that you:</p>
+		<h3><span class="glyphicon glyphicon-warning-sign"></span> ${(response.translations.zero_results_heading)!''}</h3>
+		<p>${(response.translations.your_search_for)!''} <strong>${question.originalQuery!}</strong> ${(response.translations.did_not_return_any_results)!''}. ${(response.translations.please_ensure_that_you)!''}</p>
 		<ul>
-			<li>are not using any advanced search operators like + - | " etc.</li>
-			<li>expect this document to exist within the <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> and within <em><@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
-			<li>have permission to see any documents that may match your query</li>
+			<li>${(response.translations.not_using_advanced_operators)!''}</li>
+			<li>${(response.translations.expect_this_document)!''} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.and_within)!''} <em><@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
+			<li>${(response.translations.have_permission)!''}</li>
 		</ul>
 	</#if>
 </#macro>
@@ -1293,11 +1332,11 @@
 			<@core_controller.NoClustersFound />
 			<@core_controller.ClusterLayout>
 				<div class="well" id="search-contextual-navigation">
-					<h3>Related searches for <strong><@core_controller.QueryClean /></strong></h3>
+					<h3>${(response.translations.connav_heading)!''} <strong><@core_controller.QueryClean /></strong></h3>
 					<div class="row">
 						<@core_controller.ContextualNavigationCategories name="type">
 							<div class="col-md-4 search-contextual-navigation-type">
-								<h4>Types of <strong>${core_controller.contextualNavigation.searchTerm}</strong></h4>
+								<h4>${(response.translations.connav_type_heading)!''} <strong>${core_controller.contextualNavigation.searchTerm}</strong></h4>
 								<ul class="list-unstyled">
 									<@core_controller.Clusters>
 										<li>
@@ -1311,7 +1350,7 @@
 									<@core_controller.ShowMoreClusters category="type">
 										<li>
 											<a rel="more" href="${changeParam(core_controller.category.moreLink, "type_max_clusters", "40")}" class="btn btn-link btn-sm">
-												<small class="glyphicon glyphicon-plus"></small> More&hellip;
+												<small class="glyphicon glyphicon-plus"></small> ${(response.translations.more)!''}
 											</a>
 										</li>
 									</@core_controller.ShowMoreClusters>
@@ -1322,7 +1361,7 @@
 
 						<@core_controller.ContextualNavigationCategories name="topic">
 							<div class="col-md-4 search-contextual-navigation-topic">
-								<h4>Topics on <strong>${core_controller.contextualNavigation.searchTerm}</strong></h4>
+								<h4>${(response.translations.connav_topic_heading)!''} <strong>${core_controller.contextualNavigation.searchTerm}</strong></h4>
 								<ul class="list-unstyled">
 									<@core_controller.Clusters>
 										<li>
@@ -1337,7 +1376,7 @@
 										<li>
 											<a rel="more" href="${changeParam(core_controller.category.moreLink, "topic_max_clusters", "40")}" class="btn btn-link btn-sm">
 											<small class="glyphicon glyphicon-plus"></small>
-												More&hellip;
+												${(response.translations.more)!''}
 											</a>
 										</li>
 									</@core_controller.ShowMoreClusters>
@@ -1348,7 +1387,7 @@
 
 						<@core_controller.ContextualNavigationCategories name="site">
 							<div class="col-md-4 search-contextual-navigation-site">
-								<h4><strong>${core_controller.contextualNavigation.searchTerm}</strong> by site</h4>
+								<h4><strong>${core_controller.contextualNavigation.searchTerm}</strong> ${(response.translations.connav_site_heading)!''}</h4>
 								<ul class="list-unstyled">
 									<@core_controller.Clusters>
 										<li>
@@ -1360,7 +1399,7 @@
 									<@core_controller.ShowMoreClusters category="site">
 										<li>
 											<a rel="more" href="${changeParam(core_controller.category.moreLink, "site_max_clusters", "40")}" class="btn btn-link btn-sm">
-												<small class="glyphicon glyphicon-plus"></small> More&hellip;
+												<small class="glyphicon glyphicon-plus"></small> ${(response.translations.more)!''}
 											</a>
 										</li>
 									</@core_controller.ShowMoreClusters>
@@ -1387,7 +1426,7 @@
 	<!-- core.controller.ftl :: Pagination -->
 	<@core_controller.Pagination>
 		<div class="text-center hidden-print">
-			<h2 class="sr-only">Pagination</h2>
+			<h2 class="sr-only">${(response.translations.pagination_heading)!''}</h2>
 			<ul class="pagination pagination-lg">
 				<#--
 					Display the previous tag which allows the user to navigate
@@ -1395,13 +1434,12 @@
 				-->
 				<@core_controller.Previous>
 					<li>
-						<a href="<@core_controller.PreviousUrl />" rel="prev">
+						<a href="<@core_controller.PreviousUrl />" rel="${(response.translations.pagination_prev)!''}">
 							<small>
-
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</small>
 							<span class="sr-only">Go to the</span>
-							Prev
+							${(response.translations.pagination_prev)!''}
 							<span class="sr-only">search result page</span>
 						</a>
 					</li>
@@ -1429,9 +1467,9 @@
 				-->
 				<@core_controller.Next>
 					<li>
-						<a href="<@core_controller.NextUrl />" rel="next">
+						<a href="<@core_controller.NextUrl />" rel="${(response.translations.pagination_next)!''}">
 							<span class="sr-only">Go to the</span>
-							Next
+							${(response.translations.pagination_next)!''}
 							<span class="sr-only">search result page</span>
 							<small>
 								<span class="glyphicon glyphicon-chevron-right"></span>
@@ -1461,9 +1499,9 @@
 			<#if core_controller.result.class.simpleName == "TierBar">
 				<#-- A tier bar -->
 				<#if core_controller.result.matched != core_controller.result.outOf>
-					<li class="search-tier"><h3 class="text-muted">Results that match ${core_controller.result.matched} of ${core_controller.result.outOf} words</h3></li>
+					<li class="search-tier"><h3 class="text-muted">${(response.translations.results_that_match)!''} ${core_controller.result.matched} ${(response.translations.of)!''} ${core_controller.result.outOf} ${(response.translations.words)!''}</h3></li>
 				<#else>
-					<li class="search-tier"><h3 class="hidden">Fully-matching results</h3></li>
+					<li class="search-tier"><h3 class="hidden">${(response.translations.fully_matching_results)!''}</h3></li>
 				</#if>
 				<#-- Print event tier bars if they exist -->
 				<#if core_controller.result.eventDate??>
@@ -1506,8 +1544,8 @@
 		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 			<small class="text-warning stencils-print__hide">
 				<span class="glyphicon glyphicon-time"></span>
-				<a title="Click history" href="#" class="text-warning" data-ng-click="toggleHistory()">
-				Last visited ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+				<a title="${(response.translations.history_result_title)!''}" href="#" class="text-warning" data-ng-click="toggleHistory()">
+				${(response.translations.history_result_label)!''} ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
 				</a>
 			</small>
 		</#if>
@@ -1525,12 +1563,13 @@
 
 	<#-- ResultTools -->
 	<div class="btn-group stencils-print__hide">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${(response.translations.more_actions)!''}"><small class="glyphicon glyphicon-chevron-down text-success"></small></a>
+
 		<ul class="dropdown-menu">
 			<#-- General the cache link which is used to display the version of the document when it was crawled -->
 			<li>
 				<#if core_controller.result.cacheUrl??>
-					<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">Cached</a>
+					<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="Cached version of ${core_controller.result.title} (${core_controller.result.rank})">${(response.translations.result_cached)!''}</a>
 				</#if>
 			</li>
 
@@ -1575,7 +1614,8 @@
 						<div class="row">
 							<div class="col-md-4">
 							<div class="input-group input-sm">
-								<input required title="Search query" name="query" type="text" class="form-control" placeholder="Search ${core_controller.result.quickLinks.domain}&hellip;">
+								<input required title="${(response.translations.search_query)!''}" name="query" type="text" class="form-control" placeholder="Search ${s.result.quickLinks.domain}&hellip;">
+f
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 								</div>
@@ -1623,12 +1663,12 @@
 				<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
 					<#-- Message for exact count -->
 					<@core_controller.CollapsedLabel>
-						<@core_controller.CollapsedCount /> very similar results
+						<@core_controller.CollapsedCount /> ${(response.translations.collapsed_similar)!''}
 					</@core_controller.CollapsedLabel>
 
 					<#-- Alternative message for approximate count -->
 					<@core_controller.CollapsedApproximateLabel>
-						About <@core_controller.CollapsedCount /> very similar results
+						About <@core_controller.CollapsedCount /> ${(response.translations.collapsed_similar)!''}
 					</@core_controller.CollapsedApproximateLabel>
 				</a>
 			</small>
@@ -1639,15 +1679,15 @@
 	<#if core_controller.result.metaData["a"]?? || core_controller.result.metaData["s"]?? || core_controller.result.metaData["p"]??>
 		<dl class="dl-horizontal text-muted">
 			<#if core_controller.result.metaData["a"]??>
-				<dt>by</dt>
+				<dt>${(response.translations.result_by_title)!''}</dt>
 				<dd>${core_controller.result.metaData["a"]!?replace("|", ", ")}</dd>
 			</#if>
 			<#if core_controller.result.metaData["s"]??>
-				<dt>Keywords:</dt>
+				<dt>${(response.translations.result_keywords_title)!''}:</dt>
 				<dd>${core_controller.result.metaData["s"]!?replace("|", ", ")}</dd>
 			</#if>
 			<#if core_controller.result.metaData["p"]??>
-				<dt>Publisher:</dt>
+				<dt>${(response.translations.result_publisher_title)!''}:</dt>
 				<dd>${core_controller.result.metaData["p"]!?replace("|", ", ")}</dd>
 			</#if>
 		</dl>
@@ -1656,6 +1696,4 @@
 </#macro>
 <#-- @end Result -->
 <#-- /Category - Result -->
-
-
 </#escape>
