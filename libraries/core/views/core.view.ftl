@@ -68,7 +68,7 @@
 	<#--
 		Include the required session scripts only if they have been specified
 		in the collection.cfg
-	-->
+	-->``
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
 		<#-- <script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script> -->
 		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular.js"></script>
@@ -150,7 +150,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" data-target="#search-performance">&times;</button>
-					<h3>${(response.translations.menu_help_performance)!"Performance"}</h3>
+					<h3>${(response.translations.CORE_TOOLS_PERFORMANCE_TITLE)!"Performance"}</h3>
 				</div>
 				<div class="modal-body">
 					<@PerformanceMetrics class="search-metrics table-striped table table-condensed" tdClass="progress-bar progress-bar-info" width=200 title=""/>
@@ -171,7 +171,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" data-target="#search-syntaxtree">&times;</button>
-					<h3>${(response.translations.menu_help_query_syntax_tree)!"Query syntax tree"}</h3>
+					<h3>${(response.translations.CORE_TOOLS_QUERY_SYNTAX_TITLE)!"Query syntax tree"}</h3>
 				</div>
 				<div class="modal-body">
 					<#-- Display the syntax tree if it exists -->
@@ -182,7 +182,7 @@
 					<#-- Display an info tip if syntax tree has not been enabled -->
 					<@core_controller.HasSyntaxTree negate=true>
 						<div class="alert alert-warning">
-							${(response.translations.tools_query_syntax_tree_error)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}
+							${(response.translations.CORE_TOOLS_QUERY_SYNTAX_ERROR_MSG)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}
 						</div>
 					</@core_controller.HasSyntaxTree>
 				</div>
@@ -197,7 +197,7 @@
 <#macro Tools>
 	<!-- core.controller.ftl :: Tools -->
 	<section id="search-tools" class="hidden-print">
-		<h2 class="sr-only">${(response.translations.tools_heading)!"Tools"}</h2>
+		<h2 class="sr-only">${(response.translations.CORE_TOOLS_TITLE)!"Tools"}</h2>
 		<@ToolsPerformance />
 		<@ToolsSyntaxTree />
 	</section>
@@ -215,7 +215,7 @@
 				<hr>
 				<p class="text-muted">
 					<small>
-						<#if (response.resultPacket.details.collectionUpdated)?? >${(response.translations.collection_updated)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br></#if>
+						<#if (response.resultPacket.details.collectionUpdated)??>${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br></#if>
 						<#noescape>${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"Search powered by"}</#noescape>
 						<a href="https://www.funnelback.com" alt="">
 							${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}
@@ -293,7 +293,7 @@
 	@totalLabel Label to use for the &quot;Total&quot; summary row
 	@jsOnly Do not display the metrics, only output the processing time in the JS console.
 -->
-<#macro PerformanceMetrics width=500 msLabel="ms" totalLabel="Total" jsOnly=false class="search-metrics" tdClass="" title="<h3>${(response.translations.tools_performance_heading)!''}</h3>">
+<#macro PerformanceMetrics width=500 msLabel="ms" totalLabel="Total" jsOnly=false class="search-metrics" tdClass="" title="<h3>${(response.translations.CORE_TOOLS_PERFORMANCE_TITLE)!'Performance'}</h3>">
 	<!-- coreview :: PerformanceMetrics -->
 	<#if response?? && response.performanceMetrics??>
 		${response.performanceMetrics.stop()}
@@ -354,7 +354,7 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.funnelback_logo)!'Funnelback logo'}"></a>
+			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_ALT)!'Funnelback logo'}"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
@@ -366,9 +366,9 @@
 				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="input-group">
-					<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.search)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control input-lg query">
+					<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control input-lg query">
 					<div class="input-group-btn">
-						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.search)!"Search"}</button>
+						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
 				</div>
 			</form>
@@ -383,9 +383,10 @@
 		The navigation bar aims provides the end user with access to search tools such as:
 		<ul>
 			<li> Re-query </li>
-			<li> Advance search </li>
+			<li> Advanced search </li>
 			<li> Current session selections </li>
 			<li> Performance and syntax tools </li>
+			<li> Language options </li>
 			<li> and more... </li>
 		</ul>
 	</p>
@@ -393,7 +394,7 @@
 <#macro NavBar>
 	<!-- core.view.ftl :: NavBar -->
 	<nav class="navbar navbar-default" role="navigation">
-		<h1 class="sr-only">${(response.translations.search)!"Search"}</h1>
+		<h1 class="sr-only">${(response.translations.CORE_NAVBAR_SR_SEARCH)!"Search"}</h1>
 		<#-- Display the mobile tool bar -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -412,27 +413,51 @@
 			<#-- Display the various search tools -->
 			<ul class="nav navbar-nav navbar-right">
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-					<li data-ng-class="{active: isDisplayed('cart')}"><a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.menu_cart_title_suffix)!"item(s) in your selection"}"><span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span></a></li>
+					<li data-ng-class="{active: isDisplayed('cart')}">
+						<a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.CORE_NAVBAR_CART_TITLE_SUFFIX)!"item(s) in your selection"}">
+							<span class="glyphicon glyphicon-shopping-cart"></span>
+							<span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span>
+						</a>
+					</li>
 				</#if>
 				<li class="dropdown">
 					<a href="#" title="Advanced Settings" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<#-- Advanced search menu item -->
 						<li>
-							<a data-toggle="collapse" href="#search-advanced" title="${(response.translations.menu_advanced_search)!'Advance search'}">
-							${(response.translations.menu_advanced_search)!'Advanced Search'}</a>
+							<a data-toggle="collapse" href="#search-advanced" title="${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}">
+							${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}</a>
 						</li>
-						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")><li data-ng-class="{active: isDisplayed('history')}"><a href="#" data-ng-click="toggleHistory()" title="${(response.translations.menu_search_history)!"Search history"}">${(response.translations.menu_search_history)!"Search History"}</a></li></#if>
+						<#-- Search history menu item -->
+						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+							<li data-ng-class="{active: isDisplayed('history')}">
+								<a href="#" data-ng-click="toggleHistory()" title="${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search history"}">
+									${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search History"}
+								</a>
+							</li>
+						</#if>
 					</ul>
 				</li>
 				<li class="dropdown">
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.menu_help_search)!"Search Help"}">${(response.translations.menu_help_search)!"Search Help"}</a></li>
-						<li><a data-toggle="modal" href="#search-performance" title="${(response.translations.menu_help_performance_title)!"Performance"}">${(response.translations.menu_help_performance_title)!"Performance"}</a></li>
-						<li><a data-toggle="modal" href="#search-syntaxtree" title="${(response.translations.menu_help_query_syntax_tree_title)!"Query syntax tree"}">${(response.translations.menu_help_query_syntax_tree)!"Query syntax tree"}</a></li>
+						<#-- Help menu item which will display a infomation page detailed Funnelback advanced search syntax -->
+						<li>
+							<a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Search Help"}">
+								${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Search Help"}
+							</a>
+						</li>
+						<#-- Displays the performance menu item which allows the user to view the performance metrices of various phases of the search query	-->
+						<li>
+							<a data-toggle="modal" href="#search-performance" title="${(response.translations.CORE_NAVBAR_PERFORMANCE_TITLE)!"Performance"}">
+								${(response.translations.CORE_NAVBAR_PERFORMANCE_TITLE)!"Performance"}
+							</a>
+						</li>
+						<li><a data-toggle="modal" href="#search-syntaxtree" title="${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TITLE)!"Query syntax tree"}">${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TITLE)!"Query syntax tree"}</a></li>
 					</ul>
 				</li>
 
+				<#-- Display the language options -->
 				<li class="dropdown">
            <a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
            	<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
@@ -441,25 +466,31 @@
            <ul class="dropdown-menu">
               <#noescape>
               <li role="presentation" class="dropdown-header">Examples</li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
+
+							<#-- Language options -->
+							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
               <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
               <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
               <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
               <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
-              <#--<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>-->
+              <#--
+								Malaysian
+								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
+							-->
               <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
               <li role="presentation" class="divider"></li>
               <#--
-              <li role="presentation" class="dropdown-header">Extended</li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+								Other language which will be completed
+	              <li role="presentation" class="dropdown-header">Extended</li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
 
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
-          	-->
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+          		-->
               </#noescape>
             </ul>
         </li>
@@ -496,7 +527,7 @@
 </#macro>
 
 <#---
-	Displays an advance search form allowing the user to
+	Displays an advanced search form allowing the user to
 	query against various metadata, data and document format.
 -->
 <#macro AdvancedForm>
@@ -594,7 +625,7 @@
 
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d1year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_SR_TITLE)!'Year'}</label>
-								<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PLACEHOLDER)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
+								<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -607,7 +638,7 @@
 
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d1month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_SR_TITLE)!'Month'}</label>
-								<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PLACEHOLDER)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
+								<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -620,7 +651,7 @@
 
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d1day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_SR_TITLE)!'Day'}</label>
-								<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PLACEHOLDER)!'Day'}"] range="1..31">
+								<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -637,7 +668,7 @@
 
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d2year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_SR_TITLE)!'Year'}</label>
-								<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PLACEHOLDER)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
+								<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -650,7 +681,7 @@
 
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d2month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_SR_TITLE)!'Month'}</label>
-								<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PLACEHOLDER)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
+								<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -663,7 +694,7 @@
 
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d2day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_SR_TITLE)!'Day'}</label>
-								<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PLACEHOLDER)!'Day'}"] range="1..31">
+								<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -701,8 +732,8 @@
 								<label class="control-label col-md-4" for="num_ranks">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_TITLE)!'Results'}</label>
 								<div class="col-md-8">
 									<div class="input-group">
-										<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PLACEHOLDER)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
-										<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIC)!'per page'}</span>
+										<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
+										<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIX)!'per page'}</span>
 									</div>
 								</div>
 							</div>
@@ -716,7 +747,7 @@
 								<div class="col-md-8">
 									<div class="input-group">
 										<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="${(response.translations.CORE_ADVANCED_SEARCH_LOCATE_ME_MSG)!'Locate me!'}" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
-										<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PLACEHOLDER)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PLACEHOLDER)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
+										<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
 									</div>
 								</div>
 							</div>
@@ -724,8 +755,10 @@
 								<label class="control-label col-md-4" for="maxdist">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_TITLE)!'Distance'}</label>
 								<div class="col-md-8">
 									<div class="input-group">
-										<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PLACEHOLDER)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
-										<span class="input-group-addon">${(response.translations.advanced_location_distance_label_suffix)!''}</span>
+										<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
+										<span class="input-group-addon">
+											${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_SUFFIX)!'km'}
+										</span>
 									</div>
 								</div>
 							</div>
@@ -737,13 +770,13 @@
 							<div class="form-group">
 								<label class="control-label col-md-4" for="scope">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_TITLE)!'Domain'}</label>
 								<div class="col-md-8">
-									<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
+									<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-md-4" for="meta_v">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_TITLE)!'Path'}</label>
 								<div class="col-md-8">
-									<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PLACEHOLDER)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
+									<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
 								</div>
 							</div>
 						</fieldset>
@@ -754,7 +787,7 @@
 					<div class="col-md-12">
 						<div class="pull-right">
 							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">Cancel</button>
-							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_ADVANCED_SEARCH)!'Advance Search'}</button>
+							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_ADVANCED_SEARCH)!'Advanced Search'}</button>
 						</div>
 					</div>
 				</div>
@@ -781,12 +814,18 @@
 <#macro QueryHistory>
 	<!-- core.view.ftl :: QueryHistory -->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size &gt; 0>
-		<#-- Build list of previous queries -->
+		<#-- Build a list of previous queries -->
 		<#assign qsSignature = computeQueryStringSignature(QueryString) />
 		<#if session.searchHistory?? &&
 			(session.searchHistory?size &gt; 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
 			<div class="breadcrumb" data-ng-controller="SearchHistoryCtrl" data-ng-show="!searchHistoryEmpty">
-					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()"><small class="text-muted"><span class="glyphicon glyphicon-plus"></span> ${(response.translations.more)!''}</small></button>
+					<#-- Query history more button -->
+					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()">
+						<small class="text-muted">
+							<span class="glyphicon glyphicon-plus"></span>
+							${(response.translations.CORE_SESSION_QUERY_HISTORY_MORE)!'More'}
+						</small>
+					</button>
 					<ol class="list-inline" >
 						<li class="text-muted">${(response.translations.CORE_SESSION_QUERY_HISTORY_RECENT_PREFIX)!'Recent'}:</li>
 
@@ -825,18 +864,18 @@
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideHistory()">
 						<span class="glyphicon glyphicon-arrow-left"></span>
-						${(response.translations.CORE_SESSION_CLICK_HISTORY_BACK_TO_RESULTS)!'Back to results'}
+						${(response.translations.CORE_SESSION_HISTORY_BACK_TO_RESULTS_MSG)!'Back to results'}
 					</a>
 
-					<h2><span class="glyphicon glyphicon-time"></span> ${(response.translations.CORE_SESSION_CLICK_HISTORY_TITLE)!'History'}</h2>
+					<h2><span class="glyphicon glyphicon-time"></span> ${(response.translations.CORE_SESSION_HISTORY_TITLE)!'History'}</h2>
 
 					<div class="row">
 						<#-- Click history -->
 						<div class="col-md-6" data-ng-controller="ClickHistoryCtrl">
 							<div data-ng-show="!clickHistoryEmpty && <@core_controller.HasClickHistory />">
-								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_CLICK_HISTORY_TITLE)!'Recently clicked results'}
+								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_MSG)!'Recently clicked results'}
 									<button class="btn btn-danger btn-xs" title="${(response.translations.CORE_SESSION_CLICK_HISTORY_CLEAR_TITLE)!'Clear click history'}" data-ng-click="clear('${(response.translations.CORE_SESSION_CLICK_HISTORY_CLEAR_MSG)!'Your history will be cleared'}')">
-										<span class="glyphicon glyphicon-remove"></span> ${(response.translations.CORE_SESSION_CLICK_HISTORY_CLEAR)!'Clear'}
+										<span class="glyphicon glyphicon-remove"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_CLEAR)!'Clear'}
 									</button>
 								</h3>
 								<ul class="list-unstyled">
@@ -854,8 +893,8 @@
 								</ul>
 							</div>
 							<div data-ng-show="clickHistoryEmpty || !<@core_controller.HasClickHistory />">
-								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_CLICK_HISTORY_TITLE)!'Recently clicked results'}</h3>
-								<p class="text-muted">${(response.translations.CORE_SESSION_CLICK_HISTORY_EMPTY_MSG)!'Your click history is empty'}</p>
+								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_TITLE)!'Recently clicked results'}</h3>
+								<p class="text-muted">${(response.translations.CORE_SESSION_HISTORY_CLICK_EMPTY_MSG)!'Your click history is empty'}</p>
 							</div>
 						</div>
 						<#-- Search History -->
@@ -905,7 +944,7 @@
 					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> ${(response.translations.CORE_CART_BACK_TO_RESULTS_MSG)!'Back to results'} </a>
 					<h2>
 						<span class="glyphicon glyphicon-pushpin"></span> ${(response.translations.CORE_CART_SAVED)!'Saved'}
-						<button class="btn btn-danger btn-xs" title="${(response.translations.CORE_SESSION_CART_CLEAR_TITLE)!'Clear selections'}" data-ng-click="clear('${(response.translations.CORE_SESSION_CART_CLEAR_MSG)!'Your selections will be cleared'}')">
+						<button class="btn btn-danger btn-xs" title="${(response.translations.CORE_CART_CLEAR_TITLE)!'Clear selections'}" data-ng-click="clear('${(response.translations.CORE_CART_CLEAR_MSG)!'Your selections will be cleared'}')">
 							<span class="glyphicon glyphicon-remove"></span> ${(response.translations.CORE_CART_CLEAR)!'Clear'}
 						</button>
 					</h2>
@@ -913,7 +952,7 @@
 					<ul class="list-unstyled">
 						<li data-ng-repeat="item in cart">
 							<h4>
-								<a title="${(response.translations.CORE_SESSION_CART_REMOVE_TITLE)!'Remove'}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+								<a title="${(response.translations.CORE_CART_REMOVE_TITLE)!'Remove'}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
 								<a href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
 							</h4>
 							<cite class="text-success">{{item.indexUrl|cut:'http://'}}</cite>
@@ -954,11 +993,11 @@
 
 							<!-- Tooltips -->
 							<@core_controller.IsFacetLabel name="Author">
-								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_AUTHOR_DESCR)!'Filter by name of the creator of the document.'}</@base_view.HelpToolTip>
+								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_AUTHOR_DESC)!'Filter by name of the creator of the document.'}</@base_view.HelpToolTip>
 							</@core_controller.IsFacetLabel>
 
 							<@core_controller.IsFacetLabel name="Date">
-								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_DATE_DESCR)!'Filter by published date of documents.'}</@base_view.HelpToolTip>
+								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_DATE_DESC)!'Filter by published date of documents.'}</@base_view.HelpToolTip>
 							</@core_controller.IsFacetLabel>
 
 							<#--
@@ -1016,7 +1055,7 @@
 						<#--
 							Generate the more/less categories button which will show and hide additonal categories respective
 						-->
-						<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="${(response.translations.CORE_FACET_MORE)!'more'}" data-less="${(response.translations.CORE_FACET_LESS)!'less'}" data-state="more" title="${(response.translations.facets_more_categories_title)!''}">
+						<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="${(response.translations.CORE_FACET_MORE)!'more'}" data-less="${(response.translations.CORE_FACET_LESS)!'less'}" data-state="more" title="${(response.translations.CORE_FACET_MORE_TITLE)!'Show more categories from this facet'}">
 							<small class="glyphicon glyphicon-plus"></small>
 							&nbsp;<span>${(response.translations.CORE_FACET_MORE)!'more'}</span>
 						</button>
@@ -1143,11 +1182,11 @@
 			<span class="glyphicon glyphicon-info-sign"></span>
 			${(response.translations.CORE_BLENDING_MSG)!"You're query has been expanded to:"} <strong><@core_controller.BlendingTerms /></strong>.
 			<span>
-				${(response.translations.CORE_BLENDING_ALTERNATIVE_PREFIX)!'Search for'}
+				${(response.translations.CORE_BLENDING_PREFIX)!'Search for'}
 				<a href="<@core_controller.BlendingDisabledUrl />" alt="Disable blending">
 					<em>${question.originalQuery}</em>
 				</a>
-				${(response.translations.CORE_BLENDING_ALTERNATIVE_SUFFIX)!'instead'}.
+				${(response.translations.CORE_BLENDING_SUFFIX)!'instead'}.
 			</span>
 		</div>
 	</@core_controller.Blending>
@@ -1184,14 +1223,14 @@
 <#macro Spelling>
 	<!-- core.view.ftl :: Spelling -->
 	<@core_controller.CheckSpelling>
-		<h3 id="search-spelling"><span class="glyphicon glyphicon-question-sign text-muted"></span> ${(response.translations.spelling_prefix)!''}
+		<h3 id="search-spelling"><span class="glyphicon glyphicon-question-sign text-muted"></span> ${(response.translations.CORE_SPELLING_PREFIX)!'Did you mean'}
 			<em>
 				<a href="<@core_controller.CheckSpellingUrl />" alt="spelling suggestion">
 					<span class="funnelback-highlight">
 						<@core_controller.CheckSpellingText />
 					</span>
 				</a>
-			</em>${(response.translations.CORE_SPELLING_PREFIX)!'Did you mean'}
+			</em>
 		</h3>
 	</@core_controller.CheckSpelling>
 </#macro>
@@ -1209,8 +1248,8 @@
 	<h2 class="visible-print">${(response.translations.CORE_ZERO_RESULT_TITLE)!'Results'}</h2>
 
 	<#if response.resultPacket.resultsSummary.totalMatching == 0>
-		<h3><span class="glyphicon glyphicon-warning-sign"></span> ${(response.translations.CORE_ZERO_RESULT_TITLE_2)!''}</h3>
-		<p>${(response.translations.CORE_ZERO_RESULT_YOUR_SEARCH_FOR)!'Your search for'} <strong>${question.originalQuery!}</strong> ${(response.translations.CORE_ZERO_RESULT_DID_NOT_RETURN)!'did not return any results'}. ${(response.translations.CORE_ZERO_RESULT_ENSURE_MESSAGE)!'Please ensure that you:'}</p>
+		<h3><span class="glyphicon glyphicon-warning-sign"></span> ${(response.translations.CORE_ZERO_RESULT_TITLE_2)!'No results'}</h3>
+		<p>${(response.translations.CORE_ZERO_RESULT_YOUR_SEARCH_FOR)!'Your search for'} <strong>${question.originalQuery!}</strong> ${(response.translations.CORE_ZERO_RESULT_DID_NOT_RETURN_MSG)!'did not return any results'}. ${(response.translations.CORE_ZERO_RESULT_ENSURE_MSG)!'Please ensure that you:'}</p>
 		<ul>
 			<li>${(response.translations.CORE_ZERO_RESULT_ADVANCED_OPERATORS_MSG)!'are not using any advanced search operators like + - | " etc.'}</li>
 			<li>${(response.translations.CORE_ZERO_RESULT_EXPECT_THIS_DOCUMENT_MSG)!'expect this document to exist within the'} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.CORE_ZERO_RESULT_AND_WITHIN)!'and within'} <em><@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
@@ -1450,7 +1489,7 @@
 				-->
 				<@core_controller.Previous>
 					<li>
-						<a href="<@core_controller.PreviousUrl />" rel="${(response.translations.pagination_prev)!''}">
+						<a href="<@core_controller.PreviousUrl />" rel="${(response.translations.CORE_PAGINATION_PREV)!'Prev'}">
 							<small>
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</small>
@@ -1483,7 +1522,7 @@
 				-->
 				<@core_controller.Next>
 					<li>
-						<a href="<@core_controller.NextUrl />" rel="${(response.translations.pagination_next)!''}">
+						<a href="<@core_controller.NextUrl />" rel="${(response.translations.CORE_PAGINATION_NEXT)!'Next'}">
 							<span class="sr-only">${(response.translations.CORE_PAGINATION_SR_GO_TO_MSG)!'Go to the'}</span>
 							${(response.translations.CORE_PAGINATION_NEXT)!'Next'}
 							<span class="sr-only">${(response.translations.CORE_PAGINATION_SR_SEARCH_RESULT_PAGE)!'Search result page'}</span>
@@ -1589,7 +1628,7 @@
 			<#-- General the cache link which is used to display the version of the document when it was crawled -->
 			<li>
 				<#if core_controller.result.cacheUrl??>
-					<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="${(response.translations.CORE_CACHED_TITLE)!'Cached version of'} ${core_controller.result.title} (${core_controller.result.rank})">${(response.translations.CORE_CACHED_TITLE)!'Cached'}</a>
+					<a href="${core_controller.result.cacheUrl}&amp;hl=${response.resultPacket.queryHighlightRegex!?url}" title="${(response.translations.CORE_CACHED_PREFIX)!'Cached version of'} ${core_controller.result.title} (${core_controller.result.rank})">${(response.translations.CORE_CACHED)!'Cached'}</a>
 				</#if>
 			</li>
 
@@ -1634,7 +1673,7 @@
 						<div class="row">
 							<div class="col-md-4">
 							<div class="input-group input-sm">
-								<input required title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" name="query" type="text" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER)!'Search'} ${s.result.quickLinks.domain}&hellip;">
+								<input required title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" name="query" type="text" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER_MSG)!'Search'} ${s.result.quickLinks.domain}&hellip;">
 
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
