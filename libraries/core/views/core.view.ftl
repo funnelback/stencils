@@ -354,7 +354,7 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_ALT)!'Funnelback logo'}"></a>
+			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
@@ -425,7 +425,7 @@
 					<ul class="dropdown-menu">
 						<#-- Advanced search menu item -->
 						<li>
-							<a data-toggle="collapse" href="#search-advanced" title="${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}">
+							<a data-toggle="collapse" href="#search-advanced" title="${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_MSG)!'Advanced search settings'}">
 							${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}</a>
 						</li>
 						<#-- Search history menu item -->
@@ -443,17 +443,21 @@
 					<ul class="dropdown-menu">
 						<#-- Help menu item which will display a infomation page detailed Funnelback advanced search syntax -->
 						<li>
-							<a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Search Help"}">
-								${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Search Help"}
+							<a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.CORE_NAVBAR_HELP_MSG)!"Search Help"}">
+								${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Help"}
 							</a>
 						</li>
 						<#-- Displays the performance menu item which allows the user to view the performance metrices of various phases of the search query	-->
 						<li>
-							<a data-toggle="modal" href="#search-performance" title="${(response.translations.CORE_NAVBAR_PERFORMANCE_TITLE)!"Performance"}">
+							<a data-toggle="modal" href="#search-performance" title="${(response.translations.CORE_NAVBAR_PERFORMANCE_MSG)!"Performance report"}">
 								${(response.translations.CORE_NAVBAR_PERFORMANCE_TITLE)!"Performance"}
 							</a>
 						</li>
-						<li><a data-toggle="modal" href="#search-syntaxtree" title="${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TITLE)!"Query syntax tree"}">${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TITLE)!"Query syntax tree"}</a></li>
+						<li>
+							<a data-toggle="modal" href="#search-syntaxtree" title="${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TREE_MST)!"Query syntax tree"}">
+								${(response.translations.CORE_NAVBAR_QUERY_SYNTAX_TREE_TITLE)!"Query syntax tree"}
+							</a>
+						</li>
 					</ul>
 				</li>
 
@@ -565,7 +569,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHASE_PLACEHOLDER_MSG)!'Phrase'}</label>
+								<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_TITLE)!'Phrase'}</label>
 								<div class="col-md-8">
 									<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
 								</div>
@@ -716,7 +720,7 @@
 								<label class="control-label col-md-4" for="sort">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_TITLE)!'Sort'}</label>
 								<div class="col-md-8">
 								<#-- Select dropdown for sort -->
-								<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE)!'Shuffle'}"]>
+								<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE_TITLE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE_TITLE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE_TITLE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY_TITLE)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL_TITLE)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL_TITLE)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE_TITLE)!'Shuffle'}"]>
 									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
@@ -873,8 +877,8 @@
 						<#-- Click history -->
 						<div class="col-md-6" data-ng-controller="ClickHistoryCtrl">
 							<div data-ng-show="!clickHistoryEmpty && <@core_controller.HasClickHistory />">
-								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_MSG)!'Recently clicked results'}
-									<button class="btn btn-danger btn-xs" title="${(response.translations.CORE_SESSION_CLICK_HISTORY_CLEAR_TITLE)!'Clear click history'}" data-ng-click="clear('${(response.translations.CORE_SESSION_CLICK_HISTORY_CLEAR_MSG)!'Your history will be cleared'}')">
+								<h3><span class="glyphicon glyphicon-heart"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_TITLE)!'Recently clicked results'}
+									<button class="btn btn-danger btn-xs" title="${(response.translations.CORE_SESSION_HISTORY_CLICK_CLEAR_TITLE)!'Clear click history'}" data-ng-click="clear('${(response.translations.CORE_SESSION_HISTORY_CLICK_CLEAR_MSG)!'Your history will be cleared'}')">
 										<span class="glyphicon glyphicon-remove"></span> ${(response.translations.CORE_SESSION_HISTORY_CLICK_CLEAR)!'Clear'}
 									</button>
 								</h3>
