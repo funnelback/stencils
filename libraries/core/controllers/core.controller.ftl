@@ -905,7 +905,7 @@
 
 	@provides <code>${core_controller.facet}</code> <br /> <code>${core_controller.facetIndex}</code> <br /> <code>${core_controller.facetHasNext}</code>
 -->
-<#macro Facets name="" names=[] class="facet">
+<#macro Facets name="" names=[]>
 	<#if response?? && response.facets??>
 		<#if name == "" && names?size == 0>
 			<#-- Iterate over all facets -->
@@ -914,9 +914,7 @@
 					<#assign facet = f in .namespace>
 					<#assign facetIndex = f_index in .namespace>
 					<#assign facetHasNext = f_has_next in .namespace>
-					<div id="facet-${facetIndex}" class="${class}">
-						<#nested>
-					</div>
+					<#nested>
 				</#if>
 			</#list>
 		<#else>
@@ -926,9 +924,7 @@
 					<#assign facet = f in .namespace>
 					<#assign facetIndex = f_index in .namespace>
 					<#assign facetHasNext = f_has_next in .namespace>
-					<div class="${class}">
-						<#nested>
-					</div>
+					<#nested>
 				</#if>
 			</#list>
 		</#if>
