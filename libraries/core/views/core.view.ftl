@@ -988,10 +988,10 @@
 		<div class="col-md-3 col-md-pull-9 hidden-print" id="search-facets">
 			<h2 class="sr-only">${(response.translations.CORE_FACET_SR_TITLE)!'Refine'}</h2>
 			<@core_controller.Facets name=name names=names>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<#-- Display each individual facet -->
-						<@core_controller.Facet>
+				<#-- Display each individual facet -->
+				<@core_controller.Facet>
+					<div class="panel panel-default">
+						<div class="panel-heading">
 							<#-- Display the facet name otherwise known as the heading -->
 							<@core_controller.FacetLabel />
 
@@ -1054,17 +1054,17 @@
 									</@core_controller.FacetCategory>
 								</@core_controller.FacetCategories>
 							</ul>
-						</@core_controller.Facet>
 
-						<#--
-							Generate the more/less categories button which will show and hide additonal categories respective
-						-->
-						<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="${(response.translations.CORE_FACET_MORE)!'more'}" data-less="${(response.translations.CORE_FACET_LESS)!'less'}" data-state="more" title="${(response.translations.CORE_FACET_MORE_TITLE)!'Show more categories from this facet'}">
-							<small class="glyphicon glyphicon-plus"></small>
-							&nbsp;<span>${(response.translations.CORE_FACET_MORE)!'more'}</span>
-						</button>
+							<#--
+								Generate the more/less categories button which will show and hide additonal categories respective
+							-->
+							<button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="${(response.translations.CORE_FACET_MORE)!'more'}" data-less="${(response.translations.CORE_FACET_LESS)!'less'}" data-state="more" title="${(response.translations.CORE_FACET_MORE_TITLE)!'Show more categories from this facet'}">
+								<small class="glyphicon glyphicon-plus"></small>
+								&nbsp;<span>${(response.translations.CORE_FACET_MORE)!'more'}</span>
+							</button>
+						</div>
 					</div>
-				</div>
+				</@core_controller.Facet>
 			</@core_controller.Facets>
 		</div>
 	</@core_controller.FacetedSearch>
