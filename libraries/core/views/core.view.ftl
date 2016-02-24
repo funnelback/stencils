@@ -61,19 +61,19 @@
  -->
 <#macro JS>
 	<!-- core.view.ftl.view.ftl :: JS -->
-	<script src="${SearchPrefix}js/jquery/jquery-1.10.2.min.js"></script>
-	<script src="${SearchPrefix}js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
-	<script src="${SearchPrefix}js/jquery/jquery.tmpl.min.js"></script>
-	<script src="${SearchPrefix}js/jquery.funnelback-completion.js"></script>
+	<script src="${GlobalResourcesPrefix}js/jquery/jquery-1.10.2.min.js"></script>
+	<script src="${GlobalResourcesPrefix}js/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="${GlobalResourcesPrefix}js/jquery/jquery.tmpl.min.js"></script>
+	<script src="${GlobalResourcesPrefix}js/jquery.funnelback-completion.js"></script>
 	<#--
 		Include the required session scripts only if they have been specified
 		in the collection.cfg
 	-->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
 		<#-- <script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script> -->
-		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular.js"></script>
-		<script src="${SearchPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
-		<script src="${SearchPrefix}js/funnelback-session.js"></script>
+		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>
+		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
+		<script src="${GlobalResourcesPrefix}js/funnelback-session.js"></script>
 	</#if>
 
 	<script src="${coreResourcesPrefix}js/core.js"></script>
@@ -239,14 +239,14 @@
 		<#if question.profile?ends_with("_preview")>
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
-				&middot; <a href="${SearchPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
+				&middot; <a href="${GlobalResourcesPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
 				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))?html}" title="View this search with the current live form">switch to live mode</a>
 				| <span title="This form file may be edited before publishing to external search users">preview mode</span>
 			</div>
 			<script type="text/javascript">
 				function loadPublishLink() {
 					jQuery(function() {
-						jQuery("#publish_link").load("${SearchPrefix}admin/ajax_publish_link.cgi?collection=${question.collection.id}&amp;dir=profile-folder-${question.profile}&amp;f=${question.form}.ftl&amp;mode=publish&amp;return_to=${returnTo?url}");
+						jQuery("#publish_link").load("${GlobalResourcesPrefix}admin/ajax_publish_link.cgi?collection=${question.collection.id}&amp;dir=profile-folder-${question.profile}&amp;f=${question.form}.ftl&amp;mode=publish&amp;return_to=${returnTo?url}");
 					});
 				}
 
@@ -265,7 +265,7 @@
 						}
 					}
 					script.onload = loadPublishLink;
-					script.src = "${SearchPrefix}js/jquery/jquery-1.10.2.min.js";
+					script.src = "${GlobalResourcesPrefix}js/jquery/jquery-1.10.2.min.js";
 					head.appendChild(script);
 				} else {
 					loadPublishLink();
@@ -419,7 +419,7 @@
 				<li class="dropdown">
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${SearchPrefix}help/simple_search.html" title="Search help">Help</a></li>
+						<li><a href="${GlobalResourcesPrefix}help/simple_search.html" title="Search help">Help</a></li>
 						<li><a data-toggle="modal" href="#search-performance" title="Performance report">Performance</a></li>
 						<li><a data-toggle="modal" href="#search-syntaxtree" title="Query syntax tree">Query syntax tree</a></li>
 					</ul>

@@ -22,7 +22,7 @@
 <#escape x as x?html>
 
 <#assign librariesPrefix = "/share/stencils/libraries/" >
-<#assign thirdPartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign thirdPartyResourcesPrefix = "${GlobalResourcesPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
