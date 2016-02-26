@@ -454,8 +454,8 @@
 	@provides <code>${core_controller.rssModernUrl}</code> <br /> <code>${core_controller.rssClassicUrl}</code>
 -->
 <#macro RSS>
-	<#assign rssModernUrl = "${SearchPrefix}rss.cgi?${changeParam(QueryString, 'form', 'rss')}" in .namespace>
-	<#assign rssClassicUrl = "${SearchPrefix}rss.cgi?${QueryString!}" in .namespace>
+	<#assign rssModernUrl = "${GlobalResourcesPrefix}rss.cgi?${changeParam(QueryString, 'form', 'rss')}" in .namespace>
+	<#assign rssClassicUrl = "${GlobalResourcesPrefix}rss.cgi?${QueryString!}" in .namespace>
 	<#nested>
 </#macro>
 

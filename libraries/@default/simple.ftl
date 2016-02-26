@@ -53,8 +53,8 @@
 		</@core_controller.AfterSearchOnly>
 
 		<!--[if lt IE 9]>
-		<script src="${SearchPrefix}thirdparty/html5shiv.js"></script>
-		<script src="${SearchPrefix}thirdparty/respond.min.js"></script>
+		<script src="${GlobalResourcesPrefix}thirdparty/html5shiv.js"></script>
+		<script src="${GlobalResourcesPrefix}thirdparty/respond.min.js"></script>
 		<![endif]-->
 
 		<@stencils_utilities.ImportStencilsCSS stencils=stencils />
@@ -114,7 +114,7 @@
 					'enabled'		: '<@core_controller.cfg>query_completion</@core_controller.cfg>',
 					'standardCompletionEnabled': <@core_controller.cfg>query_completion.standard.enabled</@core_controller.cfg>,
 					'collection' : '<@core_controller.cfg>collection</@core_controller.cfg>',
-					'program'		: '${SearchPrefix}<@core_controller.cfg>query_completion.program</@core_controller.cfg>',
+					'program'		: '${GlobalResourcesPrefix}<@core_controller.cfg>query_completion.program</@core_controller.cfg>',
 					'format'		 : '<@core_controller.cfg>query_completion.format</@core_controller.cfg>',
 					'alpha'			: '<@core_controller.cfg>query_completion.alpha</@core_controller.cfg>',
 					'show'			 : '<@core_controller.cfg>query_completion.show</@core_controller.cfg>',
@@ -125,7 +125,7 @@
 					'query'			: '${QueryString}',
 					//Search based completion
 					'searchBasedCompletionEnabled': <@core_controller.cfg>query_completion.search.enabled</@core_controller.cfg>,
-					'searchBasedCompletionProgram': '${SearchPrefix}<@core_controller.cfg>query_completion.search.program</@core_controller.cfg>',
+					'searchBasedCompletionProgram': '${GlobalResourcesPrefix}<@core_controller.cfg>query_completion.search.program</@core_controller.cfg>',
 				});
 			});
 		</script>

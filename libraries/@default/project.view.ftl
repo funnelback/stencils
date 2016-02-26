@@ -8,7 +8,7 @@
 
 <#assign librariesPrefix = "/share/stencils/libraries/" >
 <#assign projectResourcesPrefix = "/s/resources/${question.collection.id}/${question.profile}/" >
-<#assign thirdpartyResourcesPrefix = "${SearchPrefix}stencils-resources/thirdparty/" >
+<#assign thirdpartyResourcesPrefix = "${GlobalResourcesPrefix}stencils-resources/thirdparty/" >
 
 <#-- Import Utilities -->
 <#import "${librariesPrefix}stencils.utilities.ftl" as stencils_utilities />
