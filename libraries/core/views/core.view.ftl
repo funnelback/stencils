@@ -239,7 +239,7 @@
 		<#if question.profile?ends_with("_preview")>
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
-				&middot; <a href="${GlobalResourcesPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
+				&middot; <a href="${SearchPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
 				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))?html}" title="View this search with the current live form">switch to live mode</a>
 				| <span title="This form file may be edited before publishing to external search users">preview mode</span>
 			</div>
@@ -273,7 +273,7 @@
 			</script>
 		<#else>
 			<div id="funnelback_form_mode" style="background-color: lightgreen; ${style}">
-				<a href="?${changeParam(QueryString, 'profile', question.profile+'_preview')?html}" title="View this search with the current preview form">switch to preview mode</a>
+				<a href="?${changeParam(QueryString, 'profile', question.profile+'_preview')}" title="View this search with the current preview form">switch to preview mode</a>
 				| <span title="This form file is currently published for external search users">live mode</span>
 			</div>
 		</#if>
