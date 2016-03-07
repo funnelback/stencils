@@ -273,7 +273,7 @@
 			</script>
 		<#else>
 			<div id="funnelback_form_mode" style="background-color: lightgreen; ${style}">
-				<a href="?${changeParam(QueryString, 'profile', question.profile+'_preview')}" title="View this search with the current preview form">switch to preview mode</a>
+				<a href="?${changeParam(QueryString, 'profile', question.profile+'_preview')?url}" title="View this search with the current preview form">switch to preview mode</a>
 				| <span title="This form file is currently published for external search users">live mode</span>
 			</div>
 		</#if>
