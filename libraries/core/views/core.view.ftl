@@ -246,7 +246,7 @@
 			<script type="text/javascript">
 				function loadPublishLink() {
 					jQuery(function() {
-						jQuery("#publish_link").load("${GlobalResourcesPrefix}admin/ajax_publish_link.cgi?collection=${question.collection.id}&amp;dir=profile-folder-${question.profile}&amp;f=${question.form}.ftl&amp;mode=publish&amp;return_to=${returnTo?url}");
+						jQuery("#publish_link").load("${SearchPrefix}admin/ajax_publish_link.cgi?collection=${question.collection.id}&amp;dir=profile-folder-${question.profile}&amp;f=${question.form}.ftl&amp;mode=publish&amp;return_to=${returnTo?url}");
 					});
 				}
 
@@ -419,7 +419,7 @@
 				<li class="dropdown">
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${GlobalResourcesPrefix}help/simple_search.html" title="Search help">Help</a></li>
+						<li><a href="${SearchPrefix}help/simple_search.html" title="Search help">Help</a></li>
 						<li><a data-toggle="modal" href="#search-performance" title="Performance report">Performance</a></li>
 						<li><a data-toggle="modal" href="#search-syntaxtree" title="Query syntax tree">Query syntax tree</a></li>
 					</ul>
