@@ -258,7 +258,7 @@
 					</a>
 				</#if>
 
-				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default stencils-print__show-title" title="'${core_controller.result.liveUrl!}'">
+				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default stencils-print__show-title" title="${core_controller.result.liveUrl!}">
 					<i class="fa fa-external-link"></i> <span >View Course</span>
 				</a>
 			</div>
