@@ -222,6 +222,15 @@
 		${content}
 	</#if>
 </#compress></#macro>
+
+
+<#---
+  Get the current num_ranks set
+-->
+<#macro getNumRanks><#compress>
+  ${response.resultPacket.resultsSummary.numRanks}
+</#compress></#macro>
+
 <#-- @end --><#-- / Category - General -->
 
 <#-- @begin  Search Forms -->
