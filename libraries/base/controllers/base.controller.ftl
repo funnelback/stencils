@@ -227,8 +227,8 @@
 <#---
   Get the current num_ranks set
 -->
-<#macro getNumRanks><#compress>
-  ${response.resultPacket.resultsSummary.numRanks}
+<#macro GetNumRanks><#compress>
+  ${response.resultPacket.resultsSummary.numRanks!}
 </#compress></#macro>
 
 <#-- @end --><#-- / Category - General -->

@@ -154,7 +154,7 @@
 
 			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 				<span class="label label-default">Limit: </span>
-					<@base_controller.getNumRanks />
+					<@base_controller.GetNumRanks />
 				&nbsp;&nbsp;
 				<span class="caret"></span>
 			</button>
@@ -268,7 +268,7 @@
 	</#if>
 </#macro>
 <#-- @end --><#-- / Category - Results Features -->
-<#-- @begin	Results -->
+<#-- @begin Results -->
 <#---
 	Template view for results view as a list layout.
 -->
