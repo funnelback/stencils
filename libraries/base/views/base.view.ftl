@@ -318,7 +318,7 @@
 	</@core_controller.Results>
 </#macro>
 <#-- @end --><#-- / Category - Results -->
-<#-- @begin	Result -->
+<#-- @begin Result -->
 <#---
 	Template view for Search Result as a panel variation.
 -->
@@ -452,7 +452,7 @@
 				</#if>
 			</dl>
 		</#if>
-		<#-- /ResultMetadataSummary	-->
+		<#-- /ResultMetadataSummary -->
 	</div>
 	<#-- /panel-body -->
 	<div class="panel-footer stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-progressive-disclosure__hiddenBlock stencils-animation--fade-in-on-hover">
@@ -519,7 +519,7 @@
 
 <#---
 	Implementaion of a panel which a user can select and expand.
-	-->
+-->
 <#macro ResultPanelSelectable>
 <!-- base.view.ftl :: ResultPanel -->
 <div id="result-${core_controller.result.rank!}" class="panel panel-default stencils-progressive-disclosure">
@@ -647,7 +647,7 @@
 				</#if>
 			</dl>
 		</#if>
-		<#-- /ResultMetadataSummary	-->
+		<#-- /ResultMetadataSummary -->
 	</div>
 	<#-- /panel-body -->
 
@@ -859,7 +859,7 @@
 								</#if>
 							</dl>
 						</#if>
-						<#-- /ResultMetadataSummary	-->
+						<#-- /ResultMetadataSummary -->
 					</div>
 					<div class="modal-footer">
 						<#--	Result tools -->
@@ -928,7 +928,7 @@
 -->
 <#macro PrintFriendlyBtn>
 	<!-- base.view.ftl :: PrintResults -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl	cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
 </#macro>
 
 <#---
@@ -964,10 +964,10 @@
 </#macro>
 <#-- @end --><#-- / Category - Compare -->
 
-<#-- @begin Share Tools	-->
+<#-- @begin Share Tools -->
 <#---
 	Scripts to get share tools working.
-	-->
+ -->
 <#macro ShareToolsScripts>
 	<@base_controller.ShareTools>
 		<!-- base.view.ftl :: ShareToolsScripts -->
@@ -981,7 +981,7 @@
 
 	@param url {string} The full URL to share
 	@param title {string} The text to use as the title for the share.
-	-->
+ -->
 <#macro ShareTools url title>
 	<@base_controller.ShareTools>
 		<!-- base.view.ftl :: ShareTools -->
