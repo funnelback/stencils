@@ -388,10 +388,15 @@
 <#---
 	Constructor for ResultsColumns, defines how to format the grouping of result into columns.
 	@provides <code>$&#123;base_controller.resultsColumnsNumber&#125;</code> <code>$&#123;base_controller.resultsColumnsIsLast&#125;</code> <code>$&#123;base_controller.resultsColumnsRank&#125;</code> <code>$&#123;base_controller.resultsColumnsIndex&#125;</code>
+	@param columnsNumber - set this column number as default column number
+	@param cgi - The cgi paramater this is linked to. leave as empty to not have it linked
 -->
-<#macro ResultsColumns>
+<#macro ResultsColumns columnsNumber=question.collection.configuration.value("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns">
+<#-- question.collection.configuration.value("stencils.base.results_columns.results_columns_number)! -->
 	<#-- Define attributes -->
-	<#assign resultsColumnsNumber = getResultsColumnsNumber() in .namespace>
+	<#assign resultsColumnsCgi = cgi in .namespace>
+	<#assign resultsColumnsNumber = getResultsColumnsNumber(columnsNumber,resultsColumnsCgi) in .namespace>
+	<#-- <#assign resultsColumnsNumber = getResultsColumnsNumber(columnsNumber,resultsColumnsCgi) in .namespace> -->
 	<#assign resultsColumnsIsLast = getResultsColumnsIsLast() in .namespace>
 	<#assign resultsColumnsRank = getResultsColumnsRank() in .namespace>
 	<#assign resultsColumnsIndex = getResultsColumnsIndex() in .namespace>
@@ -420,11 +425,20 @@
 <#---
 	Returns the number of columns set. This can be accessed as <code>$&#123;base_controller.resultsColumnsNumber&#125;</code>
 	@requires ResultsColumns
+	@param columnsNumber - set this column number as default column number
+	@param cgi - The cgi paramater this is linked to
 	@return number
 -->
-<#function getResultsColumnsNumber>
-	<#local x><@GetCGIValue name="resultsColumns" default="2" /></#local>
+<#function getResultsColumnsNumber columnsNumber="2" cgi="">
+
+	<#if cgi != "">
+		<#local x><@GetCGIValue name=cgi default=columnsNumber /></#local>
+	<#else>
+		<#local x=columnsNumber >
+	</#if>
 	<#return x?number>
+
+<#return 2>
 </#function>
 
 <#---
