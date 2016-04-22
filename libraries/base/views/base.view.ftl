@@ -73,8 +73,8 @@
 	<script src="${thirdPartyResourcesPrefix}moment.js/v2.10.6/moment.min.js"></script>
 </#macro>
 <#-- @end --><#-- /Configuration -->
-<#-- ###################  Views ####################### -->
-<#-- @begin  General -->
+<#-- ###################	Views ####################### -->
+<#-- @begin	General -->
 
 <#---
 	A help tooltip
@@ -100,11 +100,11 @@
 	</@core_controller.Results>
 </#macro>
 <#-- @end --><#-- / Category - General -->
-<#-- @begin  Search Forms -->
+<#-- @begin	Search Forms -->
 <#-- @end --><#-- / Category - Search Forms -->
-<#-- @begin  Sessions -->
+<#-- @begin	Sessions -->
 <#-- @end --><#-- / Category - Sessions -->
-<#-- @begin  Facets -->
+<#-- @begin	Facets -->
 <#-- @end --><#-- / Category - Facets -->
 <#-- @begin Results Features -->
 <#---
@@ -124,7 +124,7 @@
 				<#case ""> <#-- Case List -->
 				<#default>
 					<#local icon><span class="glyphicon glyphicon-th-list"></#local>
-					<#local href><@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}"] /></#local>
+					<#local href><@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}","num_ranks=10"] /></#local>
 			</#switch>
 			<#noescape>
 				<a class="btn btn-default <@core_controller.IsSelectOptionSelected>active</@core_controller.IsSelectOptionSelected>" href="${href!}">
@@ -151,16 +151,13 @@
 	</@base_controller.IfDefCGIEquals>
 	<@core_controller.Select name="num_ranks" options=options>
 		<div name="ResultsViewSelectorLimit" id="ResultsViewSelectorLimit" class="btn-group">
-			<@core_controller.SelectOptions>
-				<@core_controller.IsSelectOptionSelected>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					<span class="label label-default">Limit:</span>
-						<@core_controller.SelectOptionName />
-					&nbsp;&nbsp;
-					<span class="caret"></span>
-				</button>
-				</@core_controller.IsSelectOptionSelected>
-			</@core_controller.SelectOptions>
+
+			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				<span class="label label-default">Limit: </span>
+					<@base_controller.GetNumRanks />
+				&nbsp;&nbsp;
+				<span class="caret"></span>
+			</button>
 
 			<ul class="dropdown-menu" role="menu">
 			<#-- Display the options -->
@@ -271,7 +268,7 @@
 	</#if>
 </#macro>
 <#-- @end --><#-- / Category - Results Features -->
-<#-- @begin  Results -->
+<#-- @begin Results -->
 <#---
 	Template view for results view as a list layout.
 -->
@@ -321,7 +318,7 @@
 	</@core_controller.Results>
 </#macro>
 <#-- @end --><#-- / Category - Results -->
-<#-- @begin  Result -->
+<#-- @begin Result -->
 <#---
 	Template view for Search Result as a panel variation.
 -->
@@ -455,7 +452,7 @@
 				</#if>
 			</dl>
 		</#if>
-		<#-- /ResultMetadataSummary	-->
+		<#-- /ResultMetadataSummary -->
 	</div>
 	<#-- /panel-body -->
 	<div class="panel-footer stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-progressive-disclosure__hiddenBlock stencils-animation--fade-in-on-hover">
@@ -522,7 +519,7 @@
 
 <#---
 	Implementaion of a panel which a user can select and expand.
-  -->
+-->
 <#macro ResultPanelSelectable>
 <!-- base.view.ftl :: ResultPanel -->
 <div id="result-${core_controller.result.rank!}" class="panel panel-default stencils-progressive-disclosure">
@@ -650,7 +647,7 @@
 				</#if>
 			</dl>
 		</#if>
-		<#-- /ResultMetadataSummary	-->
+		<#-- /ResultMetadataSummary -->
 	</div>
 	<#-- /panel-body -->
 
@@ -862,7 +859,7 @@
 								</#if>
 							</dl>
 						</#if>
-						<#-- /ResultMetadataSummary	-->
+						<#-- /ResultMetadataSummary -->
 					</div>
 					<div class="modal-footer">
 						<#--	Result tools -->
@@ -931,7 +928,7 @@
 -->
 <#macro PrintFriendlyBtn>
 	<!-- base.view.ftl :: PrintResults -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
 </#macro>
 
 <#---
@@ -952,7 +949,7 @@
 -->
 <#macro CompareBtn group="">
 	<!-- base.view.ftl :: CompareBtn -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl  cgis=["form=compare"]/>" data-compare-btn="${group!}"><i class="fa fa-exchange"></i> Compare</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl	cgis=["form=compare"]/>" data-compare-btn="${group!}"><i class="fa fa-exchange"></i> Compare</a>
 </#macro>
 
 <#---
@@ -961,16 +958,16 @@
 <#macro CompareCheckbox value="" group="">
 	<!-- base.view.ftl :: CompareCheckbox -->
 	<label class="btn btn-default">
-    <input type="checkbox" value="${value!}" data-compare-checkbox name="${group!}"> <small>Select for comparison.</small>
-  </label>
+		<input type="checkbox" value="${value!}" data-compare-checkbox name="${group!}"> <small>Select for comparison.</small>
+	</label>
 	<@CompareBtn group=group />
 </#macro>
 <#-- @end --><#-- / Category - Compare -->
 
-<#-- @begin Share Tools  -->
+<#-- @begin Share Tools -->
 <#---
 	Scripts to get share tools working.
-  -->
+ -->
 <#macro ShareToolsScripts>
 	<@base_controller.ShareTools>
 		<!-- base.view.ftl :: ShareToolsScripts -->
@@ -984,7 +981,7 @@
 
 	@param url {string} The full URL to share
 	@param title {string} The text to use as the title for the share.
-  -->
+ -->
 <#macro ShareTools url title>
 	<@base_controller.ShareTools>
 		<!-- base.view.ftl :: ShareTools -->
