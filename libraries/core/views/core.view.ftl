@@ -988,21 +988,22 @@
 		<div class="col-md-3 col-md-pull-9 hidden-print" id="search-facets">
 			<h2 class="sr-only">${(response.translations.CORE_FACET_SR_TITLE)!'Refine'}</h2>
 			<@core_controller.Facets name=name names=names>
-				<#-- Display each individual facet -->
-				<@core_controller.Facet>
+				<div class="facet">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<#-- Display the facet name otherwise known as the heading -->
-							<@core_controller.FacetLabel />
+							<#-- Display each individual facet -->
+							<@core_controller.Facet>
+								<#-- Display the facet name otherwise known as the heading -->
+								<@core_controller.FacetLabel />
 
-							<!-- Tooltips -->
-							<@core_controller.IsFacetLabel name="Author">
-								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_AUTHOR_DESC)!'Filter by name of the creator of the document.'}</@base_view.HelpToolTip>
-							</@core_controller.IsFacetLabel>
+								<!-- Tooltips -->
+								<@core_controller.IsFacetLabel name="Author">
+									<@base_view.HelpToolTip>${(response.translations.CORE_FACET_AUTHOR_DESC)!'Filter by name of the creator of the document.'}</@base_view.HelpToolTip>
+								</@core_controller.IsFacetLabel>
 
-							<@core_controller.IsFacetLabel name="Date">
-								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_DATE_DESC)!'Filter by published date of documents.'}</@base_view.HelpToolTip>
-							</@core_controller.IsFacetLabel>
+								<@core_controller.IsFacetLabel name="Date">
+									<@base_view.HelpToolTip>${(response.translations.CORE_FACET_DATE_DESC)!'Filter by published date of documents.'}</@base_view.HelpToolTip>
+								</@core_controller.IsFacetLabel>
 
 								<#--
 									Display the summary. In this case, it is the clear all link which removes
@@ -1013,32 +1014,48 @@
 										<a href="<@core_controller.FacetSummaryClearCurrentSelectionUrl />" alt="Clear the current facet selection">
 											<small class="text-muted"><span class="glyphicon glyphicon-remove"></span> Clear all </small>
 										</a>
-										<#-- Display a marker in between each breadcrumb -->
-										<@core_controller.IsLastFacetBreadCrumb negate=true>
-											<div><span class="glyphicon glyphicon-arrow-down"></span></div>
-										</@core_controller.IsLastFacetBreadCrumb>
-									 </div>
-								</@core_controller.FacetBreadCrumb>
-							<hr />
-							</@core_controller.FacetSummary>
+									</span>
+								</@core_controller.FacetSummary>
+							</div>
+							<div class="panel-body">
+								<@core_controller.FacetSummary>
+									<#--
+										Generate the facet selection breadcrumb which displays the currently selected facet (or facets
+										for hierarchical facet)
+									-->
+									<@core_controller.FacetBreadCrumb>
+										<div>
+											<a href="<@core_controller.FacetBreadCrumbUrl />">
+												<span class="glyphicon glyphicon-remove"></span>
+												<@core_controller.FacetBreadCrumbName />
+											</a>
+											<#-- Display a marker in between each breadcrumb -->
+											<@core_controller.IsLastFacetBreadCrumb negate=true>
+												<div><span class="glyphicon glyphicon-arrow-down"></span></div>
+											</@core_controller.IsLastFacetBreadCrumb>
+										 </div>
+									</@core_controller.FacetBreadCrumb>
+								<hr />
+								</@core_controller.FacetSummary>
 
-							<ul class="list-unstyled">
-								<#-- Print all the facet categories associated with each facet -->
-								<@core_controller.FacetCategories >
-									<@core_controller.FacetCategory>
-										<li class="category">
-											<span>
-												<a href="<@core_controller.FacetCategoryUrl />">
-													<@core_controller.FacetCategoryLabel />
-												</a>
-											</span>
-											<span class="badge pull-right">
-												<@core_controller.FacetCategoryCount />
-											</span>
-										</li>
-									</@core_controller.FacetCategory>
-								</@core_controller.FacetCategories>
-							</ul>
+								<ul class="list-unstyled">
+									<#-- Print all the facet categories associated with each facet -->
+									<@core_controller.FacetCategories >
+										<@core_controller.FacetCategory>
+											<li class="category">
+												<span>
+													<a href="<@core_controller.FacetCategoryUrl />">
+														<@core_controller.FacetCategoryLabel />
+													</a>
+												</span>
+												<span class="badge pull-right">
+													<@core_controller.FacetCategoryCount />
+												</span>
+											</li>
+										</@core_controller.FacetCategory>
+									</@core_controller.FacetCategories>
+								</ul>
+							</@core_controller.Facet>
 
 							<#--
 								Generate the more/less categories button which will show and hide additonal categories respective
@@ -1049,11 +1066,12 @@
 							</button>
 						</div>
 					</div>
-				</@core_controller.Facet>
+				</div><!--//.facet-->
 			</@core_controller.Facets>
 		</div>
 	</@core_controller.FacetedSearch>
 </#macro>
+
 
 <#---
 	Displays the faceted navigation breadcrumb which allows users to remove any active facets.
