@@ -1004,29 +1004,14 @@
 								<@base_view.HelpToolTip>${(response.translations.CORE_FACET_DATE_DESC)!'Filter by published date of documents.'}</@base_view.HelpToolTip>
 							</@core_controller.IsFacetLabel>
 
-							<#--
-								Display the summary. In this case, it is the clear all link which removes
-								all facet selections for the current facet
-							-->
-							<@core_controller.FacetSummary>
-								<span class="pull-right">
-									<a href="<@core_controller.FacetSummaryClearCurrentSelectionUrl />" alt="Clear the current facet selection">
-										<small class="text-muted"><span class="glyphicon glyphicon-remove"></span> Clear all </small>
-									</a>
-								</span>
-							</@core_controller.FacetSummary>
-						</div>
-						<div class="panel-body">
-							<@core_controller.FacetSummary>
 								<#--
-									Generate the facet selection breadcrumb which displays the currently selected facet (or facets
-									for hierarchical facet)
+									Display the summary. In this case, it is the clear all link which removes
+									all facet selections for the current facet
 								-->
-								<@core_controller.FacetBreadCrumb>
-									<div>
-										<a href="<@core_controller.FacetBreadCrumbUrl />">
-											<span class="glyphicon glyphicon-remove"></span>
-											<@core_controller.FacetBreadCrumbName />
+								<@core_controller.FacetSummary>
+									<span class="pull-right">
+										<a href="<@core_controller.FacetSummaryClearCurrentSelectionUrl />" alt="Clear the current facet selection">
+											<small class="text-muted"><span class="glyphicon glyphicon-remove"></span> Clear all </small>
 										</a>
 										<#-- Display a marker in between each breadcrumb -->
 										<@core_controller.IsLastFacetBreadCrumb negate=true>

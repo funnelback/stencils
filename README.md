@@ -5,14 +5,11 @@ Stencils
 Welcome to the shared stencils repository. This holds everything stencils related.
 
 ## Folders
-| Name | Purpose |
-| -- | -- |
-| groovy | Groovy libraries |
-| libraries | Stencils freemarker files |
-| resources | External files such as JavaScript and CSS. |
-
-
-## Getting Started
+ Name | Purpose 
+ --- | --- 
+ [groovy](/groovy) | Stencil specific Groovy libraries. 
+ [libraries](/libraries) | Stencils freemarker files. 
+ [resources](/resources) | External files such as JavaScript and CSS. 
 
 
 ## Related Links
