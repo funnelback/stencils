@@ -1319,7 +1319,7 @@
 						</#if>
 						<#if exhibit.descriptionHtml??>
 							<p>
-								<@core_controller.boldicize><#noescape>${exhibit.descriptionHtml}</#noescape></@core_controller.boldicize>
+								<#noescape>${exhibit.descriptionHtml}</#noescape>
 							</p>
 						</#if>
 					</li>
