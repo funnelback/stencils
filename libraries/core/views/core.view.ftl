@@ -213,15 +213,24 @@
 			<div class="col-xs-12 col-md-3 mw-3"></div>
 			<div class="col-xs-12 col-md-9">
 				<hr>
-				<p class="text-muted">
-					<small>
-						<#if (response.resultPacket.details.collectionUpdated)??>${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br></#if>
-						<#noescape>${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"Search powered by"}</#noescape>
-						<a href="https://www.funnelback.com" alt="">
-							${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}
-						</a>
-					</small>
-				</p>
+				<#if (response.resultPacket.details.collectionUpdated)??>
+					<span class="pull-left">
+						<p class="text-muted">
+							<small>
+								${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br>
+							</small>
+						</p>
+					</span>
+				</#if>
+				<span class="pull-right">
+					<a href="https://funnelback.com/">
+						<img src="${baseResourcesPrefix}images/funnelback-powered_by_logo-white.png"
+							alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"
+							title="${(response.translations.CORE_FOOTER_FUNNELBACK_LOGO_TITLE)!'Search like you’ve never seen it.'}"
+						>
+					</a>
+				</span>
+
 			</div>
 		</div>
 	</footer>
@@ -366,7 +375,8 @@
 				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="input-group">
-					<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control input-lg query">
+					<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
+					${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control input-lg query">
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
@@ -516,7 +526,8 @@
 		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 		<div class="form-group">
-			<input required name="query" id="query" title="Search query" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
+			<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
+			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
 		</div>
 		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
 
