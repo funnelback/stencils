@@ -14,6 +14,7 @@
 			<li><strong>Result:</strong> Result views e.g. panels ...</li>
 			<li><strong>Print:</strong> Views for print buttons, and print friendly view.</li>
 			<li><strong>Share Tools:</strong> Email and social sharing buttons.</li>
+			<li><strong>Pagination:</strong> Views for controlling the result page the user is viewing.</li>
 		</ul>
 -->
 <#escape x as x?html>
@@ -994,5 +995,109 @@
 <#-- @end --><#-- / Category - Share tools -->
 
 
+<#-- @begin Pagination -->
+<#---
+	Displays the pagination.
+
+	<p>
+		Pagination is the process of dividing a document into discrete pages.
+		Generally, we do not wish to create pagination links when there is
+		only one page of results.
+	</p>
+-->
+<#macro Pagination>
+	<!-- core.controller.ftl :: Pagination -->
+	<@base_controller.Pagination>
+		<div class="text-center hidden-print">
+			<h2 class="sr-only">Pagination</h2>
+			<ul class="pagination pagination-lg">
+				<#--
+					Display the first tag which allows the user to navigate to the first page
+					> Only displays when the first page index does not appear in sliding pagination
+				-->
+				<@base_controller.PaginationFirst>
+				<li>
+					<a href="${base_controller.paginationFirstUrl}" rel="prev">
+						
+						<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+						
+						<span class="sr-only">Go to the</span>
+						First
+						<span class="sr-only">search result page</span>
+					</a>
+				</li>
+				</@base_controller.PaginationFirst>
+				
+				<#--
+					Display the previous tag which allows the user to navigate
+					back one page
+				-->
+				<@core_controller.Previous>
+					<li>
+						<a href="<@core_controller.PreviousUrl />" rel="prev">
+							<small>
+
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</small>
+							<span class="sr-only">Go to the</span>
+							Prev
+							<span class="sr-only">search result page</span>
+						</a>
+					</li>
+				</@core_controller.Previous>
+				
+				<#--
+					Displays the pages allowing the user to navigate to different
+					position within the search results
+				-->
+				<@core_controller.Page numPages=5>
+					<li <@core_controller.IsCurrentPage> class="active" </@core_controller.IsCurrentPage>>
+						<a href="<@core_controller.PageUrl />">
+							<span class="sr-only">You are reading search result page</span>
+							<@core_controller.PageNumber />
+
+							<#-- Identify the current page for screen readers -->
+							<@core_controller.IsCurrentPage>
+								<span class="sr-only">The current search result page</span>
+							</@core_controller.IsCurrentPage>
+						</a>
+					</li>
+				</@core_controller.Page>
+				<#--
+					Display the next tag which allows the user to navigate
+					back one page
+				-->
+				<@core_controller.Next>
+					<li>
+						<a href="<@core_controller.NextUrl />" rel="next">
+							<span class="sr-only">Go to the</span>
+							Next
+							<span class="sr-only">search result page</span>
+							<small>
+								<span class="glyphicon glyphicon-chevron-right"></span>
+							</small>
+						</a>
+					</li>
+				</@core_controller.Next>
+				
+				<#--
+					Display the first tag which allows the user to navigate to the last page
+					> Only displays when the last page index does not appear in sliding pagination
+				-->
+				<@base_controller.PaginationLast>
+				<li>
+					<a href="${base_controller.paginationLastUrl}" rel="prev">
+						<span class="sr-only">Go to the</span>
+						Last
+						<span class="sr-only">search result page</span>
+						<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+					</a>
+				</li>
+				</@base_controller.PaginationLast>
+			</ul>
+		</div>
+	</@base_controller.Pagination>
+</#macro>
+<#-- @end --><#-- / Category - Pagination -->
 
 </#escape>
