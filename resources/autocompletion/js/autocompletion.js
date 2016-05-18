@@ -10,9 +10,7 @@ stencils.module.autocompletion = (function($, window, stencils, undefined) {
   return {
     element: '[data-stencils-autocompletion]',
     options: {},
-    run    : function(type, element, options) {
-      if (!type || type != 'autocomplete') return;
-      
+    run    : function(element, options) {
       if (element) this.element = element;
       if (options) this.options = options;
 
