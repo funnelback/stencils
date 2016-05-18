@@ -40,7 +40,7 @@
  -->
 <#macro CSS>
 	<!-- autocompletion.view.ftl.view.ftl :: CSS -->
-	<link rel="stylesheet" href="${autocompletionResourcesPrefix}css/typeahead.css">
+	<link rel="stylesheet" href="${autocompletionResourcesPrefix}css/autocompletion.css">
 </#macro>
 
 <#---
@@ -51,8 +51,27 @@
 	<script src="${autocompletionResourcesPrefix}js/handlebars.js"></script>
 	<script src="${autocompletionResourcesPrefix}js/typeahead.bundle.js"></script>
 	<script src="${autocompletionResourcesPrefix}js/autocompletion.js"></script>
+	<@simpleCompletion />
 </#macro>
 <#-- @end --><#-- /Configuration -->
 <#-- ###################  Views ####################### -->
+<#macro simpleCompletion>
+<script type="text/javascript">
+(function($) {
+	$(document).ready(function() {
+		stencils.module.autocompletion.run($('#query'), {
+			collection 	: '<@autocompletion_controller.option>stencils.autocompletion.collection</@autocompletion_controller.option>',
+			enabled 	: '<@autocompletion_controller.option>stencils.autocompletion</@autocompletion_controller.option>',
+			profile		: '<@autocompletion_controller.option>stencils.autocompletion.profile</@autocompletion_controller.option>',
+			format 		: '<@autocompletion_controller.option>stencils.autocompletion.format</@autocompletion_controller.option>',
+			length 		: '<@autocompletion_controller.option>stencils.autocompletion.length</@autocompletion_controller.option>',
+			program 	: '<@autocompletion_controller.option>stencils.autocompletion.program</@autocompletion_controller.option>',
+			show		: '<@autocompletion_controller.option>stencils.autocompletion.show</@autocompletion_controller.option>',
+			sort		: '<@autocompletion_controller.option>stencils.autocompletion.sort</@autocompletion_controller.option>'
+		});
+	});
+}(jQuery));
+</script>
+</#macro>
 
 </#escape>

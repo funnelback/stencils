@@ -27,7 +27,46 @@
 </@stencils_utilities.ImportStencilsControllers>
 
 <#-- ###################  Controllers ####################### -->
-<#-- @begin  ... -->
-<#-- @end --><#-- / Category - ... -->
+<#---
+	Read a configuration parameter.
+	Reads a collection.cfg parameter for the current collection being searched and displays it.
+
+	@nested Name of the parameter
+-->
+<#macro cfg><#compress>
+	<#local key><#nested></#local>
+	<#local val><@core_controller.cfg>${key}</@core_controller.cfg></#local>
+	<#if !val?has_content>
+		<#local val><@core_controller.cfg>${key!?replace('stencils.autocompletion', 'query_completion')}</@core_controller.cfg></#local>
+	</#if>
+	${val!}
+</#compress></#macro>
+
+<#---
+	Retrieves a cgi parameter value.
+
+	@nested Name of the parameter
+-->
+<#macro cgi><#compress>
+	<#local key><#nested></#local>
+	<#local val><@core_controller.cgi>${key}</@core_controller.cgi></#local>
+	<#if !val?has_content>
+		<#local val><@core_controller.cgi>${key!?replace('stencils.autocompletion.', '')}</@core_controller.cgi></#local>
+	</#if>
+	${val!}
+</#compress></#macro>
+
+<#---
+	Retrieves a configuration or cgi parameter
+
+	@nested Name of the parameter
+-->
+<#macro option><#compress>
+	<#local val><@cfg><#nested></@cfg></#local>
+	<#if !val?has_content>
+		<#local val><@cgi><#nested></@cgi></#local>
+	</#if>
+	${val!}
+</#compress></#macro>
 
 </#escape>
