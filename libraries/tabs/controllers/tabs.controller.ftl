@@ -388,7 +388,7 @@
 
 	<#-- Generate the more link -->
 	<#local searchLink = question.collection.configuration.value("ui.modern.search_link") + "?">
-	<#local moreLink = base_controller.buildQueryString(params, searchLink) + "&" + paramName?url + "=" + value?url>
+	<#local moreLink = base_controller.buildQueryString(params, searchLink) + "&" + paramName!?url + "=" + value!?url>
 
 	${moreLink}
 </#compress></#macro>
