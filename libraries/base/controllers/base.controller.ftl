@@ -69,7 +69,7 @@
 						<#local url = url + "&">
 					</#if>
 
-					<#local url = url + param + "=" + value>
+					<#local url = url + param + "=" + value!?url>
 
 					<#local flag = true>
 				</#if>
