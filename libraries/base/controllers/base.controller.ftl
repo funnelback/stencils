@@ -69,7 +69,7 @@
 						<#local url = url + "&">
 					</#if>
 
-					<#local url = url + param + "=" + value>
+					<#local url = url + param + "=" + value!?url>
 
 					<#local flag = true>
 				</#if>
@@ -392,7 +392,7 @@
 	@param cgi - The cgi paramater this is linked to. leave as empty to not have it linked
 -->
 <#macro ResultsColumns columnsNumber=question.collection.configuration.value("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns">
-<#-- question.collection.configuration.value("stencils.base.results_columns.results_columns_number)! -->
+
 	<#-- Define attributes -->
 	<#assign resultsColumnsCgi = cgi in .namespace>
 	<#assign resultsColumnsNumber = getResultsColumnsNumber(columnsNumber,resultsColumnsCgi) in .namespace>
