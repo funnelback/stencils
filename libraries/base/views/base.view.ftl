@@ -81,9 +81,13 @@
 	@oaram nested Help note.
 -->
 <#macro HelpToolTip>
-<!-- base.view.ftl :: HelpToolTip -->
-<#local nestedClean><@core_controller.StripHtml><#nested></@core_controller.StripHtml></#local>
-<a href="#" data-toggle="tooltip" title="${nestedClean}"><i class="fa fa-question-circle"></i> <span class="sr-only">Help</span></a>
+	<!-- base.view.ftl :: HelpToolTip -->
+	<#local nestedClean><@core_controller.StripHtml><#nested></@core_controller.StripHtml></#local>
+	
+	<a href="#" data-toggle="tooltip" title="${nestedClean}">
+		<i class="fa fa-question-circle"></i>
+		<span class="sr-only">Help</span>
+	</a>
 </#macro>
 
 <#---
