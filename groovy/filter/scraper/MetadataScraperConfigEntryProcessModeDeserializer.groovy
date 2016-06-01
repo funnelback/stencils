@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.*;
 import java.io.IOException;
 
 // Logging
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 // Class to help deserialise string representation of enums
 public class MetadataScraperConfigEntryProcessModeDeserializer extends JsonDeserializer
 {
-	private static final Logger logger = Logger.getLogger(MetadataScraperConfigEntryProcessModeDeserializer.class);
+	private static final Logger logger = LogManager.getLogger(MetadataScraperConfigEntryProcessModeDeserializer.class);
 
 	@Override
 	public MetadataScraperConfigEntryProcessMode deserialize(JsonParser jp, DeserializationContext dc) throws IOException, JsonProcessingException

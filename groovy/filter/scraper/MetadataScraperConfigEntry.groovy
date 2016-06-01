@@ -15,10 +15,9 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
 // Logging
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import org.apache.log4j.Logger;
 
 // Represents one config entry in the metadata scraper config file
 // Ignore all properties from the JSON if it not known
@@ -28,7 +27,7 @@ public class MetadataScraperConfigEntry
 	public final static String MINIMAL_HTML = "<html><head></head><body></body></html>";
 
 	// Set up the logger
-	private static final Logger logger = Logger.getLogger(MetadataScraperConfigEntry.class);
+	private static final Logger logger = LogManager.getLogger(MetadataScraperConfigEntry.class);
 
 	// Attributes of the config entry class
 	private String url;
