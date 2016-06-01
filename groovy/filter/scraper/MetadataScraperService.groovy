@@ -13,9 +13,9 @@ import org.jsoup.select.Elements;
 import org.jsoup.nodes.Entities.EscapeMode;
 
 // Logging
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+;
 
 // Represents a class which invokes a metadata scraper config onto
 // a document
@@ -24,7 +24,7 @@ public class MetadataScraperService
 	MetadataScraperConfig config;
 
 	// Set up the logger
-	private static final Logger logger = Logger.getLogger(MetadataScraperService.class);
+	private static final Logger logger = LogManager.getLogger(MetadataScraperService.class);
 
 	public MetadataScraperService(String filename, String metadataDelimiter)
 	{
