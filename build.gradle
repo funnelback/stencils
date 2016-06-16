@@ -1,0 +1,37 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    mavenCentral()
+}
+
+project.ext {
+    // Must be set to the Groovy version Funnelback ships with
+    groovyVersion = '2.3.7'
+}
+
+project.with {
+    group = 'com.funnelback.stencils'
+    version = 'master-SNAPSHOT'
+    
+    defaultTasks 'build'
+}
+
+dependencies {
+    testCompile (
+        'junit:junit:4.+',
+        'org.mockito:mockito-core:1.+'
+    )
+    
+    compile (
+        "org.codehaus.groovy:groovy-all:${groovyVersion}",
+        fileTree(dir: "${System.env.SEARCH_HOME}/lib/java/all/", include: '*.jar')
+    )
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
