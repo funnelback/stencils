@@ -4,9 +4,8 @@ package com.funnelback.stencils.filter.scraper;
 import java.util.regex.*;
 
 // Logging
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // JSON processing
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -25,7 +24,7 @@ public class MetadataScraperConfig
 	private String metadataDelimiter;
 
 	// Set up the logger
-	private static final Logger logger = Logger.getLogger(MetadataScraperConfig.class);
+	private static final Logger logger = LogManager.getLogger(MetadataScraperConfig.class);
 
 	/*
 		@filename: A file containing JSON which details the config rules for scraping

@@ -17,9 +17,8 @@ import org.jsoup.select.Elements;
 import org.jsoup.nodes.Entities.EscapeMode;
 
 // Logging
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
 	Meta Data Scraper
@@ -29,7 +28,7 @@ import org.apache.log4j.Logger;
 @groovy.transform.InheritConstructors
 public class MetadataScraperFilter extends com.funnelback.common.filter.ScriptFilterProvider
 {
-	private static final Logger logger = Logger.getLogger(MetadataScraperFilter.class);
+	private static final Logger logger = LogManager.getLogger(MetadataScraperFilter.class);
 
 	public final static String CONFIG_FILENAME = "stencils.filter.scraper.metadata_scraper.json";
 	public final static String SEARCH_HOME =  Environment.getValidSearchHome();
@@ -57,7 +56,16 @@ public class MetadataScraperFilter extends com.funnelback.common.filter.ScriptFi
 		metaDataDelimiter = config.value(METADATA_DELIMITER_CONFIG_NAME, METADATA_DELIMITER_DEFAULT);
 
 		// Create the scraper service
-		scraperService = new MetadataScraperService(filename, metaDataDelimiter);
+		try
+		{
+			scraperService = new MetadataScraperService(filename, metaDataDelimiter);
+		}
+		catch(Exception e)
+		{
+			logger.error("Unable to configure the Metadata Scraper Service using ${filename}");
+			logger.error(e.toString());
+		}
+
 	}
 
 	// We filter all documents
@@ -67,7 +75,7 @@ public class MetadataScraperFilter extends com.funnelback.common.filter.ScriptFi
 	}
 
 	/*
-		called to filter document
+		Called to filter document
 		@input - text which is to be filtered such as html
 		@documentType - html, doc, pdf etc
 	*/
@@ -80,7 +88,7 @@ public class MetadataScraperFilter extends com.funnelback.common.filter.ScriptFi
 	{
 		logger.info("Processing content from URL: '${address}' - With document type of '${documentType}'");
 
-		//do nothing if scraper config is not found and
+		// Do nothing if scraper config is not found and
 		if(scraperService == null)
 		{
 			return input;
@@ -189,4 +197,3 @@ public class MetadataScraperFilter extends com.funnelback.common.filter.ScriptFi
 		}
 	}
 }
-
