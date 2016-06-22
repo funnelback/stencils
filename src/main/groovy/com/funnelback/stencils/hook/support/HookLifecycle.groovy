@@ -11,17 +11,14 @@ import com.funnelback.publicui.search.model.transaction.SearchTransaction;
  */
 trait HookLifecycle {
 
-    /** SearchTransaction the hook applies to */
-    SearchTransaction transaction;
+    void preProcess(SearchTransaction transaction) {}
     
-    void preProcess() {}
+    void extraSearches(SearchTransaction transaction) {}
     
-    void extraSearches() {}
+    void preDatafetch(SearchTransaction transaction) {}
     
-    void preDatafetch() {}
+    void postDatafetch(SearchTransaction transaction) {}
     
-    void postDatafetch() {}
-    
-    void postProcess() {}
+    void postProcess(SearchTransaction transaction) {}
     
 }
