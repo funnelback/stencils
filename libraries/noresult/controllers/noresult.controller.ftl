@@ -48,7 +48,7 @@
 	@requires NoResult
 -->
 <#macro NoResultSearch>
-	<@core_controller.ExtraResults name=question.collection.configuration.value("stencils.noresult.extra_search_name") >
+	<@core_controller.ExtraResults name="no_results" >
 		<#assign cacheQueryString = QueryString />
 		<#global QueryString = QueryString?replace("query=[^&]+","query=${question.query}","r") >
 	 	<#nested>
