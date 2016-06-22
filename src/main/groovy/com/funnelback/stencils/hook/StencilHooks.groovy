@@ -47,17 +47,15 @@ class StencilHooks {
         }
                 
         HOOKS.each { hook ->
-            hook.transaction  = transaction
-            
             log.trace("Attempting to run {} on hook {}", currentHook, hook.class.name)
             
             // Dynamically invoke the method name
             // for this hook
             def methodName = hookMethodForHook(currentHook)
-            if (hook.metaClass.respondsTo(hook, methodName)) {
-                hook."${methodName}"()
+            if (hook.metaClass.respondsTo(hook, methodName, SearchTransaction.class)) {
+                hook."${methodName}"(transaction)
             } else {
-                throw new IllegalStateException("No ${methodName} method defined on ${hook.class}")
+                throw new IllegalStateException("No ${methodName}(${SearchTransaction.class.name}) method defined on ${hook.class}")
             }            
         }
     }
