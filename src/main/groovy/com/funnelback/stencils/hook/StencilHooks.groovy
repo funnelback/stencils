@@ -8,6 +8,7 @@ import com.funnelback.common.config.Files
 import com.funnelback.publicui.search.model.collection.Collection.Hook
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
 import com.funnelback.stencils.hook.noresults.NoResultsHookLifecycle
+import com.funnelback.stencils.hook.people.PeopleHookLifecycle
 import com.funnelback.stencils.hook.support.HookLifecycle
 import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
 
@@ -26,7 +27,8 @@ class StencilHooks {
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
         new TabsHookLifecycle(),
-        new NoResultsHookLifecycle()
+        new NoResultsHookLifecycle(),
+        new PeopleHookLifecycle()
     ]
     
     /**
