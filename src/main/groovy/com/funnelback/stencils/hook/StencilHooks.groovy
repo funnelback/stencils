@@ -24,6 +24,9 @@ import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
 @Log4j2
 class StencilHooks {
     
+    /** Name of the <code>collection.cfg</code> setting containing the list of stencils to enable */
+    public static final String STENCILS_KEY = "stencils"
+    
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
         new TabsHookLifecycle(),

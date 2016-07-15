@@ -9,6 +9,7 @@ import com.funnelback.publicui.search.model.collection.Collection
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
 import com.funnelback.publicui.search.model.transaction.SearchQuestion.SearchQuestionType
+import com.funnelback.stencils.hook.StencilHooks
 
 class PeopleHookLifecycleTest {
 
@@ -27,7 +28,7 @@ class PeopleHookLifecycleTest {
         Mockito.when(transaction.question.questionType).thenReturn(SearchQuestionType.SEARCH)
         Mockito.when(transaction.question.collection).thenReturn(new Collection("mock", config))
         
-        Mockito.when(config.valueAsBoolean(PeopleHookLifecycle.PEOPLE_STENCIL_ENABLED_KEY, false)).thenReturn(true)
+        Mockito.when(config.value(StencilHooks.STENCILS_KEY, "")).thenReturn("people")
     }
     
     @Test
@@ -57,7 +58,7 @@ class PeopleHookLifecycleTest {
     
     @Test
     void testStencilDisabled() {
-        Mockito.when(config.valueAsBoolean(PeopleHookLifecycle.PEOPLE_STENCIL_ENABLED_KEY, false)).thenReturn(false)
+        Mockito.when(config.value(StencilHooks.STENCILS_KEY, "")).thenReturn("something,else")
         
         hook.preProcess(transaction)
         
