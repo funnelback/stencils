@@ -169,7 +169,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-                            <@core_controller.boldicize><@people_controller.PersonName
+                            <@core_controller.boldicize><@PersonName
                                 name=metaData["stencilsPeopleName"]!
                                 title=metaData["stencilsPeopleTitle"]!
                                 firstName=metaData["stencilsPeopleFirstName"]!
@@ -206,5 +206,24 @@
     </li>
 
 </#macro>
+
+<#---
+    Format a person name from all the fields constituting it
+    
+    @param name Full person name, will be returned as is if present
+    @param title Person's title
+    @param firstName Person's first name
+    @param middleName Person's middle name
+    @param lastName Person's last name
+    
+    @return formatted person name
+-->
+<#macro PersonName name="" title="" firstName="" middleName="" lastName=""><#compress>
+    <#if name?has_content>
+        ${name}
+    <#else>
+        ${[title, firstName, middleName, lastName]?join(" ")}
+    </#if>
+</#compress></#macro>
 
 </#escape>
