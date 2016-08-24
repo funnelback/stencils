@@ -68,7 +68,7 @@
 	<#--
 		Include the required session scripts only if they have been specified
 		in the collection.cfg
-	-->``
+	-->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
 		<#-- <script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script> -->
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>

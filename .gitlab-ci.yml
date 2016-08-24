@@ -1,0 +1,9 @@
+image: funnelback-rnd/stencils:15.0.0.x
+
+build:
+    script:
+        - ./gradlew
+    tags:
+        - funnelback-rnd
+        - docker
+
