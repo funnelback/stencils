@@ -69,8 +69,8 @@
 		<@core_view.BestBets />
 		<@core_view.ContextualNavigation />
 
-		<h2>Have you tried?</h2>
 		<@noresult_controller.NoResultSearch>
+			<h2>Have you tried?</h2>
 			<@core_view.Results />
 		</@noresult_controller.NoResultSearch>
 	</@noresult_controller.NoResult>

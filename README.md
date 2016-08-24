@@ -7,7 +7,7 @@ Welcome to the shared stencils repository. This holds everything stencils relate
 ## Folders
  Name | Purpose 
  --- | --- 
- [groovy](/groovy) | Stencil specific Groovy libraries. 
+ [groovy](/src) | Stencil specific Groovy libraries. 
  [libraries](/libraries) | Stencils freemarker files. 
  [resources](/resources) | External files such as JavaScript and CSS. 
 

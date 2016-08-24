@@ -1,0 +1,27 @@
+.row .media-object {
+    width: 64px;
+}
+
+.row .dl-horizontal {
+    margin-top: 15px;
+}
+
+.row .dl-horizontal dt {
+    width: 30px;
+}
+
+.row .dl-horizontal dd {
+    margin-left: 40px;
+}
+
+.pagination.funnelback--people--az {
+    text-transform: capitalize;
+}
+
+li.category {
+    text-transform: capitalize;
+}
+
+.funnelback--people--more {
+    display: none;
+}

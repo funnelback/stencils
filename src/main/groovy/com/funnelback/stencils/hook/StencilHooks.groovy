@@ -1,18 +1,16 @@
 package com.funnelback.stencils.hook
 
-import com.funnelback.stencils.hook.support.HookLifecycle
-import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
-
 import groovy.util.logging.Log4j2
 
-import java.util.regex.Pattern
-
 import org.codehaus.groovy.reflection.ReflectionUtils
-import org.codehaus.groovy.util.StringUtil
 
 import com.funnelback.common.config.Files
 import com.funnelback.publicui.search.model.collection.Collection.Hook
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
+import com.funnelback.stencils.hook.noresults.NoResultsHookLifecycle
+import com.funnelback.stencils.hook.people.PeopleHookLifecycle
+import com.funnelback.stencils.hook.support.HookLifecycle
+import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
 
 /**
  * <p>Entry point for Stencil hooks.</p>
@@ -26,9 +24,14 @@ import com.funnelback.publicui.search.model.transaction.SearchTransaction
 @Log4j2
 class StencilHooks {
     
+    /** Name of the <code>collection.cfg</code> setting containing the list of stencils to enable */
+    public static final String STENCILS_KEY = "stencils"
+    
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
-        new TabsHookLifecycle()
+        new TabsHookLifecycle(),
+        new NoResultsHookLifecycle(),
+        new PeopleHookLifecycle()
     ]
     
     /**
