@@ -112,10 +112,10 @@
 	<code>&lt;@CreateSearchUrl CGI=[&quot;name=value&quot;, &quot;query=test&quot;] /&gt; or &lt;@base_controller.CreateSearchUrl CGIs=[&quot;display=list&quot;,&quot;num_ranks=10&quot;] /&gt;</code>
 	@param cgi Array of cgi parameters as ["name=value", "query=test"].
 	@param append	Append CGI to existing CGI Query. Default to true. (optional)
-	@param URL URL to append CGI parameters to. Defaults to '/s/search.html'. (optional)
+	@param URL URL to append CGI parameters to. Defaults to ui.modern.search_link. (optional)
 	@return string
 -->
-<#macro CreateSearchUrl cgis=[] append=true url="/s/search.html">
+<#macro CreateSearchUrl cgis=[] append=true url=question.collection.configuration.value("ui.modern.search_link")>
 	<#compress>
 
 		<#local query = QueryString key ="">
