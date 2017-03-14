@@ -132,7 +132,7 @@
 
 			<#-- Placeholder for the default message. It will only display if no other messages are available -->
 			<@core_controller.ErrorDefaultMessage showAlways=true>
-				${(response.translations.CORE_SEARCH_ERROR)!'An unkown error has occured. Please try again in a few minutes.'}
+				${(response.translations.CORE_SEARCH_ERROR)!'An unknown error has occurred. Please try again in a few minutes.'}
 			</@core_controller.ErrorDefaultMessage>
 
 		</div>
