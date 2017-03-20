@@ -70,7 +70,6 @@
 		in the collection.cfg
 	-->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-		<#-- <script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script> -->
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${GlobalResourcesPrefix}js/funnelback-session.js"></script>
@@ -93,17 +92,11 @@
 	<!-- core.controller.ftl :: pageTitle -->
 	<#compress>
 		<title>
-			<#if query??> ${query}</#if>
-			<#if collectionName??>,&nbsp; ${collectionName}</#if>
-			<#if sitename??>- ${sitename}</#if>
+			<#if query??> ${query},&nbsp; </#if>
+			<#if collectionName??>${collectionName}</#if>
+			<#if sitename??> - ${sitename}</#if>
 		</title>
 	</#compress>
-</#macro>
-
-<#macro element type="div" id="" class="" custom="">
-<${type} <#if id?? && id?has_content>id="${id}"</#if><#if class?? && class?has_content> class="${class}"</#if>${custom!}><#compress>
-<#nested>
-</#compress><#if type!="area" && type!="base" && type!="br" && type!="col" && type!="command" && type!="embed" && type!="hr" && type!="img" && type!="input" && type!="link" && type!="meta" && type!="param" && type!="source"></${type}></#if>
 </#macro>
 
 <#---
@@ -210,29 +203,28 @@
 	<!-- core.controller.ftl :: Footer -->
 	<footer id="search-footer">
 		<div class="row">
-			<div class="col-xs-12 col-md-3 mw-3"></div>
-			<div class="col-xs-12 col-md-9">
+			<div class="col-xs-12 col-md-12 clearfix">
 				<hr>
 				<#if (response.resultPacket.details.collectionUpdated)??>
-					<span class="pull-left">
-						<p class="text-muted">
-							<small>
-								${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br>
-							</small>
-						</p>
-					</span>
+				<div class="pull-left">
+					<p class="text-muted">
+						<small>
+							${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br>
+						</small>
+					</p>
+				</div>
 				</#if>
-				<span class="pull-right">
-					<a href="https://funnelback.com/">
+				<div class="pull-right">
+					<a href="https://funnelback.com/" target="_blank">
 						<img src="${baseResourcesPrefix}images/funnelback-powered_by_logo-white.png"
 							alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"
 							title="${(response.translations.CORE_FOOTER_FUNNELBACK_LOGO_TITLE)!'Search like you’ve never seen it.'}"
 						>
 					</a>
-				</span>
-
+				</div>
 			</div>
 		</div>
+		<br>
 	</footer>
 </#macro>
 
@@ -254,7 +246,7 @@
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
 				&middot; <a href="${SearchPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
-				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))?html}" title="View this search with the current live form">switch to live mode</a>
+				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))}" title="View this search with the current live form">switch to live mode</a>
 				| <span title="This form file may be edited before publishing to external search users">preview mode</span>
 			</div>
 			<script type="text/javascript">
