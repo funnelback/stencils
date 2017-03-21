@@ -106,6 +106,17 @@
 	<#return queries?join('&')>
 </#function>
 
+<#--
+    Strip the protocol (e.g. http, https) from a URL to make it a protocol-less URL, e.g. "//example.com/file.html". Useful to make templates compatible with both HTTP and HTTPS
+
+    @param url URL to strip protocol from
+
+    @return URL with protocol stripped
+-->
+<#function stripProtocol url>
+    <#return url?replace("^[a-z0-9]+://", "//", "r")>
+</#function>
+
 <#---
 	Generate URls for changing display format query.
 	<p><strong>Example</strong</p>
