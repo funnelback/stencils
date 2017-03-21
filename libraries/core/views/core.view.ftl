@@ -343,6 +343,35 @@
 </#macro>
 
 <#-- ###  Search Forms ### -->
+
+<#--- Display the search form used to conduct the query against Funnelback -->
+<#macro SearchForm attrs...>
+	<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
+		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+		<#nested />
+	</form>
+</#macro>
+
+<#--- Display the query field -->
+<#macro SearchFormQuery name="query" type="text" attrs...>
+	<input name="${name}" type="${type}" value="${question.inputParameterMap[name]!}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
+</#macro>
+
+<#--- Display the facet scope which allows the user to search within the currently selected facets -->
+<#macro SearchFormFacetScope attrs...>
+	<@core_controller.FacetScope>
+		<div class="${core_controller.getAttr(attrs, "classWrapper")}">
+			<input type="checkbox" name="facetScope" value="<@core_controller.FacetScopeParameter />" <@core_controller.attrsShow attrs=attrs />>
+			<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
+		</div>
+	</@core_controller.FacetScope>
+</#macro>
+
 <#---
 	The initial search form is the first html form which is
 	displayed to the user before any query has been entered.
@@ -355,27 +384,37 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"></a>
+			<a href="http://funnelback.com/" target="_blank"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
-			<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-				<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+			<@SearchForm>
 				<div class="input-group">
-					<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
-					${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control input-lg query">
+					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
 				</div>
-			</form>
+			</@SearchForm>
 		</div>
 	</div>
+</#macro>
+
+<#---
+	Displays a search form which has been configured against the user's query
+-->
+<#macro AfterSearchForm>
+	<!-- core.view.ftl :: AfterSearchForm -->
+	<@SearchForm class="navbar-form navbar-left form-inline">
+		<div class="form-group">
+			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}...
+			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
+		</div>
+		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
+
+		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
+		<@SearchFormFacetScope classWrapper="checkbox-inline" id="facetScope" checked="checked" />
+	</@SearchForm>
 </#macro>
 
 <#---
@@ -506,34 +545,6 @@
 </#macro>
 
 <#---
-	Displays a search form which has been configured against the user's query
--->
-<#macro AfterSearchForm>
-	<!-- core.view.ftl :: AfterSearchForm -->
-	<form class="navbar-form navbar-left form-inline" action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-		<div class="form-group">
-			<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
-			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
-		</div>
-		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
-
-		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
-		<@core_controller.FacetScope>
-			<div class="checkbox-inline">
-				<input type="checkbox" name="facetScope" id="facetScope" value="<@core_controller.FacetScopeParameter />" checked="checked">
-				<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
-			</div>
-		</@core_controller.FacetScope>
-	</form>
-</#macro>
-
-<#---
 	Displays an advanced search form allowing the user to
 	query against various metadata, data and document format.
 -->
@@ -543,18 +554,12 @@
 	<h2 class="sr-only">${(response.translations.CORE_ADVANCED_SEARCH_TITLE)!"Advanced Search"}</h2>
 	<div class="row">
 		<div class="col-md-12">
-			<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="form" class="form-horizontal">
-				<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+			<@SearchForm class="form-horizontal">
 				<input type="hidden" name="from-advanced" value="true">
-
 				<@core_controller.FacetScope>
 					<input type="hidden" name="facetScope" value="<@core_controller.FacetScopeParameter />">
 				</@core_controller.FacetScope>
 
-				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="row">
 					<div class="col-md-4">
 						<fieldset>
@@ -611,14 +616,14 @@
 								<div class="col-md-8">
 									<#-- Select dropdown for format -->
 									<@core_controller.Select name="meta_f_sand" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_ANY)!'Any'} ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
-										<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
-											<#-- Display the options -->
-											<@core_controller.SelectOptions>
-												<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-													<@core_controller.SelectOptionName />
-												</option>
-											</@core_controller.SelectOptions>
-										</select>
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
+										<#-- Display the options -->
+										<@core_controller.SelectOptions>
+											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+												<@core_controller.SelectOptionName />
+											</option>
+										</@core_controller.SelectOptions>
+									</select>
 									</@core_controller.Select>
 								</div>
 							</div>
@@ -633,7 +638,7 @@
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d1year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_SR_TITLE)!'Year'}</label>
 								<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -646,7 +651,7 @@
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d1month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_SR_TITLE)!'Month'}</label>
 								<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -659,7 +664,7 @@
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d1day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_SR_TITLE)!'Day'}</label>
 								<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -676,7 +681,7 @@
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d2year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_SR_TITLE)!'Year'}</label>
 								<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -689,7 +694,7 @@
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d2month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_SR_TITLE)!'Month'}</label>
 								<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -702,7 +707,7 @@
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d2day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_SR_TITLE)!'Day'}</label>
 								<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -724,7 +729,7 @@
 								<div class="col-md-8">
 								<#-- Select dropdown for sort -->
 								<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE_TITLE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE_TITLE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE_TITLE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY_TITLE)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL_TITLE)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL_TITLE)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE_TITLE)!'Shuffle'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -798,7 +803,7 @@
 						</div>
 					</div>
 				</div>
-			</form>
+			</@SearchForm>
 		</div>
 	</div>
 	</section>
