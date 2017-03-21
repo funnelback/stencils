@@ -483,11 +483,11 @@
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<#-- Help menu item which will display a infomation page detailed Funnelback advanced search syntax -->
-						<li>
+						<#--li>
 							<a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.CORE_NAVBAR_HELP_MSG)!"Search Help"}">
 								${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Help"}
 							</a>
-						</li>
+						</li-->
 						<#-- Displays the performance menu item which allows the user to view the performance metrices of various phases of the search query	-->
 						<li>
 							<a data-toggle="modal" href="#search-performance" title="${(response.translations.CORE_NAVBAR_PERFORMANCE_MSG)!"Performance report"}">
@@ -504,41 +504,37 @@
 
 				<#-- Display the language options -->
 				<li class="dropdown">
-           <a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
-           	<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
-           </a>
+					<a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
+					</a>
 
-           <ul class="dropdown-menu">
-              <#noescape>
-              <li role="presentation" class="dropdown-header">Examples</li>
-
-							<#-- Language options -->
-							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
-              <#--
-								Malaysian
-								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
-							-->
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
-              <li role="presentation" class="divider"></li>
-              <#--
-								Other language which will be completed
-	              <li role="presentation" class="dropdown-header">Extended</li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
-
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
-          		-->
-              </#noescape>
-            </ul>
-        </li>
+					<ul class="dropdown-menu">
+					<li role="presentation" class="dropdown-header">Examples</li>
+					<#-- Language options -->
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}"><span lang="en">English</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
+					<#--
+					Malaysian
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
+					-->
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
+					<#--
+					Other language which will be completed
+					<li role="presentation" class="divider"></li>
+					<li role="presentation" class="dropdown-header">Extended</li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+					-->
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -825,36 +821,35 @@
 -->
 <#macro QueryHistory>
 	<!-- core.view.ftl :: QueryHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size &gt; 0>
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size gt 0>
 		<#-- Build a list of previous queries -->
 		<#assign qsSignature = computeQueryStringSignature(QueryString) />
-		<#if session.searchHistory?? &&
-			(session.searchHistory?size &gt; 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
+		<#if session.searchHistory?? && (session.searchHistory?size gt 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
 			<div class="breadcrumb" data-ng-controller="SearchHistoryCtrl" data-ng-show="!searchHistoryEmpty">
-					<#-- Query history more button -->
-					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()">
-						<small class="text-muted">
-							<span class="glyphicon glyphicon-plus"></span>
-							${(response.translations.CORE_SESSION_QUERY_HISTORY_MORE)!'More'}
-						</small>
-					</button>
-					<ol class="list-inline" >
-						<li class="text-muted">${(response.translations.CORE_SESSION_QUERY_HISTORY_RECENT_PREFIX)!'Recent'}:</li>
+				<#-- Query history more button -->
+				<button class="btn btn-link pull-right" data-ng-click="toggleHistory()">
+					<small class="text-muted">
+						<span class="glyphicon glyphicon-plus"></span>
+						${(response.translations.CORE_SESSION_QUERY_HISTORY_MORE)!'More'}
+					</small>
+				</button>
+				<ol class="list-inline" >
+					<li class="text-muted">${(response.translations.CORE_SESSION_QUERY_HISTORY_RECENT_PREFIX)!'Recent'}:</li>
 
-						<#list session.searchHistory as h>
-							<#if h.searchParamsSignature != qsSignature>
-								<#assign facetDescription><#compress>
-								<#list h.searchParams?matches("f\\.([^=]+)=([^&]+)") as f>
-									${urlDecode(f?groups[1])?split("|")[0]} = ${urlDecode(f?groups[2])}<#if f_has_next><br></#if>
-								</#list>
-								</#compress></#assign>
-								<li>
-									<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"</#if> title="${prettyTime(h.searchDate)}" href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams}">${h.originalQuery} <small>(${h.totalMatching})</small></a>
-									<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></a></#if>
-								</li>
-							</#if>
-						</#list>
-					</ol>
+					<#list session.searchHistory as h>
+						<#if h.searchParamsSignature != qsSignature>
+							<#local facetDescription><#compress>
+							<#list h.searchParams?matches("f\\.([^=]+)=([^&]+)") as f>
+								${urlDecode(f?groups[1])?split("|")[0]} = ${urlDecode(f?groups[2])}<#if f_has_next><br></#if>
+							</#list>
+							</#compress></#local>
+							<li>
+								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"</#if> title="${prettyTime(h.searchDate!)}" href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
+								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></a></#if>
+							</li>
+						</#if>
+					</#list>
+				</ol>
 			</div>
 		</#if>
 	</#if>
@@ -1130,7 +1125,7 @@
 		<div class="breadcrumb">
 			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> ${(response.translations.CORE_SCOPE_PREFIX)!'Scope'}:</span>
 			<@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate>
-			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
+			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["profile"]??>&amp;profile=${question.inputParameterMap["profile"]!}</#if><#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
 				<span class="glyphicon glyphicon-remove text-muted"></span>
 			</a>
 		</div>
@@ -1162,7 +1157,7 @@
 			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")>
 				<em>${(response.translations.CORE_COUNT_COLLAPSED)!'collapsed'}</em>
 			</#if>
-			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean></@core_controller.QueryClean></strong>
+			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean /></strong>
 		</#if>
 
 		<#-- Show the result summary for partially matching results -->
@@ -1310,7 +1305,7 @@
 -->
 <#macro CuratorExhibitsList >
 	<!-- core.view.ftl :: CuratorExhibitsList -->
-	<#if (response.curator.exhibits)!?size &gt; 0>
+	<#if (response.curator.exhibits)!?size gt 0>
 		<ol id="search-curator" class="list-unstyled">
 			<#list response.curator.exhibits as exhibit>
 				<#if exhibit.titleHtml?? && exhibit.linkUrl??>
@@ -1412,7 +1407,7 @@
 										<li>
 											<a href="${core_controller.cluster.href}">
 												<#noescape>
-													${core_controller.cluster.label?html?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm?html+"</strong> ")}
+													${core_controller.cluster.label?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm+"</strong> ")}
 												</#noescape>
 											</a>
 										</li>
@@ -1437,7 +1432,7 @@
 										<li>
 											<a href="${core_controller.cluster.href}">
 												<#noescape>
-													${core_controller.cluster.label?html?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm?html+"</strong> ")}
+													${core_controller.cluster.label?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm+"</strong> ")}
 												</#noescape>
 											</a>
 										</li>
@@ -1499,8 +1494,7 @@
 			<h2 class="sr-only">${(response.translations.CORE_PAGINATION_SR_TITLE)!'Pagination'}</h2>
 			<ul class="pagination pagination-lg">
 				<#--
-					Display the previous tag which allows the user to navigate
-					back one page
+					Display the previous tag which allows the user to navigate back one page
 				-->
 				<@core_controller.Previous>
 					<li>
@@ -1515,8 +1509,7 @@
 					</li>
 				</@core_controller.Previous>
 				<#--
-					Displays the pages allowing the user to navigate to different
-					position within the search results
+					Displays the pages allowing the user to navigate to different position within the search results
 				-->
 				<@core_controller.Page numPages=5>
 					<li <@core_controller.IsCurrentPage> class="active" </@core_controller.IsCurrentPage>>
@@ -1532,8 +1525,7 @@
 					</li>
 				</@core_controller.Page>
 				<#--
-					Display the next tag which allows the user to navigate
-					forward one page
+					Display the next tag which allows the user to navigate forward one page
 				-->
 				<@core_controller.Next>
 					<li>
@@ -1583,7 +1575,7 @@
 				</#if>
 			<#else>
 				<li data-fb-result=${core_controller.result.indexUrl}>
-						<@Result/>
+					<@Result/>
 				</li>
 			</#if>
 		</@core_controller.Results>
