@@ -92,9 +92,9 @@
 	<!-- core.controller.ftl :: pageTitle -->
 	<#compress>
 		<title>
-			<#if query??> ${query},&nbsp; </#if>
-			<#if collectionName??>${collectionName}</#if>
-			<#if sitename??> - ${sitename}</#if>
+			<#if query??>${query},&nbsp; </#if>
+			<#if collectionName??>${collectionName} </#if>
+			<#if sitename??>- ${sitename}</#if>
 		</title>
 	</#compress>
 </#macro>
@@ -125,7 +125,7 @@
 
 			<#-- Placeholder for the default message. It will only display if no other messages are available -->
 			<@core_controller.ErrorDefaultMessage showAlways=true>
-				An unknown error has occurred. Please try again in a few minutes.
+				${(response.translations.CORE_SEARCH_ERROR)!'An unknown error has occurred. Please try again in a few minutes.'}
 			</@core_controller.ErrorDefaultMessage>
 
 		</div>
@@ -175,7 +175,7 @@
 					<#-- Display an info tip if syntax tree has not been enabled -->
 					<@core_controller.HasSyntaxTree negate=true>
 						<div class="alert alert-warning">
-							${(response.translations.CORE_TOOLS_QUERY_SYNTAX_ERROR_MSG)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}
+							<#noescape>${(response.translations.CORE_TOOLS_QUERY_SYNTAX_ERROR_MSG)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}</#noescape>
 						</div>
 					</@core_controller.HasSyntaxTree>
 				</div>
@@ -352,6 +352,7 @@
 		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 		<#nested />
 	</form>
@@ -439,7 +440,7 @@
 		<#-- Display the mobile tool bar -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
+				<span class="sr-only">${(response.translations.CORE_NAVBAR_TOGGLE)!"Toggle navigation"}</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -508,36 +509,69 @@
 						<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
 					</a>
 
-					<ul class="dropdown-menu">
-					<li role="presentation" class="dropdown-header">Examples</li>
-					<#-- Language options -->
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}"><span lang="en">English</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
-					<#--
-					Malaysian
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
-					-->
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
-					<#--
-					Other language which will be completed
-					<li role="presentation" class="divider"></li>
-					<li role="presentation" class="dropdown-header">Extended</li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
-					<li><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["lang.ui","lang"])}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
-					-->
-					</ul>
-				</li>
+           <ul class="dropdown-menu">
+              <#noescape>
+              <li role="presentation" class="dropdown-header">${(response.translations.CORE_LANGUAGE_EXAMPLES)!'Examples'}</li>
+
+							<#-- Language options -->
+							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
+              <#--
+								Malaysian
+								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
+							-->
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
+              <li role="presentation" class="divider"></li>
+              <#--
+								Other language which will be completed
+	              <li role="presentation" class="dropdown-header">Extended</li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+          		-->
+              </#noescape>
+            </ul>
+        </li>
 			</ul>
 		</div>
 	</nav>
+</#macro>
+
+<#---
+	Displays a search form which has been configured against the user's query
+-->
+<#macro AfterSearchForm>
+	<!-- core.view.ftl :: AfterSearchForm -->
+	<form class="navbar-form navbar-left form-inline" action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
+		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+		<div class="form-group">
+			<input required name="query" id="query" title="${(response.translations.CORE_AFTER_FORM_QUERY_TITLE)!"Search query"} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
+			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
+		</div>
+		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'}</button>
+
+		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
+		<@core_controller.FacetScope>
+			<div class="checkbox-inline">
+				<input type="checkbox" name="facetScope" id="facetScope" value="<@core_controller.FacetScopeParameter />" checked="checked">
+				<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
+			</div>
+		</@core_controller.FacetScope>
+	</form>
 </#macro>
 
 <#---
@@ -556,6 +590,12 @@
 					<input type="hidden" name="facetScope" value="<@core_controller.FacetScopeParameter />">
 				</@core_controller.FacetScope>
 
+				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="row">
 					<div class="col-md-4">
 						<fieldset>
@@ -794,7 +834,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="pull-right">
-							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">Cancel</button>
+							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">${(response.translations.CORE_ADVANCED_CANCEL)!'Cancel'}</button>
 							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_ADVANCED_SEARCH)!'Advanced Search'}</button>
 						</div>
 					</div>
@@ -1170,7 +1210,7 @@
 		<#-- Show the result summary for collapse results -->
 		<#if (response.resultPacket.resultsSummary.collapsed!0) != 0>
 			<span id="search-collapsed">${response.resultPacket.resultsSummary.collapsed}</span>
-			very similar results included.
+			${(response.translations.CORE_COUNT_SIMILAR_RESULTS_INCLUDED)!'very similar results included.'}
 		</#if>
 	</div>
 </#macro>
@@ -1571,7 +1611,7 @@
 				</#if>
 				<#-- Print event tier bars if they exist -->
 				<#if core_controller.result.eventDate??>
-					<h2 class="fb-title">Events on ${core_controller.result.eventDate?date}</h2>
+					<h2 class="fb-title">${(response.translations.CORE_RESULT_SUMMARY_EVENTS_ON)!'Events on'} ${core_controller.result.eventDate?date}</h2>
 				</#if>
 			<#else>
 				<li data-fb-result=${core_controller.result.indexUrl}>
@@ -1676,6 +1716,8 @@
 						<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
 						<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
 						<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+						<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+						<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
 						<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 						<div class="row">
 							<div class="col-md-4">
