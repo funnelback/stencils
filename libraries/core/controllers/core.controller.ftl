@@ -1053,10 +1053,7 @@
 	<#assign facetSummaryCategoryDefinitions = .namespace.facetDefinition.categoryDefinitions in .namespace>
 	<#assign facetSummarySelectedCategoryValues = question.selectedCategoryValues in .namespace>
 
-	<#if QueryString?contains("f." + .namespace.facetDefinition.name?url)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name?url)>
-
+		<#if question.selectedFacets!?seq_contains(.namespace.facetDefinition.name)>
 		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, .namespace.facetDefinition.allQueryStringParamNames), ["start_rank"] + .namespace.facetDefinition.allQueryStringParamNames)?html}' in .namespace>
 
 		<#nested>
