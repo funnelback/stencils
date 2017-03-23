@@ -1053,10 +1053,7 @@
 	<#assign facetSummaryCategoryDefinitions = .namespace.facetDefinition.categoryDefinitions in .namespace>
 	<#assign facetSummarySelectedCategoryValues = question.selectedCategoryValues in .namespace>
 
-	<#if QueryString?contains("f." + .namespace.facetDefinition.name?url)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name?url)>
-
+		<#if question.selectedFacets!?seq_contains(.namespace.facetDefinition.name)>
 		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, .namespace.facetDefinition.allQueryStringParamNames), ["start_rank"] + .namespace.facetDefinition.allQueryStringParamNames)?html}' in .namespace>
 
 		<#nested>
@@ -1139,11 +1136,32 @@
 	<p>
 		Aims to provide a means for the user to unselect facet categories
 	</p>
+
+    <p>
+        A facet + value can be ignored when considering if a facet is selected. This
+        is useful for the "all" tabs, because it's selected by default but it shouldn't
+        appear so in order to not be displayed in the list of current constraints
+        If the list of currently selected facets contains only the ignored one,
+        and the value for this facet contain a single entry with the ignored value,
+        then the tag will evaluate to false.
+    </p>
+
+    @param ignoreFacet Name of the facet to ignore, e.g. `f.Tabs|tabs`
+    @param ignoreValue Name of the value to ignore, e.g. `all`
 -->
-<#macro HasSelectedFacets>
+<#macro HasSelectedFacets ignoreFacet="" ignoreValue="">
 	<#if (question.selectedFacets)!?has_content
 		&& question.selectedFacets?size &gt; 0>
-		<#nested>
+		<#-- Check if we're in the ignored case, where:
+			We only have 1 facet selected
+			The selected facet is the one we want to ignore, and it has only 1 value
+			The selected value is the value we want to ignore
+		-->
+		<#if question.selectedCategoryValues?size != 1
+			|| question.selectedCategoryValues[ignoreFacet]!?size != 1
+			|| !question.selectedCategoryValues[ignoreFacet]?seq_contains(ignoreValue)>
+			<#nested>
+		</#if>
 	</#if>
 </#macro>
 

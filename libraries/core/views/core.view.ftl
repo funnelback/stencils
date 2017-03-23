@@ -1095,9 +1095,23 @@
 		This macro is very similar to the faceted navigation macro except it
 		only outputs the breadcrumn aspects.
 	</p>
+
+    <p>
+        A facet + value can be ignored when considering if a facet is selected. This
+        is useful for the "all" tabs, because it's selected by default but it shouldn't
+        appear so in order to not be displayed in the list of current constraints
+        If the list of currently selected facets contains only the ignored one,
+        and the value for this facet contain a single entry with the ignored value,
+        then no breadcrumbs will be displayed.
+    </p>
+
+    @param name Name of the facet to display breadcrumbs for. Leave blank for all
+    @param names List of facets to display breadcrumbs for. Leave blank for all
+    @param ignoreFacet Name of the facet to ignore, defaults to `f.Tabs|tabs`
+    @param ignoreValue Name of the value to ignore, defaults to `all`
 -->
-<#macro FacetedBreadCrumbSummary name="" names=[]>
-	<@core_controller.HasSelectedFacets>
+<#macro FacetedBreadCrumbSummary name="" names=[] ignoreFacet="f.Tabs|tabs" ignoreValue="all">
+	<@core_controller.HasSelectedFacets ignoreFacet=ignoreFacet ignoreValue=ignoreValue>
 		<@core_controller.FacetedSearch>
 			<div class="js-refinements refinements">
 				${(response.translations.CORE_FACET_BREADCRUMB_PREFIX)!'Refined by'}
@@ -1105,12 +1119,18 @@
 					<@core_controller.Facet>
 						<@core_controller.FacetSummary>
 							<@core_controller.FacetBreadCrumb>
-								<a href="<@core_controller.FacetBreadCrumbUrl />">
-									<button type="button" class="btn btn-default"	>
-										<span class="glyphicon glyphicon-remove"></span>
-										<@core_controller.FacetBreadCrumbName />
-									</button>
-								</a>
+								<#-- Check if we're in the ignored case, where:
+									The breadcrumb we attempt to display is for the ignored facet, based on its URL parameters
+									The value of the breadcrumb to display is the ignored value -->
+								<#if !core_controller.facetDefinition.getAllQueryStringParamNames()?seq_contains(ignoreFacet)
+									|| core_controller.facetBreadCrumbName != ignoreValue>
+									<a href="<@core_controller.FacetBreadCrumbUrl />">
+										<button type="button" class="btn btn-default"	>
+											<span class="glyphicon glyphicon-remove"></span>
+											<@core_controller.FacetBreadCrumbName />
+										</button>
+									</a>
+								</#if>
 							</@core_controller.FacetBreadCrumb>
 						</@core_controller.FacetSummary>
 					</@core_controller.Facet>
