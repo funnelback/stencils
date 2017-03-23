@@ -97,7 +97,7 @@
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div class="media">
 					 <a href="${twitter_controller.tweetUserProfileUrl!}" class="pull-left">
-						<img class="media-object" src="${core_controller.result.metaData.stencilsTwitterProfileImageUrl!}" alt="Profile Image of ${core_controller.result.metaData.a!}">
+						<img class="media-object" src="${base_controller.stripProtocol(core_controller.result.metaData.stencilsTwitterProfileImageUrl!)}" alt="Profile Image of ${core_controller.result.metaData.a!}">
 					</a>
 					<div class="media-body">
 						<div><@TweetUser /></div>
@@ -119,7 +119,7 @@
 				</h4>
 
 				<#if core_controller.result.metaData.stencilsTwitterPictureUrl?? >
-					<img src="${core_controller.result.metaData.stencilsTwitterPictureUrl!}" class="stencils-twitter-thumbnail stencils-core-thumbnail pull-right" alt="${core_controller.result.metaData.c!}" />
+					<img src="${base_controller.stripProtocol(core_controller.result.metaData.stencilsTwitterPictureUrl!)}" class="stencils-twitter-thumbnail stencils-core-thumbnail pull-right" alt="${core_controller.result.metaData.c!}" />
 				</#if>
 
 				<span class="search-summary lead"><@core_controller.boldicize><@core_controller.Truncate length=200>${core_controller.result.metaData.c!}</@core_controller.Truncate></@core_controller.boldicize></span>
@@ -248,7 +248,7 @@
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<div class="media">
 							 <a href="${twitter_controller.tweetUserProfileUrl!}" class="pull-left">
-								<img class="media-object" src="${core_controller.result.metaData.stencilsTwitterProfileImageUrl!}" alt="Profile Image of ${core_controller.result.metaData.a!}">
+								<img class="media-object" src="${base_controller.stripProtocol(core_controller.result.metaData.stencilsTwitterProfileImageUrl!)}" alt="Profile Image of ${core_controller.result.metaData.a!}">
 							</a>
 							<div class="media-body">
 								<div><@TweetUser /></div>
@@ -270,7 +270,7 @@
 						<div class="media">
 							<div class="pull-right" style="max-width:40%">
 								<#if core_controller.result.metaData.stencilsTwitterPictureUrl??>
-									<img src="${core_controller.result.metaData.stencilsTwitterPictureUrl!}" class="stencils-core-modal-thumbnail media-object" alt="${core_controller.result.metaData.c!}" />
+									<img src="${base_controller.stripProtocol(core_controller.result.metaData.stencilsTwitterPictureUrl!)}" class="stencils-core-modal-thumbnail media-object" alt="${core_controller.result.metaData.c!}" />
 								</#if>
 							</div>
 							<div class="media-body">
@@ -397,7 +397,7 @@
 				<a href="${core_controller.result.liveUrl}" data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</a>
 				<br>
 				<#if core_controller.result.metaData.stencilsTwitterPictureUrl??>
-					<img src="${core_controller.result.metaData.stencilsTwitterPictureUrl}" alt="tweet picture"/>
+					<img src="${base_controller.stripProtocol(core_controller.result.metaData.stencilsTwitterPictureUrl!)}" alt="tweet picture"/>
 				</#if>
 			</blockquote>
 		</div>
