@@ -359,8 +359,8 @@
 </#macro>
 
 <#--- Display the query field -->
-<#macro SearchFormQuery name="query" type="text" attrs...>
-	<input name="${name}" type="${type}" value="${question.inputParameterMap[name]!}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
+<#macro SearchFormQuery name="query" type="text" value=question.inputParameterMap[name]!'' attrs...>
+	<input name="${name}" type="${type}" value="${value}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
 </#macro>
 
 <#--- Display the facet scope which allows the user to search within the currently selected facets -->
@@ -1710,27 +1710,19 @@
 		<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 		&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 			<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-				<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-						<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-						<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-						<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-						<div class="row">
-							<div class="col-md-4">
+				<@SearchForm>
+					<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
+					<div class="row">
+						<div class="col-md-5">
 							<div class="input-group input-sm">
-								<input required title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" name="query" type="text" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER_MSG)!'Search'} ${s.result.quickLinks.domain}&hellip;">
-
+								<@SearchFormQuery value="" requirred="required" title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER_MSG)!'Search'} ${core_controller.result.quickLinks.domain}..."/>
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
+				</@SearchForm>
 			</#if>
 		</#if>
 	</@core_controller.Quicklinks>
