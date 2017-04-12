@@ -308,7 +308,7 @@
 	<#-- Get the selected value -->
 	<#local selectedValue = defaultValue />
 	<#if question.inputParameterMap[name]?? && question.inputParameterMap[name] != "">
-			<#local selectedValue = question.inputParameterMap[name] />
+		<#local selectedValue = question.inputParameterMap[name] />
 	</#if>
 
 	<#assign selectSelectedValue = selectedValue in .namespace>
@@ -353,14 +353,14 @@
 	<#-- Used the range that is specified by the user -->
 	<#if (.namespace.selectOptionRange)?has_content>
 		<#list (.namespace.selectOptionRange.start)..(.namespace.selectOptionRange.end) as i>
-				<#--
-					?c -This built-in converts a number to string for a "computer language"
-					as opposed to for human audience.
-				-->
-				<#assign selectOptionValue = i?c in .namespace>
-				<#assign selectOptionName = i?c in .namespace>
+			<#--
+				?c -This built-in converts a number to string for a "computer language"
+				as opposed to for human audience.
+			-->
+			<#assign selectOptionValue = i?c in .namespace>
+			<#assign selectOptionName = i?c in .namespace>
 
-				<#nested>
+			<#nested>
 		</#list>
 	</#if>
 </#macro>
@@ -2569,9 +2569,71 @@
 		<!-- No extra results for '${name}' found -->
 	</#if>
 </#macro>
+<#--- @end Extra searches -->
 
+<#--- @begin HTML attributes -->
+<#--
+	Display list of HTML attributes as <attribute_name>="<attribute_value>"
 
+	@param attrs - list of HTML attributes
+-->
+<#macro attrsShow attrs="">
+<#compress>
+	<#if attrs?is_sequence>
+		<#list attrs as e>${e?c}</#list>
+	<#elseif attrs?is_hash>
+		<#list attrs?keys as k>${k?replace('__', '-')}="${attrs[k]}" </#list><#-- remove '?replace' in version 2.3.22 and higher because since that the variable name can also contain minus (-) -->
+	</#if>
+</#compress>
+</#macro>
 
-<#--- @end -->
+<#--
+	Remove given HTML attribute from list
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+-->
+<#function delAttr attrs type="">
+	<#if !attrs?is_hash><#return attrs /></#if>
+	<#local tmp = {} />
+	<#if type?is_string><#local type =[type] /></#if>
+	<#list attrs?keys as k>
+		<#if !type?seq_contains(k)>
+			<#local tmp = tmp + {k: attrs[k]} />
+		</#if>
+	</#list>
+	<#return tmp />
+</#function>
+
+<#--
+	Get value of given HTML attribute
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+	@param base - extend value of HTML attribute with one provided here
+	@param default - default value of HTML attribute to return if HTML attribute wasn't configured
+-->
+<#function getAttr attrs type="" base="" default="">
+	<#if attrs?is_hash && attrs[type]??><#local base = base + ' ' + attrs[type] /></#if>
+	<#if base?has_content><#return base?trim /><#else><#return default /></#if>
+</#function>
+
+<#--
+	Check if given HTML attribute exists in list
+	If parameter val is provided, check if value of given HTML attribute is equal to it
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+	@param val - value to compare with value of HTML attribute
+-->
+<#function isAttr attrs type="" val="">
+	<#local bIs = false />
+	<#if attrs?is_hash && attrs[type]??>
+		<#local bIs = true />
+		<#if val?has_content><#local bIs = attrs[type] == val /></#if>
+	</#if>
+	<#return bIs />
+</#function>
+<#--- @end HTML attributes -->
 
 </#escape>
