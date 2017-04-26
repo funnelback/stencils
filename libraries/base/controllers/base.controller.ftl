@@ -11,6 +11,7 @@
 		<li><strong>Result features:</strong> Search view selectors/formaters, best bets, contextual navigation.</li>
 		<li><strong>Result:</strong> Result helpers e.g. panels ...</li>
 		<li><strong>Share Tools:</strong> Email and social sharing buttons.</li>
+		<li><strong>Pagination:</strong> For controllering the page number viewed.</li>
 	</ul>
 -->
 <#escape x as x?html>
@@ -105,16 +106,27 @@
 	<#return queries?join('&')>
 </#function>
 
+<#--
+    Strip the protocol (e.g. http, https) from a URL to make it a protocol-less URL, e.g. "//example.com/file.html". Useful to make templates compatible with both HTTP and HTTPS
+
+    @param url URL to strip protocol from
+
+    @return URL with protocol stripped
+-->
+<#function stripProtocol url>
+    <#return url?replace("^[a-z0-9]+://", "//", "r")>
+</#function>
+
 <#---
 	Generate URls for changing display format query.
 	<p><strong>Example</strong</p>
 	<code>&lt;@CreateSearchUrl CGI=[&quot;name=value&quot;, &quot;query=test&quot;] /&gt; or &lt;@base_controller.CreateSearchUrl CGIs=[&quot;display=list&quot;,&quot;num_ranks=10&quot;] /&gt;</code>
 	@param cgi Array of cgi parameters as ["name=value", "query=test"].
 	@param append	Append CGI to existing CGI Query. Default to true. (optional)
-	@param URL URL to append CGI parameters to. Defaults to '/s/search.html'. (optional)
+	@param URL URL to append CGI parameters to. Defaults to ui.modern.search_link. (optional)
 	@return string
 -->
-<#macro CreateSearchUrl cgis=[] append=true url="/s/search.html">
+<#macro CreateSearchUrl cgis=[] append=true url=question.collection.configuration.value("ui.modern.search_link")>
 	<#compress>
 
 		<#local query = QueryString key ="">
@@ -323,11 +335,11 @@
 -->
 <#macro ClearFacetsLink>
   <#compress>
-    <#-- generate the link that can be used to reset all of the facets -->
-    <#if question.selectedCategoryValues?has_content>
-      <#assign clearAllFacetsLink = question.collection.configuration.value("ui.modern.search_link")+"?"+removeParam(QueryString, question.  selectedCategoryValues?keys+["start_rank","facetScope"])/>
-      ${clearAllFacetsLink}
-    </#if>
+	<#-- generate the link that can be used to reset all of the facets -->
+	<#if question.selectedCategoryValues?has_content>
+	  <#assign clearAllFacetsLink = question.collection.configuration.value("ui.modern.search_link")+"?"+removeParam(QueryString, question.  selectedCategoryValues?keys+["start_rank","facetScope"])/>
+	  ${clearAllFacetsLink}
+	</#if>
   </#compress>
 </#macro>
 
@@ -511,5 +523,178 @@
 ${question.collection.configuration.value("stencils.base.share_tools.id")}
 </#compress></#macro>
 <#-- @end --><#-- / Category - Share tools -->
+
+<#-- @begin Pagination -->
+<#---
+	Contructor for Pagination.  Only displays pagination if there is more than 1 page.
+	@param numPages (Number) NOTE: This doesn't actually affect the number of pages, that is actually is dicated by the core_controller.Page macro, so whatever Number pages you use here should match.
+ 	@param negate (Boolean) Set to TRUE to display nested when there is no pages.
+	@provides <ul><li>The URL of the first page, as <code>${base_controller.paginationFirstUrl}</code>.</li><li>The URL of the previous page, as <code>${base_controller.paginationLasttUrl</li></ul>
+ -->
+<#macro Pagination numPages=5 negate=false>
+	<#if negate>
+		<#local has_pagination><@core_controller.Pagination>true</@core_controller.Pagination></#local>
+		<#if has_pagination != "true"><#nested></#if>
+	</#if>
+	<@core_controller.Pagination>
+		<#if !negate>
+			<#assign paginationFirstPageIndex = PaginationGetFirstPageIndex(numPages) in .namespace >
+			<#assign paginationFirstUrl = PaginationGetFirstUrl() in .namespace >
+			<#assign paginationDisplayFirst = PaginationDisplayFirst() in .namespace >
+			
+			<#assign paginationDisplayLast = PaginationDisplayLast() in .namespace >
+			<#assign paginationLastUrl = PaginationGetLastUrl() in .namespace >
+			<#assign paginationLastPageIndex = PaginationGetLastPageIndex(numPages) in .namespace >
+			
+			
+			<#assign paginationTotalPages = PaginationGetTotalPages() in .namespace >
+			<#assign paginationNumPages = numPages in .namespace >
+		
+			<#nested>
+		</#if>
+	</@core_controller.Pagination>
+</#macro>
+
+<#---
+	Gets the index number of first page in the result pagination.
+	@return (Number)
+-->
+<#function PaginationGetFirstPageIndex numPages=5>
+	<#local rs = response.resultPacket.resultsSummary />
+	<#local pages = 0 />
+	<#if rs.fullyMatching??>
+		<#if rs.fullyMatching &gt; 0>
+			<#local pages = (rs.fullyMatching + rs.partiallyMatching + rs.numRanks - 1) / rs.numRanks />
+		<#else>
+			<#local pages = (rs.totalMatching + rs.numRanks - 1) / rs.numRanks />
+		</#if>
+	<#else>
+		<#-- Event search -->
+		<#local pages = (rs.totalMatching + rs.numRanks - 1) / rs.numRanks />
+	</#if>
+
+	<#local currentPage = 1 />
+	<#if rs.currStart &gt; 0 && rs.numRanks &gt; 0>
+		<#local currentPage = (rs.currStart + rs.numRanks -1) / rs.numRanks />
+	</#if>
+	<#local firstPage = 1 />
+	<#if currentPage &gt; ((numPages-1)/2)?floor>
+		<#local firstPage = currentPage - ((numPages-1)/2)?floor />
+	</#if>
+	
+	<#return firstPage>
+</#function>
+
+<#---
+	Only displays when the first page index does not appear in sliding pagination.
+	@return @nested
+ -->
+<#macro PaginationFirst negate=false>
+	<#if negate && !PaginationDisplayFirst() >
+		<#nested>
+	</#if>
+	
+	<#if !negate && PaginationDisplayFirst() >
+		<#nested>
+	</#if>
+</#macro>
+
+<#---
+	Display when the first page index does not appear in sliding pagination.
+	@return (Boolean) TRUE - if the first page link should display
+-->
+<#function PaginationDisplayFirst numPages=5>
+	<#if PaginationGetFirstPageIndex(numPages) != 1>
+		<#return true>
+	</#if>
+	<#return false>
+</#function>
+
+<#---
+	Displays when the last page index does not appear in sliding pagination
+	@param negate (Boolean)
+	@return @nested
+ -->
+<#macro PaginationLast negate=false>
+	<#if negate && !PaginationDisplayLast()>
+		<#nested>
+	</#if>
+	
+	<#if !negate && PaginationDisplayLast() >
+		<#nested>
+	</#if>
+</#macro>
+
+<#---
+	Only displays when the last page index does not appear in sliding pagination
+	@return (Boolean) TRUE - if the last page link should display
+-->
+<#function PaginationDisplayLast numPages=5>
+	<#if PaginationGetLastPageIndex(numPages) != PaginationGetTotalPages()>
+		<#return true>
+	</#if>
+	<#return false>
+</#function>
+
+
+<#---
+	Gets the index of last page in the result pagination.
+	@return (Number) - Last page number that can be displayed in pagination.
+-->
+<#function PaginationGetLastPageIndex numPages=5>
+	<#local lastPage = PaginationGetFirstPageIndex(numPages) + numPages -1>
+	<#if lastPage  gt PaginationGetTotalPages()>
+		<#return PaginationGetTotalPages()>
+	</#if>
+	<#return lastPage >
+</#function>
+
+<#---
+	Gets the total number of pages in pagination
+	@return (Number) - Total number of pages.
+-->
+<#function PaginationGetTotalPages>
+	<#local rs = response.resultPacket.resultsSummary />
+	<#local pages = 0 />
+	<#if rs.fullyMatching??>
+		<#if rs.fullyMatching &gt; 0>
+			<#local pages = (rs.fullyMatching + rs.partiallyMatching + rs.numRanks - 1) / rs.numRanks />
+		<#else>
+			<#local pages = (rs.totalMatching + rs.numRanks - 1) / rs.numRanks />
+		</#if>
+	<#else>
+		<#-- Event search -->
+		<#local pages = (rs.totalMatching + rs.numRanks - 1) / rs.numRanks />
+	</#if>
+
+	<#return pages?floor>
+</#function>
+
+
+<#---
+	Generates a link to the first page of results.
+-->
+<#function PaginationGetFirstUrl>
+	<#if response?exists && response.resultPacket?exists && response.resultPacket.resultsSummary?exists>
+		<#if response.resultPacket.resultsSummary.prevStart?exists>
+			<#return question.collection.configuration.value("ui.modern.search_link") + "?" + removeParam(QueryString, "start_rank") />
+		</#if>
+	</#if>
+	<#return "">
+</#function>
+
+<#---
+	Generates a link to the last page of results.
+-->
+<#function PaginationGetLastUrl>
+	<#if response?exists && response.resultPacket?exists && response.resultPacket.resultsSummary?exists>
+		<#if response.resultPacket.resultsSummary.nextStart?exists>
+			<#assign lastStartRank = response.resultPacket.resultsSummary.totalMatching - response.resultPacket.resultsSummary.numRanks + 1  />
+			<#return question.collection.configuration.value("ui.modern.search_link") + "?" + changeParam(QueryString, "start_rank", lastStartRank) />
+		</#if>
+	</#if>
+	<#return "">
+</#function>
+<#-- @end --><#-- / Category - Pagination -->
 
 </#escape>

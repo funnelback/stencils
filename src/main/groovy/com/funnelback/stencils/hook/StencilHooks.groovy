@@ -1,16 +1,18 @@
 package com.funnelback.stencils.hook
 
-import groovy.util.logging.Log4j2
-
 import org.codehaus.groovy.reflection.ReflectionUtils
+import org.springframework.web.context.request.RequestContextHolder
 
 import com.funnelback.common.config.Files
 import com.funnelback.publicui.search.model.collection.Collection.Hook
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
+import com.funnelback.stencils.hook.facebook.FacebookHookLifecycle
 import com.funnelback.stencils.hook.noresults.NoResultsHookLifecycle
 import com.funnelback.stencils.hook.people.PeopleHookLifecycle
 import com.funnelback.stencils.hook.support.HookLifecycle
 import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
+
+import groovy.util.logging.Log4j2
 
 /**
  * <p>Entry point for Stencil hooks.</p>
@@ -26,12 +28,22 @@ class StencilHooks {
     
     /** Name of the <code>collection.cfg</code> setting containing the list of stencils to enable */
     public static final String STENCILS_KEY = "stencils"
+
+    /** Name of the key in the <code>customData</code> hash that will hold custom FreeMarker methods */
+    public static final String STENCILS_FREEMARKER_METHODS = "stencilsMethods"
+    
+    /**
+     * Key to use to store the query string parameter map
+     * inside the response customData.
+     */
+    public static final String QUERY_STRING_MAP_KEY = "queryStringMap"
     
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
         new TabsHookLifecycle(),
         new NoResultsHookLifecycle(),
-        new PeopleHookLifecycle()
+        new PeopleHookLifecycle(),
+        new FacebookHookLifecycle()
     ]
     
     /**
@@ -48,7 +60,10 @@ class StencilHooks {
         if (currentHook == null) {
             currentHook = StencilHooks.detectHook();
         }
-                
+        
+        injectQueryStringMap(transaction)
+        setupCustomData(transaction)
+        
         HOOKS.each { hook ->
             log.trace("Attempting to run {} on hook {}", currentHook, hook.class.name)
             
@@ -110,6 +125,59 @@ class StencilHooks {
         }
         
         throw new IllegalStateException("Could not detect the current hook name. Try passing it explicitly, e.g.: apply(transaction, Hook.pre_process)")
+    }
+    
+    /**
+     * <p>Attempt to inject the current query string as a Map, to cater
+     * for versions &lt; 15.10 where it wasn't in the data model</p>
+     * 
+     * <p>The map is taken from the current request parameters. The current request
+     * is provided by Spring and is thread bound, so it's not available for extra
+     * searches which run in a different thread. So if we manage to inject it, also
+     * inject it in the extra searches</p>
+     * 
+     * <p>The map will be put inside <code>response.customData['queryStringMap']</code></p>
+     * 
+     * @param transaction Transaction to inject the query string into
+     */
+    static void injectQueryStringMap(SearchTransaction transaction) {
+        // No access to the current request in extra search threads
+        if (!transaction.question.isExtraSearch()
+            // Check that it wasn't already injected by another hook script
+            && !transaction.response.customData[QUERY_STRING_MAP_KEY]) {
+            try {
+                // Make it immutable as the version in the data model should not
+                // be modified. There's a utility method in DatamodelUtils to make
+                // a copy of it
+                def params = Collections.unmodifiableMap(
+                    RequestContextHolder.getRequestAttributes().getRequest()
+                        .getParameterMap()
+                        // Convert the String array into a List for convenience
+                        .collectEntries { entry -> [entry.key, Arrays.asList(entry.value)] })
+                transaction.response.customData[QUERY_STRING_MAP_KEY] = params
+                transaction.extraSearches.each { extraSearch ->
+                    extraSearch.response.customData[QUERY_STRING_MAP_KEY] = params
+                }
+            } catch (Exception e) {
+                // Not much we can do unfortunately
+                log.warn("Unable to extract query string parameter map from current request", e)
+            }
+        }
+    }
+
+    /**
+     * Pre-configure the response customData map that will be used by
+     * the various hooks
+     *
+     * @param transaction Transaction to pre-configure the response for
+     */
+    static void setupCustomData(SearchTransaction transaction) {
+        if (transaction?.response?.customData != null) {
+            // Create an empty map to store custom FreeMarker methods
+            if (!transaction.response.customData[STENCILS_FREEMARKER_METHODS]) {
+                transaction.response.customData[STENCILS_FREEMARKER_METHODS] = [:]
+            }
+        }
     }
     
 }

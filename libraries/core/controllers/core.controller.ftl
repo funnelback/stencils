@@ -308,7 +308,7 @@
 	<#-- Get the selected value -->
 	<#local selectedValue = defaultValue />
 	<#if question.inputParameterMap[name]?? && question.inputParameterMap[name] != "">
-			<#local selectedValue = question.inputParameterMap[name] />
+		<#local selectedValue = question.inputParameterMap[name] />
 	</#if>
 
 	<#assign selectSelectedValue = selectedValue in .namespace>
@@ -353,14 +353,14 @@
 	<#-- Used the range that is specified by the user -->
 	<#if (.namespace.selectOptionRange)?has_content>
 		<#list (.namespace.selectOptionRange.start)..(.namespace.selectOptionRange.end) as i>
-				<#--
-					?c -This built-in converts a number to string for a "computer language"
-					as opposed to for human audience.
-				-->
-				<#assign selectOptionValue = i?c in .namespace>
-				<#assign selectOptionName = i?c in .namespace>
+			<#--
+				?c -This built-in converts a number to string for a "computer language"
+				as opposed to for human audience.
+			-->
+			<#assign selectOptionValue = i?c in .namespace>
+			<#assign selectOptionName = i?c in .namespace>
 
-				<#nested>
+			<#nested>
 		</#list>
 	</#if>
 </#macro>
@@ -1053,10 +1053,7 @@
 	<#assign facetSummaryCategoryDefinitions = .namespace.facetDefinition.categoryDefinitions in .namespace>
 	<#assign facetSummarySelectedCategoryValues = question.selectedCategoryValues in .namespace>
 
-	<#if QueryString?contains("f." + .namespace.facetDefinition.name?url)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name)
-		|| urlDecode(QueryString)?contains("f." + .namespace.facetDefinition.name?url)>
-
+		<#if question.selectedFacets!?seq_contains(.namespace.facetDefinition.name)>
 		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, .namespace.facetDefinition.allQueryStringParamNames), ["start_rank"] + .namespace.facetDefinition.allQueryStringParamNames)?html}' in .namespace>
 
 		<#nested>
@@ -1139,11 +1136,32 @@
 	<p>
 		Aims to provide a means for the user to unselect facet categories
 	</p>
+
+    <p>
+        A facet + value can be ignored when considering if a facet is selected. This
+        is useful for the "all" tabs, because it's selected by default but it shouldn't
+        appear so in order to not be displayed in the list of current constraints
+        If the list of currently selected facets contains only the ignored one,
+        and the value for this facet contain a single entry with the ignored value,
+        then the tag will evaluate to false.
+    </p>
+
+    @param ignoreFacet Name of the facet to ignore, e.g. `f.Tabs|tabs`
+    @param ignoreValue Name of the value to ignore, e.g. `all`
 -->
-<#macro HasSelectedFacets>
+<#macro HasSelectedFacets ignoreFacet="" ignoreValue="">
 	<#if (question.selectedFacets)!?has_content
 		&& question.selectedFacets?size &gt; 0>
-		<#nested>
+		<#-- Check if we're in the ignored case, where:
+			We only have 1 facet selected
+			The selected facet is the one we want to ignore, and it has only 1 value
+			The selected value is the value we want to ignore
+		-->
+		<#if question.selectedCategoryValues?size != 1
+			|| question.selectedCategoryValues[ignoreFacet]!?size != 1
+			|| !question.selectedCategoryValues[ignoreFacet]?seq_contains(ignoreValue)>
+			<#nested>
+		</#if>
 	</#if>
 </#macro>
 
@@ -2551,9 +2569,71 @@
 		<!-- No extra results for '${name}' found -->
 	</#if>
 </#macro>
+<#--- @end Extra searches -->
 
+<#--- @begin HTML attributes -->
+<#--
+	Display list of HTML attributes as <attribute_name>="<attribute_value>"
 
+	@param attrs - list of HTML attributes
+-->
+<#macro attrsShow attrs="">
+<#compress>
+	<#if attrs?is_sequence>
+		<#list attrs as e>${e?c}</#list>
+	<#elseif attrs?is_hash>
+		<#list attrs?keys as k>${k?replace('__', '-')}="${attrs[k]}" </#list><#-- remove '?replace' in version 2.3.22 and higher because since that the variable name can also contain minus (-) -->
+	</#if>
+</#compress>
+</#macro>
 
-<#--- @end -->
+<#--
+	Remove given HTML attribute from list
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+-->
+<#function delAttr attrs type="">
+	<#if !attrs?is_hash><#return attrs /></#if>
+	<#local tmp = {} />
+	<#if type?is_string><#local type =[type] /></#if>
+	<#list attrs?keys as k>
+		<#if !type?seq_contains(k)>
+			<#local tmp = tmp + {k: attrs[k]} />
+		</#if>
+	</#list>
+	<#return tmp />
+</#function>
+
+<#--
+	Get value of given HTML attribute
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+	@param base - extend value of HTML attribute with one provided here
+	@param default - default value of HTML attribute to return if HTML attribute wasn't configured
+-->
+<#function getAttr attrs type="" base="" default="">
+	<#if attrs?is_hash && attrs[type]??><#local base = base + ' ' + attrs[type] /></#if>
+	<#if base?has_content><#return base?trim /><#else><#return default /></#if>
+</#function>
+
+<#--
+	Check if given HTML attribute exists in list
+	If parameter val is provided, check if value of given HTML attribute is equal to it
+
+	@param attrs - list of HTML attributes
+	@param type - name of HTML attribute
+	@param val - value to compare with value of HTML attribute
+-->
+<#function isAttr attrs type="" val="">
+	<#local bIs = false />
+	<#if attrs?is_hash && attrs[type]??>
+		<#local bIs = true />
+		<#if val?has_content><#local bIs = attrs[type] == val /></#if>
+	</#if>
+	<#return bIs />
+</#function>
+<#--- @end HTML attributes -->
 
 </#escape>

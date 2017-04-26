@@ -70,7 +70,6 @@
 		in the collection.cfg
 	-->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-		<#-- <script src="${thirdPartyResourcesPrefix}angularjs/1.4.7/angular.min.js"></script> -->
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${GlobalResourcesPrefix}js/funnelback-session.js"></script>
@@ -93,17 +92,11 @@
 	<!-- core.controller.ftl :: pageTitle -->
 	<#compress>
 		<title>
-			<#if query??> ${query}</#if>
-			<#if collectionName??>,&nbsp; ${collectionName}</#if>
+			<#if query??>${query},&nbsp; </#if>
+			<#if collectionName??>${collectionName} </#if>
 			<#if sitename??>- ${sitename}</#if>
 		</title>
 	</#compress>
-</#macro>
-
-<#macro element type="div" id="" class="" custom="">
-<${type} <#if id?? && id?has_content>id="${id}"</#if><#if class?? && class?has_content> class="${class}"</#if>${custom!}><#compress>
-<#nested>
-</#compress><#if type!="area" && type!="base" && type!="br" && type!="col" && type!="command" && type!="embed" && type!="hr" && type!="img" && type!="input" && type!="link" && type!="meta" && type!="param" && type!="source"></${type}></#if>
 </#macro>
 
 <#---
@@ -132,7 +125,7 @@
 
 			<#-- Placeholder for the default message. It will only display if no other messages are available -->
 			<@core_controller.ErrorDefaultMessage showAlways=true>
-				An unkown error has occured. Please try again in a few minutes.
+				${(response.translations.CORE_SEARCH_ERROR)!'An unknown error has occurred. Please try again in a few minutes.'}
 			</@core_controller.ErrorDefaultMessage>
 
 		</div>
@@ -182,7 +175,7 @@
 					<#-- Display an info tip if syntax tree has not been enabled -->
 					<@core_controller.HasSyntaxTree negate=true>
 						<div class="alert alert-warning">
-							${(response.translations.CORE_TOOLS_QUERY_SYNTAX_ERROR_MSG)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}
+							<#noescape>${(response.translations.CORE_TOOLS_QUERY_SYNTAX_ERROR_MSG)!"Query syntax tree unavailable. Make sure the <code>-show_qsyntax_tree=on</code> query processor option is set."}</#noescape>
 						</div>
 					</@core_controller.HasSyntaxTree>
 				</div>
@@ -210,29 +203,28 @@
 	<!-- core.controller.ftl :: Footer -->
 	<footer id="search-footer">
 		<div class="row">
-			<div class="col-xs-12 col-md-3 mw-3"></div>
-			<div class="col-xs-12 col-md-9">
+			<div class="col-xs-12 col-md-12 clearfix">
 				<hr>
 				<#if (response.resultPacket.details.collectionUpdated)??>
-					<span class="pull-left">
-						<p class="text-muted">
-							<small>
-								${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br>
-							</small>
-						</p>
-					</span>
+				<div class="pull-left">
+					<p class="text-muted">
+						<small>
+							${(response.translations.CORE_FOOTER_COLLECTION_LAST_UPDATED_PREFIX)!"Collection last updated"}: ${response.resultPacket.details.collectionUpdated?datetime}.<br>
+						</small>
+					</p>
+				</div>
 				</#if>
-				<span class="pull-right">
-					<a href="https://funnelback.com/">
+				<div class="pull-right">
+					<a href="https://funnelback.com/" target="_blank">
 						<img src="${baseResourcesPrefix}images/funnelback-powered_by_logo-white.png"
 							alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"
 							title="${(response.translations.CORE_FOOTER_FUNNELBACK_LOGO_TITLE)!'Search like you’ve never seen it.'}"
 						>
 					</a>
-				</span>
-
+				</div>
 			</div>
 		</div>
+		<br>
 	</footer>
 </#macro>
 
@@ -254,7 +246,7 @@
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
 				&middot; <a href="${SearchPrefix}admin/edit-form.cgi?collection=${question.collection.id}&amp;profile=${question.profile}&amp;f=${question.form}.ftl&amp;return_to=${returnTo?url}" title="Edit this form">edit form</a>
-				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))?html}" title="View this search with the current live form">switch to live mode</a>
+				&middot; <a href="?${changeParam(QueryString, 'profile', question.profile?replace("_preview", ""))}" title="View this search with the current live form">switch to live mode</a>
 				| <span title="This form file may be edited before publishing to external search users">preview mode</span>
 			</div>
 			<script type="text/javascript">
@@ -351,6 +343,36 @@
 </#macro>
 
 <#-- ###  Search Forms ### -->
+
+<#--- Display the search form used to conduct the query against Funnelback -->
+<#macro SearchForm attrs...>
+	<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
+		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+		<#nested />
+	</form>
+</#macro>
+
+<#--- Display the query field -->
+<#macro SearchFormQuery name="query" type="text" value=question.inputParameterMap[name]!'' attrs...>
+	<input name="${name}" type="${type}" value="${value}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
+</#macro>
+
+<#--- Display the facet scope which allows the user to search within the currently selected facets -->
+<#macro SearchFormFacetScope attrs...>
+	<@core_controller.FacetScope>
+		<div class="${core_controller.getAttr(attrs, "classWrapper")}">
+			<input type="checkbox" name="facetScope" value="<@core_controller.FacetScopeParameter />" <@core_controller.attrsShow attrs=attrs />>
+			<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
+		</div>
+	</@core_controller.FacetScope>
+</#macro>
+
 <#---
 	The initial search form is the first html form which is
 	displayed to the user before any query has been entered.
@@ -363,27 +385,37 @@
 			<#-- Display any padre or system errors returned by Funnelback -->
 			<@ErrorMessage />
 
-			<a href="http://funnelback.com/"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"></a>
+			<a href="http://funnelback.com/" target="_blank"><img src="${baseResourcesPrefix}images/funnelback-logo-small-v2.png" alt="${(response.translations.CORE_FORMS_FUNNELBACK_LOGO_MSG)!'Funnelback logo'}"></a>
 			<br><br>
 
 			<#-- Display the search form used to conduct the query against Funnelback -->
-			<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-				<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+			<@SearchForm>
 				<div class="input-group">
-					<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"} <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
-					${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control input-lg query">
+					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
 				</div>
-			</form>
+			</@SearchForm>
 		</div>
 	</div>
+</#macro>
+
+<#---
+	Displays a search form which has been configured against the user's query
+-->
+<#macro AfterSearchForm>
+	<!-- core.view.ftl :: AfterSearchForm -->
+	<@SearchForm class="navbar-form navbar-left form-inline">
+		<div class="form-group">
+			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}...
+			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
+		</div>
+		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
+
+		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
+		<@SearchFormFacetScope classWrapper="checkbox-inline" id="facetScope" checked="checked" />
+	</@SearchForm>
 </#macro>
 
 <#---
@@ -408,7 +440,7 @@
 		<#-- Display the mobile tool bar -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
+				<span class="sr-only">${(response.translations.CORE_NAVBAR_TOGGLE)!"Toggle navigation"}</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -452,11 +484,11 @@
 					<a href="#" title="Tools" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-question-sign"></span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<#-- Help menu item which will display a infomation page detailed Funnelback advanced search syntax -->
-						<li>
+						<#--li>
 							<a href="${SearchPrefix}help/simple_search.html" title="${(response.translations.CORE_NAVBAR_HELP_MSG)!"Search Help"}">
 								${(response.translations.CORE_NAVBAR_HELP_TITLE)!"Help"}
 							</a>
-						</li>
+						</li-->
 						<#-- Displays the performance menu item which allows the user to view the performance metrices of various phases of the search query	-->
 						<li>
 							<a data-toggle="modal" href="#search-performance" title="${(response.translations.CORE_NAVBAR_PERFORMANCE_MSG)!"Performance report"}">
@@ -473,13 +505,13 @@
 
 				<#-- Display the language options -->
 				<li class="dropdown">
-           <a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
-           	<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
-           </a>
+					<a href="#" title="UI Language" class="dropdown-toggle" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-globe text-success"></span> <span class="caret"></span>
+					</a>
 
            <ul class="dropdown-menu">
               <#noescape>
-              <li role="presentation" class="dropdown-header">Examples</li>
+              <li role="presentation" class="dropdown-header">${(response.translations.CORE_LANGUAGE_EXAMPLES)!'Examples'}</li>
 
 							<#-- Language options -->
 							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
@@ -524,12 +556,13 @@
 		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
 		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 		<div class="form-group">
-			<input required name="query" id="query" title="Search query ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
+			<input required name="query" id="query" title="${(response.translations.CORE_AFTER_FORM_QUERY_TITLE)!"Search query"} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
 			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
 		</div>
-		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
+		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'}</button>
 
 		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
 		<@core_controller.FacetScope>
@@ -551,10 +584,8 @@
 	<h2 class="sr-only">${(response.translations.CORE_ADVANCED_SEARCH_TITLE)!"Advanced Search"}</h2>
 	<div class="row">
 		<div class="col-md-12">
-			<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="form" class="form-horizontal">
-				<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+			<@SearchForm class="form-horizontal">
 				<input type="hidden" name="from-advanced" value="true">
-
 				<@core_controller.FacetScope>
 					<input type="hidden" name="facetScope" value="<@core_controller.FacetScopeParameter />">
 				</@core_controller.FacetScope>
@@ -562,6 +593,8 @@
 				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
+				<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
 				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
 				<div class="row">
 					<div class="col-md-4">
@@ -619,14 +652,14 @@
 								<div class="col-md-8">
 									<#-- Select dropdown for format -->
 									<@core_controller.Select name="meta_f_sand" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_ANY)!'Any'} ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
-										<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
-											<#-- Display the options -->
-											<@core_controller.SelectOptions>
-												<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-													<@core_controller.SelectOptionName />
-												</option>
-											</@core_controller.SelectOptions>
-										</select>
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
+										<#-- Display the options -->
+										<@core_controller.SelectOptions>
+											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+												<@core_controller.SelectOptionName />
+											</option>
+										</@core_controller.SelectOptions>
+									</select>
 									</@core_controller.Select>
 								</div>
 							</div>
@@ -641,7 +674,7 @@
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d1year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_SR_TITLE)!'Year'}</label>
 								<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -654,7 +687,7 @@
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d1month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_SR_TITLE)!'Month'}</label>
 								<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -667,7 +700,7 @@
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d1day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_SR_TITLE)!'Day'}</label>
 								<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -684,7 +717,7 @@
 								<#-- Select dropdown for year -->
 								<label class="sr-only" for="meta_d2year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_SR_TITLE)!'Year'}</label>
 								<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -697,7 +730,7 @@
 								<#-- Select dropdown for month -->
 								<label class="sr-only" for="meta_d2month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_SR_TITLE)!'Month'}</label>
 								<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -710,7 +743,7 @@
 								<#-- Select dropdown for day -->
 								<label class="sr-only" for="meta_d2day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_SR_TITLE)!'Day'}</label>
 								<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -732,7 +765,7 @@
 								<div class="col-md-8">
 								<#-- Select dropdown for sort -->
 								<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE_TITLE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE_TITLE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE_TITLE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY_TITLE)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL_TITLE)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL_TITLE)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE_TITLE)!'Shuffle'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="input-sm">
+									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
 										<#-- Display the options -->
 										<@core_controller.SelectOptions>
 											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
@@ -801,12 +834,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="pull-right">
-							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">Cancel</button>
+							<button type="button" data-toggle="collapse" data-target="#search-advanced" class="btn btn-link">${(response.translations.CORE_ADVANCED_CANCEL)!'Cancel'}</button>
 							<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_ADVANCED_SEARCH)!'Advanced Search'}</button>
 						</div>
 					</div>
 				</div>
-			</form>
+			</@SearchForm>
 		</div>
 	</div>
 	</section>
@@ -828,36 +861,35 @@
 -->
 <#macro QueryHistory>
 	<!-- core.view.ftl :: QueryHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size &gt; 0>
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size gt 0>
 		<#-- Build a list of previous queries -->
 		<#assign qsSignature = computeQueryStringSignature(QueryString) />
-		<#if session.searchHistory?? &&
-			(session.searchHistory?size &gt; 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
+		<#if session.searchHistory?? && (session.searchHistory?size gt 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
 			<div class="breadcrumb" data-ng-controller="SearchHistoryCtrl" data-ng-show="!searchHistoryEmpty">
-					<#-- Query history more button -->
-					<button class="btn btn-link pull-right" data-ng-click="toggleHistory()">
-						<small class="text-muted">
-							<span class="glyphicon glyphicon-plus"></span>
-							${(response.translations.CORE_SESSION_QUERY_HISTORY_MORE)!'More'}
-						</small>
-					</button>
-					<ol class="list-inline" >
-						<li class="text-muted">${(response.translations.CORE_SESSION_QUERY_HISTORY_RECENT_PREFIX)!'Recent'}:</li>
+				<#-- Query history more button -->
+				<button class="btn btn-link pull-right" data-ng-click="toggleHistory()">
+					<small class="text-muted">
+						<span class="glyphicon glyphicon-plus"></span>
+						${(response.translations.CORE_SESSION_QUERY_HISTORY_MORE)!'More'}
+					</small>
+				</button>
+				<ol class="list-inline" >
+					<li class="text-muted">${(response.translations.CORE_SESSION_QUERY_HISTORY_RECENT_PREFIX)!'Recent'}:</li>
 
-						<#list session.searchHistory as h>
-							<#if h.searchParamsSignature != qsSignature>
-								<#assign facetDescription><#compress>
-								<#list h.searchParams?matches("f\\.([^=]+)=([^&]+)") as f>
-									${urlDecode(f?groups[1])?split("|")[0]} = ${urlDecode(f?groups[2])}<#if f_has_next><br></#if>
-								</#list>
-								</#compress></#assign>
-								<li>
-									<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"</#if> title="${prettyTime(h.searchDate)}" href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams}">${h.originalQuery} <small>(${h.totalMatching})</small></a>
-									<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></a></#if>
-								</li>
-							</#if>
-						</#list>
-					</ol>
+					<#list session.searchHistory as h>
+						<#if h.searchParamsSignature != qsSignature>
+							<#local facetDescription><#compress>
+							<#list h.searchParams?matches("f\\.([^=]+)=([^&]+)") as f>
+								${urlDecode(f?groups[1])?split("|")[0]} = ${urlDecode(f?groups[2])}<#if f_has_next><br></#if>
+							</#list>
+							</#compress></#local>
+							<li>
+								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"</#if> title="${prettyTime(h.searchDate!)}" href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
+								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></a></#if>
+							</li>
+						</#if>
+					</#list>
+				</ol>
 			</div>
 		</#if>
 	</#if>
@@ -1091,9 +1123,23 @@
 		This macro is very similar to the faceted navigation macro except it
 		only outputs the breadcrumn aspects.
 	</p>
+
+    <p>
+        A facet + value can be ignored when considering if a facet is selected. This
+        is useful for the "all" tabs, because it's selected by default but it shouldn't
+        appear so in order to not be displayed in the list of current constraints
+        If the list of currently selected facets contains only the ignored one,
+        and the value for this facet contain a single entry with the ignored value,
+        then no breadcrumbs will be displayed.
+    </p>
+
+    @param name Name of the facet to display breadcrumbs for. Leave blank for all
+    @param names List of facets to display breadcrumbs for. Leave blank for all
+    @param ignoreFacet Name of the facet to ignore, defaults to `f.Tabs|tabs`
+    @param ignoreValue Name of the value to ignore, defaults to `all`
 -->
-<#macro FacetedBreadCrumbSummary name="" names=[]>
-	<@core_controller.HasSelectedFacets>
+<#macro FacetedBreadCrumbSummary name="" names=[] ignoreFacet="f.Tabs|tabs" ignoreValue="all">
+	<@core_controller.HasSelectedFacets ignoreFacet=ignoreFacet ignoreValue=ignoreValue>
 		<@core_controller.FacetedSearch>
 			<div class="js-refinements refinements">
 				${(response.translations.CORE_FACET_BREADCRUMB_PREFIX)!'Refined by'}
@@ -1101,12 +1147,18 @@
 					<@core_controller.Facet>
 						<@core_controller.FacetSummary>
 							<@core_controller.FacetBreadCrumb>
-								<a href="<@core_controller.FacetBreadCrumbUrl />">
-									<button type="button" class="btn btn-default"	>
-										<span class="glyphicon glyphicon-remove"></span>
-										<@core_controller.FacetBreadCrumbName />
-									</button>
-								</a>
+								<#-- Check if we're in the ignored case, where:
+									The breadcrumb we attempt to display is for the ignored facet, based on its URL parameters
+									The value of the breadcrumb to display is the ignored value -->
+								<#if !core_controller.facetDefinition.getAllQueryStringParamNames()?seq_contains(ignoreFacet)
+									|| core_controller.facetBreadCrumbName != ignoreValue>
+									<a href="<@core_controller.FacetBreadCrumbUrl />">
+										<button type="button" class="btn btn-default"	>
+											<span class="glyphicon glyphicon-remove"></span>
+											<@core_controller.FacetBreadCrumbName />
+										</button>
+									</a>
+								</#if>
 							</@core_controller.FacetBreadCrumb>
 						</@core_controller.FacetSummary>
 					</@core_controller.Facet>
@@ -1133,7 +1185,7 @@
 		<div class="breadcrumb">
 			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> ${(response.translations.CORE_SCOPE_PREFIX)!'Scope'}:</span>
 			<@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate>
-			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
+			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["profile"]??>&amp;profile=${question.inputParameterMap["profile"]!}</#if><#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
 				<span class="glyphicon glyphicon-remove text-muted"></span>
 			</a>
 		</div>
@@ -1165,7 +1217,7 @@
 			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")>
 				<em>${(response.translations.CORE_COUNT_COLLAPSED)!'collapsed'}</em>
 			</#if>
-			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean></@core_controller.QueryClean></strong>
+			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean /></strong>
 		</#if>
 
 		<#-- Show the result summary for partially matching results -->
@@ -1178,7 +1230,7 @@
 		<#-- Show the result summary for collapse results -->
 		<#if (response.resultPacket.resultsSummary.collapsed!0) != 0>
 			<span id="search-collapsed">${response.resultPacket.resultsSummary.collapsed}</span>
-			very similar results included.
+			${(response.translations.CORE_COUNT_SIMILAR_RESULTS_INCLUDED)!'very similar results included.'}
 		</#if>
 	</div>
 </#macro>
@@ -1313,7 +1365,7 @@
 -->
 <#macro CuratorExhibitsList >
 	<!-- core.view.ftl :: CuratorExhibitsList -->
-	<#if (response.curator.exhibits)!?size &gt; 0>
+	<#if (response.curator.exhibits)!?size gt 0>
 		<ol id="search-curator" class="list-unstyled">
 			<#list response.curator.exhibits as exhibit>
 				<#if exhibit.titleHtml?? && exhibit.linkUrl??>
@@ -1415,7 +1467,7 @@
 										<li>
 											<a href="${core_controller.cluster.href}">
 												<#noescape>
-													${core_controller.cluster.label?html?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm?html+"</strong> ")}
+													${core_controller.cluster.label?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm+"</strong> ")}
 												</#noescape>
 											</a>
 										</li>
@@ -1440,7 +1492,7 @@
 										<li>
 											<a href="${core_controller.cluster.href}">
 												<#noescape>
-													${core_controller.cluster.label?html?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm?html+"</strong> ")}
+													${core_controller.cluster.label?replace("...", " <strong>"+core_controller.contextualNavigation.searchTerm+"</strong> ")}
 												</#noescape>
 											</a>
 										</li>
@@ -1502,8 +1554,7 @@
 			<h2 class="sr-only">${(response.translations.CORE_PAGINATION_SR_TITLE)!'Pagination'}</h2>
 			<ul class="pagination pagination-lg">
 				<#--
-					Display the previous tag which allows the user to navigate
-					back one page
+					Display the previous tag which allows the user to navigate back one page
 				-->
 				<@core_controller.Previous>
 					<li>
@@ -1518,8 +1569,7 @@
 					</li>
 				</@core_controller.Previous>
 				<#--
-					Displays the pages allowing the user to navigate to different
-					position within the search results
+					Displays the pages allowing the user to navigate to different position within the search results
 				-->
 				<@core_controller.Page numPages=5>
 					<li <@core_controller.IsCurrentPage> class="active" </@core_controller.IsCurrentPage>>
@@ -1535,8 +1585,7 @@
 					</li>
 				</@core_controller.Page>
 				<#--
-					Display the next tag which allows the user to navigate
-					forward one page
+					Display the next tag which allows the user to navigate forward one page
 				-->
 				<@core_controller.Next>
 					<li>
@@ -1582,11 +1631,11 @@
 				</#if>
 				<#-- Print event tier bars if they exist -->
 				<#if core_controller.result.eventDate??>
-					<h2 class="fb-title">Events on ${core_controller.result.eventDate?date}</h2>
+					<h2 class="fb-title">${(response.translations.CORE_RESULT_SUMMARY_EVENTS_ON)!'Events on'} ${core_controller.result.eventDate?date}</h2>
 				</#if>
 			<#else>
 				<li data-fb-result=${core_controller.result.indexUrl}>
-						<@Result/>
+					<@Result/>
 				</li>
 			</#if>
 		</@core_controller.Results>
@@ -1681,25 +1730,19 @@
 		<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 		&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 			<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-				<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-						<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-						<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-						<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-						<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-						<div class="row">
-							<div class="col-md-4">
+				<@SearchForm>
+					<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
+					<div class="row">
+						<div class="col-md-5">
 							<div class="input-group input-sm">
-								<input required title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" name="query" type="text" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER_MSG)!'Search'} ${s.result.quickLinks.domain}&hellip;">
-
+								<@SearchFormQuery value="" requirred="required" title="${(response.translations.CORE_QUICKLINK_SEARCH_QUERY_TITLE)!'Search title'}" class="form-control" placeholder="${(response.translations.CORE_QUICKLINK_SEARCH_PLACEHOLDER_MSG)!'Search'} ${core_controller.result.quickLinks.domain}..."/>
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
+				</@SearchForm>
 			</#if>
 		</#if>
 	</@core_controller.Quicklinks>

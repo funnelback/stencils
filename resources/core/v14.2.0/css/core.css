@@ -1,33 +1,31 @@
 /*
-  Stencil: Core
-  Description: Styles specifically for core stencil.
+	Stencil: Core
+	Description: Styles specifically for core stencil.
 */
 /*
 Funnelback Search Default Styles
 */
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+	display: none !important;
 }
+
+.form-control-inline {height:34px; padding:6px 12px; font-size:14px; line-height:1.42857143; color:#555; background-color:#fff; background-image:none; border:1px solid #ccc; border-radius:0; -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075); box-shadow:inset 0 1px 1px rgba(0,0,0,0.075); -webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s; -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s; transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s; }
 
 .search-initial { padding: 40px 15px; }
-
-#search-advanced select.input-sm {
-    border-color: #ccc;
-}
 
 #search-result-count { margin-bottom: 10px; }
 
 #search-results li h4,
 #search-best-bets h4 {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 #search-results li h4 { margin-top: 24px; }
 #search-results li .panel h4 { margin-top: 0; }
 
 .facet h3 {
-  font-size: 14px;
-  margin: 0;
+	font-size: 14px;
+	margin: 0;
 }
 
 .search-collapsed { text-indent: 8px; }
@@ -49,28 +47,28 @@ svg rect.set     { fill: #d9edf7; }
 
 .ui-menu { width: 200px; border: solid 1px #e6e6e6;}
 .ui-menu, .ui-menu li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 .ui-menu-item a, li.ui-autocomplete-category { display: block; padding: 2px; }
 li.ui-autocomplete-category { background-color: #e6e6e6; font-weight: bold;}
 
 .ui-state-focus {
-  background-color: #428bca;
-  color: white;
+	background-color: #428bca;
+	color: white;
 }
 
 #search-results { word-break: break-word;}
 
 /*Facets styling fix*/
 #search-facets .category {
-  display: block;
-  float: left;
-  width:100%;
-  margin-bottom: 0.2em;
-  padding-bottom: 0.2em;
-  border-bottom:1px dotted #aaa7a7;
+	display: block;
+	float: left;
+	width:100%;
+	margin-bottom: 0.2em;
+	padding-bottom: 0.2em;
+	border-bottom:1px dotted #aaa7a7;
 }
 
 #search-facets .category > span { max-width: 80%; display: block; float: left;;}
