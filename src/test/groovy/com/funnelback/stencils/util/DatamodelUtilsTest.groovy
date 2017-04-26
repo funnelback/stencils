@@ -6,7 +6,7 @@ import org.junit.Test
 class DatamodelUtilsTest {
 
     @Test
-    public void getQueryStringMapCopy() {
+    public void testGetQueryStringMapCopy() {
         def testMap = Collections.unmodifiableMap([
             "key1": ["value-1", "value-2"],
             "key2": ["value-A"]
@@ -31,6 +31,12 @@ class DatamodelUtilsTest {
             "key2": ["value-A"],
             "new-entry": ["new-value"]
         ], copyMap)
+    }
+
+    @Test
+    public void testGetQueryStringMapCopyEmptyOrNull() {
+        Assert.assertEquals([:], DatamodelUtils.getQueryStringMapCopy(null));
+        Assert.assertEquals([:], DatamodelUtils.getQueryStringMapCopy([:]));
     }
     
 }
