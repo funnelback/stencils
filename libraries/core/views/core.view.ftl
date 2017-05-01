@@ -956,7 +956,7 @@
 								<ul class="list-unstyled">
 									<@core_controller.SearchHistory>
 										<li>
-											<a href="?${core_controller.searchHistory.searchParams}">${core_controller.searchHistory.originalQuery}
+											<a href="?${core_controller.searchHistory.searchParams}">${core_controller.searchHistory.originalQuery!}
 												<small>(${core_controller.searchHistory.totalMatching})</small>
 											</a> &middot;
 											<span class="text-warning">${prettyTime(core_controller.searchHistory.searchDate)}</span>
@@ -1254,7 +1254,7 @@
 			<span>
 				${(response.translations.CORE_BLENDING_PREFIX)!'Search for'}
 				<a href="<@core_controller.BlendingDisabledUrl />" alt="Disable blending">
-					<em>${question.originalQuery}</em>
+					<em>${question.originalQuery!}</em>
 				</a>
 				${(response.translations.CORE_BLENDING_SUFFIX)!'instead'}.
 			</span>
