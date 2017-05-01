@@ -1,5 +1,6 @@
 package com.funnelback.stencils.hook
 
+import com.funnelback.stencils.hook.core.CoreHookLifecycle
 import org.codehaus.groovy.reflection.ReflectionUtils
 import org.springframework.web.context.request.RequestContextHolder
 
@@ -40,6 +41,7 @@ class StencilHooks {
     
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
+        new CoreHookLifecycle(),
         new TabsHookLifecycle(),
         new NoResultsHookLifecycle(),
         new PeopleHookLifecycle(),

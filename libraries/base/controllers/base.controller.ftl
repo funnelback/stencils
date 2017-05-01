@@ -403,14 +403,14 @@
 	@param columnsNumber - set this column number as default column number
 	@param cgi - The cgi paramater this is linked to. leave as empty to not have it linked
 -->
-<#macro ResultsColumns columnsNumber=question.collection.configuration.value("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns">
+<#macro ResultsColumns columnsNumber=question.collection.configuration.value("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns" result=core_controller.result>
 
 	<#-- Define attributes -->
 	<#assign resultsColumnsCgi = cgi in .namespace>
 	<#assign resultsColumnsNumber = getResultsColumnsNumber(columnsNumber,resultsColumnsCgi) in .namespace>
 	<#-- <#assign resultsColumnsNumber = getResultsColumnsNumber(columnsNumber,resultsColumnsCgi) in .namespace> -->
-	<#assign resultsColumnsIsLast = getResultsColumnsIsLast() in .namespace>
-	<#assign resultsColumnsRank = getResultsColumnsRank() in .namespace>
+	<#assign resultsColumnsIsLast = getResultsColumnsIsLast(result) in .namespace>
+	<#assign resultsColumnsRank = getResultsColumnsRank(result) in .namespace>
 	<#assign resultsColumnsIndex = getResultsColumnsIndex() in .namespace>
 
 	<#nested>
@@ -421,8 +421,8 @@
 	@requires ResultsColumns
 	@return boolean
 -->
-<#function getResultsColumnsIsLast>
-	<#return core_controller.result.rank == response.resultPacket.resultsSummary.currEnd>
+<#function getResultsColumnsIsLast result=.namespace.result>
+	<#return result.rank == response.resultPacket.resultsSummary.currEnd>
 </#function>
 
 <#---
@@ -430,8 +430,8 @@
 	@requires ResultsColumns
 	@return number
 -->
-<#function getResultsColumnsRank>
-	<#return core_controller.result.rank - response.resultPacket.resultsSummary.currStart>
+<#function getResultsColumnsRank result=.namespace.result>
+	<#return result.rank - response.resultPacket.resultsSummary.currStart>
 </#function>
 
 <#---
@@ -495,9 +495,9 @@
 	@parm name The name of the collection.
 	@param nested String to display on condition test. (Can pass through a list of comma separated collection names as a test)
  -->
- <#macro ResultIsCollection name="">
+ <#macro ResultIsCollection name="" result=core_controller.result>
  	<#list name?split(",") as collection>
- 		<#if core_controller.result.collection = collection >
+ 		<#if result.collection = collection >
  			<#nested>
  		</#if>
  	</#list>
