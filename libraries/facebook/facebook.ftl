@@ -24,7 +24,7 @@
 <#--- @begin Result -->
 
 <#--- Shared footer view for result variations. -->
-<#macro ResultFooter result=result>
+<#macro ResultFooter result>
 	<!-- facebook.view.ftl :: ResultFooter -->
 	<#-- Result tools -->
 	<div class="stencils-print__hide row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
@@ -181,7 +181,7 @@
 				<img src="${result.metaData.stencilsFacebookPostThumbnailUrl!}" class="stencils-core-thumbnail pull-right" alt="${result.metaData.c!}" />
 			</#if>
 
-			<span class="search-summary lead"><@core_controller.boldicize><@core_controller.Truncate length=200><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(result.metaData.c!)}</#outputformat></@core_controller.Truncate></@core_controller.boldicize></span>
+			<span class="search-summary lead"><@core_controller.boldicize><@core_controller.Truncate length=200><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData.c!))}</#outputformat></@core_controller.Truncate></@core_controller.boldicize></span>
 
 			<#-- ResultCollaspe Generate the result collapsing link -->
 			<@core_controller.Collapsed result=result>
@@ -251,7 +251,7 @@
 							<@PostLinkSnippet result=result/>
 						</div>
 						<div class="media-body">
-							<span class="search-summary lead"><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(result.metaData["c"]!)}</#outputformat></span>
+							<span class="search-summary lead"><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData["c"]!))}</#outputformat></span>
 							<#-- ResultCollaspe -	Generate the result collapsing link -->
 							<@core_controller.Collapsed result=result>
 								<div class="search-collapsed">
@@ -374,7 +374,7 @@
 			</small>
 
 			<#if result.metaData.c??>
-			<p><@core_controller.boldicize><@core_controller.Truncate length=200>${result.metaData.c!}</@core_controller.Truncate></@core_controller.boldicize></p>
+				<p><@core_controller.boldicize><@core_controller.Truncate length=200><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData.c!))}</#outputformat></@core_controller.Truncate></@core_controller.boldicize></p>
 			</#if>
 
 			<#-- ResultCollaspe Generate the result collapsing link -->
@@ -454,7 +454,7 @@
 						</small>
 
 						<#if result.metaData.c??>
-						<p><@base_controller.Linkify><@core_controller.Truncate length=512>${result.metaData.c!}</@core_controller.Truncate></@base_controller.Linkify></p>
+							<p><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData["c"]!))}</#outputformat></p>
 						</#if>
 
 						<#-- ResultCollaspe Generate the result collapsing link -->
@@ -624,7 +624,7 @@
 			</@base_controller.IfDefCGIEquals>
 
 			<#if result.metaData.c??>
-			 <p><@core_controller.boldicize><@core_controller.Truncate length=200>${result.metaData.c!}</@core_controller.Truncate></@core_controller.boldicize></p>
+				<p><@core_controller.boldicize><@core_controller.Truncate length=200><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData.c!))}</#outputformat></@core_controller.Truncate></@core_controller.boldicize></p>
 			<#else>
 				<#if result.metaData.stencilsFacebookPageAbout??>
 					<p><@core_controller.Truncate length=200> ${result.metaData.stencilsFacebookPageAbout}</@core_controller.Truncate></p>
@@ -690,7 +690,7 @@
 				<div class="modal-body">
 
 						<#if result.metaData.c??>
-							<p><@base_controller.Linkify><@core_controller.Truncate length=512>${result.metaData.c!}</@core_controller.Truncate></@base_controller.Linkify></p>
+							<p><#outputformat "plainText">${response.customData.stencilsMethods.facebookHashtagify(response.customData.stencilsMethods.linkify(result.metaData["c"]!))}</#outputformat></p>
 						</#if>
 
 						<#if result.metaData.stencilsFacebookPageAbout??>
@@ -842,3 +842,4 @@
 <#-- @end -->
 <#-- / Category - Cart -->
 
+<#-- vim: set noexpandtab :-->
