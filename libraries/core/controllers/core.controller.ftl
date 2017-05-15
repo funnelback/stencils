@@ -77,10 +77,10 @@
 	Prints the url for a link to the open a search page which displays
 	Funnelback search information.
 -->
-<#macro OpenSearchUrl><#compress>
-	<#if (.namespace.openSearchUrl)!?has_content>
+<#macro OpenSearchUrl openSearchUrl=.namespace.openSearchUrl><#compress>
+	<#if (openSearchUrl)!?has_content>
 		<#noescape>
-			${.namespace.openSearchUrl!}
+			${openSearchUrl!}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -326,10 +326,10 @@
 
 	@provides <code>${core_controller.selectOptionValue}</code> <br /> <code>${core_controller.selectOptionName}</code>
 -->
-<#macro SelectOptions>
+<#macro SelectOptions selectOptions=.namespace.selectOptions selectOptionRange=.namespace.selectOptionRange>
 	<#-- Used the options that is specified by the user -->
-	<#if (.namespace.selectOptions)?has_content && .namespace.selectOptions?size &gt; 0>
-		<#list .namespace.selectOptions as option>
+	<#if (selectOptions)?has_content && selectOptions?size &gt; 0>
+		<#list selectOptions as option>
 			<#-- Option is in the format of <name>=<value> -->
 			<#if option?contains("=")>
 				<#local valueAndLabel = option?split("=")>
@@ -351,8 +351,8 @@
 	</#if>
 
 	<#-- Used the range that is specified by the user -->
-	<#if (.namespace.selectOptionRange)?has_content>
-		<#list (.namespace.selectOptionRange.start)..(.namespace.selectOptionRange.end) as i>
+	<#if selectOptionRange?has_content>
+		<#list (selectOptionRange.start)..(selectOptionRange.end) as i>
 			<#--
 				?c -This built-in converts a number to string for a "computer language"
 				as opposed to for human audience.
@@ -370,9 +370,9 @@
 
 	@requires Select
 -->
-<#macro SelectName><#compress>
-	<#if (.namespace.selectName)!?has_content>
-		${.namespace.selectName}
+<#macro SelectName selectName=.namespace.selectName><#compress>
+	<#if (selectName)!?has_content>
+		${selectName}
 	</#if>
 </#compress></#macro>
 
@@ -381,9 +381,9 @@
 
 	@requires Select
 -->
-<#macro SelectOptionName><#compress>
-	<#if (.namespace.selectOptionName)!?has_content>
-		${.namespace.selectOptionName}
+<#macro SelectOptionName selectOptionName=.namespace.selectOptionName><#compress>
+	<#if selectOptionName!?has_content>
+		${selectOptionName}
 	</#if>
 </#compress></#macro>
 
@@ -392,9 +392,9 @@
 
 	@requires Select
 -->
-<#macro SelectOptionValue><#compress>
-	<#if (.namespace.selectOptionValue)!?has_content>
-		${.namespace.selectOptionValue}
+<#macro SelectOptionValue selectOptionValue=.namespace.selectOptionValue><#compress>
+	<#if selectOptionValue!?has_content>
+		${selectOptionValue}
 	</#if>
 </#compress></#macro>
 
@@ -403,9 +403,9 @@
 
 	@requires Select
 -->
-<#macro SelectSelectedValue><#compress>
-	<#if (.namespace.selectSelectedValue)!?has_content>
-		${.namespace.selectSelectedValue}
+<#macro SelectSelectedValue selectSelectedValue=.namespace.selectSelectedValue><#compress>
+	<#if selectSelectedValue!?has_content>
+		${selectSelectedValue}
 	</#if>
 </#compress></#macro>
 
@@ -417,10 +417,10 @@
 	@param negate Set this to true to reverse the logic of this macro. i.e. Run the nested code
 		if the option has not been selected.
 -->
-<#macro IsSelectOptionSelected negate=false>
-	<#if .namespace.selectOptionValue == .namespace.selectSelectedValue && negate == false>
+<#macro IsSelectOptionSelected selectOptionValue=.namespace.selectOptionValue selectSelectedValue=.namespace.selectSelectedValue negate=false>
+	<#if selectOptionValue == selectSelectedValue && negate == false>
 		<#nested>
-	<#elseif .namespace.selectOptionValue != .namespace.selectSelectedValue && negate == true>
+	<#elseif selectOptionValue != selectSelectedValue && negate == true>
 		<#nested>
 	</#if>
 </#macro>
@@ -464,9 +464,9 @@
 
 	@requires RSS
 -->
-<#macro RSSModernUrl><#compress>
-	<#if (.namespace.rssModernUrl)!?has_content>
-		${.namespace.rssModernUrl}
+<#macro RSSModernUrl rssModelUrl=.namespace.rssModernUrl><#compress>
+	<#if rssModernUrl!?has_content>
+		${rssModernUrl}
 	</#if>
 </#compress></#macro>
 
@@ -475,9 +475,9 @@
 
 	@requires RSS
 -->
-<#macro RSSClassicUrl><#compress>
-	<#if (.namespace.rssClassicUrl)!?has_content>
-		${.namespace.rssClassicUrl}
+<#macro RSSClassicUrl rssClassicUrl=.namespace.rssClassicUrl><#compress>
+	<#if rssClassicUrl!?has_content>
+		${rssClassicUrl}
 	</#if>
 </#compress></#macro>
 
@@ -538,9 +538,9 @@
 
 	@requires ErrorPadre
 -->
-<#macro ErrorPadreMessage><#compress>
-	<#if (.namespace.errorPadreMessage)!?has_content>
-		${.namespace.errorPadreMessage}
+<#macro ErrorPadreMessage errorPadreMessage=.namespace.errorPadreMessage><#compress>
+	<#if (errorPadreMessage)!?has_content>
+		${errorPadreMessage}
 	</#if>
 </#compress></#macro>
 
@@ -549,9 +549,9 @@
 
 	@requires ErrorPadre
 -->
-<#macro ErrorPadreCode><#compress>
-	<#if (.namespace.errorPadreCode)!?has_content>
-		${.namespace.errorPadreCode}
+<#macro ErrorPadreCode errorPadreCode=.namespace.errorPadreCode><#compress>
+	<#if (errorPadreCode)!?has_content>
+		${errorPadreCode}
 	</#if>
 </#compress></#macro>
 
@@ -560,9 +560,9 @@
 
 	@requires ErrorPadre
 -->
-<#macro ErrorPadreAdminMessage><#compress>
-	<#if (.namespace.errorPadreAdminMessage)!?has_content>
-		${.namespace.errorPadreAdminMessage}
+<#macro ErrorPadreAdminMessage errorPadreAdminMessage=.namespace.errorPadreAdminMessage><#compress>
+	<#if (errorPadreAdminMessage)!?has_content>
+		${errorPadreAdminMessage}
 	</#if>
 </#compress></#macro>
 
@@ -588,9 +588,9 @@
 
 	@requires ErrorOther
 -->
-<#macro ErrorOtherReason><#compress>
-	<#if (.namespace.errorOtherReason)!?has_content>
-		${.namespace.errorOtherReason}
+<#macro ErrorOtherReason errorOtherReason=.namespace.errorOtherReason><#compress>
+	<#if (errorOtherReason)!?has_content>
+		${errorOtherReason}
 	</#if>
 </#compress></#macro>
 
@@ -599,9 +599,9 @@
 
 	@requires ErrorOther
 -->
-<#macro ErrorOtherAdditionalMessage><#compress>
-	<#if (.namespace.errorOtherAdditionalMessage)!?has_content>
-		${.namespace.errorOtherAdditionalMessage}
+<#macro ErrorOtherAdditionalMessage errorOtherAdditionalMessage=.namespace.errorOtherAdditionalMessage><#compress>
+	<#if (errorOtherAdditionalMessage)!?has_content>
+		${errorOtherAdditionalMessage}
 	</#if>
 </#compress></#macro>
 
@@ -610,9 +610,9 @@
 
 	@requires ErrorOther
 -->
-<#macro ErrorOtherCause><#compress>
-	<#if (.namespace.errorOtherCause)!?has_content>
-		${.namespace.errorOtherCause}
+<#macro ErrorOtherCause errorOtherCause=.namespace.errorOtherCause><#compress>
+	<#if (errorOtherCause)!?has_content>
+		${errorOtherCause}
 	</#if>
 </#compress></#macro>
 
@@ -621,9 +621,9 @@
 
 	@requires ErrorOther
 -->
-<#macro ErrorDefaultMessage showAlways=false><#compress>
-	<#if showAlways || ((.namespace.errorPadreMessage)!?has_content == false
-		&& (.namespace.errorOtherAdditionalMessage)!?has_content == false)>
+<#macro ErrorDefaultMessage errorPadreMessage=.namespace.errorPadreMessage showAlways=false><#compress>
+	<#if showAlways || (errorPadreMessage!?has_content == false
+		&& errorOtherAdditionalMessage!?has_content == false)>
 		<#nested>
 	</#if>
 </#compress></#macro>
@@ -775,8 +775,8 @@
 
 	@provides <code>${core_controller.formChoiceForm}</code>
 -->
-<#macro FormChoiceForms>
-	<#if (.namespace.formChoiceForms)!?has_content>
+<#macro FormChoiceForms formChoiceForms=.namespace.formChoiceForms>
+	<#if (formChoiceForms)!?has_content>
 		<#list formChoiceForms as form>
 			<#-- Ensure we do not print the current form or any backups -->
 			<#if form != question.form && !form?matches("^.*-\\d{12}$")>
@@ -792,9 +792,9 @@
 
 	@requires FormChoice
 -->
-<#macro FormChoiceUrl><#compress>
-	<#if (.namespace.formChoiceUrl)!?has_content>
-		${.namespace.formChoiceUrl}
+<#macro FormChoiceUrl formChoiceUrl=.namespace.formChoiceUrl><#compress>
+	<#if (formChoiceUrl)!?has_content>
+		${formChoiceUrl}
 	</#if>
 </#compress></#macro>
 
@@ -803,9 +803,9 @@
 
 	@requires FormChoice
 -->
-<#macro FormChoiceForm><#compress>
-	<#if (.namespace.formChoiceForm)!?has_content>
-		${.namespace.formChoiceForm}
+<#macro FormChoiceForm formChoiceForm=.namespace.formChoiceForm><#compress>
+	<#if (formChoiceForm)!?has_content>
+		${formChoiceForm}
 	</#if>
 </#compress></#macro>
 
@@ -936,9 +936,9 @@
 
 	@requires Facets
 -->
-<#macro FacetValue><#compress>
-	<#if (.namespace.facet)!?has_content>
-		${.namespace.facet}
+<#macro FacetValue facet=.namespace.facet><#compress>
+	<#if (facet)!?has_content>
+		${facet}
 	</#if>
 </#compress></#macro>
 
@@ -947,9 +947,9 @@
 
 	@requires Facets
 -->
-<#macro FacetIndex><#compress>
-	<#if (.namespace.facetIndex)!?has_content>
-		${.namespace.facetIndex}
+<#macro FacetIndex facetIndex=.namespace.facetIndex><#compress>
+	<#if (facetIndex)!?has_content>
+		${facetIndex}
 	</#if>
 </#compress></#macro>
 
@@ -958,9 +958,9 @@
 
 	@requires Facets
 -->
-<#macro FacetHasNext><#compress>
-	<#if (.namespace.facetHasNext)!?has_content>
-		${.namespace.facetHasNext}
+<#macro FacetHasNext facetHasNext=.namespace.facetHasNext><#compress>
+	<#if (facetHasNext)!?has_content>
+		${facetHasNext}
 	</#if>
 </#compress></#macro>
 
@@ -971,7 +971,7 @@
 
 	@provides <code>${core_controller.facetDefinition}</code> <br /> <code>${core_controller.facetDefinitionIndex}</code> <br /> <code>${core_controller.facetDefinitionHasNext}</code> <br /> <code>${core_controller.facetLabel}</code>
 -->
-<#macro Facet>
+<#macro Facet facet=.namespace.facet>
 	<#local fn = facetedNavigationConfig(question.collection, question.profile) >
 	<#if fn??>
 		<#--
@@ -979,7 +979,7 @@
 			to the facet we're currently displaying
 		-->
 		<#list fn.facetDefinitions as fdef>
-			<#if fdef.name == .namespace.facet.name>
+			<#if fdef.name == facet.name>
 				<#assign facetDefinition = fdef in .namespace />
 				<#assign facetDefinitionIndex = fdef_index in .namespace />
 				<#assign facetDefinitionHasNext = fdef_has_next in .namespace />
@@ -995,9 +995,9 @@
 
 	@requires Facet
 -->
-<#macro FacetDefinition><#compress>
-	<#if (.namespace.facetDefinition)!?has_content>
-		${.namespace.facetDefinition}
+<#macro FacetDefinition facetDefinition=.namespace.facetDefinition><#compress>
+	<#if (facetDefinition)!?has_content>
+		${facetDefinition}
 	</#if>
 </#compress></#macro>
 
@@ -1006,9 +1006,9 @@
 
 	@requires Facet
 -->
-<#macro FacetDefinitionIndex><#compress>
-	<#if (.namespace.facetDefinitionIndex)!?has_content>
-		${.namespace.facetDefinitionIndex}
+<#macro FacetDefinitionIndex facetDefinitionIndex=.namespace.facetDefinitionIndex><#compress>
+	<#if (facetDefinitionIndex)!?has_content>
+		${facetDefinitionIndex}
 	</#if>
 </#compress></#macro>
 
@@ -1019,9 +1019,9 @@
 
 	@requires Facet
 -->
-<#macro FacetDefinitionHasNext><#compress>
-	<#if (.namespace.facetDefinitionHasNext)!?has_content>
-		${.namespace.facetDefinitionHasNext}
+<#macro FacetDefinitionHasNext facetDefinitionHasNext=.namespace.facetDefinitionHasNext><#compress>
+	<#if (facetDefinitionHasNext)!?has_content>
+		${facetDefinitionHasNext}
 	</#if>
 </#compress></#macro>
 
@@ -1030,9 +1030,9 @@
 
 	@requires Facet
 -->
-<#macro FacetLabel><#compress>
-	<#if (.namespace.facetDefinitionHasNext)!?has_content>
-		${.namespace.facetLabel}
+<#macro FacetLabel facetDefinitionHasNext=.namespace.facetDefinitionHasNext><#compress>
+	<#if (facetDefinitionHasNext)!?has_content>
+		${facetLabel}
 	</#if>
 </#compress></#macro>
 
@@ -1042,7 +1042,7 @@
 
 	@provides <code>${core_controller.facetSummaryCategoryDefinitions}</code> <br /> <code>${core_controller.facetSummarySelectedCategoryValues}</code> <br /> <code>${core_controller.facetSummaryClearCurrentSelectionUrl}</code>
 -->
-<#macro FacetSummary>
+<#macro FacetSummary facetDefinition=.namespace.facetDefinition>
 	<#--
 		We must test various combinations here as different browsers will encode
 		some characters differently (i.e. '/' will sometimes be preserved, sometimes
@@ -1050,11 +1050,11 @@
 
 		@requires Facet
 	-->
-	<#assign facetSummaryCategoryDefinitions = .namespace.facetDefinition.categoryDefinitions in .namespace>
+	<#assign facetSummaryCategoryDefinitions = facetDefinition.categoryDefinitions in .namespace>
 	<#assign facetSummarySelectedCategoryValues = question.selectedCategoryValues in .namespace>
 
-		<#if question.selectedFacets!?seq_contains(.namespace.facetDefinition.name)>
-		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, .namespace.facetDefinition.allQueryStringParamNames), ["start_rank"] + .namespace.facetDefinition.allQueryStringParamNames)?html}' in .namespace>
+		<#if question.selectedFacets!?seq_contains(facetDefinition.name)>
+		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, facetDefinition.allQueryStringParamNames), ["start_rank"] + facetDefinition.allQueryStringParamNames)?html}' in .namespace>
 
 		<#nested>
 	</#if>
@@ -1066,9 +1066,9 @@
 
 	@requires FacetSummary
 -->
-<#macro FacetSummaryCategoryDefinitions><#compress>
-	<#if (.namespace.facetSummaryCategoryDefinitions)!?has_content>
-		${.namespace.facetSummaryCategoryDefinitions}
+<#macro FacetSummaryCategoryDefinitions facetSummaryCategoryDefinitions=.namespace.facetSummaryCategoryDefinitions><#compress>
+	<#if (facetSummaryCategoryDefinitions)!?has_content>
+		${facetSummaryCategoryDefinitions}
 	</#if>
 </#compress></#macro>
 
@@ -1077,9 +1077,9 @@
 
 	@requires FacetSummary
 -->
-<#macro FacetSummarySelectedCategoryValues><#compress>
-	<#if (.namespace.facetSummarySelectedCategoryValues)!?has_content>
-		${.namespace.facetSummarySelectedCategoryValues}
+<#macro FacetSummarySelectedCategoryValues facetSummarySelectedCategoryValues=.namespace.facetSummarySelectedCategoryValues><#compress>
+	<#if (facetSummarySelectedCategoryValues)!?has_content>
+		${facetSummarySelectedCategoryValues}
 	</#if>
 </#compress></#macro>
 
@@ -1088,10 +1088,10 @@
 
 	@requires FacetSummary
 -->
-<#macro FacetSummaryClearCurrentSelectionUrl><#compress>
-	<#if (.namespace.facetSummaryClearCurrentSelectionUrl)!?has_content>
+<#macro FacetSummaryClearCurrentSelectionUrl facetSummaryClearCurrentSelectionUrl=.namespace.facetSummaryClearCurrentSelectionUrl><#compress>
+	<#if (facetSummaryClearCurrentSelectionUrl)!?has_content>
 		<#noescape>
-			${.namespace.facetSummaryClearCurrentSelectionUrl}
+			${facetSummaryClearCurrentSelectionUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1107,13 +1107,13 @@
 
 	@provides <code>${core_controller.shortFacetLabelName}</code>
 -->
-<#macro ShortFacetLabel>
-	<#local deepest = .namespace.facet.findDeepestCategory(question.selectedCategoryValues?keys)!"">
+<#macro ShortFacetLabel facet=.namespace.facet>
+	<#local deepest = facet.findDeepestCategory(question.selectedCategoryValues?keys)!"">
 
 	<#if deepest != "">
 		<#assign shortFacetLabelName = question.selectedCategoryValues[deepest.queryStringParamName]?first in .namespace>
 	<#else>
-		<#assign shortFacetLabelName = .namespace.facet.name!"" in .namespace>
+		<#assign shortFacetLabelName = facet.name!"" in .namespace>
 	</#if>
 
 	<#nested>
@@ -1124,9 +1124,9 @@
 
 	@requires ShortFacetLabel
 -->
-<#macro ShortFacetLabelName><#compress>
-	<#if (.namespace.shortFacetLabelName)!?has_content>
-		${.namespace.shortFacetLabelName}
+<#macro ShortFacetLabelName shortFacetLabelName=.namespace.shortFacetLabelName><#compress>
+	<#if (shortFacetLabelName)!?has_content>
+		${shortFacetLabelName}
 	</#if>
 </#compress></#macro>
 
@@ -1170,8 +1170,8 @@
 	@param name This is the name of the facetLabel to test for.
 	@requires Facet
 -->
-<#macro IsFacetLabel name=""><#compress>
-	<#if name = .namespace.facetLabel>
+<#macro IsFacetLabel name="" facetLabel=.namespace.facetLabel><#compress>
+	<#if name = facetLabel>
 		<#nested>
 	</#if>
 </#compress></#macro>
@@ -1184,11 +1184,11 @@
 
 	@provides <code>${core_controller.facetBreadCrumbUrl}</code>
 -->
-<#macro FacetBreadCrumb>
+<#macro FacetBreadCrumb facetSummaryClearCurrentSelectionUrl=.namespace.facetSummaryClearCurrentSelectionUrl facetDefinition=.namespace.facetDefinition>
 	<#-- Generate the root URL which will remove all the selection for the current facets i.e. A clear all link -->
-	<#assign facetBreadCrumbUrl = .namespace.facetSummaryClearCurrentSelectionUrl in .namespace>
+	<#assign facetBreadCrumbUrl = facetSummaryClearCurrentSelectionUrl in .namespace>
 
-	<@NestedFacetBreadCrumb categoryDefinitions=.namespace.facetDefinition.categoryDefinitions selectedCategoryValues=question.selectedCategoryValues>
+	<@NestedFacetBreadCrumb categoryDefinitions=facetDefinition.categoryDefinitions selectedCategoryValues=question.selectedCategoryValues>
 		<#nested>
 	</@NestedFacetBreadCrumb>
 </#macro>
@@ -1306,9 +1306,9 @@
 
 	@requires FacetBreadCrumb, NestedFacetBreadCrumb
 -->
-<#macro FacetBreadCrumbName><#compress>
-	<#if (.namespace.facetBreadCrumbName)!?has_content>
-		${.namespace.facetBreadCrumbName}
+<#macro FacetBreadCrumbName facetBreadCrumbName=.namespace.facetBreadCrumbName><#compress>
+	<#if (facetBreadCrumbName)!?has_content>
+		${facetBreadCrumbName}
 	</#if>
 </#compress></#macro>
 
@@ -1317,10 +1317,10 @@
 
 	@requires FacetBreadCrumb, NestedFacetBreadCrumb
 -->
-<#macro FacetBreadCrumbUrl><#compress>
-	<#if (.namespace.facetBreadCrumbUrl)!?has_content>
+<#macro FacetBreadCrumbUrl facetBreadCrumbUrl=.namespace.facetBreadCrumbUrl><#compress>
+	<#if (facetBreadCrumbUrl)!?has_content>
 		<#noescape>
-			${.namespace.facetBreadCrumbUrl}
+			${facetBreadCrumbUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1358,12 +1358,12 @@
 
 	@provides <code>${core_controller.facetCategory}</code> <br /> <code>${core_controller.facetCategory_has_next}</code> <br /> <code>${core_controller.facetCategory_index}</code>
 -->
-<#macro FacetCategories max=16 nbCategories=0 recursionCategories=[] >
+<#macro FacetCategories facet=.namespace.facet max=16 nbCategories=0 recursionCategories=[] >
 	<#-- Find if we are working at the root level (facet) or in a sub category -->
 	<#if recursionCategories?? && recursionCategories?size &gt; 0>
 			<#local categories = recursionCategories />
 	<#else>
-			<#local categories = .namespace.facet.categories />
+			<#local categories = facet.categories />
 	</#if>
 	<#if categories?? && categories?size &gt; 0>
 		<#list categories as c>
@@ -1395,8 +1395,8 @@
 			<#--
 				Recursively display nested categories (hierarchical facets - facet categories themselves can have facet categories)
 			-->
-			<#if (.namespace.facetCategory.categories)!?has_content && .namespace.facetCategory.categories?size &gt; 0>
-				<@FacetCategories recursionCategories=.namespace.facetCategory.categories max=max nbCategories=nbCategories>
+			<#if (facetCategory.categories)!?has_content && facetCategory.categories?size &gt; 0>
+				<@FacetCategories recursionCategories=facetCategory.categories max=max nbCategories=nbCategories>
 					<#nested>
 				</@FacetCategories>
 			</#if>
@@ -1412,13 +1412,13 @@
 
 	@provides <code>${core_controller.facetCategoryUrl}</code> <br /> <code>${core_controller.facetCategoryLabel}</code> <br /> <code>${core_controller.facetCategoryCount}</code>
 -->
-<#macro FacetCategory>
-	<#if .namespace.facetCategoryValue??>
-		<#local paramName = .namespace.facetCategoryValue.queryStringParam?split("=")[0]>
+<#macro FacetCategory facetCategoryValue=.namespace.facetCategoryValue>
+	<#if facetCategoryValue??>
+		<#local paramName = facetCategoryValue.queryStringParam?split("=")[0]>
 
-		<#assign facetCategoryUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(facetScopeRemove(QueryString, paramName), ['start_rank', paramName])?html}&amp;${.namespace.facetCategoryValue.queryStringParam?html}" in .namespace>
-		<#assign facetCategoryLabel = .namespace.facetCategoryValue.label in .namespace>
-		<#assign facetCategoryCount = .namespace.facetCategoryValue.count in .namespace>
+		<#assign facetCategoryUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(facetScopeRemove(QueryString, paramName), ['start_rank', paramName])?html}&amp;${facetCategoryValue.queryStringParam?html}" in .namespace>
+		<#assign facetCategoryLabel = facetCategoryValue.label in .namespace>
+		<#assign facetCategoryCount = facetCategoryValue.count in .namespace>
 
 		<#nested>
 
@@ -1430,10 +1430,10 @@
 
 	@requires FacetCategories
 -->
-<#macro FacetCategoryUrl><#compress>
-	<#if (.namespace.facetCategoryUrl)!?has_content>
+<#macro FacetCategoryUrl facetCategoryUrl=.namespace.facetCategoryUrl><#compress>
+	<#if (facetCategoryUrl)!?has_content>
 		<#noescape>
-			${.namespace.facetCategoryUrl}
+			${facetCategoryUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1443,9 +1443,9 @@
 
 	@requires FacetCategories
 -->
-<#macro FacetCategoryLabel ><#compress>
-	<#if (.namespace.facetCategoryLabel)!?has_content>
-			${.namespace.facetCategoryLabel}
+<#macro FacetCategoryLabel facetCategoryLabel=.namespace.facetCategoryLabel><#compress>
+	<#if (facetCategoryLabel)!?has_content>
+			${facetCategoryLabel}
 	</#if>
 </#compress></#macro>
 
@@ -1454,9 +1454,9 @@
 
 	@requires FacetCategories
 -->
-<#macro FacetCategoryCount><#compress>
-	<#if (.namespace.facetCategoryCount)!?has_content>
-		${.namespace.facetCategoryCount}
+<#macro FacetCategoryCount facetCategoryCount=.namespace.facetCategoryCount><#compress>
+	<#if (facetCategoryCount)!?has_content>
+		${facetCategoryCount}
 	</#if>
 </#compress></#macro>
 
@@ -1492,9 +1492,9 @@
 
 	@requires FacetScope
 -->
-<#macro FacetScopeParameter><#compress>
-	<#if (.namespace.facetScopeParameter)!?has_content>
-		${.namespace.facetScopeParameter}
+<#macro FacetScopeParameter facetScopeParameter=.namespace.facetScopeParameter><#compress>
+	<#if (facetScopeParameter)!?has_content>
+		${facetScopeParameter}
 	</#if>
 </#compress></#macro>
 
@@ -1554,10 +1554,10 @@
 
 	@requires CheckSpelling
 -->
-<#macro CheckSpellingUrl><#compress>
-	<#if (.namespace.checkSpellingUrl)!?has_content>
+<#macro CheckSpellingUrl checkSpellingUrl=.namespace.checkSpellingUrl><#compress>
+	<#if (checkSpellingUrl)!?has_content>
 		<#noescape>
-			${.namespace.checkSpellingUrl!}
+			${checkSpellingUrl!}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1567,9 +1567,9 @@
 
 	@requires CheckSpelling
 -->
-<#macro CheckSpellingText><#compress>
-	<#if (.namespace.checkSpellingText)!?has_content>
-		${.namespace.checkSpellingText!}
+<#macro CheckSpellingText checkSpellingText=.namespace.checkSpellingText><#compress>
+	<#if (checkSpellingText)!?has_content>
+		${checkSpellingText!}
 	</#if>
 </#compress></#macro>
 
@@ -1757,9 +1757,9 @@
 
 	@provides <code>${core_controller.cluster}</code> <br /> <code>${core_controller.cluster_has_next}</code> <br /> <code>${core_controller.cluster_index}</code>
 -->
-<#macro Clusters>
-	<#if .namespace.category??>
-		<#list .namespace.category.clusters as c>
+<#macro Clusters category=.namespace.category>
+	<#if category??>
+		<#list category.clusters as c>
 			<#assign cluster = c in .namespace />
 			<#assign cluster_has_next = c_has_next in .namespace />
 			<#assign cluster_index = c_index in .namespace />
@@ -1775,8 +1775,8 @@
 
 	@param category Name of the category for contextual navigation (<code>type</code> , <code>site</code>, <code>topic</code>).
 -->
-<#macro ShowMoreClusters category>
-	<#if .namespace.category?? && .namespace.category.name == category && .namespace.category.moreLink??>
+<#macro ShowMoreClusters category namespaceCategory=.namespace.category>
+	<#if namespaceCategory?? && namespaceCategory.name == category && namespaceCategory.moreLink??>
 		<#nested>
 	</#if>
 </#macro>
@@ -1788,8 +1788,8 @@
 
 	@param category Name of the category for contextual navigation (<code>type</code> , <code>site</code>, <code>topic</code>).
 -->
-<#macro ShowFewerClusters category>
-	<#if .namespace.category?? && .namespace.category.name == category && .namespace.category.fewerLink??>
+<#macro ShowFewerClusters category namespaceCategory=.namespace.category>
+	<#if namespaceCategory?? && namespaceCategory.name == category && namespaceCategory.fewerLink??>
 		<#nested>
 	</#if>
 </#macro>
@@ -1848,10 +1848,10 @@
 
 	@requires Previous
 -->
-<#macro PreviousUrl><#compress>
-	<#if (.namespace.previousUrl)!?has_content>
+<#macro PreviousUrl previousUrl=.namespace.previousUrl><#compress>
+	<#if (previousUrl)!?has_content>
 		<#noescape>
-			${.namespace.previousUrl}
+			${previousUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1861,9 +1861,9 @@
 
 	@requires Previous
 -->
-<#macro PreviousRanks><#compress>
-	<#if (.namespace.previousRanks)!?has_content>
-		${.namespace.previousRanks}
+<#macro PreviousRanks previousRanks><#compress>
+	<#if (previousRanks)!?has_content>
+		${previousRanks}
 	</#if>
 </#compress></#macro>
 
@@ -1899,10 +1899,10 @@
 
 	@requires Next
 -->
-<#macro NextUrl><#compress>
-	<#if (.namespace.nextUrl)!?has_content>
+<#macro NextUrl nextUrl=.namespace.nextUrl><#compress>
+	<#if (nextUrl)!?has_content>
 		<#noescape>
-			${.namespace.nextUrl}
+			${nextUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -1912,9 +1912,9 @@
 
 	@requires Next
 -->
-<#macro NextRanks><#compress>
-	<#if (.namespace.nextRanks)!?has_content>
-		${.namespace.nextRanks}
+<#macro NextRanks nextRanks=.namespace.nextRanks><#compress>
+	<#if (nextRanks)!?has_content>
+		${nextRanks}
 	</#if>
 </#compress></#macro>
 
@@ -1998,10 +1998,10 @@
 
 	@param negate Reverses the logic of this macro. i.e. Runs the nested code if the current page is not selected
 -->
-<#macro IsCurrentPage negate=false>
-	<#if .namespace.pageCurrent == true && negate==false>
+<#macro IsCurrentPage pageCurrent=.namespace.pageCurrent negate=false>
+	<#if pageCurrent == true && negate==false>
 		<#nested>
-	<#elseif .namespace.pageCurrent == false && negate==true>
+	<#elseif pageCurrent == false && negate==true>
 		<#nested>
 	</#if>
 </#macro>
@@ -2011,9 +2011,9 @@
 
 	@requires Page
 -->
-<#macro PageNumber><#compress>
-	<#if (.namespace.pageNumber)!?has_content>
-		${.namespace.pageNumber}
+<#macro PageNumber pageNumber=.namespace.pageNumber><#compress>
+	<#if (pageNumber)!?has_content>
+		${pageNumber}
 	</#if>
 </#compress></#macro>
 
@@ -2022,10 +2022,10 @@
 
 	@requires Page
 -->
-<#macro PageUrl><#compress>
-	<#if (.namespace.pageUrl)!?has_content>
+<#macro PageUrl pageUrl=.namespace.pageUrl><#compress>
+	<#if (pageUrl)!?has_content>
 		<#noescape>
-			${.namespace.pageUrl}
+			${pageUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2065,9 +2065,9 @@
 
 	@requires Blending
 -->
-<#macro BlendingTerms><#compress>
-	<#if (.namespace.blendingTerms)!?has_content>
-		${.namespace.blendingTerms}
+<#macro BlendingTerms blendingTerms=.namespace.blendingTerms><#compress>
+	<#if (blendingTerms)!?has_content>
+		${blendingTerms}
 	</#if>
 </#compress></#macro>
 
@@ -2076,10 +2076,10 @@
 
 	@requires Blending
 -->
-<#macro BlendingDisabledUrl><#compress>
-	<#if (.namespace.blendingDisabledUrl)!?has_content>
+<#macro BlendingDisabledUrl blendingDisabledUrl=.namespace.blendingDisabledUrl><#compress>
+	<#if (blendingDisabledUrl)!?has_content>
 		<#noescape>
-			${.namespace.blendingDisabledUrl}
+			${blendingDisabledUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2128,10 +2128,10 @@
 
 	@requires CuratorExhibit
 -->
-<#macro CuratorExhibitsMessageHtml>
-	<#if (.namespace.curatorExhibitsMessageHtml)!?has_content>
+<#macro CuratorExhibitsMessageHtml curatorExhibitsMessageHtml=.namespace.curatorExhibitsMessageHtml>
+	<#if (curatorExhibitsMessageHtml)!?has_content>
 		<#noescape>
-			${.namespace.curatorExhibitsMessageHtml}
+			${curatorExhibitsMessageHtml}
 		</#noescape>
 	</#if>
 </#macro>
@@ -2165,10 +2165,10 @@
 
 	@requires TextMiner
 -->
-<#macro TextMinerUrl><#compress>
-	<#if (.namespace.textMinerUrl)!?has_content>
+<#macro TextMinerUrl textMinerUrl=.namespace.textMinerUrl><#compress>
+	<#if (textMinerUrl)!?has_content>
 		<#noescape>
-			${.namespace.textMinerUrl}
+			${textMinerUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2178,9 +2178,9 @@
 
 	@requires TextMiner
 -->
-<#macro TextMinerEntity><#compress>
-	<#if (.namespace.textMinerEntity)!?has_content>
-			${.namespace.textMinerEntity}
+<#macro TextMinerEntity textMinerEntity=.namespace.textMinerEntity><#compress>
+	<#if (textMinerEntity)!?has_content>
+			${textMinerEntity}
 	</#if>
 </#compress></#macro>
 
@@ -2189,9 +2189,9 @@
 
 	@requires TextMiner
 -->
-<#macro TextMinerDefinition><#compress>
-	<#if (.namespace.textMinerDefinition)!?has_content>
-			${.namespace.textMinerDefinition}
+<#macro TextMinerDefinition textMinerDefinition=.namespace.textMinerDefinition><#compress>
+	<#if (textMinerDefinition)!?has_content>
+			${textMinerDefinition}
 	</#if>
 </#compress></#macro>
 
@@ -2238,8 +2238,8 @@
 
 	@provides <code>${core_controller.exploreUrl}</code>
 -->
-<#macro Explore>
-	<#assign exploreUrl = "?" + changeParam(QueryString, "query", "explore:" + .namespace.result.liveUrl)?html in .namespace>
+<#macro Explore result=.namespace.result>
+	<#assign exploreUrl = "?" + changeParam(QueryString, "query", "explore:" + result.liveUrl)?html in .namespace>
 	<#nested>
 </#macro>
 
@@ -2248,10 +2248,10 @@
 
 	@requires Explore
 -->
-<#macro ExploreUrl><#compress>
-	<#if (.namespace.exploreUrl)!?has_content>
+<#macro ExploreUrl exploreUrl=.namespace.exploreUrl><#compress>
+	<#if (exploreUrl)!?has_content>
 		<#noescape>
-			${.namespace.exploreUrl!}
+			${exploreUrl!}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2288,8 +2288,8 @@
 
 	@requires Results
 -->
-<#macro Quicklinks>
-	<#if (.namespace.result.quickLinks)!?has_content>
+<#macro Quicklinks result=.namespace.result>
+	<#if (result.quickLinks)!?has_content>
 		<#nested>
 	</#if>
 </#macro>
@@ -2303,9 +2303,9 @@
 
 	@provides <code>${core_controller.quickLink}</code> <br /> <code>${core_controller.quickLink_index}</code> <br /> <code>${core_controller.quickLink_has_next}</code>
 -->
-<#macro QuickLink>
-	<#if (.namespace.result.quickLinks.quickLinks)!?has_content>
-		<#list .namespace.result.quickLinks.quickLinks as quickLink>
+<#macro QuickLink result=.namespace.result>
+	<#if (result.quickLinks.quickLinks)!?has_content>
+		<#list result.quickLinks.quickLinks as quickLink>
 			<#assign quickLink = quickLink in .namespace />
 			<#assign quickLink_index = quickLink_index in .namespace />
 			<#assign quickLink_has_next = quickLink_has_next in .namespace />
@@ -2319,10 +2319,10 @@
 
 	@requires Quicklinks
 -->
-<#macro QuickLinkUrl><#compress>
-	<#if (.namespace.quickLink.url)!?has_content>
+<#macro QuickLinkUrl quickLink=.namespace.quickLink><#compress>
+	<#if (quickLink.url)!?has_content>
 		<#noescape>
-			${.namespace.quickLink.url!}
+			${quickLink.url!}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2332,9 +2332,9 @@
 
 	@requires Quicklinks
 -->
-<#macro QuickLinkText><#compress>
-	<#if (.namespace.quickLink.text)!?has_content>
-		${.namespace.quickLink.text!}
+<#macro QuickLinkText quickLink=.namespace.quickLink><#compress>
+	<#if (quickLink.text)!?has_content>
+		${quickLink.text!}
 	</#if>
 </#compress></#macro>
 
@@ -2359,9 +2359,9 @@
 
 	@provides <code>${core_controller.optimiseUrl}</code>
 -->
-<#macro Optimise>
+<#macro Optimise result=.namespace.result>
 	<@AdminUIOnly>
-		<#assign optimiseUrl = "seo-auditor.html?optimiser_url=${.namespace.result.indexUrl}&amp;query=${response.resultPacket.query}&amp;collection=${.namespace.result.collection}&amp;profile=${question.profile}">
+		<#assign optimiseUrl = "seo-auditor.html?optimiser_url=${result.indexUrl}&amp;query=${response.resultPacket.query}&amp;collection=${result.collection}&amp;profile=${question.profile}">
 		<#nested>
 	</@AdminUIOnly>
 </#macro>
@@ -2371,10 +2371,10 @@
 
 	@requires Optimise
 -->
-<#macro OptimiseUrl>
-	<#if (.namespace.optimiseUrl)!?has_content>
+<#macro OptimiseUrl optimiseUrl=.namespace.optimiseUrl>
+	<#if (optimiseUrl)!?has_content>
 		<#noescape>
-			${.namespace.optimiseUrl}
+			${optimiseUrl}
 		</#noescape>
 	</#if>
 </#macro>
@@ -2407,10 +2407,10 @@
 
 	@provides <code>${core_controller.collapsedUrl}</code> <br /> <code>${core_controller.collapsedCount}</code>
 -->
-<#macro Collapsed>
-	<#if .namespace.result.collapsed??>
-		<#assign collapsedUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${.namespace.result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
-		<#assign collapsedCount = .namespace.result.collapsed.count in .namespace>
+<#macro Collapsed result=.namespace.result>
+	<#if result.collapsed??>
+		<#assign collapsedUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
+		<#assign collapsedCount = result.collapsed.count in .namespace>
 
 		<#nested>
 	</#if>
@@ -2421,9 +2421,9 @@
 
 	@requires Collapsed
 -->
-<#macro CollapsedLabel signature="">
+<#macro CollapsedLabel result=.namespace.result signature="">
 	<#if (response.resultPacket.resultsSummary.estimatedCounts)!?has_content == false || response.resultPacket.resultsSummary.estimatedCounts == false>
-		<#if signature!?has_content == false || ((.namespace.result.collapsed.column)!?has_content && .namespace.result.collapsed.column == signature)>
+		<#if signature!?has_content == false || ((result.collapsed.column)!?has_content && result.collapsed.column == signature)>
 			<#nested>
 		</#if>
 	</#if>
@@ -2435,9 +2435,9 @@
 
 	@requires Collapsed
 -->
-<#macro CollapsedApproximateLabel signature="">
+<#macro CollapsedApproximateLabel result=.namespace.result signature="">
 	<#if (response.resultPacket.resultsSummary.estimatedCounts)!?has_content && response.resultPacket.resultsSummary.estimatedCounts>
-		<#if signature!?has_content == false || ((.namespace.result.collapsed.column)!?has_content && .namespace.result.collapsed.column == signature)>
+		<#if signature!?has_content == false || ((result.collapsed.column)!?has_content && result.collapsed.column == signature)>
 			<#nested>
 		</#if>
 	</#if>
@@ -2448,10 +2448,10 @@
 
 	@requires Collapsed
 -->
-<#macro CollapsedUrl><#compress>
-	<#if (.namespace.collapsedUrl)!?has_content>
+<#macro CollapsedUrl collapsedUrl=.namespace.collapsedUrl><#compress>
+	<#if (collapsedUrl)!?has_content>
 		<#noescape>
-			${.namespace.collapsedUrl}
+			${collapsedUrl}
 		</#noescape>
 	</#if>
 </#compress></#macro>
@@ -2461,9 +2461,9 @@
 
 	@requires Collapsed
 -->
-<#macro CollapsedCount><#compress>
-	<#if (.namespace.collapsedCount)!?has_content>
-			${.namespace.collapsedCount}
+<#macro CollapsedCount collapsedCount=.namespace.collapsedCount><#compress>
+	<#if (collapsedCount)!?has_content>
+			${collapsedCount}
 	</#if>
 </#compress></#macro>
 <#--- @end -->
