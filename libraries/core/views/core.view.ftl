@@ -92,8 +92,8 @@
 	<!-- core.controller.ftl :: pageTitle -->
 	<#compress>
 		<title>
-			<#if query??>${query},&nbsp; </#if>
-			<#if collectionName??>${collectionName} </#if>
+			<#if query??> ${query}</#if>
+			<#if collectionName??>,&nbsp; ${collectionName}</#if>
 			<#if sitename??>- ${sitename}</#if>
 		</title>
 	</#compress>
@@ -545,40 +545,38 @@
 	</nav>
 </#macro>
 
-<#---
-	Displays a search form which has been configured against the user's query
--->
-<#macro AfterSearchForm>
-	<!-- core.view.ftl :: AfterSearchForm -->
-	<form class="navbar-form navbar-left form-inline" action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-		<div class="form-group">
-			<input required name="query" id="query" title="${(response.translations.CORE_AFTER_FORM_QUERY_TITLE)!"Search query"} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" type="text" value="${question.inputParameterMap["query"]!}" accesskey="q" placeholder="Search <@core_controller.cfg>service_name</@core_controller.cfg>&hellip;
-			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!"powered by"} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!"Funnelback"}" class="form-control query" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')">
+<#macro AdvancedForm>
+	<@AdvancedFormSection>
+	<div class="row">
+		<div class="col-md-4">
+			<@AdvancedFormFieldsQuery />
 		</div>
-		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'}</button>
-
-		<#-- Display the facet scope which allows the user to search within the currently selected facets -->
-		<@core_controller.FacetScope>
-			<div class="checkbox-inline">
-				<input type="checkbox" name="facetScope" id="facetScope" value="<@core_controller.FacetScopeParameter />" checked="checked">
-				<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
-			</div>
-		</@core_controller.FacetScope>
-	</form>
+		<div class="col-md-4">
+			<@AdvancedFormFieldsMetadata />
+		</div>
+		<div class="col-md-4">
+			<@AdvancedFormFieldsDates />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<@AdvancedFormFieldsDisplay />
+		</div>
+		<div class="col-md-4">
+			<@AdvancedFormFieldsLocation />
+		</div>
+		<div class="col-md-4">
+			<@AdvancedFormFieldsScope />
+		</div>
+	</div>
+	</@AdvancedFormSection>
 </#macro>
 
 <#---
 	Displays an advanced search form allowing the user to
 	query against various metadata, data and document format.
 -->
-<#macro AdvancedForm>
+<#macro AdvancedFormSection>
 	<!-- core.view.ftl :: AdvancedForm -->
 	<section id="search-advanced" class="well row collapse <@core_controller.IfDefCGI name="from-advanced">in</@core_controller.IfDefCGI>">
 	<h2 class="sr-only">${(response.translations.CORE_ADVANCED_SEARCH_TITLE)!"Advanced Search"}</h2>
@@ -589,247 +587,8 @@
 				<@core_controller.FacetScope>
 					<input type="hidden" name="facetScope" value="<@core_controller.FacetScopeParameter />">
 				</@core_controller.FacetScope>
+				<#nested />
 
-				<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
-				<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
-				<div class="row">
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_CONTENTS_TITLE)!'Contents'}</legend>
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="query-advanced">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_TITLE)!'Any'}</label>
-								<div class="col-md-8">
-									<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="query_and" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_TITLE)!'All'}</label>
-								<div class="col-md-8">
-									<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_TITLE)!'Phrase'}</label>
-								<div class="col-md-8">
-									<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="query_not" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_TITLE)!'Not'}</label>
-								<div class="col-md-8">
-									<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
-								</div>
-							</div>
-						</fieldset>
-					</div>
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_METADATA_TITLE)!'Metadata'}</legend>
-							<div class="form-group">
-								<label for="meta_t" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_TITLE)!'Title'}</label>
-								<div class="col-md-8">
-									<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="meta_a" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_TITLE)!'Author'}</label>
-								<div class="col-md-8">
-									<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="meta_s" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_TITLE)!'Subject'}</label>
-								<div class="col-md-8">
-									<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="meta_f_sand">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_TITLE)!'Format'}</label>
-								<div class="col-md-8">
-									<#-- Select dropdown for format -->
-									<@core_controller.Select name="meta_f_sand" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_ANY)!'Any'} ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-									</@core_controller.Select>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_PUBLISHED_TITLE)!'Published'}</legend>
-							<div class="form-group">
-								<label class="control-label col-md-4">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_TITLE)!'After'}</label>
-
-								<#-- Select dropdown for year -->
-								<label class="sr-only" for="meta_d1year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_SR_TITLE)!'Year'}</label>
-								<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-
-								<#-- Select dropdown for month -->
-								<label class="sr-only" for="meta_d1month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_SR_TITLE)!'Month'}</label>
-								<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-
-								<#-- Select dropdown for day -->
-								<label class="sr-only" for="meta_d1day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_SR_TITLE)!'Day'}</label>
-								<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-							</div>
-
-							<div class="form-group">
-								<label class="control-label col-md-4">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_TITLE)!'Before'}</label>
-
-								<#-- Select dropdown for year -->
-								<label class="sr-only" for="meta_d2year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_SR_TITLE)!'Year'}</label>
-								<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-
-								<#-- Select dropdown for month -->
-								<label class="sr-only" for="meta_d2month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_SR_TITLE)!'Month'}</label>
-								<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-
-								<#-- Select dropdown for day -->
-								<label class="sr-only" for="meta_d2day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_SR_TITLE)!'Day'}</label>
-								<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_DISPLAY_TITLE)!'Display'}</legend>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="sort">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_TITLE)!'Sort'}</label>
-								<div class="col-md-8">
-								<#-- Select dropdown for sort -->
-								<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE_TITLE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE_TITLE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE_TITLE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY_TITLE)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL_TITLE)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL_TITLE)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE_TITLE)!'Shuffle'}"]>
-									<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
-										<#-- Display the options -->
-										<@core_controller.SelectOptions>
-											<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
-												<@core_controller.SelectOptionName />
-											</option>
-										</@core_controller.SelectOptions>
-									</select>
-								</@core_controller.Select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="num_ranks">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_TITLE)!'Results'}</label>
-								<div class="col-md-8">
-									<div class="input-group">
-										<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
-										<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIX)!'per page'}</span>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_LOCATION_TITLE)!'Location'}</legend>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="origin">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_TITLE)!'Origin'}</label>
-								<div class="col-md-8">
-									<div class="input-group">
-										<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="${(response.translations.CORE_ADVANCED_SEARCH_LOCATE_ME_MSG)!'Locate me!'}" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
-										<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="maxdist">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_TITLE)!'Distance'}</label>
-								<div class="col-md-8">
-									<div class="input-group">
-										<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
-										<span class="input-group-addon">
-											${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_SUFFIX)!'km'}
-										</span>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-					<div class="col-md-4">
-						<fieldset>
-							<legend>${(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_WITHIN_TITLE)!''}</legend>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="scope">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_TITLE)!'Domain'}</label>
-								<div class="col-md-8">
-									<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-md-4" for="meta_v">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_TITLE)!'Path'}</label>
-								<div class="col-md-8">
-									<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
-								</div>
-							</div>
-						</fieldset>
-					</div>
-				</div>
 				<hr>
 				<div class="row">
 					<div class="col-md-12">
@@ -843,6 +602,242 @@
 		</div>
 	</div>
 	</section>
+</#macro>
+
+<#macro AdvancedFormFieldsDates legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_PUBLISHED_TITLE)!'Published'>
+    <fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label class="control-label col-md-4">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_TITLE)!'After'}</label>
+
+			<#-- Select dropdown for year -->
+			<label class="sr-only" for="meta_d1year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_SR_TITLE)!'Year'}</label>
+			<@core_controller.Select name="meta_d1year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+
+			<#-- Select dropdown for month -->
+			<label class="sr-only" for="meta_d1month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_SR_TITLE)!'Month'}</label>
+			<@core_controller.Select name="meta_d1month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+
+			<#-- Select dropdown for day -->
+			<label class="sr-only" for="meta_d1day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_SR_TITLE)!'Day'}</label>
+			<@core_controller.Select name="meta_d1day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AFTER_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-4">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_TITLE)!'Before'}</label>
+
+			<#-- Select dropdown for year -->
+			<label class="sr-only" for="meta_d2year">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_SR_TITLE)!'Year'}</label>
+			<@core_controller.Select name="meta_d2year" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_YEAR_PlACEHOLDER_MSG)!'Year'}"] range="CURRENT_YEAR - 20..CURRENT_YEAR">
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+
+			<#-- Select dropdown for month -->
+			<label class="sr-only" for="meta_d2month">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_SR_TITLE)!'Month'}</label>
+			<@core_controller.Select name="meta_d2month" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_MONTH_PlACEHOLDER_MSG)!'Month'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JANUARY)!'Jan'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_FEBRUARY)!'Feb'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MARCH)!'Mar'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_APRIL)!'Apr'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_MAY)!'May'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JUNE)!'Jun'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_JULY)!'Jul'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_AUGUST)!'Aug'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_SEPTEMBER)!'Sep'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_OCTOBER)!'Oct'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_NOVEMBER)!'Nov'}", "${(response.translations.CORE_ADVANCED_SEARCH_FIELD_MONTH_DECEMBER)!'Dec'}"]>
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+
+			<#-- Select dropdown for day -->
+			<label class="sr-only" for="meta_d2day">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_SR_TITLE)!'Day'}</label>
+			<@core_controller.Select name="meta_d2day" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_BEFORE_DAY_PlACEHOLDER_MSG)!'Day'}"] range="1..31">
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control-inline input-sm">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+		</div>
+	</fieldset>
+</#macro>
+
+<#macro AdvancedFormFieldsDisplay legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_DISPLAY_TITLE)!'Display'>
+	<fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="sort">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_TITLE)!'Sort'}</label>
+			<div class="col-md-8">
+			<#-- Select dropdown for sort -->
+			<@core_controller.Select name="sort" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_RELEVANCE_TITLE)!'Relevance'}", "date=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DATE_TITLE)!'Date (Newest first)'}", "adate=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_ADATE_TITLE)!'Date (Oldest first)'}", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_PROXIMITY_TITLE)!'Distance'}" "url=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_URL_TITLE)!'URL (a-z)'}", "durl=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_DURL_TITLE)!'URL (z-a)'}", "shuffle=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SORT_SHUFFLE_TITLE)!'Shuffle'}"]>
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+			</@core_controller.Select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="num_ranks">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_TITLE)!'Results'}</label>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
+					<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIX)!'per page'}</span>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</#macro>
+
+<#macro AdvancedFormFieldsLocation legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_LOCATION_TITLE)!'Location'>
+	<fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="origin">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_TITLE)!'Origin'}</label>
+			<div class="col-md-8">
+				<div class="input-group">
+					<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="${(response.translations.CORE_ADVANCED_SEARCH_LOCATE_ME_MSG)!'Locate me!'}" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
+					<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="maxdist">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_TITLE)!'Distance'}</label>
+			<div class="col-md-8">
+				<div class="input-group">
+					<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
+					<span class="input-group-addon">
+						${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_SUFFIX)!'km'}
+					</span>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</#macro>
+
+<#macro AdvancedFormFieldsMetadata legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_METADATA_TITLE)!'Metadata'>
+	<fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label for="meta_t" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_TITLE)!'Title'}</label>
+			<div class="col-md-8">
+				<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="meta_a" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_TITLE)!'Author'}</label>
+			<div class="col-md-8">
+				<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="meta_s" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_TITLE)!'Subject'}</label>
+			<div class="col-md-8">
+				<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="meta_f_sand">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_TITLE)!'Format'}</label>
+			<div class="col-md-8">
+				<#-- Select dropdown for format -->
+				<@core_controller.Select name="meta_f_sand" options=["=${(response.translations.CORE_ADVANCED_SEARCH_FIELD_FORMAT_ANY)!'Any'} ", "pdf=PDF  (.pdf) ", "xls=Excel (.xls) ", "ppt=Powerpoint (.ppt) ", "rtf=Rich Text (.rtf) ", "doc=Word (.doc) ", "docx=Word 2007+ (.docx) "]>
+				<select name="<@core_controller.SelectName />" id="<@core_controller.SelectName />" class="form-control">
+					<#-- Display the options -->
+					<@core_controller.SelectOptions>
+						<option value="<@core_controller.SelectOptionValue />" <@core_controller.IsSelectOptionSelected>selected="selected"</@core_controller.IsSelectOptionSelected>>
+							<@core_controller.SelectOptionName />
+						</option>
+					</@core_controller.SelectOptions>
+				</select>
+				</@core_controller.Select>
+			</div>
+		</div>
+	</fieldset>
+</#macro>
+
+<#macro AdvancedFormFieldsQuery legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_CONTENTS_TITLE)!'Contents'>
+	<fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="query-advanced">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_TITLE)!'Any'}</label>
+			<div class="col-md-8">
+				<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="query_and" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_TITLE)!'All'}</label>
+			<div class="col-md-8">
+				<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_TITLE)!'Phrase'}</label>
+			<div class="col-md-8">
+				<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="query_not" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_TITLE)!'Not'}</label>
+			<div class="col-md-8">
+				<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
+			</div>
+		</div>
+	</fieldset>
+</#macro>
+
+<#macro AdvancedFormFieldsScope legend=(response.translations.CORE_ADVANCED_SEARCH_FIELDSET_WITHIN_TITLE)!'Within'>
+	<fieldset>
+		<legend>${legend}</legend>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="scope">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_TITLE)!'Domain'}</label>
+			<div class="col-md-8">
+				<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-4" for="meta_v">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_TITLE)!'Path'}</label>
+			<div class="col-md-8">
+				<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
+			</div>
+		</div>
+	</fieldset>
 </#macro>
 
 <#-- ###  Sessions ### -->
@@ -979,10 +974,14 @@
 <#---
 	Displays the session cart.
 
-	The cart feature allows users to save inidividual search results so
+	The cart feature allows users to save individual search results so
 	that they viewed later and compared side by side.
 -->
 <#macro Cart>
+    <@CartSection><@CartResult /></@CartSection>
+</#macro>
+
+<#macro CartSection>
 	<!-- core.controller.ftl :: Cart -->
 	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
 		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
@@ -998,18 +997,22 @@
 
 					<ul class="list-unstyled">
 						<li data-ng-repeat="item in cart">
-							<h4>
-								<a title="${(response.translations.CORE_CART_REMOVE_TITLE)!'Remove'}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-								<a href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
-							</h4>
-							<cite class="text-success">{{item.indexUrl|cut:'http://'}}</cite>
-							<p>{{item.summary|truncate:255}}</p>
+                            <#nested />
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</#if>
+</#macro>
+
+<#macro CartResult>
+	<h4>
+		<a title="${(response.translations.CORE_CART_REMOVE_TITLE)!'Remove'}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
+		<a href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
+	</h4>
+	<cite class="text-success">{{item.indexUrl|cut:'http://'}}</cite>
+	<p>{{item.summary|truncate:255}}</p>
 </#macro>
 
 <#-- ###  Facets ### -->
@@ -1606,6 +1609,10 @@
 
 <#--@begin Results -->
 
+<#macro Results>
+	<@ResultsList><@Result /></@ResultsList>
+</#macro>
+
 <#--
 	Displays each result which is returned by Funnelback.
 
@@ -1614,7 +1621,7 @@
 		by Funnelback based on the query.
 	</p>
 -->
-<#macro Results>
+<#macro ResultsList>
 	<!-- core.controller.ftl :: Results -->
 	<ol id="search-results" class="list-unstyled stencils-core-results" start="${response.resultPacket.resultsSummary.currStart}">
 		<@core_controller.Results>
@@ -1635,7 +1642,7 @@
 				</#if>
 			<#else>
 				<li data-fb-result=${core_controller.result.indexUrl}>
-					<@Result/>
+					<#nested />
 				</li>
 			</#if>
 		</@core_controller.Results>
@@ -1652,33 +1659,101 @@
 -->
 <#macro Result>
 	<!-- core.view.ftl :: Result -->
-	<#-- ResultTitle -->
 	<#-- Displays the result title which can be used to navigate to the source page -->
 	<h4>
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-			<a href="#" data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="stencils-print__hide">
-				<small class="glyphicon glyphicon-{{css}}"></small>
-			</a>
-		</#if>
+    	<@ResultSessionCartTrigger />
+		<@ResultTitle />
+		<@ResultDocumentType />
+		<@ResultSessionHistoryClick />
 
-		<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
-			<@core_controller.boldicize><@core_controller.Truncate length=70>${core_controller.result.title}</@core_controller.Truncate></@core_controller.boldicize>
-		</a>
-		<#if core_controller.result.fileType!?matches("(doc|docx|ppt|pptx|rtf|xls|xlsx|xlsm|pdf)", "r")>
-			<small class="text-muted">${core_controller.result.fileType?upper_case} (${filesize(core_controller.result.fileSize!0)})</small>
-		</#if>
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
-			<small class="text-warning stencils-print__hide">
-				<span class="glyphicon glyphicon-time"></span>
-				<a title="${(response.translations.CORE_RESULT_SESSION_HISTORY_TITLE)!'Click history'}" href="#" class="text-warning" data-ng-click="toggleHistory()">
-				${(response.translations.CORE_RESULT_SESSION_HISTORY_LAST_VISITED)!'Last visited'} ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+	</h4>
+
+	<@ResultUrl />
+	<@ResultTools />
+	<@ResultSummary />
+	<@ResultMetadataSummary />
+    <@ResultQuicklinks />
+	<@ResultCollapsed />
+	<@ResultMetadataFields />
+</#macro>
+
+<#-- ResultCollapsed - Display the link to access collapse results which represents similar results which have been hidden for clarity -->
+<#macro ResultCollapsed>
+	<@core_controller.Collapsed>
+		<div class="search-collapsed stencils-print__hide">
+			<small>
+				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
+				<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
+					<#-- Message for exact count -->
+					<@core_controller.CollapsedLabel>
+						<@core_controller.CollapsedCount /> ${(response.translations.CORE_RESULT_COLLAPSED_SIMILAR_MSG)!'Very similar results'}
+					</@core_controller.CollapsedLabel>
+
+					<#-- Alternative message for approximate count -->
+					<@core_controller.CollapsedApproximateLabel>
+						${(response.translations.CORE_RESULT_COLLAPSED_ABOUT)!'About'} <@core_controller.CollapsedCount /> ${(response.translations.CORE_RESULT_COLLAPSED_SIMILAR_MSG)!'Very similar results'}
+					</@core_controller.CollapsedApproximateLabel>
 				</a>
 			</small>
-		</#if>
-	</h4>
-	<#-- /ResultTitle -->
+		</div>
+	</@core_controller.Collapsed>
+</#macro>
+
+<#macro ResultSessionCartTrigger labels="" titles="" icons="pushpin|remove" >
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<a href="#" data-ng-click="toggle()" data-cart-link data-css="${icons!}" title="{{label}}" class="stencils-print__hide">
+			<small class="glyphicon glyphicon-{{css}}"></small>
+		</a>
+	</#if>
+</#macro>
+
+<#macro ResultDocumentType>
+	<#if core_controller.result.fileType!?matches("(doc|docx|ppt|pptx|rtf|xls|xlsx|xlsm|pdf)", "r")>
+		<small class="text-muted">${core_controller.result.fileType?upper_case} (${filesize(core_controller.result.fileSize!0)})</small>
+	</#if>
+</#macro>
+
+<#macro ResultTitle title=core_controller.result.title length=70 url=core_controller.result.clickTrackingUrl liveUrl=core_controller.result.liveUrl>
+	<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
+		<@core_controller.boldicize><@core_controller.Truncate length=70>${core_controller.result.title}</@core_controller.Truncate></@core_controller.boldicize>
+	</a>
+</#macro>
+
+
+<#macro ResultSessionHistoryClick icon="glyphicon glyphicon-time">
+	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+		<small class="text-warning stencils-print__hide">
+			<span class="${icon!}"></span>
+			<a title="${(response.translations.CORE_RESULT_SESSION_HISTORY_TITLE)!'Click history'}" href="#" class="text-warning" data-ng-click="toggleHistory()">
+			${(response.translations.CORE_RESULT_SESSION_HISTORY_LAST_VISITED)!'Last visited'} ${prettyTime(session.getClickHistory(core_controller.result.indexUrl).clickDate)}
+			</a>
+		</small>
+	</#if>
+</#macro>
+
+<#-- ResultSummary: Display the generated intelligent result summary -->
+<#macro ResultSummary summary = core_controller.result.summary length=''>
+	<#if summary??>
+		<p>
+			<#if core_controller.result.date??>
+				<small class="text-muted">
+					${core_controller.result.date?date?string("d MMM yyyy")}:
+				</small>
+			</#if>
+			<span class="search-summary">
+				<@core_controller.boldicize>
+					<#noescape>
+						${core_controller.result.summary}
+					</#noescape>
+				</@core_controller.boldicize>
+			</span>
+		</p>
+	</#if>
+</#macro>
+
 
 	<#-- Display the url which belongs to the search result providing the user with additional context  -->
+<#macro ResultUrl url = core_controller.result.displayUrl>
 	<cite data-url="${core_controller.result.displayUrl}" class="text-success">
 		<@core_controller.cut cut="http://">
 			<@core_controller.boldicize>
@@ -1686,8 +1761,10 @@
 			</@core_controller.boldicize>
 		</@core_controller.cut>
 	</cite>
+</#macro>
 
-	<#-- ResultTools -->
+<#-- ResultTools -->
+<#macro ResultTools>
 	<div class="btn-group stencils-print__hide">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="${(response.translations.CORE_RESULT_MORE_ACTIONS)!'More actions'}"><small class="glyphicon glyphicon-chevron-down text-success"></small></a>
 
@@ -1716,9 +1793,10 @@
 			</@core_controller.Optimise>
 		</ul>
 	</div>
-	<#-- /ResultTools -->
+</#macro>
 
-	<#--  ResultQuicklinks -->
+<#--  ResultQuicklinks -->
+<#macro ResultQuicklinks>
 	<@core_controller.Quicklinks>
 		<ul class="list-inline stencils-print__hide">
 			<@core_controller.QuickLink>
@@ -1746,56 +1824,21 @@
 			</#if>
 		</#if>
 	</@core_controller.Quicklinks>
+</#macro>
 
-	<#-- ResultSummary: Display the generated intelligent result summary -->
-	<#if core_controller.result.summary??>
-		<p>
-			<#if core_controller.result.date??>
-				<small class="text-muted">
-					${core_controller.result.date?date?string("d MMM yyyy")}:
-				</small>
-			</#if>
-			<span class="search-summary">
-				<@core_controller.boldicize>
-					<#noescape>
-						${core_controller.result.summary}
-					</#noescape>
-				</@core_controller.boldicize>
-			</span>
-		</p>
-	</#if>
 
-	<#-- ResultSummary - Metadata summary based on fields mapped to the description metadata field "c" -->
-	<#if core_controller.result.metaData["c"]??>
+<#-- ResultSummary - Metadata summary based on fields mapped to the description metadata field, by default is "c" -->
+<#macro ResultMetadataSummary metadataName = "c">
+	<#if core_controller.result.metaData[metadataName]??>
 		<p>
 			<@core_controller.boldicize>
-				${core_controller.result.metaData["c"]!}
+				${core_controller.result.metaData[metadataName]!}
 			</@core_controller.boldicize>
 		</p>
 	</#if>
-	<#-- /ResultSummary -->
+</#macro>
 
-	<#-- ResultCollased - Display the link to access collapse results which represents similar results which have been hidden for clarity -->
-	<@core_controller.Collapsed>
-		<div class="search-collapsed stencils-print__hide">
-			<small>
-				<span class="glyphicon glyphicon-expand text-muted"></span>&nbsp;
-				<a class="search-collapsed" href="<@core_controller.CollapsedUrl />">
-					<#-- Message for exact count -->
-					<@core_controller.CollapsedLabel>
-						<@core_controller.CollapsedCount /> ${(response.translations.CORE_RESULT_COLLAPSED_SIMILAR_MSG)!'Very similar results'}
-					</@core_controller.CollapsedLabel>
-
-					<#-- Alternative message for approximate count -->
-					<@core_controller.CollapsedApproximateLabel>
-						${(response.translations.CORE_RESULT_COLLAPSED_ABOUT)!'About'} <@core_controller.CollapsedCount /> ${(response.translations.CORE_RESULT_COLLAPSED_SIMILAR_MSG)!'Very similar results'}
-					</@core_controller.CollapsedApproximateLabel>
-				</a>
-			</small>
-		</div>
-	</@core_controller.Collapsed>
-
-	<#-- ResultMetadataSummary -->
+<#macro ResultMetadataFields>    
 	<#if core_controller.result.metaData["a"]?? || core_controller.result.metaData["s"]?? || core_controller.result.metaData["p"]??>
 		<dl class="dl-horizontal text-muted">
 			<#if core_controller.result.metaData["a"]??>
@@ -1812,7 +1855,6 @@
 			</#if>
 		</dl>
 	</#if>
-	<#-- /ResultMetadataSummary -->
 </#macro>
 <#-- @end Result -->
 <#-- /Category - Result -->

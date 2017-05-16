@@ -157,7 +157,7 @@
 	<@core_controller.Select name="num_ranks" options=options>
 		<div name="ResultsViewSelectorLimit" id="ResultsViewSelectorLimit" class="btn-group">
 
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 				<span class="label label-default">Limit: </span>
 					<@base_controller.GetNumRanks />
 				&nbsp;&nbsp;
@@ -190,7 +190,7 @@
 		<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
 			<@core_controller.SelectOptions>
 				<@core_controller.IsSelectOptionSelected>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 					<span class="label label-default">Columns:</span>
 						<@core_controller.SelectOptionName />
 					&nbsp;&nbsp;
@@ -225,14 +225,14 @@
 <#---
 	View for a select UI that allows the user to sort results by different options
 -->
-<#macro ResultsViewSelectorSort>
+<#macro ResultsViewSelectorSort label="Sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=URL (A-Z)", "durl=URL (Z-A)", "shuffle=Shuffle"]>
 <!-- base.view.ftl :: ResultsViewSelectorSort -->
-<@core_controller.Select name="sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=Url (A-Z)", "durl=Url (Z-A)", "shuffle=Shuffle"]>
+<@core_controller.Select name="sort" options=options>
 	<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
 		<@core_controller.SelectOptions>
 			<@core_controller.IsSelectOptionSelected>
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-				<span class="label label-default">Sort:</span>
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+				<span class="label label-default">${label}:</span>
 					<@core_controller.SelectOptionName />
 				&nbsp;&nbsp;
 				<span class="caret"></span>
@@ -262,7 +262,7 @@
 <#macro ResultsViewSelectors>
 	<#if (response.resultPacket.resultsWithTierBars)!?has_content>
 	<!-- base.view.ftl :: ResultsViewSelectors -->
-	<div class="row" style="margin-bottom:0.5em">
+	<div class="row">
 		<div class="col-md-12">
 			<div class="pull-right">
 				<@ResultsViewSelectorLimit />
