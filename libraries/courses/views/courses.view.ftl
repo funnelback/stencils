@@ -224,7 +224,7 @@
 						<#-- Generate the explore url which is used to find similar results -->
 						<@core_controller.Explore>
 							<li>
-								<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+								<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 							</li>
 						</@core_controller.Explore>
 						<#-- Show the optimise button when viewed from the admin UI -->
@@ -393,7 +393,7 @@
 								<#-- Generate the explore url which is used to find similar results -->
 								<@core_controller.Explore>
 									<li>
-										<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+										<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 									</li>
 								</@core_controller.Explore>
 								<#-- Show the optimise button when viewed from the admin UI -->

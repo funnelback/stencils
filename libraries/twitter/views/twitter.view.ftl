@@ -150,7 +150,7 @@
 				<div class="row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
 					<div class="btn-group col-md-8">
 						<div class="btn-group">
-							<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+							<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 								<span class="sr-only">Result tools</span>
 							</button>
 							<ul class="dropdown-menu">
@@ -163,7 +163,7 @@
 								<#-- Generate the explore url which is used to find similar results -->
 								<@core_controller.Explore>
 									<li>
-										<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+										<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 									</li>
 								</@core_controller.Explore>
 								<#-- Show the optimise button when viewed from the admin UI -->
@@ -302,7 +302,7 @@
 						<#--	Result tools -->
 						<div class="btn-group">
 							<div class="btn-group">
-								<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+								<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 									<span class="sr-only">Result tools</span>
 								</button>
 								<ul class="dropdown-menu">
@@ -315,7 +315,7 @@
 									<#-- Generate the explore url which is used to find similar results -->
 									<@core_controller.Explore>
 										<li>
-											<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+											<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 										</li>
 									</@core_controller.Explore>
 									<#-- Show the optimise button when viewed from the admin UI -->
@@ -480,7 +480,7 @@
 <#macro CartResult>
 	<h4>
 		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsTwitterID" title="{{item.indexUrl}}">Twitter Tweet: {{item.metaData.stencilsTwitterID}}</a>
+		<a data-ng-href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsTwitterID" title="{{item.indexUrl}}">Twitter Tweet: {{item.metaData.stencilsTwitterID}}</a>
 	</h4>
 	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
 	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>

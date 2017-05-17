@@ -30,7 +30,7 @@
 	<div class="stencils-print__hide row stencils-progressive-disclosure__hiddenBlock stencils-progressive-disclosure__hiddenBlock--showOnSelected stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover">
 		<div class="btn-group col-md-8">
 			<div class="btn-group">
-				<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+				<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 					<span class="sr-only">Result tools</span>
 				</button>
 				<ul class="dropdown-menu">
@@ -43,7 +43,7 @@
 					<#-- Generate the explore url which is used to find similar results -->
 					<@core_controller.Explore result=result>
 						<li>
-							<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+							<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 						</li>
 					</@core_controller.Explore>
 					<#-- Show the optimise button when viewed from the admin UI -->
@@ -91,7 +91,7 @@
 	<#-- Result tools -->
 	<div class="btn-group">
 		<div class="btn-group">
-			<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+			<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 				<span class="sr-only">Result tools</span>
 			</button>
 			<ul class="dropdown-menu">
@@ -104,7 +104,7 @@
 				<#-- Generate the explore url which is used to find similar results -->
 				<@core_controller.Explore result=result>
 					<li>
-						<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+						<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 					</li>
 				</@core_controller.Explore>
 				<#-- Show the optimise button when viewed from the admin UI -->
@@ -790,9 +790,9 @@
 					<ul class="list-unstyled">
 						<li data-ng-repeat="item in cart">
 							<ng-switch on="item.metaData.stencilsFacebookType">
-							  <div ng-switch-when="POST"><@CartResultPost /></div>
-							  <div ng-switch-when="EVENT"><@CartResultEvent /></div>
-								<div ng-switch-when="PAGE"><@CartResultPage /></div>
+							  <div data-ng-switch-when="POST"><@CartResultPost /></div>
+							  <div data-ng-switch-when="EVENT"><@CartResultEvent /></div>
+								<div data-ng-switch-when="PAGE"><@CartResultPage /></div>
 							</ng-switch>
 						</li>
 					</ul>
@@ -809,7 +809,7 @@
 <#macro CartResultPost>
 	<h4>
 		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsFacebookPostID" title="{{item.indexUrl}}">Facebook post: {{item.metaData.stencilsFacebookPostID}}</a>
+		<a data-ng-href="{{item.indexUrl}}" data-ng-show="item.metaData.stencilsFacebookPostID" title="{{item.indexUrl}}">Facebook post: {{item.metaData.stencilsFacebookPostID}}</a>
 	</h4>
 	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
 	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
@@ -821,7 +821,7 @@
 <#macro CartResultEvent>
 	<h4>
 		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook event: {{item.title|truncate:150}}</a>
+		<a data-ng-href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook event: {{item.title|truncate:150}}</a>
 	</h4>
 	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
 	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
@@ -833,7 +833,7 @@
 <#macro CartResultPage>
 	<h4>
 		<a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook page: {{item.title|truncate:150}}</a>
+		<a data-ng-href="{{item.indexUrl}}" data-ng-show="item.title" title="{{item.indexUrl}}">Facebook page: {{item.title|truncate:150}}</a>
 	</h4>
 	<p data-ng-hide="!item.summary">{{item.summary|truncate:255}}</p>
 	<p data-ng-hide="!item.metaData.c">{{item.metaData.c|truncate:255}}</p>
