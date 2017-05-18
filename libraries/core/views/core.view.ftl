@@ -364,9 +364,9 @@
 </#macro>
 
 <#--- Display the facet scope which allows the user to search within the currently selected facets -->
-<#macro SearchFormFacetScope attrs...>
+<#macro SearchFormFacetScope classWrapper="checkbox-inline" attrs...>
 	<@core_controller.FacetScope>
-		<div class="${core_controller.getAttr(attrs, "classWrapper")}">
+		<div class="${classWrapper}">
 			<input type="checkbox" name="facetScope" value="<@core_controller.FacetScopeParameter />" <@core_controller.attrsShow attrs=attrs />>
 			<label for="facetScope"> ${(response.translations.CORE_FACET_WITHIN_CATEGORY_MSG)!"Within selected categories only"} </label>
 		</div>
@@ -408,8 +408,7 @@
 	<!-- core.view.ftl :: AfterSearchForm -->
 	<@SearchForm class="navbar-form navbar-left form-inline">
 		<div class="form-group">
-			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}...
-			${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
+			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
 		</div>
 		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
 
@@ -435,7 +434,7 @@
 -->
 <#macro NavBar>
 	<!-- core.view.ftl :: NavBar -->
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-default">
 		<h1 class="sr-only">${(response.translations.CORE_NAVBAR_SR_SEARCH)!"Search"}</h1>
 		<#-- Display the mobile tool bar -->
 		<div class="navbar-header">
@@ -458,7 +457,7 @@
 					<li data-ng-class="{active: isDisplayed('cart')}">
 						<a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.CORE_NAVBAR_CART_TITLE_SUFFIX)!"item(s) in your selection"}">
 							<span class="glyphicon glyphicon-shopping-cart"></span>
-							<span class="badge" data-ng-cloak>{{cart.length}}</ng-pluralize --></span>
+							<span class="badge" data-ng-cloak>{{cart.length}}</span>
 						</a>
 					</li>
 				</#if>
@@ -523,7 +522,7 @@
 								Malaysian
 								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
 							-->
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=jp_JP" title="Japanese"><span lang="jp">日本語</span></a></li>
+              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ja_JP" title="Japanese"><span lang="ja">日本語</span></a></li>
               <li role="presentation" class="divider"></li>
               <#--
 								Other language which will be completed
@@ -879,8 +878,8 @@
 							</#list>
 							</#compress></#local>
 							<li>
-								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"</#if> title="${prettyTime(h.searchDate!)}" href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
-								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></a></#if>
+								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"<#else>title="${prettyTime(h.searchDate!)}"</#if> href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
+								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></#if>
 							</li>
 						</#if>
 					</#list>
@@ -1009,7 +1008,7 @@
 <#macro CartResult>
 	<h4>
 		<a title="${(response.translations.CORE_CART_REMOVE_TITLE)!'Remove'}" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="glyphicon glyphicon-remove"></small></a>
-		<a href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
+		<a data-ng-href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
 	</h4>
 	<cite class="text-success">{{item.indexUrl|cut:'http://'}}</cite>
 	<p>{{item.summary|truncate:255}}</p>
@@ -1057,7 +1056,7 @@
 								-->
 								<@core_controller.FacetSummary>
 									<span class="pull-right">
-										<a href="<@core_controller.FacetSummaryClearCurrentSelectionUrl />" alt="Clear the current facet selection">
+										<a href="<@core_controller.FacetSummaryClearCurrentSelectionUrl />" title="Clear the current facet selection">
 											<small class="text-muted"><span class="glyphicon glyphicon-remove"></span> Clear all </small>
 										</a>
 									</span>
@@ -1256,7 +1255,7 @@
 			${(response.translations.CORE_BLENDING_MSG)!"You're query has been expanded to:"} <strong><@core_controller.BlendingTerms /></strong>.
 			<span>
 				${(response.translations.CORE_BLENDING_PREFIX)!'Search for'}
-				<a href="<@core_controller.BlendingDisabledUrl />" alt="Disable blending">
+				<a href="<@core_controller.BlendingDisabledUrl />" title="Disable blending">
 					<em>${question.originalQuery!}</em>
 				</a>
 				${(response.translations.CORE_BLENDING_SUFFIX)!'instead'}.
@@ -1298,7 +1297,7 @@
 	<@core_controller.CheckSpelling>
 		<h3 id="search-spelling"><span class="glyphicon glyphicon-question-sign text-muted"></span> ${(response.translations.CORE_SPELLING_PREFIX)!'Did you mean'}
 			<em>
-				<a href="<@core_controller.CheckSpellingUrl />" alt="spelling suggestion">
+				<a href="<@core_controller.CheckSpellingUrl />" title="spelling suggestion">
 					<span class="funnelback-highlight">
 						<@core_controller.CheckSpellingText />
 					</span>
@@ -1609,8 +1608,8 @@
 
 <#--@begin Results -->
 
-<#macro Results>
-	<@ResultsList><@Result /></@ResultsList>
+<#macro Results class="search-results">
+	<@ResultsList class=class><@Result /></@ResultsList>
 </#macro>
 
 <#--
@@ -1621,9 +1620,9 @@
 		by Funnelback based on the query.
 	</p>
 -->
-<#macro ResultsList>
+<#macro ResultsList class="search-results">
 	<!-- core.controller.ftl :: Results -->
-	<ol id="search-results" class="list-unstyled stencils-core-results" start="${response.resultPacket.resultsSummary.currStart}">
+	<ol class="${class} list-unstyled stencils-core-results" start="${response.resultPacket.resultsSummary.currStart}">
 		<@core_controller.Results>
 			<#if core_controller.result.class.simpleName == "TierBar">
 				<#-- A tier bar -->
@@ -1779,7 +1778,7 @@
 			<#-- Generate the explore url which is used to find similar results -->
 			<@core_controller.Explore>
 				<li>
-					<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="${(response.translations.CORE_EXPLORE_TITLE_ALT)!'Related results'}"> ${(response.translations.CORE_EXPLORE_TITLE)!'Explore'} </a>
+					<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="${(response.translations.CORE_EXPLORE_TITLE_ALT)!'Related results'}"> ${(response.translations.CORE_EXPLORE_TITLE)!'Explore'} </a>
 				</li>
 			</@core_controller.Explore>
 

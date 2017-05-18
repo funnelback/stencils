@@ -157,12 +157,12 @@
         <#local thumbnail = core_controller.result.metaData["stencilsPeopleThumbnail"]>
     </#if>
   
-    <li data-fb-result=${core_controller.result.indexUrl}">
+    <li data-fb-result="${core_controller.result.indexUrl}">
         <div class="row">
             <div class="media">
                 <div class="media-left">
                     <a href="${core_controller.result.clickTrackingUrl}">
-                        <img class="media-object img-thumbnail" src="${thumbnail!}">
+                        <img class="media-object img-thumbnail" src="${thumbnail!}" alt="Thumbnail">
                     </a>
                 </div>
                 

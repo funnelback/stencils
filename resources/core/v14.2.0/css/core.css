@@ -17,11 +17,19 @@ Funnelback Search Default Styles
 #search-result-count { margin-bottom: 10px; }
 
 #search-results li h4,
-#search-best-bets h4 {
+.search-results li h4,
+#search-best-bets h4,
+.search-best-bets h4 {
 	margin-bottom: 0;
 }
-#search-results li h4 { margin-top: 24px; }
-#search-results li .panel h4 { margin-top: 0; }
+#search-results li h4,
+.search-results li h4 {
+    margin-top: 24px;
+}
+#search-results li .panel h4,
+#search-results li .panel h4 {
+    margin-top: 0;
+}
 
 .facet h3 {
 	font-size: 14px;
