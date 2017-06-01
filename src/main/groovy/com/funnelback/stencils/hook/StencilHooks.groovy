@@ -144,25 +144,36 @@ class StencilHooks {
      */
     static void injectQueryStringMap(SearchTransaction transaction) {
         // No access to the current request in extra search threads
-        if (!transaction.question.isExtraSearch()
+        if (!transaction.question.isExtraSearch()) {
             // Check that it wasn't already injected by another hook script
-            && !transaction.response.customData[QUERY_STRING_MAP_KEY]) {
+            if (!transaction.response.customData[QUERY_STRING_MAP_KEY]) {
+                try {
+                    // Make it immutable as the version in the data model should not
+                    // be modified. There's a utility method in DatamodelUtils to make
+                    // a copy of it
+                    def params = Collections.unmodifiableMap(
+                            RequestContextHolder.getRequestAttributes().getRequest()
+                                    .getParameterMap()
+                            // Convert the String array into a List for convenience
+                                    .collectEntries { entry -> [entry.key, Arrays.asList(entry.value)] })
+                    transaction.response.customData[QUERY_STRING_MAP_KEY] = params
+                } catch (Exception e) {
+                    // Not much we can do unfortunately
+                    log.warn("Unable to extract query string parameter map from current request", e)
+                }
+            }
+
+            // If we have a map, attempt to inject it into the extra searches of this transaction
+            // That can only work within the post_process hook, as before that the extra searches
+            // are not populated
             try {
-                // Make it immutable as the version in the data model should not
-                // be modified. There's a utility method in DatamodelUtils to make
-                // a copy of it
-                def params = Collections.unmodifiableMap(
-                    RequestContextHolder.getRequestAttributes().getRequest()
-                        .getParameterMap()
-                        // Convert the String array into a List for convenience
-                        .collectEntries { entry -> [entry.key, Arrays.asList(entry.value)] })
-                transaction.response.customData[QUERY_STRING_MAP_KEY] = params
-                transaction.extraSearches.each { extraSearch ->
-                    extraSearch.response.customData[QUERY_STRING_MAP_KEY] = params
+                if (transaction.response.customData[QUERY_STRING_MAP_KEY]) {
+                    transaction.extraSearches.each { name, extraSearch ->
+                        extraSearch.response.customData[QUERY_STRING_MAP_KEY] = transaction.response.customData[QUERY_STRING_MAP_KEY]
+                    }
                 }
             } catch (Exception e) {
-                // Not much we can do unfortunately
-                log.warn("Unable to extract query string parameter map from current request", e)
+                log.warn("Unable to inject the query string parameter map into the extra searches", e)
             }
         }
     }
