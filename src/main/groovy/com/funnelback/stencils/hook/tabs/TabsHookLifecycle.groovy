@@ -39,8 +39,9 @@ class TabsHookLifecycle implements HookLifecycle {
         def questionType = transaction.question.questionType
         
         // Only run on main search and extra searches
-        if (SearchQuestionType.SEARCH.equals(questionType)
-            || SearchQuestionType.EXTRA_SEARCH.equals(questionType)) {
+        if (transaction?.response?.resultPacket
+            && (SearchQuestionType.SEARCH.equals(questionType)
+            || SearchQuestionType.EXTRA_SEARCH.equals(questionType))    ) {
             
             // Force Gscope facets to appear if configured
             if (transaction.question.collection.configuration.hasValue(GSCOPE_KEY)) {
