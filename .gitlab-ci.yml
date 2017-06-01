@@ -1,4 +1,4 @@
-image: funnelback-rnd/stencils:15.0.0.x
+image: funnelback-rnd/stencils:15.8.0.x
 
 build:
     script:
