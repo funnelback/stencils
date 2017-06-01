@@ -119,7 +119,7 @@
 <!-- base.view.ftl :: ResultsViewSelectorView -->
 <@core_controller.Select name="resultsView" options=["=List", "grid=Grid"]>
 	<span class="label label-default">View</span>
-	<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
+	<div id="ResultsViewSelectorView" class="btn-group">
 		<@core_controller.SelectOptions>
 			<#switch core_controller.selectOptionValue>
 				<#case "grid">
@@ -128,7 +128,7 @@
 					<#break>
 				<#case ""> <#-- Case List -->
 				<#default>
-					<#local icon><span class="glyphicon glyphicon-th-list"></#local>
+					<#local icon><span class="glyphicon glyphicon-th-list"></span></#local>
 					<#local href><@base_controller.CreateSearchUrl cgis=["${core_controller.selectName}=${core_controller.selectOptionValue}","num_ranks=10"] /></#local>
 			</#switch>
 			<#noescape>
@@ -155,9 +155,9 @@
 											"${base_controller.setResultsLimitGrid(30)}=${base_controller.setResultsLimitGrid(30)}"] />
 	</@base_controller.IfDefCGIEquals>
 	<@core_controller.Select name="num_ranks" options=options>
-		<div name="ResultsViewSelectorLimit" id="ResultsViewSelectorLimit" class="btn-group">
+		<div id="ResultsViewSelectorLimit" class="btn-group">
 
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 				<span class="label label-default">Limit: </span>
 					<@base_controller.GetNumRanks />
 				&nbsp;&nbsp;
@@ -187,10 +187,10 @@
 <!-- base.view.ftl :: ResultsViewSelectorColumns -->
 <@base_controller.IfDefCGIEquals name="resultsView" value="grid">
 	<@core_controller.Select name="resultsColumns" options=["=2", "3=3", "4=4"]>
-		<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
+		<div id="ResultsViewSelectorColumns" class="btn-group">
 			<@core_controller.SelectOptions>
 				<@core_controller.IsSelectOptionSelected>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 					<span class="label label-default">Columns:</span>
 						<@core_controller.SelectOptionName />
 					&nbsp;&nbsp;
@@ -225,14 +225,14 @@
 <#---
 	View for a select UI that allows the user to sort results by different options
 -->
-<#macro ResultsViewSelectorSort>
+<#macro ResultsViewSelectorSort label="Sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=URL (A-Z)", "durl=URL (Z-A)", "shuffle=Shuffle"]>
 <!-- base.view.ftl :: ResultsViewSelectorSort -->
-<@core_controller.Select name="sort" options=["=Relevance ", "date=Date (Newest first)", "adate=Date (Oldest first)", "title=Title (A-Z)", "dtitle=Title (Z-A)", "prox=Distance" "url=Url (A-Z)", "durl=Url (Z-A)", "shuffle=Shuffle"]>
-	<div name="ResultsViewSelectorSort" id="ResultsViewSelectorSort" class="btn-group">
+<@core_controller.Select name="sort" options=options>
+	<div id="ResultsViewSelectorSort" class="btn-group">
 		<@core_controller.SelectOptions>
 			<@core_controller.IsSelectOptionSelected>
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-				<span class="label label-default">Sort:</span>
+			<button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+				<span class="label label-default">${label}:</span>
 					<@core_controller.SelectOptionName />
 				&nbsp;&nbsp;
 				<span class="caret"></span>
@@ -262,7 +262,7 @@
 <#macro ResultsViewSelectors>
 	<#if (response.resultPacket.resultsWithTierBars)!?has_content>
 	<!-- base.view.ftl :: ResultsViewSelectors -->
-	<div class="row" style="margin-bottom:0.5em">
+	<div class="row">
 		<div class="col-md-12">
 			<div class="pull-right">
 				<@ResultsViewSelectorLimit />
@@ -464,7 +464,7 @@
 		<#--	Result tools -->
 		<div class="btn-group">
 			<div class="btn-group">
-				<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+				<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 					<span class="sr-only">Result tools</span>
 				</button>
 				<ul class="dropdown-menu">
@@ -477,7 +477,7 @@
 					<#-- Generate the explore url which is used to find similar results -->
 					<@core_controller.Explore>
 						<li>
-							<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+							<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 						</li>
 					</@core_controller.Explore>
 					<#-- Show the optimise button when viewed from the admin UI -->
@@ -678,7 +678,7 @@
 						<#-- Generate the explore url which is used to find similar results -->
 						<@core_controller.Explore>
 							<li>
-								<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+								<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 							</li>
 						</@core_controller.Explore>
 						<#-- Show the optimise button when viewed from the admin UI -->
@@ -733,7 +733,7 @@
 -->
 <#macro ResultModal>
 	<!-- base.view.ftl :: ResultDefaultModal -->
-		<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div data-fb-result="${core_controller.result.liveUrl!}" class="modal fade ng-scope" id="result-modal-${core_controller.result.rank!}" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -870,7 +870,7 @@
 						<#--	Result tools -->
 						<div class="btn-group">
 							<div class="btn-group">
-								<button href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
+								<button class="dropdown-toggle btn btn-default" data-toggle="dropdown" title="More actions&hellip;"><small class="glyphicon glyphicon-chevron-down text-success"></small>
 									<span class="sr-only">Result tools</span>
 								</button>
 								<ul class="dropdown-menu">
@@ -883,7 +883,7 @@
 									<#-- Generate the explore url which is used to find similar results -->
 									<@core_controller.Explore>
 										<li>
-											<a class="fb-explore" href="<@core_controller.ExploreUrl />" alt="Related results"> Explore </a>
+											<a class="fb-explore" href="<@core_controller.ExploreUrl />" title="Related results"> Explore </a>
 										</li>
 									</@core_controller.Explore>
 									<#-- Show the optimise button when viewed from the admin UI -->
