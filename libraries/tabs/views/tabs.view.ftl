@@ -93,7 +93,7 @@
 			<@tabs_controller.Tabs name="Tabs">
 				<@tabs_controller.Tab>
 					<button type="button" class="btn btn-default remove-outline <@tabs_controller.IsActive>active</@tabs_controller.IsActive> <@tabs_controller.IsDisabled>disabled</@tabs_controller.IsDisabled>">
-						<a href="<@tabs_controller.Url />" alt="<@tabs_controller.Name />" title="<@tabs_controller.Name />">
+						<a href="<@tabs_controller.Url />" title="<@tabs_controller.Name />">
 							<@tabs_controller.Name /> <span class="text-muted"> (<@tabs_controller.Count />) </span>
 						</a>
 					</button>
@@ -117,7 +117,7 @@
 			<@tabs_controller.Tabs name="Tabs">
 				<@tabs_controller.Tab>
 					<li class="<@tabs_controller.IsActive>active</@tabs_controller.IsActive> <@tabs_controller.IsDisabled>disabled</@tabs_controller.IsDisabled>">
-						<a href="<@tabs_controller.Url />" alt="<@tabs_controller.Name />" title="<@tabs_controller.Name /> (<@tabs_controller.Count />)">
+						<a href="<@tabs_controller.Url />" title="<@tabs_controller.Name /> (<@tabs_controller.Count />)">
 							<@tabs_controller.Name />
 						</a>
 					</li>
