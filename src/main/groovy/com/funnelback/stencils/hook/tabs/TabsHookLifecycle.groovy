@@ -1,5 +1,11 @@
 package com.funnelback.stencils.hook.tabs
 
+import com.funnelback.publicui.search.model.transaction.Facet
+import com.funnelback.publicui.utils.QueryStringUtils
+import com.funnelback.stencils.hook.StencilHooks
+import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
+import com.funnelback.stencils.hook.facets.StencilCategoryValue
+import com.funnelback.stencils.util.DatamodelUtils
 import groovy.util.logging.Log4j2
 
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
@@ -15,6 +21,9 @@ import com.funnelback.stencils.hook.support.HookLifecycle
  * 
  * <p>It works by injecting counts of "0" in the result packet (gscope
  * or RMC counts)</p>
+ *
+ * <p>When the Facets Stencils is used, this hook also injects
+ * a fake "All" value for the Tabs</p>
  * 
  * @author nguillaumin@funnelback.com
  *
@@ -33,9 +42,23 @@ class TabsHookLifecycle implements HookLifecycle {
     
     /** Separator for metadata keys */
     static final String METADATA_KEY_SEPARATOR = "."
-    
+
+    /** Key holding the label for the "All" tab */
+    static final String ALL_TAB_LABEL_KEY = "stencils.tabs.all.label"
+
+    /** Default label to use for the "All" tab */
+    static final String ALL_TAB_DEFAULT_LABEL = "All"
+
+    /** Name of the facet containing the tabs */
+    static final String TABS_FACET_NAME = "Tabs"
+
+    /**
+     * Force empty GScope / RMC to appear
+     *
+     * @param transaction
+     */
     @Override
-    public void postDatafetch(SearchTransaction transaction) {
+    void postDatafetch(SearchTransaction transaction) {
         def questionType = transaction.question.questionType
         
         // Only run on main search and extra searches
@@ -73,6 +96,43 @@ class TabsHookLifecycle implements HookLifecycle {
                         transaction.response.resultPacket.rmcs[rmcItem] = 0
                     }
                 }
+        }
+    }
+
+    /**
+     * Inject a fake "All" value in the Stencils tab facet
+     *
+     * @param transaction
+     */
+    @Override
+    void postProcess(SearchTransaction transaction) {
+        if (transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS]) {
+            transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS]
+                    .find() { facet -> facet.name == TABS_FACET_NAME }
+                    .each() { tabFacet ->
+                // The "All" value is selected when no other tabs are selected
+                def selected = !transaction.question.selectedFacets.contains(TABS_FACET_NAME)
+
+                // Build a fake "All" facet value
+                def allValue = new StencilCategoryValue(new Facet.CategoryValue(
+                        "all",
+                        transaction.question.collection.configuration.value(ALL_TAB_LABEL_KEY, ALL_TAB_DEFAULT_LABEL),
+                        // Set the count to the total number of results, since the All value should match all documents
+                        transaction?.response?.resultPacket?.resultsSummary?.totalMatching ?: 0,
+                        "unused=unused",
+                        "unused",
+                        selected))
+
+                // Selecting and unselecting the all value mean the same thing: show all results
+                // So set both the select + unselect URL to a URL that doesn't contain any Tab facet constraint
+                def qs = DatamodelUtils.getQueryStringMapCopy(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY])
+                qs = DatamodelUtils.filterQueryStringParameters(qs, { key, value -> !key.startsWith("f.${TABS_FACET_NAME}|") })
+
+                allValue.selectUrl = QueryStringUtils.toString(qs, true)
+                allValue.unselectUrl = allValue.selectUrl
+
+                tabFacet.values << allValue
+            }
         }
     }
 }

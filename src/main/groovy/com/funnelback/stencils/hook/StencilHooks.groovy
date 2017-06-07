@@ -45,8 +45,10 @@ class StencilHooks {
     private static final List<HookLifecycle> HOOKS = [
         new CoreHookLifecycle(),
         new FacetsHookLifecycle(),
-        new FacetsCustomSortHookLifecycle(),
         new TabsHookLifecycle(),
+        // FacetsCustomSort needs to run after Tabs, as Tabs injects an "All" value in the facets,
+        // which are then sorted
+        new FacetsCustomSortHookLifecycle(),
         new NoResultsHookLifecycle(),
         new PeopleHookLifecycle(),
         new FacebookHookLifecycle()
