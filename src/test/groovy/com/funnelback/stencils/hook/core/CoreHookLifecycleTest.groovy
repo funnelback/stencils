@@ -27,7 +27,7 @@ class CoreHookLifecycleTest {
         transaction.question = Mockito.mock(SearchQuestion.class)
         Mockito.when(transaction.question.profile).thenReturn("profile-id")
 
-        def customDataMap = [
+        def questionCustomDataMap = [
                 "queryStringMap": [
                         "collection": ["meta-collection"],
                         "start_rank": ["12"],
@@ -35,9 +35,13 @@ class CoreHookLifecycleTest {
                         "query": ["CGI query"]
                 ],
         ]
-        customDataMap[StencilHooks.STENCILS_FREEMARKER_METHODS] = [:]
+        Mockito.when(transaction.question.customData).thenReturn(questionCustomDataMap)
+
+        def responseCustomDataMap = [:]
+        responseCustomDataMap[StencilHooks.STENCILS_FREEMARKER_METHODS] = [:]
         transaction.response = Mockito.mock(SearchResponse.class)
-        Mockito.when(transaction.response.customData).thenReturn(customDataMap)
+        Mockito.when(transaction.response.customData).thenReturn(responseCustomDataMap)
+
 
         def result = new Result()
         result.collection = "collection1"

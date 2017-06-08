@@ -47,7 +47,8 @@ class FacetsHookLifecycle implements HookLifecycle {
      */
     @Override
     void postProcess(SearchTransaction transaction) {
-        if (ConfigUtils.isStencilEnabled(transaction.question.collection.configuration, FACETS_STENCIL)
+        if (transaction.question.hasProperty("customData")
+            && ConfigUtils.isStencilEnabled(transaction.question.collection.configuration, FACETS_STENCIL)
                 && transaction?.response?.facets) {
 
             def stencilsFacets = transaction.response.facets.collect() { facet ->
@@ -58,12 +59,12 @@ class FacetsHookLifecycle implements HookLifecycle {
                 def values = categories.collect() { category -> category.values }
                         .flatten()
                         .collect() { value ->
-                    getStencilCategoryValue(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY], value)
+                    getStencilCategoryValue(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY], value)
                 }
 
                 // Return an augmented Stencil facet, with our augmented values
                 return getStencilFacet(
-                        transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY],
+                        transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY],
                         facet,
                         values)
             }
@@ -71,7 +72,7 @@ class FacetsHookLifecycle implements HookLifecycle {
             // Insert new facets in data model
             transaction.response.customData[STENCILS_FACETS] = stencilsFacets
             // Insert list of currently selected facets
-            transaction.response.customData[STENCILS_FACETS_SELECTED_VALUES] = getSelectedFacetValues(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY], transaction.question.selectedCategoryValues)
+            transaction.response.customData[STENCILS_FACETS_SELECTED_VALUES] = getSelectedFacetValues(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY], transaction.question.selectedCategoryValues)
         }
 
     }

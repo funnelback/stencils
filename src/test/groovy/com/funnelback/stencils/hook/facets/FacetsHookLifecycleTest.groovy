@@ -27,7 +27,7 @@ class FacetsHookLifecycleTest {
 
         transaction = new SearchTransaction(new SearchQuestion(), new SearchResponse())
         transaction.question.collection = new Collection("collection", config)
-        transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY] = [:]
+        transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY] = [:]
     }
 
     @Test
@@ -184,7 +184,7 @@ class FacetsHookLifecycleTest {
 
         transaction.response.facets << f
 
-        transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY] = [
+        transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY] = [
                 "param"     : ["value"],
                 "facetScope": ["f.OtherFacet%7C=Other+Value"]
         ]

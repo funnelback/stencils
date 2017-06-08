@@ -106,7 +106,8 @@ class TabsHookLifecycle implements HookLifecycle {
      */
     @Override
     void postProcess(SearchTransaction transaction) {
-        if (transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS]) {
+        if (transaction.question.hasProperty("customData")
+            && transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS]) {
             transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS]
                     .find() { facet -> facet.name == TABS_FACET_NAME }
                     .each() { tabFacet ->
@@ -125,7 +126,7 @@ class TabsHookLifecycle implements HookLifecycle {
 
                 // Selecting and unselecting the all value mean the same thing: show all results
                 // So set both the select + unselect URL to a URL that doesn't contain any Tab facet constraint
-                def qs = DatamodelUtils.getQueryStringMapCopy(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY])
+                def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
                 qs = DatamodelUtils.filterQueryStringParameters(qs, { key, value -> !key.startsWith("f.${TABS_FACET_NAME}|") })
 
                 allValue.selectUrl = QueryStringUtils.toString(qs, true)
