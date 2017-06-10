@@ -5,6 +5,7 @@ import com.funnelback.stencils.hook.StencilHooks
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
 import com.funnelback.stencils.hook.facets.StencilFacet
 import com.funnelback.stencils.hook.facets.StencilFacetTest
+import com.funnelback.stencils.hook.facets.StencilSelectedFacetValue
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -190,6 +191,47 @@ class TabsHookLifecycleTest {
         Assert.assertEquals("All tab should not be selected as another tab is", false, value.selected)
         Assert.assertEquals("Select URL should not contain f.Tabs parameter","?param=value", value.selectUrl)
         Assert.assertEquals("Unselect URL should not contain f.Tabs parameter","?param=value", value.selectUrl)
+    }
+
+
+    @Test
+    void testSelectedTab() {
+        transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES] = [
+                new StencilSelectedFacetValue([
+                        facetName  : "Tabs",
+                        value      : "Courses",
+                        unselectUrl: "CoursesUrl"
+                ]),
+                new StencilSelectedFacetValue([
+                        facetName  : "Format",
+                        value      : "PDF",
+                        unselectUrl: "PDFUrl"
+                ]),
+                new StencilSelectedFacetValue([
+                        facetName  : "State",
+                        value      : "QLD",
+                        unselectUrl: "QLDUrl"
+                ])
+        ]
+
+        hook.postProcess(transaction)
+
+        Assert.assertEquals(
+                "The Courses facet should have been marked as selected",
+                "Courses",
+                transaction.response.customData[TabsHookLifecycle.SELECTED_TAB])
+    }
+
+    @Test
+    void testSelectedTabNoTab() {
+        Mockito.when(config.value(Mockito.eq(TabsHookLifecycle.ALL_TAB_LABEL_KEY), Mockito.any()))
+                .thenReturn("Custom All Label")
+        hook.postProcess(transaction)
+
+        Assert.assertEquals(
+                "The All facet should have been marked as selected",
+                "Custom All Label",
+                transaction.response.customData[TabsHookLifecycle.SELECTED_TAB])
     }
 
 
