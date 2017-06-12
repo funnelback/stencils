@@ -14,32 +14,33 @@ import com.funnelback.stencils.hook.support.HookLifecycle
 
 /**
  * <p>Hook functions for the Tabs stencil.</p>
- * 
+ *
  * <p>Will force Gscope and Metadata based facet to appear
  * even if they have no value, as configured in the collection
  * config</p>
- * 
+ *
  * <p>It works by injecting counts of "0" in the result packet (gscope
  * or RMC counts)</p>
  *
  * <p>When the Facets Stencils is used, this hook also injects
- * a fake "All" value for the Tabs</p>
- * 
+ * a fake "All" value for the Tabs, and populates the custom map
+ * with the name of the currently selected tab</p>
+ *
  * @author nguillaumin@funnelback.com
  *
  */
 @Log4j2
 class TabsHookLifecycle implements HookLifecycle {
-    
+
     /** Key holding the Gscope numbers */
     static final String GSCOPE_KEY = "stencils.tabs.full_facet.gscope"
-    
+
     /** Separator for the Gscope numbers */
     static final String GSCOPE_VALUE_SEPARATOR = ","
 
-    /** Key holding the Metadata names */    
+    /** Key holding the Metadata names */
     static final String METADATA_KEY_PREFIX = "stencils.tabs.full_facet.metadata."
-    
+
     /** Separator for metadata keys */
     static final String METADATA_KEY_SEPARATOR = "."
 
@@ -52,6 +53,9 @@ class TabsHookLifecycle implements HookLifecycle {
     /** Name of the facet containing the tabs */
     static final String TABS_FACET_NAME = "Tabs"
 
+    /** Key where the selected tab will be stored in the customData map */
+    static final String SELECTED_TAB = "stencilsTabsSelectedTab"
+
     /**
      * Force empty GScope / RMC to appear
      *
@@ -60,12 +64,12 @@ class TabsHookLifecycle implements HookLifecycle {
     @Override
     void postDatafetch(SearchTransaction transaction) {
         def questionType = transaction.question.questionType
-        
+
         // Only run on main search and extra searches
         if (transaction?.response?.resultPacket
             && (SearchQuestionType.SEARCH.equals(questionType)
             || SearchQuestionType.EXTRA_SEARCH.equals(questionType))    ) {
-            
+
             // Force Gscope facets to appear if configured
             if (transaction.question.collection.configuration.hasValue(GSCOPE_KEY)) {
                 transaction.question.collection.configuration.value(GSCOPE_KEY)
@@ -78,14 +82,14 @@ class TabsHookLifecycle implements HookLifecycle {
                         }
                     }
             }
-            
+
             // Force Metadata facets to appear if configured
             transaction.question.collection.configuration.valueKeys()
                 .findAll { it.startsWith(METADATA_KEY_PREFIX) }
                 .findResults { key ->
                     def metadata = key.substring(METADATA_KEY_PREFIX.length(), key.lastIndexOf(METADATA_KEY_SEPARATOR))
                     def value = transaction.question.collection.configuration.value(key)
-                    
+
                     if (value != null && !"".equals(value.trim())) {
                         "${metadata}:${value}"
                     }
@@ -134,6 +138,20 @@ class TabsHookLifecycle implements HookLifecycle {
 
                 tabFacet.values << allValue
             }
+        }
+
+        // All tab is selected by default
+        transaction.response.customData[SELECTED_TAB] = transaction.question.collection.configuration.value(ALL_TAB_LABEL_KEY, ALL_TAB_DEFAULT_LABEL)
+
+        // Find out if a tab was actually selected, and inject it to the data model
+        if (transaction?.response?.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES]) {
+            transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES]
+                .find() { selectedValue -> selectedValue.facetName == TABS_FACET_NAME}
+                .each() { selectedTabValue ->
+                    // This may run multiple times in theory, but in practice there's only
+                    // one tab selected at all times
+                    transaction.response.customData[SELECTED_TAB] = selectedTabValue.value
+                }
         }
     }
 }
