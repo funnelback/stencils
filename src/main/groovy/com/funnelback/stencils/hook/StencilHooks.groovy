@@ -1,5 +1,6 @@
 package com.funnelback.stencils.hook
 
+import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.stencils.hook.core.CoreHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsCustomSortHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
@@ -141,46 +142,60 @@ class StencilHooks {
      * 
      * <p>The map is taken from the current request parameters. The current request
      * is provided by Spring and is thread bound, so it's not available for extra
-     * searches which run in a different thread. So if we manage to inject it, also
-     * inject it in the extra searches</p>
+     * searches which run in a different thread.</p>
+     *
+     * <p>Extra searches are always cloned from the main search so they will inherit
+     * the map, however that requires this code to run in pre_process before the
+     * extra searches are setup. Collections wanting to use it need to call the Stencils
+     * hook in the pre_process hook.</p>
      * 
-     * <p>The map will be put inside <code>response.customData['queryStringMap']</code></p>
+     * <p>The map will be put inside <code>question.customData['queryStringMap']</code></p>
      * 
      * @param transaction Transaction to inject the query string into
      */
     static void injectQueryStringMap(SearchTransaction transaction) {
-        // No access to the current request in extra search threads
-        if (!transaction.question.isExtraSearch()) {
-            // Check that it wasn't already injected by another hook script
-            if (!transaction.response.customData[QUERY_STRING_MAP_KEY]) {
-                try {
-                    // Make it immutable as the version in the data model should not
-                    // be modified. There's a utility method in DatamodelUtils to make
-                    // a copy of it
-                    def params = Collections.unmodifiableMap(
-                            RequestContextHolder.getRequestAttributes().getRequest()
-                                    .getParameterMap()
-                            // Convert the String array into a List for convenience
-                                    .collectEntries { entry -> [entry.key, Arrays.asList(entry.value)] })
-                    transaction.response.customData[QUERY_STRING_MAP_KEY] = params
-                } catch (Exception e) {
-                    // Not much we can do unfortunately
-                    log.warn("Unable to extract query string parameter map from current request", e)
-                }
+        try {
+            if (SearchQuestion.SearchQuestionType.EXTRA_SEARCH.equals(transaction.question.questionType)) {
+                // Exit if we're running on an extra search. Extra searches are always cloned
+                // from the main question, so we don't need to inject the query string map again
+                return
             }
 
-            // If we have a map, attempt to inject it into the extra searches of this transaction
-            // That can only work within the post_process hook, as before that the extra searches
-            // are not populated
-            try {
-                if (transaction.response.customData[QUERY_STRING_MAP_KEY]) {
-                    transaction.extraSearches.each { name, extraSearch ->
-                        extraSearch.response.customData[QUERY_STRING_MAP_KEY] = transaction.response.customData[QUERY_STRING_MAP_KEY]
-                    }
-                }
-            } catch (Exception e) {
-                log.warn("Unable to inject the query string parameter map into the extra searches", e)
+            if (!transaction.question.hasProperty("customData")) {
+                // No customData field in the question. This is either
+                // < 15.8
+                // 15.8 before patch 15.8.0.17
+                // 15.10 before patch 15.10.0.7
+                log.warn("This version of Funnelback doesn't have a customData field on the SearchQuestion. "
+                        + "The query string map will not be available resulting in some hooks not working properly. "
+                        + "Make sure you use 15.8 or 15.10 with the latest patches, or 15.12+")
+                return
             }
+
+            if (transaction.question.customData[QUERY_STRING_MAP_KEY]) {
+                // Query string map already has been injected, exit
+                return
+            }
+
+            if (transaction.question.hasProperty("queryStringMapCopy")) {
+                // 15.10 already has the query string map in the question. Copy it as-is
+                transaction.question.customData[QUERY_STRING_MAP_KEY] = transaction.question.queryStringMapCopy
+            } else {
+                // 15.8 didn't have the query string map, so build it ourselves
+                // Make it immutable as the version in the data model should not
+                // be modified. There's a utility method in DatamodelUtils to make
+                // a copy of it
+                def params = Collections.unmodifiableMap(
+                        RequestContextHolder.getRequestAttributes().getRequest()
+                                .getParameterMap()
+                        // Convert the String array into a List for convenience
+                                .collectEntries { entry -> [entry.key, Arrays.asList(entry.value)] })
+
+                transaction.question.customData[QUERY_STRING_MAP_KEY] = params
+            }
+        } catch (Exception e) {
+            // Not much we can do unfortunately
+            log.warn("Unable to extract query string parameter map from current request", e)
         }
     }
 

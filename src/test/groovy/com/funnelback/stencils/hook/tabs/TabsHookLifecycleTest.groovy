@@ -24,6 +24,7 @@ class TabsHookLifecycleTest {
     def transaction
     def config
     def resultPacket
+    def questionCustomData
     def responseCustomData
     
     @Before
@@ -41,7 +42,9 @@ class TabsHookLifecycleTest {
                 name: "Tabs",
                 values: []
         ]) ]
-        responseCustomData[StencilHooks.QUERY_STRING_MAP_KEY] = [
+
+        questionCustomData = [:]
+        questionCustomData[StencilHooks.QUERY_STRING_MAP_KEY] = [
                 "param": [ "value" ],
         ]
 
@@ -50,6 +53,7 @@ class TabsHookLifecycleTest {
         transaction.response = Mockito.mock(SearchResponse.class)
         
         Mockito.when(transaction.question.collection).thenReturn(new Collection("mock", config))
+        Mockito.when(transaction.question.customData).thenReturn(questionCustomData)
         Mockito.when(transaction.response.resultPacket).thenReturn(resultPacket)
         Mockito.when(transaction.response.customData).thenReturn(responseCustomData)
     }
@@ -166,7 +170,7 @@ class TabsHookLifecycleTest {
         // Inject selected facet
         Mockito.when(transaction.question.selectedFacets).thenReturn(["Tabs"] as Set)
         // Inject corresponding query string parameter for the selected facets
-        responseCustomData[StencilHooks.QUERY_STRING_MAP_KEY]["f.Tabs|X"] = ["Tab1", "Tab2"]
+        questionCustomData[StencilHooks.QUERY_STRING_MAP_KEY]["f.Tabs|X"] = ["Tab1", "Tab2"]
         // Also test that when there's no totalMatching available it doesn't crash
         resultPacket.resultsSummary = null
 
