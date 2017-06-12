@@ -9,7 +9,7 @@
  * post_index_command=$GROOVY_COMMAND -cp "$SEARCH_HOME/share/stencils/src/main/groovy" \
  *  $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy \
  *   -c $COLLECTION_NAME \
- *   -p autocompletion \
+ *   -p auto-completion \
  *   -v $CURRENT_VIEW
  *
  * @author nguillaumin@funnelback.com

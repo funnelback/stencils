@@ -1,6 +1,6 @@
 # Stencils
 
-Welcome to the shared stencils repository. This holds the shared components used by all the stencils (Groovy hook scripts, templates, etc.)
+Welcome to the shared Stencils repository. This holds the shared components used by all the Stencils (Groovy hook scripts, templates, etc.)
 
 ## Structure
 
@@ -8,7 +8,7 @@ Stencils are built with [Gradle](https://gradle.org/). For this reason, the main
 
  Name                    | Purpose 
  ----------------------- | -------
- [src/](src)             | Groovy libraries (used in Filters or Public UI Hook Scripts)
+ [src/](src)             | Groovy libraries (used in Filters or Public UI Hook Scripts). See [documentation](src/README.md).
  [libraries/](libraries) | Stencils FreeMarker files. 
  [resources/](resources) | External files such as JavaScript and CSS. 
 
@@ -28,6 +28,8 @@ ln -s $SEARCH_HOME/share/stencils/src/main/resources/funnelback-stencils-resourc
 ln -s $SEARCH_HOME/share/stencils/src/main/resources/funnelback-stencils-resources.xml $SEARCH_HOME/web/conf/contexts-public/funnelback-stencils-resources.xml
 ```
 
+To make use of the hook scripts, filters and workflow scripts in collections, please see the [documentation](src/README.md).
+
 ## Building
 
 Run `gradlew` (Linux/Mac) or `gradlew.bat` (Windows). This will download Gradle if necessary, then compile the Groovy sources and run the unit tests.
@@ -46,4 +48,4 @@ New version branches are created when a feature is incompatible with older Funne
 
 ## Related Links
 
-For more information regarding using stencils please refer to [stencils confluence space] (https://confluence.cbr.au.funnelback.com/display/STEN/Stencils)
+For more information regarding using stencils please refer to [Stencils confluence space] (https://confluence.cbr.au.funnelback.com/display/STEN/Stencils)
