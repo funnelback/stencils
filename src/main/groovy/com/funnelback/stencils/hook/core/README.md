@@ -38,3 +38,8 @@ Having these URLs in the data model means that they can be used in FreeMarker as
 ```
 <a href="${result.customData["stencilsCoreExploreUrl"]!}">Explore similar documents</a>
 ```
+
+## Contextual Navigation
+
+The Core Stencil will update the Contextual Navigation data model to remove the "site" category if it only contains one site.
+This is usually not very useful and is cumbersome to do in FreeMarker.

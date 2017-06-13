@@ -1,6 +1,7 @@
 package com.funnelback.stencils.hook
 
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
+import com.funnelback.stencils.hook.core.ContextualNavigationHookLifecycle
 import com.funnelback.stencils.hook.core.CoreHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsCustomSortHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
@@ -45,6 +46,7 @@ class StencilHooks {
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
         new CoreHookLifecycle(),
+        new ContextualNavigationHookLifecycle(),
         new FacetsHookLifecycle(),
         new TabsHookLifecycle(),
         // FacetsCustomSort needs to run after Tabs, as Tabs injects an "All" value in the facets,
