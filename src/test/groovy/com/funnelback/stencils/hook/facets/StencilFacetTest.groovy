@@ -41,4 +41,27 @@ class StencilFacetTest {
                 unselectAllFacetScope: null]).selected)
     }
 
+    @Test
+    void testSelectedUnselectedValues() {
+        def facet = new StencilFacet([
+                name                 : null,
+                values               : [
+                        new StencilCategoryValue(new Facet.CategoryValue("data", "label", 42, "name=value", "constraint", true)),
+                        new StencilCategoryValue(new Facet.CategoryValue("data", "label", 42, "name=value", "constraint", true)),
+                        new StencilCategoryValue(new Facet.CategoryValue("data", "label", 42, "name=value", "constraint", false))
+                ],
+                unselectAllUrl       : null,
+                unselectAllFacetScope: null])
+
+        Assert.assertEquals(
+                "2 values should be selected",
+                2,
+                facet.selectedValues.size())
+
+        Assert.assertEquals(
+                "1 values should be unselected",
+                1,
+                facet.unselectedValues.size())
+    }
+
 }

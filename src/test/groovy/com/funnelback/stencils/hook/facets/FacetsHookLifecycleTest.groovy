@@ -90,13 +90,21 @@ class FacetsHookLifecycleTest {
 
     @Test
     void testGetStencilCategoryValue() {
+        def category = new Facet.Category(null, "f.Facet|Y")
+        category.categories << new Facet.Category(null, "f.Facet|Z")
+        category.categories << new Facet.Category(null, "f.Facet|0")
+
         def cv = new Facet.CategoryValue("data", "label", 1, "f.Facet|Y=ACT", "constraint", false)
         def stencilCv = hook.getStencilCategoryValue([
                 "param"     : ["value"],
                 "f.Facet|X" : ["Australia"],
                 "f.Facet|Y" : ["ACT", "QLD", "WA"],
+                "f.Facet|Z" : ["Z-value"],
+                "f.Facet|0" : ["0-value"],
                 "facetScope": ["f.Type%7Cf=PDF&f.Facet%7CY=ACT"]
-        ], cv)
+        ],
+        category,
+        cv)
 
         Assert.assertEquals(
                 "The query string parameter name should have been correctly extracted",
@@ -107,11 +115,14 @@ class FacetsHookLifecycleTest {
                 "ACT",
                 stencilCv.queryStringParamValue)
         Assert.assertEquals(
-                "The select URL should contain the query string parameters for the value, and the value present in facetScope should have been preserved",
-                "?param=value&f.Facet%7CX=Australia&f.Facet%7CY=ACT&facetScope=f.Type%257Cf%3DPDF%26f.Facet%257CY%3DACT",
+                "The select URL should contain the query string parameters for the value"
+                + ", the value present in facetScope should have been preserved"
+                + " and other parameters (Z, 0) should have been preserved",
+                "?param=value&f.Facet%7CX=Australia&f.Facet%7CY=ACT&f.Facet%7CZ=Z-value&f.Facet%7C0=0-value&facetScope=f.Type%257Cf%3DPDF%26f.Facet%257CY%3DACT",
                 stencilCv.selectUrl)
         Assert.assertEquals(
-                "The unselect URL should not include the query string parameters for the value, nor in facetScope",
+                "The unselect URL should not include the query string parameters for the value, nor in facetScope"
+                + " including for sub-categories (Z, 0)",
                 "?param=value&f.Facet%7CX=Australia&f.Facet%7CY=QLD&f.Facet%7CY=WA&facetScope=f.Type%257Cf%3DPDF",
                 stencilCv.unselectUrl)
     }
