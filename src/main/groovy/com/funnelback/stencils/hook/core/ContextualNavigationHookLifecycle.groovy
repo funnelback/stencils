@@ -8,7 +8,6 @@ import com.funnelback.stencils.hook.support.HookLifecycle
  *
  * @author nguillaumin@funnelback.com
  */
-
 class ContextualNavigationHookLifecycle implements HookLifecycle {
 
     /** Name of the site cluster */
