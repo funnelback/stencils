@@ -55,12 +55,16 @@ class FacetsHookLifecycle implements HookLifecycle {
                 // Get all categories for this facet, recursively
                 def categories = facet.categories.collect() { category -> [category, getCategories(category)] }.flatten()
 
-                // Get all values for all categories, and augment them "Stencil-style" \o/
-                def values = categories.collect() { category -> category.values }
-                        .flatten()
-                        .collect() { value ->
-                    getStencilCategoryValue(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY], value)
-                }
+                // Get all values for all categories...
+                def values = categories.collect() { category ->
+                    category.values.collect() { value ->
+                        //  ...and augment them "Stencil-style" \o/
+                        getStencilCategoryValue(
+                                transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY],
+                                category,
+                                value)
+                    }
+                }.flatten()
 
                 // Return an augmented Stencil facet, with our augmented values
                 return getStencilFacet(
@@ -109,10 +113,11 @@ class FacetsHookLifecycle implements HookLifecycle {
     /**
      * Get an augmented StencilCategoryValue from a regular CategoryValue
      * @param queryStringMap Map representing the query string
+     * @param category Category the value belong to
      * @param value Value to augment
      * @return Augmented value
      */
-    StencilCategoryValue getStencilCategoryValue(Map<String, List<String>> queryStringMap, Facet.CategoryValue value) {
+    StencilCategoryValue getStencilCategoryValue(Map<String, List<String>> queryStringMap, Facet.Category category, Facet.CategoryValue value) {
         def stencilCategoryValue = new StencilCategoryValue(value)
 
         // Generate selection URL
@@ -121,7 +126,17 @@ class FacetsHookLifecycle implements HookLifecycle {
 
         // Generate unselection URL
         def unselectUrlQs = DatamodelUtils.getQueryStringMapCopy(queryStringMap)
+        // Remove this specific value from the URL
         DatamodelUtils.removeQueryStringFacetValue(unselectUrlQs, stencilCategoryValue.queryStringParamName, stencilCategoryValue.queryStringParamValue)
+
+        // Also remove any other query string parameter used by any sub-categories of
+        // the current category. This is for hierarchical facets, so that unselecting a parent
+        // category also unselect all children
+        getAllQueryStringParamNames(category).each() { paramName ->
+            if (paramName != stencilCategoryValue.queryStringParamName) {
+                unselectUrlQs = DatamodelUtils.filterQueryStringParameters(unselectUrlQs, {key, v -> key != paramName})
+            }
+        }
 
         stencilCategoryValue.selectUrl = QueryStringUtils.toString(selectUrlQs, true)
         stencilCategoryValue.unselectUrl = QueryStringUtils.toString(unselectUrlQs, true)
@@ -167,5 +182,20 @@ class FacetsHookLifecycle implements HookLifecycle {
         return c.categories
                 .collect() { child -> [child, getCategories(child)] }
                 .flatten()
+    }
+
+    /**
+     * Recursively retrieve all the query string parameters used by all sub categories
+     * of a category. This is used when generating unselect URLs for facet values to ensure
+     * that the URL also unselects any children category
+     * @param category
+     * @return List of query string parameter names used by this category + its sub-categories
+     */
+    List<String> getAllQueryStringParamNames(Facet.Category category) {
+        def paramNames = [ category.queryStringParamName ]
+        category.categories.each() { subCategory ->
+            paramNames.addAll(getAllQueryStringParamNames(subCategory))
+        }
+        return paramNames
     }
 }

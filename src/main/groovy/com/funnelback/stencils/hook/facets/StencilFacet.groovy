@@ -35,6 +35,13 @@ class StencilFacet {
     }
 
     /**
+     * @return List of unselected values
+     */
+    List<StencilCategoryValue> getUnselectedValues() {
+        return values.findAll() { v -> !v.selected }
+    }
+
+    /**
      * @return True if any of the values of this facet is selected
      */
     boolean isSelected() {
