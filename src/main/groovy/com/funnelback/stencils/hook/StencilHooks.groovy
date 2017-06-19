@@ -3,6 +3,7 @@ package com.funnelback.stencils.hook
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.stencils.hook.core.ContextualNavigationHookLifecycle
 import com.funnelback.stencils.hook.core.CoreHookLifecycle
+import com.funnelback.stencils.hook.core.PagingHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsCustomSortHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
 import org.codehaus.groovy.reflection.ReflectionUtils
@@ -46,6 +47,7 @@ class StencilHooks {
     /** List of all the stencil hooks to run */
     private static final List<HookLifecycle> HOOKS = [
         new CoreHookLifecycle(),
+        new PagingHookLifecycle(),
         new ContextualNavigationHookLifecycle(),
         new FacetsHookLifecycle(),
         new TabsHookLifecycle(),

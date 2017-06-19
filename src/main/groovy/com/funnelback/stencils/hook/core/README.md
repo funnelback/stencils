@@ -43,3 +43,8 @@ Having these URLs in the data model means that they can be used in FreeMarker as
 
 The Core Stencil will update the Contextual Navigation data model to remove the "site" category if it only contains one site.
 This is usually not very useful and is cumbersome to do in FreeMarker.
+
+## Paging
+
+The Core stencil will add `stencilsPaging` to the response `customData` containing paging information for the current search
+(URL to the previous/next page, and list of pages surrounding the current one).
