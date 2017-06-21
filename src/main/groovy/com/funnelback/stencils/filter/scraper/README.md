@@ -1,7 +1,6 @@
-Scrapers
-=================
+# Metadata scraper
 
-# Metadata Scraper
+:warning: This filter is available as standard in Funnelback 15.8. Please consider using the standard filter rather than this one if you're running Funnelback 15.8 or above.
 
 * Ever find the need to extract content from the body of the HTML and reinsert it as meta data?
 * Do you always write a specific filter each time for each client and for each collection?
