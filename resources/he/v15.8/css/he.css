@@ -7,3 +7,9 @@
 img.deferred {
     display: none;
 }
+
+/** Force query input size to work with Typeahead.js overlay */
+#query {
+    width: 100%;
+}
+
