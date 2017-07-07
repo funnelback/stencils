@@ -1,25 +1,23 @@
 package com.funnelback.stencils.hook.tabs
 
+import com.funnelback.common.config.Config
+import com.funnelback.publicui.search.model.collection.Collection
+import com.funnelback.publicui.search.model.padre.ResultPacket
 import com.funnelback.publicui.search.model.padre.ResultsSummary
 import com.funnelback.publicui.search.model.transaction.Facet
+import com.funnelback.publicui.search.model.transaction.SearchQuestion
+import com.funnelback.publicui.search.model.transaction.SearchQuestion.SearchQuestionType
+import com.funnelback.publicui.search.model.transaction.SearchResponse
+import com.funnelback.publicui.search.model.transaction.SearchTransaction
 import com.funnelback.stencils.hook.StencilHooks
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
 import com.funnelback.stencils.hook.facets.StencilCategoryValue
 import com.funnelback.stencils.hook.facets.StencilFacet
-import com.funnelback.stencils.hook.facets.StencilFacetTest
 import com.funnelback.stencils.hook.facets.StencilSelectedFacetValue
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-
-import com.funnelback.common.config.Config
-import com.funnelback.publicui.search.model.collection.Collection
-import com.funnelback.publicui.search.model.padre.ResultPacket
-import com.funnelback.publicui.search.model.transaction.SearchQuestion
-import com.funnelback.publicui.search.model.transaction.SearchResponse
-import com.funnelback.publicui.search.model.transaction.SearchTransaction
-import com.funnelback.publicui.search.model.transaction.SearchQuestion.SearchQuestionType
 
 class TabsHookLifecycleTest {
 
@@ -213,7 +211,6 @@ class TabsHookLifecycleTest {
         responseCustomData[FacetsHookLifecycle.STENCILS_FACETS][0].values[1].selectUrl = "?param=value"
         responseCustomData[FacetsHookLifecycle.STENCILS_FACETS][0].values[1].unselectUrl = "?param=value"
 
-
         // Inject tabs in our extra search, with some counts
         def extraResponse = new SearchResponse()
         extraResponse.customData[FacetsHookLifecycle.STENCILS_FACETS] = [new StencilFacet([
@@ -293,6 +290,19 @@ class TabsHookLifecycleTest {
                 "The Courses facet should have been marked as selected",
                 "Courses",
                 transaction.response.customData[TabsHookLifecycle.SELECTED_TAB])
+
+        Assert.assertEquals(
+                "The selected tab should have been removed from the list of selected facets",
+                2,
+                transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES].size())
+
+        Assert.assertFalse(
+                "No facet named 'Tabs' should be present in the list of selected facets",
+                transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES]
+                        .any() { value ->
+                    value.facetName == "Tabs"
+                })
+
     }
 
     @Test
