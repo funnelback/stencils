@@ -6,15 +6,15 @@
  *
  * @param displayedCategories Number of facet values that will cause a button
  *  to be inserted
- * @param facetSelector jQuery selector to find the UL inside a facet
+ * @param facetSelector jQuery selector to find a facet
  */
 function setupFacetLessMoreButtons(displayedCategories, facetSelector) {
     // Faceted Navigation more/less links
     displayedCategories = displayedCategories || 8;
-    facetSelector = facetSelector || 'div.facet ul';
+    facetSelector = facetSelector || 'div.facet';
 
     jQuery(facetSelector).each( function() {
-        jQuery(this).children('li:gt('+(displayedCategories-1)+')').hide();
+        jQuery(this).find('li:gt('+(displayedCategories-1)+')').hide();
     });
 
     jQuery('.search-toggle-more-categories').each( function() {
