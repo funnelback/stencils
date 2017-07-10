@@ -88,7 +88,7 @@ class FacetsHookLifecycle implements HookLifecycle {
      * question.selectedCategoryValues
      * @return List of selected facet values
      */
-    StencilSelectedFacetValue[] getSelectedFacetValues(Map<String, List<String>> queryString, Map<String, List<String>> selectedCategoryValues) {
+    List<StencilSelectedFacetValue> getSelectedFacetValues(Map<String, List<String>> queryString, Map<String, List<String>> selectedCategoryValues) {
         return selectedCategoryValues.collect() { key, values ->
             // For each of our selected category values...
             return values.collect() { value ->

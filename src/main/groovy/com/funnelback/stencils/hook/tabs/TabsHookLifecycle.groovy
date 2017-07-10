@@ -159,6 +159,10 @@ class TabsHookLifecycle implements HookLifecycle {
                     // This may run multiple times in theory, but in practice there's only
                     // one tab selected at all times
                     transaction.response.customData[SELECTED_TAB] = selectedTabValue.value
+
+                    // Remove the selected tab from the general selected facet list, so that
+                    // it will not show in the "Refined by: ..." section
+                    transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES].remove(selectedTabValue)
                 }
         }
     }
