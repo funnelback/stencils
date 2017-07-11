@@ -25,7 +25,7 @@ class NoResultsHookLifecycle implements HookLifecycle {
     static final String DEFAULT_NO_RESULTS_QUERY = "!padrenullquery"
     
     /** Key holding the query to use when there are no results */
-    static final String NO_RESULTS_QUERY_KEY = "stencil.no_results.query"
+    static final String NO_RESULTS_QUERY_KEY = "stencils.no_results.query"
 
     @Override
     public void extraSearches(SearchTransaction transaction) {

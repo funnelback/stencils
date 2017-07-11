@@ -45,12 +45,14 @@ class CoreHookLifecycle implements HookLifecycle {
      * @param result Result to add the URL to
      */
     void addExploreUrl(SearchTransaction transaction, Result result) {
-        def qs = DatamodelUtils.getQueryStringMapCopy(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-        qs.remove(START_RANK_PARAM)
-        qs.remove(DUPLICATE_START_RANK_PARAM)
-        qs["query"] = ["explore:" + result.liveUrl]
+        if (transaction.question.hasProperty("customData")) {
+            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
+            qs.remove(START_RANK_PARAM)
+            qs.remove(DUPLICATE_START_RANK_PARAM)
+            qs["query"] = ["explore:" + result.liveUrl]
 
-        result.customData["stencilsCoreExploreUrl"] = QueryStringUtils.toString(qs, true)
+            result.customData["stencilsCoreExploreUrl"] = QueryStringUtils.toString(qs, true)
+        }
     }
 
     /**
@@ -59,8 +61,8 @@ class CoreHookLifecycle implements HookLifecycle {
      * @param result Result to add the URL to
      */
     void addCollapsedUrl(SearchTransaction transaction, Result result) {
-        if (result.collapsed) {
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.response.customData[StencilHooks.QUERY_STRING_MAP_KEY])
+        if (result.collapsed && transaction.question.hasProperty("customData")) {
+            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
             qs.remove(START_RANK_PARAM)
             qs.remove(DUPLICATE_START_RANK_PARAM)
             qs["s"] = ["?:" + result.collapsed.signature]
