@@ -146,6 +146,9 @@ class TabsHookLifecycleTest {
         Mockito.when(config.value(Mockito.eq(TabsHookLifecycle.ALL_TAB_LABEL_KEY), Mockito.any()))
                 .thenReturn("Custom All Label")
 
+        // Inject a selected facet to make sure the "All" value resets any selected facets
+        questionCustomData[StencilHooks.QUERY_STRING_MAP_KEY]["f.Facet|0"] = ["Selected Facet"]
+
         hook.postProcess(transaction)
 
         Assert.assertEquals(
