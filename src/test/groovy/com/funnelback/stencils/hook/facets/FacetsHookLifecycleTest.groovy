@@ -136,7 +136,7 @@ class FacetsHookLifecycleTest {
                 "f.State|Y"  : ["ACT", "QLD"]
         ], [:])
 
-        Assert.assertEquals("No values should have been selected", 0, selectedValues.length)
+        Assert.assertEquals("No values should have been selected", 0, selectedValues.size())
     }
 
     @Test

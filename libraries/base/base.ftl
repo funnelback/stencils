@@ -198,25 +198,43 @@
 -->
 <#macro CuratorExhibits position>
   <#list (response.curator.exhibits)![] as exhibit>
-    <#if !position?? || (exhibit.additionalProperties.position)! == position>
+    <#-- Skip best bets -->
+    <#if exhibit.category != "BEST_BETS">
+      <#if !position?? || (exhibit.additionalProperties.position)! == position>
 
-      <#if exhibit.messageHtml??>
-        <#-- Simple message -->
-        <blockquote class="blockquote search-exhibit">
-          ${exhibit.messageHtml?no_esc}
-        </blockquote>
-      <#elseif exhibit.descriptionHtml??>
-        <#-- Rich message -->
-        <div class="card search-exhibit ${(exhibit.additionalProperties.class)!}">
-          <div class="card-header">
-            <h4><a href="${exhibit.linkUrl!}">${exhibit.titleHtml!}</a></h4>
+        <#if exhibit.messageHtml??>
+          <#-- Simple message -->
+          <blockquote class="blockquote search-exhibit">
+            ${exhibit.messageHtml?no_esc}
+          </blockquote>
+        <#elseif exhibit.descriptionHtml??>
+          <#-- Rich message -->
+          <div class="card search-exhibit ${(exhibit.additionalProperties.class)!}">
+            <div class="card-header">
+              <h4><a href="${exhibit.linkUrl!}">${exhibit.titleHtml!}</a></h4>
+            </div>
+            <div class="card-block">
+              <#if exhibit.displayUrl?? && exhibit.displayUrl != "-"><cite class="text-success">${exhibit.displayUrl}</cite></#if>
+              <#if exhibit.descriptionHtml??>${exhibit.descriptionHtml?no_esc}</#if>
+            </div>
           </div>
-          <div class="card-block">
-            <#if exhibit.displayUrl?? && exhibit.displayUrl != "-"><cite class="text-success">${exhibit.displayUrl}</cite></#if>
-            <#if exhibit.descriptionHtml??>${exhibit.descriptionHtml?no_esc}</#if>
-          </div>
-        </div>
+        </#if>
       </#if>
+    </#if>
+  </#list>
+</#macro>
+
+<#--
+  Display best bets
+-->
+<#macro BestBets>
+  <#list (response.curator.exhibits)![] as exhibit>
+    <#if exhibit.category == "BEST_BETS">
+    <div class="alert alert-warning" role="alert">
+      <strong><a class="text-warning" href="${exhibit.linkUrl!}">${exhibit.titleHtml!}</a></strong>
+      <#if exhibit.descriptionHtml??><p>${exhibit.descriptionHtml?no_esc}</p></#if>
+      <#if exhibit.displayUrl?? && exhibit.displayUrl != "-"><cite><a class="text-muted" href="${exhibit.linkUrl!}">${exhibit.displayUrl}</a></cite></#if>
+    </div>
     </#if>
   </#list>
 </#macro>
