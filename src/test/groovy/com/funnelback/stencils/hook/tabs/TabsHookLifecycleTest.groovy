@@ -46,7 +46,9 @@ class TabsHookLifecycleTest {
 
         questionCustomData = [:]
         questionCustomData[StencilHooks.QUERY_STRING_MAP_KEY] = [
-                "param": ["value"],
+                "param"               : ["value"],
+                "start_rank"          : ["11"],
+                "duplicate_start_rank": ["21"],
         ]
 
         transaction = new SearchTransaction()
