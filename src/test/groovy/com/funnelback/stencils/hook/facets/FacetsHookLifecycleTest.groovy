@@ -61,10 +61,12 @@ class FacetsHookLifecycleTest {
         ]
         Facet f = new Facet("Facet")
         def stencilFacet = hook.getStencilFacet([
-                "param"     : ["value"],
-                "f.Facet|X" : ["value1", "value2"],
-                "f.Facet|Y" : ["value1", "value2"],
-                "facetScope": ["f.Facet|Z=value1&f.Location|W=Canberra"]
+                "param"               : ["value"],
+                "start_rank"          : ["11"],
+                "duplicate_start_rank": ["21"],
+                "f.Facet|X"           : ["value1", "value2"],
+                "f.Facet|Y"           : ["value1", "value2"],
+                "facetScope"          : ["f.Facet|Z=value1&f.Location|W=Canberra"]
         ], f, valuesList)
 
         Assert.assertEquals(
@@ -72,11 +74,11 @@ class FacetsHookLifecycleTest {
                 "Facet",
                 stencilFacet.name)
         Assert.assertEquals(
-                "The clear all URL should not contain any f.Facet parameter, preserve existing parameters including facetScope",
+                "The clear all URL should not contain any f.Facet parameter, any start_rank parameter, and preserve existing parameters including facetScope",
                 "?param=value&facetScope=f.Location%257CW%3DCanberra",
                 stencilFacet.unselectAllUrl)
         Assert.assertEquals(
-                "The clear all facetScope should not contain any f.Facet parameter and preserve other parameters",
+                "The clear all facetScope should not contain any f.Facet parameter, any start_rank parameter, and preserve other parameters",
                 "f.Location%7CW=Canberra",
                 stencilFacet.unselectAllFacetScope)
         Assert.assertEquals(
@@ -96,15 +98,17 @@ class FacetsHookLifecycleTest {
 
         def cv = new Facet.CategoryValue("data", "label", 1, "f.Facet|Y=ACT", "constraint", false)
         def stencilCv = hook.getStencilCategoryValue([
-                "param"     : ["value"],
-                "f.Facet|X" : ["Australia"],
-                "f.Facet|Y" : ["ACT", "QLD", "WA"],
-                "f.Facet|Z" : ["Z-value"],
-                "f.Facet|0" : ["0-value"],
-                "facetScope": ["f.Type%7Cf=PDF&f.Facet%7CY=ACT"]
+                "param"               : ["value"],
+                "start_rank"          : ["11"],
+                "duplicate_start_rank": ["21"],
+                "f.Facet|X"           : ["Australia"],
+                "f.Facet|Y"           : ["ACT", "QLD", "WA"],
+                "f.Facet|Z"           : ["Z-value"],
+                "f.Facet|0"           : ["0-value"],
+                "facetScope"          : ["f.Type%7Cf=PDF&f.Facet%7CY=ACT"]
         ],
-        category,
-        cv)
+                category,
+                cv)
 
         Assert.assertEquals(
                 "The query string parameter name should have been correctly extracted",
@@ -116,13 +120,15 @@ class FacetsHookLifecycleTest {
                 stencilCv.queryStringParamValue)
         Assert.assertEquals(
                 "The select URL should contain the query string parameters for the value"
-                + ", the value present in facetScope should have been preserved"
-                + " and other parameters (Z, 0) should have been preserved",
+                        + ", the value present in facetScope should have been preserved"
+                        + ", it should not contain any start_rank parameters,"
+                        + " and other parameters (Z, 0) should have been preserved",
                 "?param=value&f.Facet%7CX=Australia&f.Facet%7CY=ACT&f.Facet%7CZ=Z-value&f.Facet%7C0=0-value&facetScope=f.Type%257Cf%3DPDF%26f.Facet%257CY%3DACT",
                 stencilCv.selectUrl)
         Assert.assertEquals(
                 "The unselect URL should not include the query string parameters for the value, nor in facetScope"
-                + " including for sub-categories (Z, 0)",
+                        + " including for sub-categories (Z, 0)"
+                        + " and should not contain any start_rank parameters,",
                 "?param=value&f.Facet%7CX=Australia&f.Facet%7CY=QLD&f.Facet%7CY=WA&facetScope=f.Type%257Cf%3DPDF",
                 stencilCv.unselectUrl)
     }
@@ -142,17 +148,20 @@ class FacetsHookLifecycleTest {
     @Test
     void testGetSelectedFacetValues() {
         def selectedValues = hook.getSelectedFacetValues([
-                "param"      : ["value"],
-                "f.Type|f"   : ["PDF"],
-                "f.Country|X": ["Australia"],
-                "f.State|Y"  : ["ACT", "QLD"]
+                "param"               : ["value"],
+                "start_rank"          : ["11"],
+                "duplicate_start_rank": ["21"],
+                "f.Type|f"            : ["PDF"],
+                "f.Country|X"         : ["Australia"],
+                "f.State|Y"           : ["ACT", "QLD"]
         ], [
                 "f.Country|X": ["Australia"],
                 "f.State|Y"  : ["ACT", "QLD"]
         ])
 
         Assert.assertEquals(
-                "Selected values should have been correctly computed from the query string and list of selected values", [
+                "Selected values should have been correctly computed from the query string and list of selected values, "
+                        + "and should not include start_rank parameters", [
                 new StencilSelectedFacetValue([
                         facetName  : "Country",
                         value      : "Australia",

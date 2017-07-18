@@ -195,6 +195,8 @@ class TabsHookLifecycle implements HookLifecycle {
         // So set both the select + unselect URL to a URL that doesn't contain any Tab facet constraint
         def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
         qs = DatamodelUtils.filterQueryStringParameters(qs, { key, value -> !key.startsWith("f.${TABS_FACET_NAME}|") })
+        // Remove unwanted parameters
+        FacetsHookLifecycle.PARAMETERS_TO_REMOVE.each() { parameter -> qs.remove(parameter) }
 
         allValue.selectUrl = QueryStringUtils.toString(qs, true)
         allValue.unselectUrl = allValue.selectUrl
