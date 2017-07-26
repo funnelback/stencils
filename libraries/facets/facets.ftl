@@ -30,17 +30,16 @@
                   <li>
                     <a href="${value.unselectUrl}"><span class="fa fa-times"></span> ${value.label}</a>
                     <span class="badge badge-default float-right">${value.count?string}</span>
-                    <#if !value?is_last || facet.unselectedValues?size gt 0>
-                      <span class="d-block text-muted fa fa-long-arrow-down"></span>
-                    </#if>
                   </li>
                 </#list>
-                <#list facet.unselectedValues as value>
-                  <li>
-                    <a href="${value.selectUrl}">${value.label}</a>
-                    <span class="badge badge-default float-right">${value.count?string}</span>
-                  </li>
-                </#list>
+                <#if !facet.selected>
+                  <#list facet.unselectedValues as value>
+                    <li>
+                      <a href="${value.selectUrl}">${value.label}</a>
+                      <span class="badge badge-default float-right">${value.count?string}</span>
+                    </li>
+                  </#list>
+                </#if>
               </ul>
 
               <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
