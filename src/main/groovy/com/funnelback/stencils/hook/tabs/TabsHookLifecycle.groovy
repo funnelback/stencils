@@ -131,6 +131,11 @@ class TabsHookLifecycle implements HookLifecycle {
                     .find() { facet -> facet.name == TABS_FACET_NAME }
                     .each() { tabFacet ->
 
+                // Inject dummy "All" value
+                // We need to do it first so that any facet constraints in its URLs
+                // will be reset by the next section
+                tabFacet.values << getAllValue(transaction)
+
                 // For all values of the extra search, update the select URL
                 // to make sure all facets constraints are reset when switching tabs
                 tabFacet.values.each() { value ->
@@ -143,7 +148,6 @@ class TabsHookLifecycle implements HookLifecycle {
                     value.selectUrl = QueryStringUtils.toString(qs, true)
                 }
 
-                tabFacet.values << getAllValue(transaction)
                 copySelectedStatusToExtraSearchFacet(tabFacet, transaction)
             }
         }
@@ -191,6 +195,8 @@ class TabsHookLifecycle implements HookLifecycle {
         // So set both the select + unselect URL to a URL that doesn't contain any Tab facet constraint
         def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
         qs = DatamodelUtils.filterQueryStringParameters(qs, { key, value -> !key.startsWith("f.${TABS_FACET_NAME}|") })
+        // Remove unwanted parameters
+        FacetsHookLifecycle.PARAMETERS_TO_REMOVE.each() { parameter -> qs.remove(parameter) }
 
         allValue.selectUrl = QueryStringUtils.toString(qs, true)
         allValue.unselectUrl = allValue.selectUrl

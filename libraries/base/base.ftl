@@ -125,11 +125,11 @@
 -->
 <#macro Blending>
   <#if (response.resultPacket.QSups)!?size &gt; 0>
-    <div class="alert alert-info">
+    <blockquote class="blockquote">
       <span class="fa fa-info-circle"></span>
       Your query has been expanded to <strong><#list response.resultPacket.QSups as qsup> ${qsup.query}<#if qsup_has_next>, </#if></#list></strong>.
       &nbsp;Search for <a href="?${QueryString}&amp;qsup=off" title="Turn off query expansion"><em>${question.originalQuery}</em></a> instead.
-    </div>
+    </blockquote>
   </#if>
 </#macro>
 
