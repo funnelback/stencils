@@ -246,13 +246,19 @@
   @param rootNamespace Root namespace from the main template, so that
     it can access imported macro libraries containing result-specific template.
     Call with <code>rootNamespace=.namespace</code>
+  @param nestedRank Before which result to insert the nested content of the macro.
+    This is used to insert content (usually an extra search) between results.
 -->
-<#macro ResultList rootNamespace>
+<#macro ResultList rootNamespace nestedRank=-1>
   <ol class="list-unstyled">
     <#list (response.resultPacket.resultsWithTierBars)![] as result>
       <#if result.class.simpleName == "TierBar">
         <@TierBar result=result />
       <#else>
+        <#if nestedRank gte 0 && result.rank == nestedRank>
+          <#nested>
+        </#if>
+
         <#-- Get result template depending on collection name -->
         <#assign resultDisplayLibrary = question.collection.configuration.value("stencils.template.result.${result.collection}", "") />
 
