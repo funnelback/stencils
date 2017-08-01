@@ -95,6 +95,9 @@
 
 <#--
   Display the shopping cart / shortlist
+
+  Different shortlist templates can be used depending the source collection
+  the result is coming from (based on the <code>C</code> metadata).
 -->
 <#macro Cart>
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
@@ -113,24 +116,44 @@
 
                 <ul class="list-unstyled">
                   <li data-ng-repeat="item in cart">
-                    <div class="card">
+                    <div data-ng-switch="item.metaData.C">
 
-                      <div class="card-header">
-                        <h4>
-                          <a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="fa fa-times"></small></a>
-                          <a data-ng-href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
-                        </h4>
-                        <div class="card-subtitle text-muted">
-                          <cite>{{item.indexUrl|cut:'http://'}}</cite>
+                      <#-- Output templates for all results depending on their source collection,
+                        per configured in collection.cfg -->
+                      <#list question.collection.configuration.valueKeys() as key>
+                        <#if key?starts_with("stencils.template.shortlist.")>
+                          <#assign itemCollection = key?substring("stencils.template.shortlist."?length)>
+                          <#assign itemNamespace = question.collection.configuration.value(key)>
+                          <#if .main[itemNamespace]??>
+                            <div data-ng-switch-when="${itemCollection}">
+                              <@.main[itemNamespace].ShortListTemplate />
+                            </div>
+                          </#if>
+                        </#if>
+                      </#list>
+
+                      <#-- Default template for shortlist items -->
+                      <div data-ng-switch-default>
+                        <div class="card">
+
+                          <div class="card-header">
+                            <h4>
+                              <a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="fa fa-times"></small></a>
+                              <a data-ng-href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
+                            </h4>
+                            <div class="card-subtitle text-muted">
+                              <cite>{{item.indexUrl|cut:'http://'}}</cite>
+                            </div>
+                          </div>
+
+                          <div class="card-block">
+                            <div class="card-text">
+                              <p>{{item.summary|truncate:255}}</p>
+                            </div>
+                          </div>
+
                         </div>
                       </div>
-
-                      <div class="card-block">
-                        <div class="card-text">
-                          <p>{{item.summary|truncate:255}}</p>
-                        </div>
-                      </div>
-
                     </div>
                   </li>
                 </ul>

@@ -243,13 +243,12 @@
   Iterate over results and choose the right template depending
   on the results type and what is configured in collection.cfg
 
-  @param rootNamespace Root namespace from the main template, so that
-    it can access imported macro libraries containing result-specific template.
-    Call with <code>rootNamespace=.namespace</code>
+  Defaults to <code>&lt;@project.Result /&gt;
+
   @param nestedRank Before which result to insert the nested content of the macro.
     This is used to insert content (usually an extra search) between results.
 -->
-<#macro ResultList rootNamespace nestedRank=-1>
+<#macro ResultList nestedRank=-1>
   <ol class="list-unstyled">
     <#list (response.resultPacket.resultsWithTierBars)![] as result>
       <#if result.class.simpleName == "TierBar">
@@ -272,11 +271,11 @@
           </#list>
         </#if>
 
-        <#if rootNamespace[resultDisplayLibrary]??>
-          <@rootNamespace[resultDisplayLibrary].Result result=result />
-        <#elseif rootNamespace["Result"]??>
+        <#if .main[resultDisplayLibrary]??>
+          <@.main[resultDisplayLibrary].Result result=result />
+        <#elseif .main["project"]??>
           <#-- Default Result macro in current namespace -->
-          <@rootNamespace.Result result=result />
+          <@.main["project"].Result result=result />
         <#else>
           <div class="alert alert-danger" role="alert">
             <strong>Result template not found</strong>: Template <code>&lt;@<#if resultDisplayLibrary?has_content>${resultDisplayLibrary}<#else>(default namespace)</#if>.Result /&gt;</code>
