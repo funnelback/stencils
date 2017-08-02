@@ -41,6 +41,13 @@ class FacetsHookLifecycle implements HookLifecycle {
     static final String STENCILS_FACETS_SELECTED_VALUES = STENCILS_FACETS + "SelectedValues"
 
     /**
+     * List of the parameters to remove from URLs generated for facets. For example we don't
+     * want start_rank to be preserved as we should go back to the first page when a facet
+     * is selected
+     */
+    static final String[] PARAMETERS_TO_REMOVE = ["start_rank", "duplicate_start_rank"]
+
+    /**
      * This needs to run as postProcess as we need the built-in Faceted Navigation node to have
      * been populated
      * @param transaction Search transaction
@@ -99,6 +106,8 @@ class FacetsHookLifecycle implements HookLifecycle {
                 // Generate a URL to unselect this specific value
                 def unselectUrlQs = DatamodelUtils.getQueryStringMapCopy(queryString)
                 DatamodelUtils.removeQueryStringFacetValue(unselectUrlQs, key, value)
+                // Remove unwanted parameters
+                PARAMETERS_TO_REMOVE.each() { parameter -> unselectUrlQs.remove(parameter) }
 
                 return new StencilSelectedFacetValue([
                         facetName  : facetName,
@@ -123,11 +132,15 @@ class FacetsHookLifecycle implements HookLifecycle {
         // Generate selection URL
         def selectUrlQs = DatamodelUtils.getQueryStringMapCopy(queryStringMap)
         selectUrlQs[stencilCategoryValue.queryStringParamName] = [stencilCategoryValue.queryStringParamValue]
+        // Remove any unwanted parameters
+        PARAMETERS_TO_REMOVE.each() { parameter -> selectUrlQs.remove(parameter) }
 
         // Generate unselection URL
         def unselectUrlQs = DatamodelUtils.getQueryStringMapCopy(queryStringMap)
         // Remove this specific value from the URL
         DatamodelUtils.removeQueryStringFacetValue(unselectUrlQs, stencilCategoryValue.queryStringParamName, stencilCategoryValue.queryStringParamValue)
+        // Remove any unwanted parameters
+        PARAMETERS_TO_REMOVE.each() { parameter -> unselectUrlQs.remove(parameter) }
 
         // Also remove any other query string parameter used by any sub-categories of
         // the current category. This is for hierarchical facets, so that unselecting a parent
@@ -158,6 +171,8 @@ class FacetsHookLifecycle implements HookLifecycle {
         def unselectAllQueryString = DatamodelUtils.filterQueryStringParameters(qs, {
             key, vals -> !key.startsWith("f." + facet.name + "|")
         })
+        // Remove any unwanted parameters
+        PARAMETERS_TO_REMOVE.each() { parameter -> unselectAllQueryString.remove(parameter) }
 
         // If the query string still contains a facetScope after generating the unselect URL (because there are other facets
         // currently selected), generate the corresponding facetScope string
