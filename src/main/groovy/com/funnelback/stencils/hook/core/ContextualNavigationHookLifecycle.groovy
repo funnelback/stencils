@@ -14,7 +14,7 @@ class ContextualNavigationHookLifecycle implements HookLifecycle {
     static final SITE_CLUSTER = "site"
 
     /**
-     * Removes the "site" cluster if it has only one site as it's not
+     * Removes the "site" cluster if it has only zero or one site as it's not
      * useful to display, and hiding it in FreeMarker is a cumbersome
      *
      * @param transaction
@@ -24,7 +24,7 @@ class ContextualNavigationHookLifecycle implements HookLifecycle {
         if (transaction?.response?.resultPacket?.contextualNavigation) {
             transaction.response.resultPacket.contextualNavigation.categories
                     .findAll() { category -> category.name == SITE_CLUSTER }
-                    .findAll() { category -> category.clusters.size() == 1 }
+                    .findAll() { category -> category.clusters.size() < 2 }
                     .each() { category ->
                 transaction.response.resultPacket.contextualNavigation.categories.remove(category)
             }

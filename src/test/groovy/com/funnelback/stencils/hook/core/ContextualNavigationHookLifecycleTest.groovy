@@ -25,7 +25,19 @@ class ContextualNavigationHookLifecycleTest {
     }
 
     @Test
-    void testOnlySiteWithSingleCluster() {
+    void testOnlySiteWithSingleClusterNoValue() {
+        def category = new Category("site", 0, "", "")
+        transaction.response.resultPacket.contextualNavigation.categories << category
+
+        hook.postDatafetch(transaction)
+
+        Assert.assertTrue(
+                "Site category should have been removed",
+                transaction.response.resultPacket.contextualNavigation.categories.isEmpty())
+    }
+
+    @Test
+    void testOnlySiteWithSingleClusterSingleValue() {
         def category = new Category("site", 0, "", "")
         category.clusters << new Cluster("href", 0, "label")
         transaction.response.resultPacket.contextualNavigation.categories << category
