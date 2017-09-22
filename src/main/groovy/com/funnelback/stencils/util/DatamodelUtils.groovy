@@ -97,7 +97,7 @@ class DatamodelUtils {
      * @param retainClosure Closure to apply to select which parameters to retain. The name and values of the parameter
      * is passed. For example to remove all parameters for a given facet, use <code>{name, value -> !name.startsWith("f.Location|")}</code>
      */
-    static Map<String, List<String, String>> filterQueryStringParameters(Map<String, List<String>> queryStringMap, Closure<Boolean> retainClosure) {
+    static Map<String, List<String>> filterQueryStringParameters(Map<String, List<String>> queryStringMap, Closure<Boolean> retainClosure) {
         def filtered = queryStringMap.findAll(retainClosure)
         if (filtered[SearchQuestion.RequestParameters.FACET_SCOPE]) {
             // Assume facetScope has only 1 value
