@@ -40,7 +40,7 @@ Run `gradlew` (Linux/Mac) or `gradlew.bat` (Windows). This will download Gradle 
  --------------- | ---------------------
  14.2            | 14.2 - 15.0
  15.0            | 15.0 - 15.6
- 15.8            | 15.8+
+ 15.8            | 15.8+ (:warning: requires patch levels 15.8.0.17 / 15.10.0.7 or above)
 
 The `master` branch always point to the latest Funnelback version supported. Changes are then backported to the relevant branches.
 
