@@ -60,7 +60,11 @@ class CSVAutoCompletionGenerator {
         def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS))
 
         println "Requesting URL: ${url}"
-        targetFile.text = url.text
+        targetFile.withOutputStream { os ->
+            url.withInputStream { is ->
+                os << is
+            }
+        }
 
         println "Wrote ${targetFile.length()} bytes to ${targetFile.absolutePath}"
 
