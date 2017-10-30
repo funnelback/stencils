@@ -54,10 +54,10 @@
 <#--
   List currently selected facet values, with a "Refine by" header
 -->
-<#macro SelectedFacetValues>
+<#macro SelectedFacetValues label="Refined by:">
   <#if (response.customData.stencilsFacetsSelectedValues![])?size gt 0>
     <ul class="list-inline">
-      <li class="list-inline-item">Refined by:</li>
+      <li class="list-inline-item">${label!}</li>
       <#list response.customData.stencilsFacetsSelectedValues as value>
         <li class="list-inline-item"><a href="${value.unselectUrl}" class="badge badge-default">${value.facetName}: ${value.value} <span class="fa fa-remove"></span></a></li>
       </#list>

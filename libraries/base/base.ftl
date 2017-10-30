@@ -151,7 +151,7 @@
 <#macro NoResults>
   <#if (response.resultPacket.resultsSummary.totalMatching)! == 0>
     <h3><span class="glyphicon glyphicon-warning-sign"></span> No results</h3>
-    <p>Your search for <strong>${question.originalQuery!}</strong> did not return any results. Please ensure that you:</p>
+    <p>Your search for <strong><@s.QueryClean /></strong> did not return any results. Please ensure that you:</p>
     <ul>
       <li>are not using any advanced search operators like + - | " etc.</li>
       <li>expect this document to exist within the <em><@s.cfg>service_name</@s.cfg></em> collection <@s.IfDefCGI name="scope"> and within <em><@s.Truncate length=80>${question.inputParameterMap["scope"]!}</@s.Truncate></em></@s.IfDefCGI></li>
