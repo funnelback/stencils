@@ -18,7 +18,7 @@
       <#if facetNames?size lt 1 || facetName == facet.name>
         <#if facet.values?size gt 0>
           <div class="card search-facet">
-            <div class="card-block">
+            <div class="card-body">
 
               <div class="card-title">
                   <#if facet.selected><small class="float-right"><a class="text-muted" href="${facet.unselectAllUrl}"><span class="fa fa-times"></span> clear all</a></small></#if>

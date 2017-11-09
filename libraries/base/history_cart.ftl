@@ -38,7 +38,7 @@
                       <button class="btn btn-danger btn-sm float-right" title="Clear click history" data-ng-click="clear('Your history will be cleared')"><span class="fa fa-times"></span> Clear</button>
                     </h3>
                   </div>
-                  <div class="card-block">
+                  <div class="card-body">
                     <ul class="list-unstyled">
                       <#list session.clickHistory as h>
                         <li><a href="${h.indexUrl}">${h.title}</a> &middot; <span class="text-info">${prettyTime(h.clickDate)}</span><#if h.query??><span class="text-muted"> for &quot;${h.query!}&quot;</#if></span></li>
@@ -51,7 +51,7 @@
                   <div class="card-header">
                     <h3><span class="fa fa-heart"></span> Recently clicked results</h3>
                   </div>
-                  <div class="card-block">
+                  <div class="card-body">
                     <p class="text-muted">Your click history is empty.</p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                       <button class="btn btn-danger btn-sm float-right" title="Clear search history" data-ng-click="clear('Your history will be cleared')"><span class="fa fa-times"></span> Clear</button>
                     </h3>
                   </div>
-                  <div class="card-block">
+                  <div class="card-body">
                     <ul class="list-unstyled">
                       <#list session.searchHistory as h>
                         <li><a href="?${h.searchParams}">${h.originalQuery!} <small>(${h.totalMatching})</small></a> &middot; <span class="text-info">${prettyTime(h.searchDate)}</span></li>
@@ -79,7 +79,7 @@
                   <div class="card-header">
                     <h3><span class="fa fa-search"></span> Recent searches</h3>
                   </div>
-                  <div class="card-block">
+                  <div class="card-body">
                     <p class="text-muted">Your search history is empty.</p>
                   </div>
                 </div>
@@ -146,7 +146,7 @@
                             </div>
                           </div>
 
-                          <div class="card-block">
+                          <div class="card-body">
                             <div class="card-text">
                               <p>{{item.summary|truncate:255}}</p>
                             </div>
