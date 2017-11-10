@@ -66,7 +66,7 @@
   "durl": "URL (Z-A)",
   "shuffle": "Shuffle"} >
   <div class="dropdown float-right">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" id="search-sort" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-light btn-sm dropdown-toggle" id="search-sort" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="text-muted">Sort:</span> ${options[question.inputParameterMap["sort"]!]}
     </button>
     <div class="dropdown-menu" aria-labelledby="search-sort">
@@ -83,8 +83,8 @@
   @param limits Array of number of results to provide (defaults to 10, 20, 50)
 -->
 <#macro LimitDropdown limits=[10, 20, 50]>
-  <div class="dropdown float-right">
-    <button class="btn btn-secondary btn-sm dropdown-toggle" id="search-limit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div class="dropdown float-right ml-1">
+    <button class="btn btn-light btn-sm dropdown-toggle" id="search-limit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="text-muted">Limit:</span> ${question.inputParameterMap["num_ranks"]!"10"}
     </button>
     <div class="dropdown-menu" aria-labelledby="search-limit">
@@ -166,7 +166,7 @@
 <#macro ContextualNavigation>
   <#if ((response.resultPacket.contextualNavigation.categories)![])?size gt 0>
     <div class="card search-contextual-navigation">
-      <div class="card-block">
+      <div class="card-body">
         <div class="card-title">
           <h3>Related searches for <strong><@s.QueryClean /></strong></h3>
         </div>
@@ -213,7 +213,7 @@
             <div class="card-header">
               <h4><a href="${exhibit.linkUrl!}">${exhibit.titleHtml!}</a></h4>
             </div>
-            <div class="card-block">
+            <div class="card-body">
               <#if exhibit.displayUrl?? && exhibit.displayUrl != "-"><cite class="text-success">${exhibit.displayUrl}</cite></#if>
               <#if exhibit.descriptionHtml??>${exhibit.descriptionHtml?no_esc}</#if>
             </div>
