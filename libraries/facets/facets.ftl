@@ -59,7 +59,7 @@
     <ul class="list-inline">
       <li class="list-inline-item">${label!}</li>
       <#list response.customData.stencilsFacetsSelectedValues as value>
-        <li class="list-inline-item"><a href="${value.unselectUrl}" class="badge badge-default">${value.facetName}: ${value.value} <span class="fa fa-remove"></span></a></li>
+        <li class="list-inline-item"><a href="${value.unselectUrl}" class="badge badge-light">${value.facetName}: ${value.value} <span class="fa fa-remove"></span></a></li>
       </#list>
     </ul>
   </#if>
