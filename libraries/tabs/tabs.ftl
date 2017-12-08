@@ -8,7 +8,7 @@
     <#if facet.name?starts_with("Tabs")>
       <div class="navbar-expand-md navbar-dark text-center">
         <button class="navbar-toggler mb-3" type="button" data-toggle="collapse" data-target="#search-tabs" aria-expanded="false" aria-label="Toggle tabs">
-          <small class="navbar-toggler-icon"></small> Show filters
+          <small class="navbar-toggler-icon"></small> Show Filters
         </button>
 
         <div class="collapse navbar-collapse" id="search-tabs">
