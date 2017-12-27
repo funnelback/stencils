@@ -1,3 +1,23 @@
+/**
+ * Attempt to find the Groovy version to use depending on the Groovy JAR present
+ * in $SEARCH_HOME/lib/java/all/groovy-all-X.Y.Z.jar
+ *
+ * @return A Groovy version number
+ * @throws IllegalStateException if the Groovy JAR cannot be located
+ */
+def findGroovyVersion () {
+    def groovyJar = new File(projectDir, "../../lib/java/all/").listFiles()
+    .find() { file -> file.name.startsWith("groovy-all-") && file.name.endsWith(".jar") }
+
+    if (!groovyJar) {
+        throw new IllegalStateException("Unable to locate groovy-all-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
+    }
+
+    return groovyJar.name
+    .replace("groovy-all-", "")
+    .replace(".jar", "")
+}
+
 plugins {
     id 'groovy'
 }
@@ -7,8 +27,9 @@ repositories {
 }
 
 project.ext {
-    // Must be set to the Groovy version Funnelback ships with
-    groovyVersion = '2.3.7'
+    // Must be identical to the Groovy version Funnelback ships with,
+    // so we look it up in lib/java/all/
+    groovyVersion = findGroovyVersion()
 }
 
 project.with {
@@ -26,7 +47,7 @@ dependencies {
     
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
-        fileTree(dir: "${System.env.SEARCH_HOME}/lib/java/all/", include: '*.jar')
+        fileTree(dir: "${projectDir}/../../lib/java/all/", include: '*.jar')
     )
 }
 
