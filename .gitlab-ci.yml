@@ -2,6 +2,15 @@ image: funnelback-rnd/stencils:15.8.0.x
 
 build:
     script:
+        # The build needs to be under $SEARCH_HOME/share/stencils/,
+        # As it depends on a relative path to locate the Groovy JAR
+        # ("../../lib/java/all/groovy-all-X.Y.Z.jar" - see build.gradle).
+        #
+        # Unfortunately GitLab CI has no option to use a specific directory for
+        # checkout, so we need to copy files ourselves in the right location.
+        - mkdir -p $SEARCH_HOME/share/
+        - cp -rp $PWD $SEARCH_HOME/share/stencils
+        - cd $SEARCH_HOME/share/stencils
         - ./gradlew
     tags:
         - funnelback-rnd
