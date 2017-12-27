@@ -1,5 +1,6 @@
 package com.funnelback.stencils.hook.tabs
 
+import com.funnelback.common.Environment
 import com.funnelback.common.config.Config
 import com.funnelback.publicui.search.model.collection.Collection
 import com.funnelback.publicui.search.model.padre.ResultPacket
@@ -57,6 +58,7 @@ class TabsHookLifecycleTest {
 
         Mockito.when(transaction.question.collection).thenReturn(new Collection("mock", config))
         Mockito.when(transaction.question.customData).thenReturn(questionCustomData)
+        Mockito.when(transaction.question.funnelbackVersion).thenReturn(new Environment.FunnelbackVersion(1, 2, 3))
         Mockito.when(transaction.response.resultPacket).thenReturn(resultPacket)
         Mockito.when(transaction.response.customData).thenReturn(responseCustomData)
     }

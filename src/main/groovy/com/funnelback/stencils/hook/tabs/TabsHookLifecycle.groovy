@@ -1,6 +1,7 @@
 package com.funnelback.stencils.hook.tabs
 
 import com.funnelback.publicui.search.model.transaction.Facet
+import com.funnelback.publicui.search.model.transaction.facet.FacetDisplayType
 import com.funnelback.publicui.utils.QueryStringUtils
 import com.funnelback.stencils.hook.StencilHooks
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
@@ -77,7 +78,7 @@ class TabsHookLifecycle implements HookLifecycle {
             if (transaction.question.collection.configuration.hasValue(GSCOPE_KEY)) {
                 transaction.question.collection.configuration.value(GSCOPE_KEY)
                     .split(GSCOPE_VALUE_SEPARATOR)
-                    .collect { it.toInteger() }
+                    .collect { it.trim() }
                     .each { gscope ->
                         if (transaction.response.resultPacket.GScopeCounts[gscope] == null) {
                             // Set count to zero
@@ -168,6 +169,27 @@ class TabsHookLifecycle implements HookLifecycle {
                     // it will not show in the "Refined by: ..." section
                     transaction.response.customData[FacetsHookLifecycle.STENCILS_FACETS_SELECTED_VALUES].remove(selectedTabValue)
                 }
+        } else if (transaction.question.hasProperty("funnelbackVersion")
+                && (transaction.question.funnelbackVersion.major > 15
+                || (transaction.question.funnelbackVersion.major == 15 && transaction.question.funnelbackVersion.minor >= 12))
+                && transaction?.response?.facets) {
+
+            // v15.12 has enhanced facets that supports Tabs directly, so we can
+            // get the selected one from the data model
+
+            // Remove the default selected tab we've put previously
+            transaction.response.customData.remove(SELECTED_TAB)
+
+            // ...then locate the first Tab style facet and pick the first
+            // selected value as the current tab
+            transaction.response.facets
+                    .find() { facet -> facet.guessedDisplayType == FacetDisplayType.TAB }
+                    .collect() { facet -> facet.allValues }
+                    .flatten()
+                    .find() { value -> value.selected }
+                    .each() { value ->
+                transaction.response.customData[SELECTED_TAB] = value.label
+            }
         }
     }
 

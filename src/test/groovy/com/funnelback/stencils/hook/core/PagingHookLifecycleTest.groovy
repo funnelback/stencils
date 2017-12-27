@@ -241,4 +241,25 @@ class PagingHookLifecycleTest {
                 transaction.response.customData[PagingHookLifecycle.STENCILS_PAGING])
     }
 
+    @Test
+    void testNumRanksZero() {
+        summary.totalMatching = 0
+        summary.prevStart = 0
+        summary.nextStart = 0
+        summary.currStart = 0
+        summary.currEnd = 0
+        summary.numRanks = 0
+
+        hook.postDatafetch(transaction)
+
+        Assert.assertEquals(
+                new PagingControls([
+                        firstUrl   : "?param=value",
+                        previousUrl: null,
+                        nextUrl    : null,
+                        pages      : []
+                ]),
+                transaction.response.customData[PagingHookLifecycle.STENCILS_PAGING])
+    }
+
 }

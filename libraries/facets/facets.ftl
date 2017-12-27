@@ -14,9 +14,9 @@
   <#-- List the provided names first rather than the facet order, to
     to preserve the order that was passed in -->
   <#list facetNames as facetName>
-    <#list response.customData.stencilsFacets![] as facet>
+    <#list response.facets![] as facet>
       <#if facetNames?size lt 1 || facetName == facet.name>
-        <#if facet.values?size gt 0>
+        <#if facet.allValues?size gt 0>
           <div class="card search-facet">
             <div class="card-body">
 
@@ -26,20 +26,15 @@
               </div>
 
               <ul class="list-unstyled">
-                <#list facet.selectedValues as value>
+                <#list facet.allValues as value>
                   <li>
-                    <a href="${value.unselectUrl}"><span class="fa fa-times"></span> ${value.label}</a>
+                    <a href="${value.toggleUrl}">
+                      <#if value.selected><span class="fa fa-times"></span></#if>
+                      ${value.label}
+                    </a>
                     <span class="badge badge-default float-right">${value.count?string}</span>
                   </li>
                 </#list>
-                <#if !facet.selected>
-                  <#list facet.unselectedValues as value>
-                    <li>
-                      <a href="${value.selectUrl}">${value.label}</a>
-                      <span class="badge badge-default float-right">${value.count?string}</span>
-                    </li>
-                  </#list>
-                </#if>
               </ul>
 
               <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
@@ -55,11 +50,15 @@
   List currently selected facet values, with a "Refine by" header
 -->
 <#macro SelectedFacetValues label="Refined by:">
-  <#if (response.customData.stencilsFacetsSelectedValues![])?size gt 0>
+  <#if response.facetExtras.hasSelectedNonTabFacets>
     <ul class="list-inline">
       <li class="list-inline-item">${label!}</li>
-      <#list response.customData.stencilsFacetsSelectedValues as value>
-        <li class="list-inline-item"><a href="${value.unselectUrl}" class="badge badge-light">${value.facetName}: ${value.value} <span class="fa fa-remove"></span></a></li>
+      <#list (response.facets)![] as facet>
+        <#if facet.selected && facet.guessedDisplayType != "TAB">
+          <#list facet.selectedValues as value>
+            <li class="list-inline-item"><a href="${value.toggleUrl}" class="badge badge-light">${facet.name}: ${value.label} <span class="fa fa-remove"></span></a></li>
+          </#list>
+        </#if>
       </#list>
     </ul>
   </#if>

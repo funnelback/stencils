@@ -36,13 +36,17 @@ Run `gradlew` (Linux/Mac) or `gradlew.bat` (Windows). This will download Gradle 
 
 ## Compatibility
 
+Development takes place on the `master` branch, which always points to the latest Funnelback version supported. Changes are then merged to per-version staging branches (e.g. `15.8-staging`), and finally to the per-version production branches (e.g. `15.8-production`) when ready.
+
+Changes may be backported to multiple version branches depending if the fix applies to multiple Funnelback versions.
+
  Stencil branch  | Funnelback version(s)
  --------------- | ---------------------
  14.2            | 14.2 - 15.0
  15.0            | 15.0 - 15.6
- 15.8            | 15.8+ (:warning: requires patch levels 15.8.0.17 / 15.10.0.7 or above)
+ 15.8            | 15.8, 15.10 (:warning: requires patch levels 15.8.0.17 / 15.10.0.7 or above)
+ 15.12           | 15.12+
 
-The `master` branch always point to the latest Funnelback version supported. Changes are then backported to the relevant branches.
 
 New version branches are created when a feature is incompatible with older Funnelback versions. For example the 15.8 Stencil branch was created as the codebase started making use of features not available in 15.6.
 
