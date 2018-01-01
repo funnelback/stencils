@@ -120,6 +120,12 @@ class PagingHookLifecycle implements HookLifecycle {
         def numPages = transaction.question.collection.configuration.valueAsInt(NUM_PAGES_KEY, NUM_PAGES_DEFAULT)
         def summary = transaction.response.resultPacket.resultsSummary
 
+        if (summary.numRanks <= 0) {
+            // The `-num_ranks` QPO has been set to zero (or below?)
+            // so there will be no page to compute
+            return []
+        }
+
         // Max page number is the total number of results by the number of results per page
         // We add (numRanks-1) so that the first page is 1, not 0
         def maxPage = ((summary.totalMatching + summary.numRanks - 1) / summary.numRanks).intValue()
