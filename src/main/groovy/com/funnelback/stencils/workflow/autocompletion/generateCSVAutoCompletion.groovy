@@ -6,7 +6,7 @@
  *
  * Make sure the the classpath includes the Stencils Groovy folder, i.e. (line breaks added for readability):
  *
- * post_index_command=$GROOVY_COMMAND -cp "$SEARCH_HOME/share/stencils/src/main/groovy" \
+ * post_index_command=$GROOVY_COMMAND
  *  $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy \
  *   -c $COLLECTION_NAME \
  *   -p auto-completion \

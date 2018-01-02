@@ -1,6 +1,27 @@
-# CSV Auto-completion Workflow
+# CSV Auto-completion Workflow helpers
 
-This package provides support for creating CSV auto-completion based on a FreeMarker template.
+This package provides support for working with CSV auto-completion files.
+
+## CSV Auto-completion partializer
+
+This script provides support for "partializing" completion triggers from CSV file, in a similar fashion of the
+`-partials` option from `build_autoc` for organic query completion.
+
+It reads an input CSV file and will generate an output CSV with additional rows for each trigger words, in order for
+the completions to match each individual word. An optional stop words file can be provided to stop specific trigger
+words to be generated.
+
+### Configuration
+
+Call the workflow in the `collection.cfg` file:
+
+```
+post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/partializeCSVAutoCompletion.groovy -i /path/to/input.csv -o /path/to/output.csv
+```
+
+## CSV Auto-completion Workflow
+
+This script provides support for creating CSV auto-completion based on a FreeMarker template.
 
 This is usually used with the Concierge / Multi-Channel completion to generate structured completion for various data sources (courses, staff, events, ...).
 
@@ -12,7 +33,7 @@ The workflow script will:
 
 The concierge then needs to be configured to hit the specific profile on the specified collection for each channel.
 
-## Configuration
+### Configuration
 
 * Create a profile `auto-completion` on the collection by creating the folders `conf/$COLLECTION/auto-completion`, `conf/$COLLECTION/auto-completion_preview`
 * Create a FTL template in this profile named `auto-completion.ftl`: `conf/$COLLECTION/auto-completion/auto-completion.ftl`. This template should generate CSV data
@@ -20,7 +41,7 @@ The concierge then needs to be configured to hit the specific profile on the spe
 
 ```
 ui.modern.form.auto-completion.content_type=text/plain
-post_index_command=$GROOVY_COMMAND -cp "$SEARCH_HOME/share/stencils/src/main/groovy" $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy -c $COLLECTION_NAME -p auto-completion -v $CURRENT_VIEW
+post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy -c $COLLECTION_NAME -p auto-completion -v $CURRENT_VIEW
 ```
 
 `text/plain` is not strictly needed but is nice to have when testing the template. `$COLLECTION_NAME` and `$CURRENT_VIEW` will be automatically expanded by Funnelback
