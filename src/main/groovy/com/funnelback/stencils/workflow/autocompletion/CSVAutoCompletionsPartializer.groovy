@@ -34,6 +34,15 @@ class CSVAutoCompletionsPartializer {
                 records.each() { record ->
                     def triggerWords = record.get(0)
 
+                    if (triggerWords.trim().split("\\s").length > 1) {
+                        // If the trigger words is a phrase, insert the original
+                        // record as-is so that it will match the phrase.
+                        // For example "Chocolate cake" should match the partial
+                        // query "chocolate ca". If we were not copying the record
+                        // as is it would only match "chocolate" or "cake"
+                        printer.printRecord(record)
+                    }
+
                     // Split our words on space
                     triggerWords.trim().split("\\s")
                     // Canonicalize the trigger: Remove punctuation, convert to lower case
