@@ -177,9 +177,6 @@ class TabsHookLifecycle implements HookLifecycle {
             // v15.12 has enhanced facets that supports Tabs directly, so we can
             // get the selected one from the data model
 
-            // Remove the default selected tab we've put previously
-            transaction.response.customData.remove(SELECTED_TAB)
-
             // ...then locate the first Tab style facet and pick the first
             // selected value as the current tab
             transaction.response.facets

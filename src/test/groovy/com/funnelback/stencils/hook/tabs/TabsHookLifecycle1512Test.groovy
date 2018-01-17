@@ -81,4 +81,41 @@ class TabsHookLifecycle1512Test {
                 transaction.response.customData[TabsHookLifecycle.SELECTED_TAB])
     }
 
+    /**
+     * Test that the default ALL selected tab still applies in 15.12
+     * when there are no new "tab-style" facet but only legacy one (which don't
+     * have a default "All" value)
+     */
+    @Test
+    void testPostProcessAllTabSelectedByDefault() {
+        Mockito.when(config.value(TabsHookLifecycle.ALL_TAB_LABEL_KEY, TabsHookLifecycle.ALL_TAB_DEFAULT_LABEL))
+            .thenReturn("Default All Tab")
+
+        def f = new Facet(
+                "Tabs",
+                FacetSelectionType.SINGLE_AND_UNSELECT_OTHER_FACETS,
+                FacetConstraintJoin.LEGACY,
+                FacetValues.FROM_UNSCOPED_ALL_QUERY,
+                [])
+
+        f.categories << new Facet.Category(null, null)
+        f.categories[0].values << new Facet.CategoryValue("people-collection", "People", 1, "", "", false)
+
+        f.categories << new Facet.Category(null, null)
+        f.categories[1].values << new Facet.CategoryValue("courses-collection", "Courses", 2, "", "", false)
+
+        f.categories << new Facet.Category(null, null)
+        f.categories[2].values << new Facet.CategoryValue("events-collection", "Events", 3, "", "", false)
+
+        // Inject tab facet with selected value
+        Mockito.when(transaction.response.facets).thenReturn([ f ])
+
+        hook.postProcess(transaction)
+
+        Assert.assertEquals(
+                "The default 'ALL' tab should have been marked as selected",
+                "Default All Tab",
+                transaction.response.customData[TabsHookLifecycle.SELECTED_TAB])
+    }
+
 }

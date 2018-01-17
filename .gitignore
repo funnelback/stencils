@@ -10,3 +10,4 @@ bin/
 
 # IntelliJ IDEA
 .idea/
+*.iml
