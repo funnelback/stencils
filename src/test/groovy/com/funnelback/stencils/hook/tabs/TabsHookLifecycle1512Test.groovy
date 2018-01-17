@@ -87,7 +87,7 @@ class TabsHookLifecycle1512Test {
      * have a default "All" value)
      */
     @Test
-    void testPoostProcessAllTabSelectedByDefault() {
+    void testPostProcessAllTabSelectedByDefault() {
         Mockito.when(config.value(TabsHookLifecycle.ALL_TAB_LABEL_KEY, TabsHookLifecycle.ALL_TAB_DEFAULT_LABEL))
             .thenReturn("Default All Tab")
 
