@@ -4,8 +4,6 @@
  * It takes each row of a CSV completion files and split the triggers on spaces to generate alternative rows,
  * to allow for partial matching. It's similar to the <code>-partials</code> option for organic completions.
  *
- * Make sure the the classpath includes the Stencils Groovy folder, i.e. (line breaks added for readability):
- *
  * post_index_command=$GROOVY_COMMAND \
  *  $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/partializeCSVAutoCompletion.groovy \
  *   -i /path/to/input.csv \

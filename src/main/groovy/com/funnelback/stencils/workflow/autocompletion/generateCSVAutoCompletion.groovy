@@ -4,8 +4,6 @@
  * Usually called as a workflow script, passing the name of the collection to query, the profile to query
  * and the view. The profile is expected to have a template named 'auto-completion.csv'
  *
- * Make sure the the classpath includes the Stencils Groovy folder, i.e. (line breaks added for readability):
- *
  * post_index_command=$GROOVY_COMMAND
  *  $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy \
  *   -c $COLLECTION_NAME \
