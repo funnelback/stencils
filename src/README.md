@@ -56,16 +56,15 @@ filter.classes=...:com.funnelback.stencils.filter.scraper.MetadataScraperFilter
 ## Available filters
 
 * [Metadata scraper](main/groovy/com/funnelback/stencils/filter/scraper/README.md): Scrape metadata from web pages with CSS Selectors. Note that this filter is available in Funnelback as standard since v15.8
+* [Title prefix / suffix remover](main/groovy/com/funnelback/stencils/filter/title/README.md): Remove SEO prefixes and suffixes from titles (e.g. "Apply to FBU | Funnelback University")
 
 # Workflow scripts
 
 To use the Stencil workflow scripts, call the relevant script from the collection workflow commands, e.g.:
 
 ```
-post_index_command=$GROOVY_COMMAND -cp "$SEARCH_HOME/share/stencils/src/main/groovy" $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/.../myWorkflow.goovy -arg1 X -arg2 Y
+post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/.../myWorkflow.goovy -arg1 X -arg2 Y
 ```
-
-Make sure to include the `-cp` argument pointing to the Stencil Groovy folder so that the workflow scripts can access any Stencil helper class they need.
 
 ## Available workflow scripts
 
