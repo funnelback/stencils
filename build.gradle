@@ -20,6 +20,7 @@ def findGroovyVersion () {
 
 plugins {
     id 'groovy'
+    id 'distribution'
 }
 
 repositories {
@@ -35,7 +36,7 @@ project.ext {
 project.with {
     group = 'com.funnelback.stencils'
     version = 'master-SNAPSHOT'
-    
+
     defaultTasks 'build'
 }
 
@@ -44,7 +45,7 @@ dependencies {
         'junit:junit:4.+',
         'org.mockito:mockito-core:1.+'
     )
-    
+
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
         fileTree(dir: "${projectDir}/../../lib/java/all/", include: '*.jar')
@@ -54,5 +55,44 @@ dependencies {
 test {
     testLogging {
         exceptionFormat = 'full'
+    }
+}
+
+distributions {
+    stencils {
+        baseName 'stencils'
+        contents {
+            includeEmptyDirs = false
+            exclude(
+                // Build output
+                'build',
+                'out',
+                // Stencils v1 stuff we don't want to distribute
+                'libraries/@docs',
+                'libraries/@default',
+                'libraries/**/controllers',
+                'libraries/**/views',
+                'resources/noresult',
+                'resources/facebook',
+                'resources/places',
+                'resources/compare',
+                'resources/recommender',
+                'resources/tabs',
+                'resources/courses',
+                'resources/core',
+                'resources/jira',
+                'resources/people',
+                'resources/social',
+                'resources/twitter',
+                'resources/flickr',
+                'resources/people',
+                'resources/youtube',
+                // Old Metadata scraper that's now part of the product
+                'src/main/groovy/com/funnelback/stencils/filter/scraper',
+                // IDE project files
+                '.idea',
+            )
+            from { '.' }
+        }
     }
 }

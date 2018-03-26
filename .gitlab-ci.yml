@@ -8,10 +8,17 @@ build:
         #
         # Unfortunately GitLab CI has no option to use a specific directory for
         # checkout, so we need to copy files ourselves in the right location.
+        - pushd .
         - mkdir -p $SEARCH_HOME/share/
         - cp -rp $PWD $SEARCH_HOME/share/stencils
         - cd $SEARCH_HOME/share/stencils
-        - ./gradlew
+        - ./gradlew clean build assemble
+        # Copy our artifacts back to the GitLab CI folder
+        - popd
+        - cp -r $SEARCH_HOME/share/stencils/build build
+    artifacts:
+        paths:
+            - build/distributions/*.zip
     tags:
         - funnelback-rnd
         - docker
