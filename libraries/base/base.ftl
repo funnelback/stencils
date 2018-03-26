@@ -71,7 +71,7 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="search-sort">
       <#list options as key, value>
-        <a class="dropdown-item" title="Sort by ${value}" href="${question.collection.configuration.value("ui.modern.search_link")}?${QueryString}&sort=${key}">${value}</a>
+        <a class="dropdown-item" title="Sort by ${value}" href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString, "sort")}&sort=${key}">${value}</a>
       </#list>
     </div>
   </div>
@@ -89,7 +89,7 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="search-limit">
       <#list limits as limit>
-        <a class="dropdown-item" title="Limit to ${limit} results" href="${question.collection.configuration.value("ui.modern.search_link")}?${QueryString}&num_ranks=${limit}">${limit} results</a>
+        <a class="dropdown-item" title="Limit to ${limit} results" href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString, "num_ranks")}&num_ranks=${limit}">${limit} results</a>
       </#list>
     </div>
   </div>
