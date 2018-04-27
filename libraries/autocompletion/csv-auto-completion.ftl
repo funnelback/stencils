@@ -17,6 +17,23 @@
                 </#if>
                 <#-- The field may have multiple values. Process them one by one -->
                 <#list field?split("|") as singleValue>
+                    <#assign data>
+                    {
+                        "title": "${result.title?json_string}",
+                        <#if result.date?has_content>
+                          "date": "${result.date?date?string.short?json_string}",
+                        </#if>
+                        "metaData": {
+                          <#list result.metaData!{} as key, value>
+                            "${key?json_string}": "${value?replace("|", ", ")?replace("\"", "\\\"")?json_string}"<#if key_has_next>,</#if>
+                          </#list>
+                        }
+                    }
+                    </#assign>
+
+                    <#-- Add a line with the trigger as-is so that it will match if it's typed in as-is -->
+                    <@csvLine trigger=singleValue data=escapeCsv(data?replace("[\r\n]","", "r")) url=result.clickTrackingUrl! />
+
                     <#-- Split value on space -->
                     <#list singleValue?split(" ") as value>
                         <#-- Strip any character that doesn't matter for the trigger -->
@@ -24,19 +41,6 @@
                         <#-- Ignore the trigger if it's a stop word -->
                         <#if !stopWords?seq_contains(trigger)>
                           <#-- Generate a JSON block for the completion, containing all the metadata fields of the document -->
-                          <#assign data>
-                          {
-                              "title": "${result.title?json_string}",
-                              <#if result.date?has_content>
-                                "date": "${result.date?string.short?json_string}",
-                              </#if>
-                              "metaData": {
-                                <#list result.metaData!{} as key, value>
-                                  "${key?json_string}": "${value?replace("|", ", ")?replace("\"", "\\\"")?json_string}"<#if key_has_next>,</#if>
-                                </#list>
-                              }
-                          }
-                          </#assign>
                           <@csvLine trigger=trigger data=escapeCsv(data?replace("[\r\n]", "", "r")) url=result.clickTrackingUrl! />
                         </#if>
                     </#list>
