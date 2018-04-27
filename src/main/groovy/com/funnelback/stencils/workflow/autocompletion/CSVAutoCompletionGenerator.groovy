@@ -57,7 +57,7 @@ class CSVAutoCompletionGenerator {
      */
     private File generateCSVCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption) {
         def targetFile = getCSVFile(collection, profile)
-        def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS))
+        def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS).toInteger())
 
         println "Requesting URL: ${url}"
         targetFile.withOutputStream { os ->

@@ -50,4 +50,4 @@ new CSVAutoCompletionGenerator(searchHome)
         options.c,
         options.p,
         options.v,
-        Optional.ofNullable(options.n ? option.n : null))
+        Optional.ofNullable(options.n ? options.n : null))
