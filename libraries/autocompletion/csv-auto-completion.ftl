@@ -53,7 +53,7 @@
 
 <#-- Generates a single CSV line, for a trigger, data to display and URL to navigate to -->
 <#macro csvLine trigger data url>
-"${trigger}",100,${data},J,"",,"${url}",U
+"${trigger}",100,${data},J,"${escapeCsv(question.collection.configuration.value("stencils.auto-completion.category")!)}",,"${url}",${question.collection.configuration.value("stencils.auto-completion.action-type")!"U"}
 </#macro>
 
 <#-- Escapes a String suitably for CSV -->
