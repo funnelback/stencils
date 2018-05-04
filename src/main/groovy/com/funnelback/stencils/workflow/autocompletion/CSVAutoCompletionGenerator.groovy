@@ -21,7 +21,7 @@ class CSVAutoCompletionGenerator {
     static final CSV_TEMPLATE = "auto-completion"
 
     /** Query to use to get all documents */
-    static final QUERY = "!genautocompletion"
+    static final DEFAULT_QUERY = "!genautocompletion"
 
     /** Jetty public port to request */
     def final searchPort
@@ -39,10 +39,11 @@ class CSVAutoCompletionGenerator {
      * @param collection Collection to query
      * @param profile Profile to query
      * @param view View to query
-     * @param numRanksOption How many results to retrieve, default to {@link #DEFAULT_NUMRANKS}
+     * @param numRanksOption How many results to retrieve, defaults to {@link #DEFAULT_NUMRANKS}
+     * @param queryOption What query to use, defaults to {@link #DEFAULT_QUERY}
      */
-    public void generateAutoCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption) {
-        def csvFile = generateCSVCompletions(collection, profile, view, numRanksOption)
+    public void generateAutoCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption, Optional<String> queryOption) {
+        def csvFile = generateCSVCompletions(collection, profile, view, numRanksOption, queryOption)
         generateAutocFile(csvFile, collection, profile, view)
     }
 
@@ -53,11 +54,12 @@ class CSVAutoCompletionGenerator {
      * @param profile Profile to query
      * @param view View to query
      * @param numRanksOption Optional num_ranks value to use. Will default to {@link #DEFAULT_NUMRANKS}
+     * @param queryOption Optional query to use. Will default to {@link #DEFAULT_QUERY}
      * @return Generated CSV file
      */
-    private File generateCSVCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption) {
+    private File generateCSVCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption, Optional<String> queryOption) {
         def targetFile = getCSVFile(collection, profile)
-        def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS).toInteger())
+        def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS).toInteger(), queryOption.orElse(DEFAULT_QUERY))
 
         println "Requesting URL: ${url}"
         targetFile.withOutputStream { os ->
@@ -81,14 +83,14 @@ class CSVAutoCompletionGenerator {
     /**
      * @return URL to query to get CSV data
      */
-    private URL getURL(String collection, String profile, String view, int numRanks) {
+    private URL getURL(String collection, String profile, String view, int numRanks, String query) {
         return new URL([
                 "http://localhost:${searchPort}/s/search.html",
                 "?collection=${collection}",
                 "&profile=${profile}",
                 "&view=${view}",
                 "&form=${CSV_TEMPLATE}",
-                "&query=${QUERY}",
+                "&query=${URLEncoder.encode(query, "UTF-8")}",
                 "&num_ranks=${numRanks}"
         ].join(""))
     }
@@ -101,7 +103,7 @@ class CSVAutoCompletionGenerator {
      * @param view View to write the generated file into
      * @throws IllegalStateException If build_autoc fails
      */
-    private void generateAutocFile(File csvFile, String collection, String profile, String view) throws IllegalStateException{
+    private void generateAutocFile(File csvFile, String collection, String profile, String view) throws IllegalStateException {
         def executableSuffix = new OSUtils().executableSuffix
         def cmd = [
                 new File("${searchHome}/bin/build_autoc${executableSuffix}").absolutePath,
