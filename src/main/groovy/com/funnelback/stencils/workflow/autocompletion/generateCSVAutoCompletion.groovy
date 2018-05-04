@@ -33,6 +33,7 @@ build_autoc will then be called on this CSV file, with the profile name.
     h longOpt: "help", "Get this help message"
     c longOpt: "collection", required: true, argName: "collection", args: 1, type: String.class, "Collection to query"
     p longOpt: "profile", required: true, argName: "view", args: 1, type: String.class, "Profile to query"
+    q longOpt: "query", argName: "query", args: 1, type: String.class, "Query to use. Defaults to ${CSVAutoCompletionGenerator.DEFAULT_QUERY}"
     v longOpt: "view", required: true, argName: "view", args: 1, type: String.class, "View to query (e.g. offline or live)"
     n longOpt: "numRanks", argName: "numRanks", args: 1, type: Integer.class, "How many results to retrieve (num_ranks), defaults to ${CSVAutoCompletionGenerator.DEFAULT_NUMRANKS}"
 }
@@ -50,4 +51,5 @@ new CSVAutoCompletionGenerator(searchHome)
         options.c,
         options.p,
         options.v,
-        Optional.ofNullable(options.n ? options.n : null))
+        Optional.ofNullable(options.n ? options.n : null),
+        Optional.ofNullable(options.q ? options.q : null))
