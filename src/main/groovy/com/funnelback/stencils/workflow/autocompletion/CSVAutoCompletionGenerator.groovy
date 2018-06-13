@@ -11,8 +11,8 @@ import com.funnelback.stencils.util.OSUtils
  */
 class CSVAutoCompletionGenerator {
 
-    /** Default num_ranks to use when not provided */
-    static final DEFAULT_NUMRANKS = 10_000
+    /** Size of a page of results to get the completions */
+    static final PAGE_SIZE = 100
 
     /** Name of the file to save the CSV data into */
     static final CSV_FILENAME = "auto-completion.csv"
@@ -39,11 +39,10 @@ class CSVAutoCompletionGenerator {
      * @param collection Collection to query
      * @param profile Profile to query
      * @param view View to query
-     * @param numRanksOption How many results to retrieve, defaults to {@link #DEFAULT_NUMRANKS}
      * @param queryOption What query to use, defaults to {@link #DEFAULT_QUERY}
      */
-    public void generateAutoCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption, Optional<String> queryOption) {
-        def csvFile = generateCSVCompletions(collection, profile, view, numRanksOption, queryOption)
+    public void generateAutoCompletions(String collection, String profile, String view, Optional<String> queryOption) {
+        def csvFile = generateCSVCompletions(collection, profile, view, queryOption)
         generateAutocFile(csvFile, collection, profile, view)
     }
 
@@ -53,21 +52,35 @@ class CSVAutoCompletionGenerator {
      * @param collection Collection to query
      * @param profile Profile to query
      * @param view View to query
-     * @param numRanksOption Optional num_ranks value to use. Will default to {@link #DEFAULT_NUMRANKS}
      * @param queryOption Optional query to use. Will default to {@link #DEFAULT_QUERY}
      * @return Generated CSV file
      */
-    private File generateCSVCompletions(String collection, String profile, String view, Optional<Integer> numRanksOption, Optional<String> queryOption) {
+    private File generateCSVCompletions(String collection, String profile, String view, Optional<String> queryOption) {
         def targetFile = getCSVFile(collection, profile)
-        def url = getURL(collection, profile, view, numRanksOption.orElse(DEFAULT_NUMRANKS).toInteger(), queryOption.orElse(DEFAULT_QUERY))
 
-        println "Requesting URL: ${url}"
-        targetFile.withOutputStream { os ->
-            url.withInputStream { is ->
-                os << is
-            }
+        def data = null
+        def startRank = 0
+
+        // Paginate over the result set to get all the data
+        // Stop when we don't get any results back anymore
+        print "Requesting all results by pages of ${PAGE_SIZE}. This may take a while: "
+
+        // Put a sanity limit on the number of results that can
+        // be retrieved, in case the check for blank data fails
+        // at least we won't go into an infinite loop
+        while (data != "" && startRank < 5_000_000) {
+            def url = getURL(collection, profile, view, startRank, PAGE_SIZE-1, queryOption.orElse(DEFAULT_QUERY))
+            data = url.text.trim()
+
+            targetFile.append(data + System.getProperty("line.separator"))
+            startRank += PAGE_SIZE
+            
+            // Print a dot in the log to indicate progress
+            print "."
         }
 
+        println ""
+        println "Requested ${startRank / PAGE_SIZE} pages of ${PAGE_SIZE} results"
         println "Wrote ${targetFile.length()} bytes to ${targetFile.absolutePath}"
 
         return targetFile
@@ -83,7 +96,7 @@ class CSVAutoCompletionGenerator {
     /**
      * @return URL to query to get CSV data
      */
-    private URL getURL(String collection, String profile, String view, int numRanks, String query) {
+    private URL getURL(String collection, String profile, String view, int startRank, int numRanks, String query) {
         return new URL([
                 "http://localhost:${searchPort}/s/search.html",
                 "?collection=${collection}",
@@ -91,6 +104,7 @@ class CSVAutoCompletionGenerator {
                 "&view=${view}",
                 "&form=${CSV_TEMPLATE}",
                 "&query=${URLEncoder.encode(query, "UTF-8")}",
+                "&start_rank=${startRank}",
                 "&num_ranks=${numRanks}"
         ].join(""))
     }
