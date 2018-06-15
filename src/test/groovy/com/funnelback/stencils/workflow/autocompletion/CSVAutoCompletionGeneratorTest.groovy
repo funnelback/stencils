@@ -21,8 +21,8 @@ class CSVAutoCompletionGeneratorTest {
         def generator = new CSVAutoCompletionGenerator(TEST_SEARCH_HOME)
 
         Assert.assertEquals(
-                "http://localhost:12345/s/search.html?collection=coll&profile=prof&view=view&form=auto-completion&query=a+query&num_ranks=42",
-                generator.getURL("coll", "prof", "view", 42, "a query").toExternalForm())
+                "http://localhost:12345/s/search.html?collection=coll&profile=prof&view=view&form=auto-completion&query=a+query&start_rank=12&num_ranks=34",
+                generator.getURL("coll", "prof", "view", 12, 34, "a query").toExternalForm())
     }
 
 }
