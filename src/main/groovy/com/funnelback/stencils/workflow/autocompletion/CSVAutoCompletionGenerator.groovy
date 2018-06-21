@@ -57,6 +57,9 @@ class CSVAutoCompletionGenerator {
      */
     private File generateCSVCompletions(String collection, String profile, String view, Optional<String> queryOption) {
         def targetFile = getCSVFile(collection, profile)
+        // Always delete the file first, since we'll be appending to it,
+        // we don't want to append to the already existing file
+        targetFile.delete()
 
         def data = null
         def startRank = 0
