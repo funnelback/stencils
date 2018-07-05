@@ -62,7 +62,7 @@ class CSVAutoCompletionGenerator {
         targetFile.delete()
 
         def data = null
-        def startRank = 0
+        def startRank = 1
 
         // Paginate over the result set to get all the data
         // Stop when we don't get any results back anymore
@@ -72,12 +72,12 @@ class CSVAutoCompletionGenerator {
         // be retrieved, in case the check for blank data fails
         // at least we won't go into an infinite loop
         while (data != "" && startRank < 5_000_000) {
-            def url = getURL(collection, profile, view, startRank, PAGE_SIZE-1, queryOption.orElse(DEFAULT_QUERY))
+            def url = getURL(collection, profile, view, startRank, PAGE_SIZE, queryOption.orElse(DEFAULT_QUERY))
             data = url.text.trim()
 
             targetFile.append(data + System.getProperty("line.separator"))
             startRank += PAGE_SIZE
-            
+
             // Print a dot in the log to indicate progress
             print "."
         }
