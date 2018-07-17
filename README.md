@@ -30,9 +30,11 @@ ln -s $SEARCH_HOME/share/stencils/src/main/resources/funnelback-stencils-resourc
 
 To make use of the hook scripts, filters and workflow scripts in collections, please see the [documentation](src/README.md).
 
-## Building
+## Building & Development
 
 Run `gradlew` (Linux/Mac) or `gradlew.bat` (Windows). This will download Gradle if necessary, then compile the Groovy sources and run the unit tests.
+
+This is only needed if you want to develop the Stencils themselves. If you just want to use them, you don't need this (Just follow the installation instructions above).
 
 ## Compatibility
 
