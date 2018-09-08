@@ -4,11 +4,12 @@
   Display a "Last visited X time ago" link for a result
 
   @param result Result to display the link for
+  @param class CSS class to use. Defaults to text-success
 -->
-<#macro LastVisitedLink result>
+<#macro LastVisitedLink result icon="fa fa-clock-o" class="text-success">
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(result.indexUrl)??>
-    <small class="text-success search-last-visited">
-      <span class="fa fa-clock-o"></span> <a title="Click history" href="#" class="text-success" data-ng-click="toggleHistory()">
+    <small class="${class} search-last-visited">
+      <span class="${icon}"></span> <a title="Click history" href="#" class="${class}" data-ng-click="toggleHistory()">
         Last visited ${prettyTime(session.getClickHistory(result.indexUrl).clickDate)}
       </a>
     </small>
