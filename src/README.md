@@ -57,6 +57,7 @@ filter.classes=...:com.funnelback.stencils.filter.scraper.MetadataScraperFilter
 
 * [Metadata scraper](main/groovy/com/funnelback/stencils/filter/scraper/README.md): Scrape metadata from web pages with CSS Selectors. Note that this filter is available in Funnelback as standard since v15.8
 * [Title prefix / suffix remover](main/groovy/com/funnelback/stencils/filter/title/README.md): Remove SEO prefixes and suffixes from titles (e.g. "Apply to FBU | Funnelback University")
+* [XML element HTML wrapper](main/groovy/com/funnelback/stencils/filter/xml/README.md): Wrap specific XML tag in `<html>...</html>` tags for PADRE to index them as inner documents
 
 # Workflow scripts
 
