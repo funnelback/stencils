@@ -40,11 +40,15 @@ The concierge then needs to be configured to hit the specific profile on the spe
 * Edit the `collection.cfg` file:
 
 ```
+stencils.auto-completion.triggers=title,firstName,lastName
+stencils.auto-completion.action-type=Q
 ui.modern.form.auto-completion.content_type=text/plain
 post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy -c $COLLECTION_NAME -p auto-completion -v $CURRENT_VIEW
 ```
 
-`text/plain` is not strictly needed but is nice to have when testing the template. `$COLLECTION_NAME` and `$CURRENT_VIEW` will be automatically expanded by Funnelback
+- The triggers configure which metadata fields in the results will be used as completion trigger
+- The action type configures what to do when a suggestion is clicked on. The default (`U`) will navigate to the suggestion URL. `Q` will run a search with the suggestion title.
+- `text/plain` is not strictly needed but is nice to have when testing the template. `$COLLECTION_NAME` and `$CURRENT_VIEW` will be automatically expanded by Funnelback
 
 * Update the collection. After the update a file named `data/$COLLECTION/live/idx/index.autoc_auto-completion` should have been created (and same for "events")
 * Configure the concierge to hit the collection, on the `auto-completion` profile for the desired channel.
