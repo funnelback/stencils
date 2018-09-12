@@ -30,6 +30,7 @@
               <ul class="list-unstyled">
                 <#list facet.allValues as value>
                   <li>
+                    <span class="badge badge-default float-right">${value.count?string}</span>
                     <a href="${value.toggleUrl}">
                       <#if facet.guessedDisplayType == "RADIO_BUTTON">
                         <span class="text-muted fa ${value.selected?then("fa-dot-circle-o", "fa-circle-o")}"></span>
@@ -41,7 +42,6 @@
                       </#if>
                       ${value.label}
                     </a>
-                    <span class="badge badge-default float-right">${value.count?string}</span>
                   </li>
                 </#list>
               </ul>

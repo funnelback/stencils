@@ -26,9 +26,10 @@
   relevant parameters like collection, profile, form, scope, ...
 
   @param preserveTab Boolean indicating if searching via the form should preserve the currently selected tab or not
+  @param class Optional <code>class</code> attribute to use on the &lt;form&gt; tag
 -->
-<#macro SearchForm preserveTab=true>
-  <form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET">
+<#macro SearchForm preserveTab=true class="">
+  <form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET"<#if class?has_content> class="${class}"</#if>>
     <input type="hidden" name="collection" value="${question.collection.id}">
 
     <#list ["enc", "form", "scope", "lang", "profile"] as parameter>
