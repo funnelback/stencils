@@ -65,7 +65,7 @@
       <#list (response.facets)![] as facet>
         <#if facet.selected && facet.guessedDisplayType != "TAB">
           <#list facet.selectedValues as value>
-            <li class="list-inline-item"><a href="${value.toggleUrl}" class="badge badge-light">${facet.name}: ${value.label} <span class="fa fa-remove"></span></a></li>
+            <li class="list-inline-item"><a href="${value.toggleUrl}" class="badge badge-light">${facet.name}: ${value.label} <span class="fa fa-times"></span></a></li>
           </#list>
         </#if>
       </#list>
