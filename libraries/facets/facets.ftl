@@ -46,7 +46,7 @@
                 </#list>
               </ul>
 
-              <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
+              <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" data-title-more="Show more categories from this facet" data-title-less="Show less categories from this facet" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
             </div>
           </div>
         </#if>
