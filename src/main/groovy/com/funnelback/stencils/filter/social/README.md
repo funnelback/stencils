@@ -23,5 +23,5 @@ stencils.filter.social.drop.amount=1
 stencils.filter.social.drop.unit=YEARS
 ```
 
-The time unit needs to be a valid [https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoUnit.html](ChronoUnit).
+The time unit needs to be a valid [ChronoUnit](https://docs.oracle.com/javase/8/docs/api/java/time/temporal/ChronoUnit.html).
 Typical units will be MONTHS, YEAR, WEEKS and DAYS.
