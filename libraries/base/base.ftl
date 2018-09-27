@@ -177,7 +177,7 @@
             <#list (response.resultPacket.contextualNavigation.categories)![] as category>
               <div class="col">
                 <h4 class="text-muted">By ${category.name}</h4>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled ml-3">
                   <#list category.clusters as cluster>
                     <li class="list-item-unstyled"><a href="${cluster.href}">${cluster.label?replace("...", " <strong>${response.resultPacket.contextualNavigation.searchTerm} </strong> ")?no_esc}</a></li>
                   </#list>
@@ -205,12 +205,12 @@
 
         <#if exhibit.messageHtml??>
           <#-- Simple message -->
-          <blockquote class="blockquote search-exhibit">
+          <blockquote class="blockquote search-exhibit mb-3 pl-2">
             ${exhibit.messageHtml?no_esc}
           </blockquote>
         <#elseif exhibit.descriptionHtml??>
           <#-- Rich message -->
-          <div class="card search-exhibit ${(exhibit.additionalProperties.class)!}">
+          <div class="card search-exhibit ${(exhibit.additionalProperties.class)!} mb-3">
             <div class="card-header">
               <h4><a href="${exhibit.linkUrl!}">${exhibit.titleHtml!}</a></h4>
             </div>
