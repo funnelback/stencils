@@ -26,12 +26,18 @@ function setupFacetLessMoreButtons(displayedCategories, facetSelector) {
         jQuery(this).click( function() {
           if (jQuery(this).attr('data-state') === 'less') {
             jQuery(this).attr('data-state', 'more');
+            jQuery(this).attr('title', jQuery(this).data('title-more'));
             jQuery(this).closest(facetSelector).find('li:gt('+(displayedCategories-1)+')').hide();
             jQuery(this).find('span').text(jQuery(this).attr('data-more'));
+            jQuery(this).find('small').removeClass('fa-minus');
+            jQuery(this).find('small').addClass('fa-plus');
           } else {
             jQuery(this).attr('data-state', 'less');
+            jQuery(this).attr('title', jQuery(this).data('title-less'));
             jQuery(this).closest(facetSelector).find('li').css('display', 'block');
             jQuery(this).find('span').text(jQuery(this).attr('data-less'));
+            jQuery(this).find('small').removeClass('fa-plus');
+            jQuery(this).find('small').addClass('fa-minus');
           }
         });
       }

@@ -46,7 +46,7 @@
                 </#list>
               </ul>
 
-              <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
+              <button type="button" class="btn btn-link btn-sm search-toggle-more-categories" style="display: none;" data-more="More&hellip;" data-less="Less&hellip;" data-state="more" data-title-more="Show more categories from this facet" data-title-less="Show less categories from this facet" title="Show more categories from this facet"><small class="fa fa-plus"></small>&nbsp;<span>More&hellip;</span></button>
             </div>
           </div>
         </#if>
@@ -65,7 +65,7 @@
       <#list (response.facets)![] as facet>
         <#if facet.selected && facet.guessedDisplayType != "TAB">
           <#list facet.selectedValues as value>
-            <li class="list-inline-item"><a href="${value.toggleUrl}" class="badge badge-light">${facet.name}: ${value.label} <span class="fa fa-remove"></span></a></li>
+            <li class="list-inline-item"><a href="${value.toggleUrl}" class="badge badge-light">${facet.name}: ${value.label} <span class="fa fa-times"></span></a></li>
           </#list>
         </#if>
       </#list>
