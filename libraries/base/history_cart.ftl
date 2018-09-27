@@ -8,7 +8,7 @@
 -->
 <#macro LastVisitedLink result icon="fa fa-clock-o" class="text-success">
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(result.indexUrl)??>
-    <small class="${class} search-last-visited">
+    <small class="${class} search-last-visited pl-3">
       <span class="${icon}"></span> <a title="Click history" href="#" class="${class}" data-ng-click="toggleHistory()">
         Last visited ${prettyTime(session.getClickHistory(result.indexUrl).clickDate)}
       </a>
@@ -21,14 +21,14 @@
 -->
 <#macro SearchHistory>
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-    <section id="search-history" class="search-history" data-ng-cloak data-ng-show="isDisplayed('history')">
+    <section id="search-history" class="search-history py-3" data-ng-cloak data-ng-show="isDisplayed('history')">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <a href="#" data-ng-click="hideHistory()"><span class="fa fa-arrow-left"></span> Back to results</a>
             <h2 class="sr-only">Search history</h2>
 
-            <div class="row">
+            <div class="row mt-3">
 
               <#-- Click history -->
               <div class="col-md-6" data-ng-controller="ClickHistoryCtrl">
@@ -102,7 +102,7 @@
 -->
 <#macro Cart>
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
-    <section id="search-cart" class="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
+    <section id="search-cart" class="search-cart pt-3" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -112,11 +112,11 @@
               <button class="btn btn-danger btn-sm" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="fa fa-times"></span> Clear</button>
             </h2>
 
-            <div class="row search-results">
+            <div class="row search-results mt-3">
               <div class="col-md-12">
 
                 <ul class="list-unstyled">
-                  <li data-ng-repeat="item in cart">
+                  <li data-ng-repeat="item in cart" class="mb-3">
                     <div data-ng-switch="item.metaData.C">
 
                       <#-- Output templates for all results depending on their source collection,

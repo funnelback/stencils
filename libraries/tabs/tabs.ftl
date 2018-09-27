@@ -12,9 +12,9 @@
         </button>
 
         <div class="collapse navbar-collapse" id="search-tabs">
-          <ul class="nav nav-tabs justify-content-center mx-auto">
+          <ul class="nav nav-tabs justify-content-center mx-auto w-100">
             <#list facet.allValues as value>
-              <li class="nav-item">
+              <li class="nav-item ml-1 mr-1">
                 <a class="nav-link text-center<#if value.selected> active</#if><#if value.count lt 1> disabled</#if>" <#if value.count gt 0>href="${value.toggleUrl}"</#if>>
                   <#if question.collection.configuration.value("stencils.tabs.icon.${value.label}")??>
                     <span class="${question.collection.configuration.value("stencils.tabs.icon.${value.label}")}"></span>
