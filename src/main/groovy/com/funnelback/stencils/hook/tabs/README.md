@@ -1,4 +1,20 @@
-# Tabs Stencil Public UI Hooks
+# Pre-select a tab by default
+
+The tab hook can be used to pre-select a tab by default, either when there is no "All results" tab,
+or when the default tab should not be "All results".
+
+## Usage
+
+Call the Stencils hook in your `hook_pre_process.groovy` script, and configure the tab to pre-select in
+`collection.cfg`:
+
+```
+stencils.tabs.default_selected=Courses
+```
+
+# Tabs Stencil Public UI Hooks (pre v15.12)
+
+:warning: This applies only pre-15.12, as Tabs are natively supported since 15.12.
 
 The Tab Stencil relies on faceted navigation to support tabbed search.
 

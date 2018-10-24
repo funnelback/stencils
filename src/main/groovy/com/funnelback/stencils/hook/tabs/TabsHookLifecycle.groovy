@@ -60,6 +60,52 @@ class TabsHookLifecycle implements HookLifecycle {
     /** Key where the selected tab will be stored in the customData map */
     static final String SELECTED_TAB = "stencilsTabsSelectedTab"
 
+    /** Key storing the default tab to select */
+    static final String DEFAULT_SELECTED_TAB_KEY = "stencils.tabs.default_selected"
+
+    /**
+     * Pre-select a tab by default
+     *
+     * @param transaction
+     */
+    @Override
+    void preProcess(SearchTransaction transaction) {
+        // Only apply to the main search
+        if (SearchQuestionType.SEARCH.equals(transaction.question.questionType)) {
+            def defaultTab = transaction.question.collection.configuration.value(DEFAULT_SELECTED_TAB_KEY)
+            if (defaultTab) {
+                // A tab need to be selected by default. Locate the tab configuration
+                // So that we can find out which URL parameter is needed to select it
+                def fnConfig = transaction.question.collection.profiles[transaction.question.currentProfile].facetedNavConfConfig
+                if (fnConfig) {
+                    fnConfig.facetDefinitions
+                            // Find our facet
+                            .findAll() { facet -> facet.name == TABS_FACET_NAME }
+                            // Ensure that no value has been selected for this facet yet
+                            // We do this by looking if there are any input parameter that match the
+                            // parameters used by this facet. We cannot use question.selectedFacets or
+                            // question.selectedCategoryValues because it hasn't been populated yet in
+                            // the pre_process phase...
+
+                            // We intersect the set of the facet URL parameters names, with the set of the current URL
+                            // parameter names. The intersection should be empty if none of the facet URL parameter
+                            // is present
+                            .findAll() { facet -> transaction.question.inputParameterMap.keySet().intersect(facet.allQueryStringParamNames).empty }
+
+                            // Access the categories defining the facet (i.e. each tab)
+                            .collect() { facet -> facet.categoryDefinitions }
+                            .flatten()
+
+                            // Find the category definition for the tab we're attempting to select
+                            .findAll() { category -> category.data == defaultTab }
+
+                            // Inject the appropriate URL parameter from the category definition to pre-select the category
+                            .each() { category -> transaction.question.inputParameterMap[category.queryStringParamName] = defaultTab }
+                }
+            }
+        }
+    }
+
     /**
      * Force empty GScope / RMC to appear
      *
