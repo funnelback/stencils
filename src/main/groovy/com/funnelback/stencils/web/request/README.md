@@ -56,7 +56,7 @@ import javax.servlet.ServletRequest
 class GroovyServletFilterHookPublicUIImpl extends GroovyServletFilterHook {
 
     ServletRequest preFilterRequest(ServletRequest request) {
-        return new HttpServletRequestXForwardedForWrapper(HttpServletRequestXForwardedForWrapper.Mode.RemoveFirst, request)
+        return new HttpServletRequestXForwardedForWrapper(HttpServletRequestXForwardedForWrapper.Mode.RemoveLast, request)
     }
 }
 ```  
