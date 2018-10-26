@@ -61,7 +61,7 @@ class TabsHookLifecycle implements HookLifecycle {
     static final String SELECTED_TAB = "stencilsTabsSelectedTab"
 
     /** Key storing the default tab to select */
-    static final String DEFAULT_SELECTED_TAB_KEY = "stencils.tabs.default_selected"
+    static final String DEFAULT_SELECTED_TAB_KEY = "stencils.tabs.default"
 
     /**
      * Pre-select a tab by default

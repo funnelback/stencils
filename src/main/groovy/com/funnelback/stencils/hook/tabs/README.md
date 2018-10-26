@@ -9,7 +9,7 @@ Call the Stencils hook in your `hook_pre_process.groovy` script, and configure t
 `collection.cfg`:
 
 ```
-stencils.tabs.default_selected=Courses
+stencils.tabs.default=Courses
 ```
 
 # Tabs Stencil Public UI Hooks (pre v15.12)
