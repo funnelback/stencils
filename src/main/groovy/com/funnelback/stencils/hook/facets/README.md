@@ -1,4 +1,6 @@
-# Facets Stencil Public UI Hooks
+# Facets Stencil Public UI Hooks (pre v15.12)
+
+:warning: This applies only pre-15.12, as this type of facets is natively supported since 15.12.
 
 The Facets Stencils provides:
 
