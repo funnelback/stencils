@@ -55,7 +55,7 @@ filter.classes=...:com.funnelback.stencils.filter.scraper.MetadataScraperFilter
 
 ## Available filters
 
-* [Metadata scraper](main/groovy/com/funnelback/stencils/filter/scraper/README.md): Scrape metadata from web pages with CSS Selectors. Note that this filter is available in Funnelback as standard since v15.8
+* [Metadata scraper](main/groovy/com/funnelback/stencils/filter/scraper/README.md): Scrape metadata from web pages with CSS Selectors. :warning: Note that this filter is available in Funnelback as standard since v15.8, using the native product filter is preferred.
 * [Title prefix / suffix remover](main/groovy/com/funnelback/stencils/filter/title/README.md): Remove SEO prefixes and suffixes from titles (e.g. "Apply to FBU | Funnelback University")
 * [XML element HTML wrapper](main/groovy/com/funnelback/stencils/filter/xml/README.md): Wrap specific XML tag in `<html>...</html>` tags for PADRE to index them as inner documents
 * [Social media Date filter](main/groovy/com/funnelback/stencils/filter/social/README.md): Filter social media posts by date
@@ -75,7 +75,7 @@ post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/c
 
 # Web utilities
 
-General web utility classes are provided. Their usage differ, please consult the documentation of each utility class.
+General web utility classes are provided. Please consult the documentation of each utility class.
 
 ## Available utilities
 
