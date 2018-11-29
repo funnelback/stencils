@@ -4,6 +4,7 @@ import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.stencils.hook.core.ContextualNavigationHookLifecycle
 import com.funnelback.stencils.hook.core.CoreHookLifecycle
 import com.funnelback.stencils.hook.core.PagingHookLifecycle
+import com.funnelback.stencils.hook.facets.FacetRenameHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsCustomSortHookLifecycle
 import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
 import org.codehaus.groovy.reflection.ReflectionUtils
@@ -54,6 +55,7 @@ class StencilHooks {
         // FacetsCustomSort needs to run after Tabs, as Tabs injects an "All" value in the facets,
         // which are then sorted
         new FacetsCustomSortHookLifecycle(),
+        new FacetRenameHookLifecycle(),
         new NoResultsHookLifecycle(),
         new PeopleHookLifecycle(),
         new FacebookHookLifecycle()
