@@ -9,8 +9,8 @@ so that future Stencils upgrades won't break collections.
 
 Some templates can be configured using settings in the collection.cfg. These templates and their configuration settings can be found here:
 
-[base/](Base Templates)
-[tabs/](Tabs)
+* [Base Templates](base/)
+* [Tabs](tabs/)
 
 ## v1 Libraries
 
