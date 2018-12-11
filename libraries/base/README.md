@@ -1,6 +1,6 @@
 # Base Templates
 
-Configuration options for base templates can be set in the collection's collection.cfg file. The following settings are allowed:
+Configuration options for base templates can be set in the collection's `collection.cfg` file. The following settings are allowed:
 
 ## client_includes.ftl
 
