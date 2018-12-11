@@ -201,7 +201,9 @@
   <#list (response.curator.exhibits)![] as exhibit>
     <#-- Skip best bets -->
     <#if exhibit.category != "BEST_BETS">
-      <#if !position?? || (exhibit.additionalProperties.position)! == position>
+      <#-- Only display if the position specified matches the Curator position.
+        Curators with no position set default to "center" -->
+      <#if !position?? || ((exhibit.additionalProperties.position)!"center") == position>
 
         <#if exhibit.messageHtml??>
           <#-- Simple message -->
