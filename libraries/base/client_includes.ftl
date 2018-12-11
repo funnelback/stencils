@@ -36,7 +36,7 @@
       url=question.collection.configuration.value("stencils.client_includes.${elementName}.url")
       start=question.collection.configuration.value("stencils.client_includes.${elementName}.start")
       end=question.collection.configuration.value("stencils.client_includes.${elementName}.end")
-      convertRelative=true />
+      convertRelative=(question.collection.configuration.value("stencils.client_includes.${elementName}.relative")!"true")?boolean />
   <#else>
     <#include "/conf/${question.collection.id}/${question.profile!'_default'}/${elementName}.ftl" ignore_missing=true />
   </#if>
