@@ -8,6 +8,7 @@ import com.funnelback.filter.api.documents.StringDocument
 import com.funnelback.filter.api.filters.PreFilterCheck
 import com.funnelback.filter.api.filters.StringDocumentFilter
 import com.funnelback.socialmedia.twitter.TwitterXmlRecord
+import com.funnelback.socialmedia.facebook.FacebookXmlRecord
 import groovy.util.logging.Log4j2
 
 import java.time.ZonedDateTime
@@ -39,6 +40,10 @@ class SocialDateFilter implements StringDocumentFilter {
 
     /** Date format for Twitter */
     static final def TWITTER_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S z")
+
+    /** Date format for Facebook */
+    static final def FACEBOOK_DATE_FORMAT_EVENT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S z")
+    static final def FACEBOOK_DATE_FORMAT_POST = DateTimeFormatter.ofPattern("E MMM d HH:mm:ss z yyyy")
 
     @Override
     PreFilterCheck canFilter(NoContentDocument noContentDocument, FilterContext filterContext) {
@@ -73,6 +78,13 @@ class SocialDateFilter implements StringDocumentFilter {
         switch (xml.name()) {
             case TwitterXmlRecord.class.name:
                 date = ZonedDateTime.parse(xml.createdDate.text(), TWITTER_DATE_FORMAT)
+                break
+            case "FacebookXmlRecord":
+                if (xml.type == "EVENT") {
+                    date = ZonedDateTime.parse(xml.eventStartTime.text(), FACEBOOK_DATE_FORMAT_EVENT)
+                } else if (xml.type == "POST") {
+                    date = ZonedDateTime.parse(xml.postCreatedTime.text(), FACEBOOK_DATE_FORMAT_POST)
+                }
                 break
         }
 

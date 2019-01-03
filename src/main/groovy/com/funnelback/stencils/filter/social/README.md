@@ -1,11 +1,10 @@
 # Social Media Date Filter
 
 The Social Media Date Filter is used to filter out social media posts that are too old. Old posts are usually not
-relevant and count towards the license limit. This is especially useful for Tweets were they may be thousands of
+relevant and count towards the license limit. This is especially useful for Tweets where there may be thousands of
 old, non-useful Tweets sitting in the index.
 
-**Note:** At the time of writing the filter only support Twitter collections. It should be relatively easy to add
-support for other platforms like Facebook or YouTube.
+**Note:** At the time of writing the filter only supports Twitter and Facebook collections. Support for other platforms, such as Youtube can be added on an as-needed basis.
 
 ## Configuration
 
