@@ -49,7 +49,7 @@ class SocialDateFilterTest {
         def pastMonth = now.minusMonths(1).minusHours(1)
 
         // Build our fake Tweets
-        def docs = [now, future, pastWeek, pastMonth].collect() { date ->
+        def tweets = [now, future, pastWeek, pastMonth].collect() { date ->
             """<com.funnelback.socialmedia.twitter.TwitterXmlRecord>
                 <createdDate>${SocialDateFilter.TWITTER_DATE_FORMAT.format(date)}</createdDate>
             </com.funnelback.socialmedia.twitter.TwitterXmlRecord>"""
@@ -61,18 +61,52 @@ class SocialDateFilterTest {
                     tweet)
         }
 
+        // Build our fake Facebook events
+        def fbEvents = [now, future, pastWeek, pastMonth].collect() { date -> 
+            """<FacebookXmlRecord>
+                <eventStartTime>${SocialDateFilter.FACEBOOK_DATE_FORMAT_EVENT.format(date)}</eventStartTime>
+                <type>EVENT</type>
+            </FacebookXmlRecord>"""
+        }.collect() { event ->
+            MockDocuments.mockEmptyStringDoc()
+                .cloneWithURI(new URI("https://www.example.org"))
+                .cloneWithStringContent(DocumentType.MIME_XML_TEXT, event)
+        }
+
+        // Build our fake Facebook posts
+        def fbPosts = [now, future, pastWeek, pastMonth].collect() { date -> 
+            """<FacebookXmlRecord>
+                <postCreatedTime>${SocialDateFilter.FACEBOOK_DATE_FORMAT_POST.format(date)}</postCreatedTime>
+                <type>POST</type>
+            </FacebookXmlRecord>"""
+        }.collect() { post ->
+            MockDocuments.mockEmptyStringDoc()
+                .cloneWithURI(new URI("https://www.example.org"))
+                .cloneWithStringContent(DocumentType.MIME_XML_TEXT, post)
+        }
+
         // Configure collection.cfg
         def context = MockFilterContext.emptyContext
         context.setConfigValue(SocialDateFilter.CHRONO_AMOUNT, amount.toString())
         context.setConfigValue(SocialDateFilter.CHRONO_UNIT, unit)
 
         // Filter all our docs
-        def output = []
-        docs.each() { doc ->
-            output += new SocialDateFilter().filterAsStringDocument(doc, context).filteredDocuments
+        def tweetsOutput = []
+        def fbEventsOutput = []
+        def fbPostsOutput = []
+        tweets.each() { tweet ->
+            tweetsOutput += new SocialDateFilter().filterAsStringDocument(tweet, context).filteredDocuments
+        }
+        fbEvents.each() { event ->
+            fbEventsOutput += new SocialDateFilter().filterAsStringDocument(event, context).filteredDocuments
+        }
+        fbPosts.each() { post ->
+            fbPostsOutput += new SocialDateFilter().filterAsStringDocument(post, context).filteredDocuments
         }
 
-        Assert.assertEquals("Invalid number of documents returned for ${amount} ${unit}", numDocs, output.size())
+        Assert.assertEquals("Invalid number of tweets returned for ${amount} ${unit}", numDocs, tweetsOutput.size())
+        Assert.assertEquals("Invalid number of facebook events returned for ${amount} ${unit}", numDocs, fbEventsOutput.size())
+        Assert.assertEquals("Invalid number of facebook posts returned for ${amount} ${unit}", numDocs, fbPostsOutput.size())
     }
 
 }
