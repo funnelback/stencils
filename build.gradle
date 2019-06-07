@@ -6,16 +6,16 @@
  * @throws IllegalStateException if the Groovy JAR cannot be located
  */
 def findGroovyVersion () {
-    def groovyJar = new File(projectDir, "../../lib/java/all/").listFiles()
-    .find() { file -> file.name.startsWith("groovy-all-") && file.name.endsWith(".jar") }
+    def groovyJar = new File(System.getenv("SEARCH_HOME"), "lib/java/all/").listFiles()
+        .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }
 
     if (!groovyJar) {
-        throw new IllegalStateException("Unable to locate groovy-all-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
+        throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
     }
 
     return groovyJar.name
-    .replace("groovy-all-", "")
-    .replace(".jar", "")
+        .replace("groovy-", "")
+        .replace(".jar", "")
 }
 
 plugins {
