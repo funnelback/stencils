@@ -48,7 +48,7 @@ dependencies {
 
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
-        fileTree(dir: "${projectDir}/../../lib/java/all/", include: '*.jar')
+        fileTree(dir: "${System.getenv("SEARCH_HOME")}/lib/java/all/", include: '*.jar')
     )
 }
 
