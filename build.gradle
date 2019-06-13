@@ -1,14 +1,37 @@
 /**
+ * Using the VERSION/funnelback-release file, determine the Funnelback
+ * minor release version. e.g '15.21.1920' returns '21'
+ *
+ * @return A Groovy Funnelback minor version number
+ */
+def findFunnelbackMinorVersion() {
+    def flbRelease = new File(System.getenv("SEARCH_HOME"), "VERSION/funnelback-release")
+        .getText("UTF-8")
+        .replaceFirst(/Funnelback 15\./, "")
+        .replaceFirst(/\..+/, "")
+
+    return flbRelease
+}
+
+/**
  * Attempt to find the Groovy version to use depending on the Groovy JAR present
- * in $SEARCH_HOME/lib/java/all/groovy-all-X.Y.Z.jar
+ * in $SEARCH_HOME/lib/java/all/groovy-all-X.Y.Z.jar and the Funnelback release
  *
  * @return A Groovy version number
  * @throws IllegalStateException if the Groovy JAR cannot be located
  */
 def findGroovyVersion () {
-    def groovyJar = new File(System.getenv("SEARCH_HOME"), "lib/java/all/").listFiles()
-        .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }
-
+    def groovyJar
+    
+    if (findFunnelbackMinorVersion() > 16) {
+        groovyJar = new File(System.getenv("SEARCH_HOME"), "lib/java/all/").listFiles()
+            .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }    
+    }
+    else {
+        groovyJar = new File(System.getenv("SEARCH_HOME"), "lib/java/all/").listFiles()
+            .find() { file -> file.name.matches(/groovy-all-\d\.\d\.\d\.jar/) }
+    }
+    
     if (!groovyJar) {
         throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
     }
