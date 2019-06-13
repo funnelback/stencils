@@ -10,7 +10,7 @@ def findFunnelbackMinorVersion() {
         .replaceFirst(/Funnelback 15\./, "")
         .replaceFirst(/\..+/, "")
 
-    return flbRelease
+    return flbRelease.toInteger()
 }
 
 /**
