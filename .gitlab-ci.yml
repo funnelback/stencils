@@ -1,4 +1,4 @@
-image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils
+image: docker-hub.squiz.net/stencils/stencils
 
 build:
     stage: build
