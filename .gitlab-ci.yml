@@ -1,7 +1,6 @@
-image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils
+image: docker-hub.squiz.net/stencils/stencils:latest
 
 build:
-    stage: build
     cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:

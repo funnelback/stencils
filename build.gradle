@@ -5,7 +5,7 @@
  * @return A Groovy Funnelback minor version number
  */
 def findFunnelbackMinorVersion() {
-    File flbReleaseFile = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME/"), "VERSION/funnelback-release"))
+    File flbReleaseFile = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "VERSION/funnelback-release"))
     def flbRelease = flbReleaseFile
         .getText("UTF-8")
         .replaceFirst(/Funnelback 15\./, "")
@@ -25,11 +25,11 @@ def findGroovyVersion () {
     def groovyJar
     
     if (findFunnelbackMinorVersion() > 16) {
-        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME/"), "lib/java/all/")).listFiles()
+        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
             .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }
     }
     else {
-        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME/"), "lib/java/all/")).listFiles()
+        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
             .find() { file -> file.name.matches(/groovy-all-\d\.\d\.\d\.jar/) }
     }
     
