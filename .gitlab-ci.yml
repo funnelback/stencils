@@ -7,8 +7,5 @@ build:
             - ~/.gradle
     script:
         - ./gradlew build
-    artifacts:
-        paths:
-            - $SEARCH_HOME/share/stencils/build/distributions/*.zip
     tags:
         - docker
