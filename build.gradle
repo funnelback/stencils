@@ -27,19 +27,27 @@ def findGroovyVersion () {
     if (findFunnelbackMinorVersion() > 16) {
         groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
             .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }
+
+        if (!groovyJar) {
+            throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
+        }
+
+        return groovyJar.name
+                .replace("groovy-", "")
+                .replace(".jar", "")
     }
     else {
         groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
             .find() { file -> file.name.matches(/groovy-all-\d\.\d\.\d\.jar/) }
-    }
-    
-    if (!groovyJar) {
-        throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
-    }
 
-    return groovyJar.name
-        .replace("groovy-", "")
-        .replace(".jar", "")
+        if (!groovyJar) {
+            throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
+        }
+
+        return groovyJar.name
+                .replace("groovy-all-", "")
+                .replace(".jar", "")
+    }
 }
 
 plugins {
@@ -52,8 +60,6 @@ repositories {
 }
 
 project.ext {
-    // Must be identical to the Groovy version Funnelback ships with,
-    // so we look it up in lib/java/all/
     groovyVersion = findGroovyVersion()
 }
 
