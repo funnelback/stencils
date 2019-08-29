@@ -41,7 +41,7 @@ public class Downloader
       // set the username and password
       if(username != "" && password != "")
       {
-        String encoding = new sun.misc.BASE64Encoder().encode("${username}:${password}".getBytes());
+        String encoding = new java.util.Base64().encode("${username}:${password}".getBytes());
         conn.setRequestProperty("Authorization", "Basic " + encoding);        
       }
 
@@ -61,7 +61,7 @@ public class Downloader
   // A main method to allow very basic testing
   public static void main(String[] args)
   {
-    String address = "http://funnelback.com";
+    String address = "https://funnelback.com";
 
     // Download the content
     String output = Downloader.download(address);
