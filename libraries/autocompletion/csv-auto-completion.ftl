@@ -65,5 +65,5 @@
 
 <#-- Escapes a String suitably for CSV -->
 <#function escapeCsv str>
-    <#return str!?chop_linebreak?trim?replace("\\", "\\\\)?replace("\"", "\\\"")?replace(",", "\\,") />
+    <#return str!?chop_linebreak?trim?replace("\\", "\\\\")?replace("\"", "\\\"")?replace(",", "\\,") />
 </#function>
