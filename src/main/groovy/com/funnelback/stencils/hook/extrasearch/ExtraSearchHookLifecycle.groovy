@@ -4,9 +4,6 @@ import com.funnelback.publicui.search.model.transaction.Facet
 import com.funnelback.publicui.search.model.transaction.facet.FacetDisplayType
 import com.funnelback.publicui.utils.QueryStringUtils
 import com.funnelback.stencils.hook.StencilHooks
-import com.funnelback.stencils.hook.facets.FacetsHookLifecycle
-import com.funnelback.stencils.hook.facets.StencilCategoryValue
-import com.funnelback.stencils.hook.facets.StencilFacet
 import com.funnelback.stencils.util.DatamodelUtils
 import groovy.util.logging.Log4j2
 
@@ -69,13 +66,14 @@ class ExtraSearchHookLifecycle implements HookLifecycle {
 						// Remove any white spaces between the list of extra searches
 						.collect() { it.trim() }
 
-					// Remove extra search which do not appear in the list of extra search to key
-					// and not an internal extra search used for accurate facet counts
+					// Remove extra search which do not appear in the list of permitted extra searches 
+					// but leave the internal extra search intact so that facet counts remain accurate
 					transaction.extraSearchesQuestions.keySet()
 					.findAll() { 
 						extraSearchesToKeep.contains(it) == false && 
 						it.startsWith("INTERNAL_FACETED_NAV_SEARCH") == false
 					}
+					// Remove the extra search which prevents it for running
 					.each() { transaction.extraSearchesQuestions.remove(it) }
 				}
 			}	
