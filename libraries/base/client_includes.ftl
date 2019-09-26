@@ -31,12 +31,19 @@
   @param elementName Name of the element to include (e.g. html_header, content_header, etc.)
 -->
 <#macro ClientInclude elementName>
-  <#if question.collection.configuration.value("stencils.client_includes.${elementName}.url")??>
-    <@s.IncludeUrl
-      url=question.collection.configuration.value("stencils.client_includes.${elementName}.url")
-      start=question.collection.configuration.value("stencils.client_includes.${elementName}.start")
-      end=question.collection.configuration.value("stencils.client_includes.${elementName}.end")
-      convertRelative=(question.collection.configuration.value("stencils.client_includes.${elementName}.relative")!"true")?boolean />
+  <#local profileConfig = question.getCurrentProfileConfig()>
+  <#if profileConfig.get("stencils.client_includes.${elementName}.url")??>
+    <@s.IncludeUrl 
+      url=profileConfig.get("stencils.client_includes.${elementName}.url")
+      start=profileConfig.get("stencils.client_includes.${elementName}.start")
+      end=profileConfig.get("stencils.client_includes.${elementName}.end")
+      convertRelative=(profileConfig.get("stencils.client_includes.${elementName}.relative")!"true")?boolean
+      username=profileConfig.get("stencils.client_includes.${elementName}.username")
+      password=profileConfig.get("stencils.client_includes.${elementName}.password")
+      useragent=profileConfig.get("stencils.client_includes.${elementName}.useragent")
+      timeout=profileConfig.get("stencils.client_includes.${elementName}.timeout")
+      cssSelector=profileConfig.get("stencils.client_includes.${elementName}.cssSelector")
+      removeByCssSelectors=profileConfig.get("stencils.client_includes.${elementName}.removeByCssSelectors") />
   <#else>
     <#include "/conf/${question.collection.id}/${question.profile!'_default'}/${elementName}.ftl" ignore_missing=true />
   </#if>
