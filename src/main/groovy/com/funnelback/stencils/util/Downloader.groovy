@@ -61,7 +61,7 @@ public class Downloader
   // A main method to allow very basic testing
   public static void main(String[] args)
   {
-    String address = "http://funnelback.com";
+    String address = "https://funnelback.com";
 
     // Download the content
     String output = Downloader.download(address);
