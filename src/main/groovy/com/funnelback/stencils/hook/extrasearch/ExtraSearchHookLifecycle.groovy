@@ -15,31 +15,16 @@ import com.funnelback.publicui.search.model.transaction.SearchQuestion.SearchQue
 import com.funnelback.stencils.hook.support.HookLifecycle
 
 /**
- * <p>Hook functions for the Tabs stencil.</p>
- *
- * <p>Will force Gscope and Metadata based facet to appear
- * even if they have no value, as configured in the collection
- * config</p>
- *
- * <p>It works by injecting counts of "0" in the result packet (gscope
- * or RMC counts)</p>
- *
- * <p>When the Facets Stencils is used, this hook also injects
- * a fake "All" value for the Tabs, copies the "selected" status of
- * the tab from the main search into the FACETED_NAVIGATION extra search,
- * updates the selectUrl of the tabs to ensure all facet constraints are reset,
- * and populates the custom map with the name of the currently selected tab</p>
- *
- * @author nguillaumin@funnelback.com
+ * <p>Hook functions for the ExtraSearch stencil.</p>
  *
  */
 @Log4j2
 class ExtraSearchHookLifecycle implements HookLifecycle {
-	/** Key holding the Metadata names */
-	static final String METADATA_KEY_PREFIX = "stencils.tabs.extra_searches"
+	/** Key holding the config */
+	static final String CONFIG_KEY_PREFIX = "stencils.tabs.extra_searches"
 
-	/** Separator for metadata keys */
-	static final String METADATA_KEY_SEPARATOR = "."
+	/** Separator for config keys */
+	static final String CONFIG_KEY_SEPARATOR = "."
 
 	/** Separator for facet prefix and facet name */
 	static final String FACET_PREFIX_SEPARATOR = "."
@@ -77,8 +62,12 @@ class ExtraSearchHookLifecycle implements HookLifecycle {
 			.each() {
 				selectedFacetLabel ->
 				// Obtain the whitelist of extra searches for the selected tab
-				if(transaction.question.getCurrentProfileConfig().get(METADATA_KEY_PREFIX + METADATA_KEY_SEPARATOR + selectedFacetLabel) != null) {
-					def extraSearchesToKeep = transaction.question.getCurrentProfileConfig().get(METADATA_KEY_PREFIX + METADATA_KEY_SEPARATOR + selectedFacetLabel).split(EXTRA_SEARCH_VALUE_SEPARATOR)
+				if(transaction.question.getCurrentProfileConfig().get(CONFIG_KEY_PREFIX + FACET_PREFIX_SEPARATOR + selectedFacetLabel) != null) {
+					// Find the list of extra searches to keep
+					def extraSearchesToKeep = transaction.question.getCurrentProfileConfig().get(CONFIG_KEY_PREFIX + FACET_PREFIX_SEPARATOR + selectedFacetLabel)
+						.split(EXTRA_SEARCH_VALUE_SEPARATOR)
+						// Remove any white spaces between the list of extra searches
+						.collect() { it.trim() }
 
 					// Remove extra search which do not appear in the list of extra search to key
 					// and not an internal extra search used for accurate facet counts
