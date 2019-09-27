@@ -41,7 +41,7 @@ public class Downloader
       // set the username and password
       if(username != "" && password != "")
       {
-        String encoding = new java.util.Base64().encode("${username}:${password}".getBytes());
+        String encoding = new Base64().getEncoder().encodeToString(("${username}:${password}".getBytes()));
         conn.setRequestProperty("Authorization", "Basic " + encoding);        
       }
 

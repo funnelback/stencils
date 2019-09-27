@@ -29,22 +29,22 @@ class XmlElementHtmlWrapperFilterTest {
     @Parameterized.Parameters
     static Collection<Object[]> data() {
         return [
-                [   "<root><description>ABC</description></root>",
+                [   "<root>   <description>ABC</description></root>",
                     "//description",
-                    "<root><description>&lt;html&gt;ABC&lt;/html&gt;</description></root>"
+                    "<root>   <description>&lt;html&gt;ABC&lt;/html&gt;</description></root>"
                 ],
                 [
-                    "<root><description>ABC</description></root>",
+                    "<root>   <description>ABC</description></root>",
                     "//nonexistent",
-                    "<root><description>ABC</description></root>"
+                    "<root>   <description>ABC</description></root>"
                 ],
-                [   "<root><withEncodedChars>&amp;__</withEncodedChars></root>",
+                [   "<root>   <withEncodedChars>&amp;__</withEncodedChars></root>",
                     "//withEncodedChars",
-                    "<root><withEncodedChars>&lt;html&gt;&amp;__&lt;/html&gt;</withEncodedChars></root>"
+                    "<root>   <withEncodedChars>&lt;html&gt;&amp;__&lt;/html&gt;</withEncodedChars></root>"
                 ],
-                [   "<root><empty></empty></root>",
+                [   "<root>   <empty></empty></root>",
                     "/root/empty",
-                    "<root><empty>&lt;html&gt;&lt;/html&gt;</empty></root>"
+                    "<root>   <empty>&lt;html&gt;&lt;/html&gt;</empty></root>"
                 ],
         ]
         .collect() { it as Object[] }
@@ -71,7 +71,7 @@ class XmlElementHtmlWrapperFilterTest {
 
         Assert.assertEquals("Filtered document should be of XML type", DocumentType.MIME_XML_TEXT, resultDoc.documentType)
         Assert.assertEquals(
-                '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + expected.replaceAll("[\r\n]", ""),
-                new String(resultDoc.copyOfContents).replaceAll("[\r\n]", ""))
+                '<?xml version="1.0" encoding="UTF-8"?>' + expected.replaceAll(System.lineSeparator(), ""),
+                new String(resultDoc.copyOfContents).replaceAll(System.lineSeparator(), ""))
     }
 }
