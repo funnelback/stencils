@@ -324,11 +324,13 @@
         </#if>
 
         <#-- Sibling pages -->
-        <#list response.customData.stencilsPaging.pages as page>
-          <li class="page-item<#if page.selected> active</#if>">
-            <a class="page-link" href="${page.url}">${page.number}</a>
-          </li>
-        </#list>
+        <#if response.customData.stencilsPaging.pages?size gt 1>
+          <#list response.customData.stencilsPaging.pages as page>
+            <li class="page-item<#if page.selected> active</#if>">
+              <a class="page-link" href="${page.url}">${page.number}</a>
+            </li>
+          </#list>
+        </#if>
 
         <#-- Last page -->
         <#if response.customData.stencilsPaging.nextUrl??>
