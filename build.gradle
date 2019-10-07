@@ -79,7 +79,14 @@ dependencies {
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
         fileTree(dir: "${System.getenv("SEARCH_HOME")}/lib/java/all/", include: '*.jar')
+        
+        // Add script specific dependencies here that are used with @Grapes/@Grab
+
     )
+}
+
+compileGroovy {
+    groovyOptions.configurationScript = file("gradle/config.groovy")
 }
 
 test {
