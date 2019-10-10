@@ -1,5 +1,5 @@
 <#ftl encoding="utf-8" output_format="HTML" />
-<#import "/web/templates/modernui/funnelback.ftl" as s />
+<#import "/web/templates/modernui/funnelback.ftl" as fb />
 
 <#--
   Includes client-specific HTML header (for CSS, JS links)
@@ -33,7 +33,7 @@
 <#macro ClientInclude elementName>
   <#local profileConfig = question.getCurrentProfileConfig()>
   <#if profileConfig.get("stencils.client_includes.${elementName}.url")??>
-    <@s.IncludeUrl 
+    <@fb.IncludeUrl 
       url=profileConfig.get("stencils.client_includes.${elementName}.url")
       start=profileConfig.get("stencils.client_includes.${elementName}.start")
       end=profileConfig.get("stencils.client_includes.${elementName}.end")
