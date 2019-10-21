@@ -5,7 +5,7 @@
  * These buttons are automatically inserted if there are more facet values than
  * the configured amount.
  * 
- * Polyfills: Element.closest
+ * Polyfills: Element.prototype.matches, Element.prototype.closest
  * NodeList.forEach not used to reduce bundle size
  * 
  * Browser Compatibility: bundled version is theoretically compatible to IE8+
@@ -104,6 +104,23 @@ const setupDeferredImages = (imageSelector = 'img.deferred') => {
         }
         image.setAttribute('src', image.getAttribute('data-deferred-src'))
     }
+}
+
+/* Element.prototype.matches polyfill for IE */
+/* https://developer.mozilla.org/en-US/docs/Web/API/Element/matches */
+if (!Element.prototype.matches) {
+  Element.prototype.matches = 
+      Element.prototype.matchesSelector || 
+      Element.prototype.mozMatchesSelector ||
+      Element.prototype.msMatchesSelector || 
+      Element.prototype.oMatchesSelector || 
+      Element.prototype.webkitMatchesSelector ||
+      function(s) {
+        var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+        while (--i >= 0 && matches.item(i) !== this) {}
+        return i > -1;            
+      };
 }
 
 /* Element.prototype.closest polyfill for IE */
