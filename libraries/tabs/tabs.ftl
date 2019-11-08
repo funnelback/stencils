@@ -16,8 +16,8 @@
             <#list facet.allValues as value>
               <li class="nav-item ml-1 mr-1">
                 <a class="nav-link text-center<#if value.selected> active</#if><#if value.count lt 1> disabled</#if>" <#if value.count gt 0>href="${value.toggleUrl}"</#if>>
-                  <#if question.collection.configuration.value("stencils.tabs.icon.${value.label}")??>
-                    <span class="${question.collection.configuration.value("stencils.tabs.icon.${value.label}")}"></span>
+                  <#if question.getCurrentProfileConfig().get("stencils.tabs.icon.${value.label}")??>
+                    <span class="${question.getCurrentProfileConfig().get("stencils.tabs.icon.${value.label}")}"></span>
                   </#if>
                   ${value.label} <span class="search-facet-count">(${value.count})</span>
                 </a>
