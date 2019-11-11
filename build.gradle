@@ -79,7 +79,24 @@ dependencies {
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
         fileTree(dir: "${System.getenv("SEARCH_HOME")}/lib/java/all/", include: '*.jar')
+        
+        /**
+         * Add script specific dependencies here that are used with @Grapes/@Grab
+         * 
+         * Unfortunately, these third party dependencies have to be defined twice, once
+         * in the filter/script itself with @Grapes/@Grab and once again below this 
+         * comment block.
+         * The definition in this file allows the Gradle build to run the test suite
+         * for the scripts as JUnit can't compile the tests if they use a @Grapes
+         * dependency.
+        */ 
+
+
     )
+}
+
+compileGroovy {
+    groovyOptions.configurationScript = file("gradle/config.groovy")
 }
 
 test {
