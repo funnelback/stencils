@@ -18,7 +18,6 @@ import com.funnelback.stencils.hook.noresults.NoResultsHookLifecycle
 import com.funnelback.stencils.hook.people.PeopleHookLifecycle
 import com.funnelback.stencils.hook.support.HookLifecycle
 import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
-import com.funnelback.stencils.hook.extrasearch.ExtraSearchHookLifecycle
 
 import groovy.util.logging.Log4j2
 
@@ -59,8 +58,7 @@ class StencilHooks {
         new FacetRenameHookLifecycle(),
         new NoResultsHookLifecycle(),
         new PeopleHookLifecycle(),
-        new FacebookHookLifecycle(),
-        new ExtraSearchHookLifecycle()
+        new FacebookHookLifecycle()
     ]
     
     /**
