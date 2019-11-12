@@ -1,53 +1,21 @@
 /**
- * Using the VERSION/funnelback-release file, determine the Funnelback
- * minor release version. e.g '15.21.1920' returns '21'
- *
- * @return A Groovy Funnelback minor version number
- */
-def findFunnelbackMinorVersion() {
-    File flbReleaseFile = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "VERSION/funnelback-release"))
-    def flbRelease = flbReleaseFile
-        .getText("UTF-8")
-        .replaceFirst(/Funnelback 15\./, "")
-        .replaceFirst(/\..+/, "")
-
-    return flbRelease.toInteger()
-}
-
-/**
  * Attempt to find the Groovy version to use depending on the Groovy JAR present
- * in $SEARCH_HOME/lib/java/all/groovy-all-X.Y.Z.jar and the Funnelback release
+ * in $SEARCH_HOME/lib/java/all/groovy-all-X.Y.Z.jar
  *
  * @return A Groovy version number
  * @throws IllegalStateException if the Groovy JAR cannot be located
  */
 def findGroovyVersion () {
-    def groovyJar
-    
-    if (findFunnelbackMinorVersion() > 16) {
-        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
-            .find() { file -> file.name.matches(/groovy-\d\.\d\.\d\.jar/) }
+    def groovyJar = new File(projectDir, "../../lib/java/all/").listFiles()
+    .find() { file -> file.name.startsWith("groovy-all-") && file.name.endsWith(".jar") }
 
-        if (!groovyJar) {
-            throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
-        }
-
-        return groovyJar.name
-                .replace("groovy-", "")
-                .replace(".jar", "")
+    if (!groovyJar) {
+        throw new IllegalStateException("Unable to locate groovy-all-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
     }
-    else {
-        groovyJar = file(java.nio.file.Paths.get(System.getenv("SEARCH_HOME"), "lib/java/all/")).listFiles()
-            .find() { file -> file.name.matches(/groovy-all-\d\.\d\.\d\.jar/) }
 
-        if (!groovyJar) {
-            throw new IllegalStateException("Unable to locate groovy-X.Y.Z.jar file in in \$SEARCH_HOME/lib/java/all/")
-        }
-
-        return groovyJar.name
-                .replace("groovy-all-", "")
-                .replace(".jar", "")
-    }
+    return groovyJar.name
+    .replace("groovy-all-", "")
+    .replace(".jar", "")
 }
 
 plugins {
@@ -60,6 +28,8 @@ repositories {
 }
 
 project.ext {
+    // Must be identical to the Groovy version Funnelback ships with,
+    // so we look it up in lib/java/all/
     groovyVersion = findGroovyVersion()
 }
 
@@ -78,7 +48,7 @@ dependencies {
 
     compile (
         "org.codehaus.groovy:groovy-all:${groovyVersion}",
-        fileTree(dir: "${System.getenv("SEARCH_HOME")}/lib/java/all/", include: '*.jar')
+        fileTree(dir: "${projectDir}/../../lib/java/all/", include: '*.jar')
     )
 }
 
