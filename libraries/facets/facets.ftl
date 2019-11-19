@@ -33,12 +33,12 @@
                     <span class="badge badge-default float-right">${value.count?string}</span>
                     <a href="${value.toggleUrl}">
                       <#if facet.guessedDisplayType == "RADIO_BUTTON">
-                        <span class="text-muted fa ${value.selected?then("fa-dot-circle-o", "fa-circle-o")}"></span>
+                        <span class="text-muted ${value.selected?then("fas fa-circle", "far fa-circle")}"></span>
                       <#elseif facet.guessedDisplayType == "CHECKBOX">
-                        <span class="text-muted fa ${value.selected?then("fa-check-square-o", "fa-square-o")}"></span>
+                        <span class="text-muted ${value.selected?then("fas fa-check-square", "far fa-square")}"></span>
                       <#elseif value.selected>
                         <#if facet.guessedDisplayType == "SINGLE_DRILL_DOWN" && value?counter gt 1><span class="text-muted ml-${value?counter}">&#8627;</span></#if>
-                        <span class="text-muted fa fa-times"></span>
+                        <span class="text-muted fas fa-times"></span>
                       </#if>
                       ${value.label}
                     </a>
