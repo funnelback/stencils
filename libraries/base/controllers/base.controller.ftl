@@ -1,4 +1,6 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
+
 <#---
 	This contains basic utilities functions which can be used across all stencils and general implementations.
 

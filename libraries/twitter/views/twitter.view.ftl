@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	<p>Provides views for Twitter components.</p>
 	<p>These compontents include items such as result formats for Twitter tweets.</p>

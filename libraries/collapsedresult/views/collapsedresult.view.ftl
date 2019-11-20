@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	Result Collapsing is the ability to collapse similar results
 	into one, when displayed on the search results page.

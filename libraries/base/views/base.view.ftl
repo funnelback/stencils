@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	This contains basic utility views which can be used across all stencils and general implementations.
 

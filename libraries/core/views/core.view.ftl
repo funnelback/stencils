@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	Contains the presentation component of the vanilla simple.ftl.
 

@@ -1,5 +1,6 @@
 
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	 <p>Provides views for Courses components.</p>
 	 <p>These compontents include items such as ...</p>

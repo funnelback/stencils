@@ -58,7 +58,9 @@ Changes may be backported to multiple version branches depending if the fix appl
  14.2+           | 14.2 - 15.0
  15.0+           | 15.0 - 15.6
  15.8+           | 15.8, 15.10 (:warning: requires patch levels 15.8.0.17 / 15.10.0.7 or above)
- 15.12+          | 15.12 and above
+ 15.12+          | 15.12 - 15.18
+ 15.20+          | 15.20 - 15.22
+ 15.24           | 15.24
 
 New version branches are created when a feature is incompatible with older Funnelback versions. For example the 15.8 Stencil branch was created as the code base started making use of features not available in 15.6.
 
