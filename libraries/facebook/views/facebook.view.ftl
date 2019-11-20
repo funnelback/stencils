@@ -69,7 +69,7 @@
 -->
 <#macro FacebookLink>
 	<!-- facebook.view.ftl :: FacebookLink -->
-	<i class="fa fa-facebook-square"></i> <a href="https://www.facebook.com/">Facebook</a>
+	<i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/">Facebook</a>
 </#macro>
 
 <#-- @end --><#-- /Category - General -->
@@ -118,12 +118,12 @@
 		</#if>
 
 		<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-			<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+			<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 		</a>
 
 		<#-- Open modal -->
 		<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-			<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+			<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 		</button>
 
 		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -181,7 +181,7 @@
 		</#if>
 
 		<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-			<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+			<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 		</a>
 
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -253,9 +253,9 @@
 					<div class="media-body">
 						<div><a href="${facebook_controller.postUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+							<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 							<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
-								at <i class="fa fa-map-marker"></i> <@PostFullAddress />
+								at <i class="fas fa-map-marker"></i> <@PostFullAddress />
 							</#if>
 						</small>
 					</div>
@@ -359,9 +359,9 @@
 								<div><a href="${facebook_controller.postUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
 								</#if>
 								<small class="text-muted">
-									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+									<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 									<#if core_controller.result.metaData.stencilsFacebookPostCountry??>
-										at <i class="fa fa-map-marker"></i> <@PostFullAddress />
+										at <i class="fas fa-map-marker"></i> <@PostFullAddress />
 									</#if>
 								</small>
 							</div>
@@ -539,7 +539,7 @@
 					<div class="media-body">
 						<div><a href="${facebook_controller.eventUserProfileUrl!}"><@core_controller.boldicize>${core_controller.result.metaData.a!}</@core_controller.boldicize></a> </div>
 						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+							<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 						</small>
 
 					</div>
@@ -555,17 +555,17 @@
 				<small class="text-muted">
 
 					<@facebook_controller.EventIsUpcoming>
-						<i class="fa fa-calendar"></i> Upcoming Event on
-						<i class="fa fa-clock-o"></i> <@EventDateTime />
+						<i class="far fa-calendar"></i> Upcoming Event on
+						<i class="far fa-clock"></i> <@EventDateTime />
 					</@facebook_controller.EventIsUpcoming>
 
 					<@facebook_controller.EventIsPast>
-						<i class="fa fa-calendar"></i> Event occurred
-						<i class="fa fa-clock-o"></i> <@EventOccurredDateTime />
+						<i class="far fa-calendar"></i> Event occurred
+						<i class="far fa-clock"></i> <@EventOccurredDateTime />
 					</@facebook_controller.EventIsPast>
 
 					<#if core_controller.result.metaData.stencilsFacebookEventVenueCountry?? || core_controller.result.metaData.stencilsFacebookEventLocation??>
-						at <i class="fa fa-map-marker"></i> <@EventVenueFullAddress />
+						at <i class="fas fa-map-marker"></i> <@EventVenueFullAddress />
 					</#if>
 
 				</small>
@@ -659,7 +659,7 @@
 							<div class="media-body">
 								<div><a href="${facebook_controller.eventUserProfileUrl!}">${core_controller.result.metaData.a!}</a> </div>
 								<small class="text-muted">
-									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+									<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 								</small>
 
 							</div>
@@ -674,17 +674,17 @@
 							<small class="text-muted">
 
 								<@facebook_controller.EventIsUpcoming>
-									<i class="fa fa-calendar"></i> Upcoming Event on
-									<i class="fa fa-clock-o"></i> <@EventDateTime />
+									<i class="far fa-calendar"></i> Upcoming Event on
+									<i class="far fa-clock"></i> <@EventDateTime />
 								</@facebook_controller.EventIsUpcoming>
 
 								<@facebook_controller.EventIsPast>
-									<i class="fa fa-calendar"></i> Event occurred
-									<i class="fa fa-clock-o"></i> <@EventOccurredDateTime />
+									<i class="far fa-calendar"></i> Event occurred
+									<i class="far fa-clock"></i> <@EventOccurredDateTime />
 								</@facebook_controller.EventIsPast>
 
 								<#if core_controller.result.metaData.stencilsFacebookEventVenueCountry?? || core_controller.result.metaData.stencilsFacebookEventLocation??>
-									at <i class="fa fa-map-marker"></i> <@EventVenueFullAddress />
+									at <i class="fas fa-map-marker"></i> <@EventVenueFullAddress />
 								</#if>
 
 							</small>
@@ -913,7 +913,7 @@
 						</a>
 					</h4>
 					<small class="text-muted">
-						<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+						<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 					</small>
 				</div>
 			</div>
@@ -1018,7 +1018,7 @@
 									</a>
 								</h4>
 								<small class="text-muted">
-									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
+									<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@FacebookLink />
 								</small>
 							</div>
 						</div>
@@ -1057,7 +1057,7 @@
 							</p>
 
 							<#if core_controller.result.metaData.stencilsFacebookPageCountry??>
-							 <div class="text-muted small"> <i class="fa fa-map-marker"></i> <@PageFullAddress /></div>
+							 <div class="text-muted small"> <i class="fas fa-map-marker"></i> <@PageFullAddress /></div>
 							</#if>
 
 							<#-- ResultCollaspe Generate the result collapsing link -->
@@ -1135,7 +1135,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><i class="fa fa-heart"></i> Favourites
+					<h2><i class="fas fa-heart"></i> Favourites
 						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
 					</h2>
 

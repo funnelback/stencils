@@ -65,7 +65,7 @@
 -->
 <#macro YoutubeLink>
 	<!-- youtube.view.ftl :: YoutubeLink -->
-	<i class="fa fa-youtube-square"></i> <a href="https://www.youtube.com/">Youtube</a>
+	<i class="fab fa-youtube-square"></i> <a href="https://www.youtube.com/">Youtube</a>
 </#macro>
 
 <#-- @end --><#-- /Categroy - General -->
@@ -109,7 +109,7 @@
 			<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 				<div><@YoutubeChannel /></div>
 				<small class="text-muted">
-					<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@YoutubeLink />
+					<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@YoutubeLink />
 				</small>
 			</div>
 
@@ -189,12 +189,12 @@
 						</#if>
 
 						<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-							<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+							<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 						</a>
 
 						<#-- Open modal -->
 						<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-							<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+							<i class="fas fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 						</button>
 
 						<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -254,7 +254,7 @@
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 						<div><@YoutubeChannel /></div>
 						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@YoutubeLink />
+							<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@YoutubeLink />
 						</small>
 					</div>
 					<div class="modal-body">
@@ -328,7 +328,7 @@
 							</#if>
 
 							<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-								<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+								<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 							</a>
 
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -361,7 +361,7 @@
 	<#-- <iframe width="100%" height="350" src="https://www.youtube.com/embed/${core_controller.result.metaData.id}" frameborder="0" allowfullscreen></iframe>
 
 	 <p>
-					<small class="text-muted"><i class="fa fa-youtube-play"></i> <a href="https://www.youtube.com/">Youtube</a> &bull;</small>
+					<small class="text-muted"><i class="fab fa-youtube"></i> <a href="https://www.youtube.com/">Youtube</a> &bull;</small>
 					<small class="text-muted">${core_controller.result.metaData.viewCount} views &bull;</small>
 					<#if core_controller.result.date??>
 						<small class="text-muted" data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime}">${core_controller.result.date?date?string("d MMM yyyy")}
@@ -393,16 +393,16 @@
 		${core_controller.result.metaData.stencilsYoutubeViewCount} views &bull;
 	</#if>
 	<#if core_controller.result.metaData.stencilsYoutubeLikes?? >
-		${core_controller.result.metaData.stencilsYoutubeLikes} <i class="fa fa-thumbs-o-up"><span class="sr-only">likes</span></i>
+		${core_controller.result.metaData.stencilsYoutubeLikes} <i class="far fa-thumbs-up"><span class="sr-only">likes</span></i>
 	</#if>
 	<#if core_controller.result.metaData.stencilsYoutubeDislikes?? >
-		 ${core_controller.result.metaData.stencilsYoutubeDislikes} <i class="fa fa-thumbs-o-down"><span class="sr-only">dislikes</span></i> &bull;
+		 ${core_controller.result.metaData.stencilsYoutubeDislikes} <i class="far fa-thumbs-down"><span class="sr-only">dislikes</span></i> &bull;
 	</#if>
 	<#if core_controller.result.metaData.stencilsYoutubeCategory?? >
 		${core_controller.result.metaData.stencilsYoutubeCategory} <span class="sr-only">category</span> &bull;
 	</#if>
 	<#if core_controller.result.metaData.stencilsYoutubeDurationPretty?? >
-		${core_controller.result.metaData.stencilsYoutubeDurationPretty} <i class="fa fa-clock-o"><span class="sr-only">duration</span></i>
+		${core_controller.result.metaData.stencilsYoutubeDurationPretty} <i class="far fa-clock"><span class="sr-only">duration</span></i>
 	</#if>
 
 </#macro>
@@ -426,7 +426,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><i class="fa fa-heart"></i> Favourites
+					<h2><i class="far fa-heart"></i> Favourites
 						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
 					</h2>
 
