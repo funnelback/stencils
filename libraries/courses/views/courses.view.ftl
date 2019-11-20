@@ -98,7 +98,7 @@
 				stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
 					 <span class="stencils-popout__hide-when-selected">Expand</span>
 					 <span class="stencils-hide stencils-popout__show-when-selected">Close</span>
-					 <i class="fa fa-expand"></i>
+					 <i class="far fa-expand"></i>
 			</div>
 
 			<h4>
@@ -148,18 +148,18 @@
 
 			<#if core_controller.result.metaData.stencilsCoursesMode??>
 			<small>
-				 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
+				 as <i class="fas fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
 			</small>
 			</#if>
 
 			<#if core_controller.result.metaData.stencilsCoursesCampus??>
 			<small>
-				at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
+				at <i class="fas fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
 			</small>
 			</#if>
 
 			<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
-				<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
+				<i class="far fa-clock"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
 			</em></small></#if>
 		</div>
 
@@ -246,7 +246,7 @@
 
 				<#-- Open modal -->
 				<button class="btn btn-default stencils-print__hide" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-					<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+					<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 				</button>
 
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -259,7 +259,7 @@
 				</#if>
 
 				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default stencils-print__show-title" title="${core_controller.result.liveUrl!}">
-					<i class="fa fa-external-link"></i> <span >View Course</span>
+					<i class="fas fa-external-link-alt"></i> <span >View Course</span>
 				</a>
 			</div>
 			<#-- /ResultTools -first column -->
@@ -283,7 +283,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+				<button type="button" class="btn btn-default pull-right" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
 				<#-- ResultTitle -->
 				<h4>
 					<a href="${core_controller.result.clickTrackingUrl}" title="${core_controller.result.liveUrl}">
@@ -302,18 +302,18 @@
 
 					<#if core_controller.result.metaData.stencilsCoursesMode??>
 					<small>
-						 as <i class="fa fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
+						 as <i class="fas fa-info-circle"></i> <strong>${core_controller.result.metaData.stencilsCoursesMode!}</strong>
 					</small>
 					</#if>
 
 					<#if core_controller.result.metaData.stencilsCoursesCampus??>
 					<small>
-						at <i class="fa fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
+						at <i class="fas fa-map-marker"></i> <strong>${core_controller.result.metaData.stencilsCoursesCampus!} Campus</strong>
 					</small>
 					</#if>
 
 					<#if core_controller.result.metaData.stencilsCoursesDuration??><br><small><em>
-						<i class="fa fa-clock-o"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
+						<i class="far fa-clock"></i> ${core_controller.result.metaData.stencilsCoursesDuration!}
 					</em></small></#if>
 				</div>
 
@@ -414,7 +414,7 @@
 						</#if>
 
 						<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-							<i class="fa fa-external-link"></i> <span >View Course</span>
+							<i class="fas fa-external-link-alt"></i> <span >View Course</span>
 						</a>
 
 						<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>

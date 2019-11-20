@@ -102,9 +102,9 @@
 					<div class="media-body">
 						<div><@TweetUser /></div>
 						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@TwitterLink />
+							<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@TwitterLink />
 							<#if core_controller.result.metaData.stencilsTwitterCountry?? || core_controller.result.metaData.stencilsTwitterPlaceName??>
-								from <i class="fa fa-map-marker"></i> <@TweetAddress />
+								from <i class="fas fa-map-marker"></i> <@TweetAddress />
 							</#if>
 						</small>
 					</div>
@@ -184,12 +184,12 @@
 						</#if>
 
 						<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-							<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+							<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 						</a>
 
 						<#-- Open modal -->
 						<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-							<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+							<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 						</button>
 
 						<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -253,9 +253,9 @@
 							<div class="media-body">
 								<div><@TweetUser /></div>
 								<small class="text-muted">
-									<i class="fa fa-pencil"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@TwitterLink />
+									<i class="fas fa-pencil-alt"></i> Published	<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if> via <@TwitterLink />
 									<#if core_controller.result.metaData.stencilsTwitterCountry?? || core_controller.result.metaData.stencilsTwitterPlaceName??>
-										from <i class="fa fa-map-marker"></i> <@TweetAddress />
+										from <i class="fas fa-map-marker"></i> <@TweetAddress />
 									</#if>
 								</small>
 							</div>
@@ -336,7 +336,7 @@
 							</#if>
 
 							<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-								<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+								<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 							</a>
 
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -437,7 +437,7 @@
 -->
 <#macro TwitterLink>
 	<!-- twitter.view.ftl :: TwitterLink -->
-	<i class="fa fa-twitter-square"></i> <a href="https://www.twitter.com/">Twitter</a>
+	<i class="fab fa-twitter-square"></i> <a href="https://www.twitter.com/">Twitter</a>
 </#macro>
 <#-- @end --><#-- /Category - General -->
 
@@ -458,7 +458,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" data-ng-click="hideCart()"><span class="glyphicon glyphicon-arrow-left"></span> Back to results</a>
-					<h2><i class="fa fa-heart"></i> Favourites
+					<h2><i class="fas fa-heart"></i> Favourites
 						<button class="btn btn-danger btn-xs" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="glyphicon glyphicon-remove"></span> Clear</button>
 					</h2>
 

@@ -6,7 +6,7 @@
   @param result Result to display the link for
   @param class CSS class to use. Defaults to text-success
 -->
-<#macro LastVisitedLink result icon="fa fa-clock-o" class="text-success">
+<#macro LastVisitedLink result icon="far fa-clock" class="text-success">
   <#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(result.indexUrl)??>
     <small class="${class} search-last-visited pl-3">
       <span class="${icon}"></span> <a title="Click history" href="#" class="${class}" data-ng-click="toggleHistory()">
@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <a href="#" data-ng-click="hideHistory()"><span class="fa fa-arrow-left"></span> Back to results</a>
+            <a href="#" data-ng-click="hideHistory()"><span class="fas fa-arrow-left"></span> Back to results</a>
             <h2 class="sr-only">Search history</h2>
 
             <div class="row mt-3">
@@ -35,8 +35,8 @@
                 <div class="card" data-ng-show="!clickHistoryEmpty && <@fb.HasClickHistory />">
                   <div class="card-header">
                     <h3>
-                      <span class="fa fa-heart"></span> Recently clicked results
-                      <button class="btn btn-danger btn-sm float-right" title="Clear click history" data-ng-click="clear('Your history will be cleared')"><span class="fa fa-times"></span> Clear</button>
+                      <span class="fas fa-heart"></span> Recently clicked results
+                      <button class="btn btn-danger btn-sm float-right" title="Clear click history" data-ng-click="clear('Your history will be cleared')"><span class="fas fa-times"></span> Clear</button>
                     </h3>
                   </div>
                   <div class="card-body">
@@ -50,7 +50,7 @@
 
                 <div class="card" data-ng-show="clickHistoryEmpty || !<@fb.HasClickHistory />">
                   <div class="card-header">
-                    <h3><span class="fa fa-heart"></span> Recently clicked results</h3>
+                    <h3><span class="fas fa-heart"></span> Recently clicked results</h3>
                   </div>
                   <div class="card-body">
                     <p class="text-muted">Your click history is empty.</p>
@@ -63,8 +63,8 @@
                 <div class="card" data-ng-show="!searchHistoryEmpty && <@fb.HasSearchHistory />">
                   <div class="card-header">
                     <h3>
-                      <span class="fa fa-search"></span> Recent searches
-                      <button class="btn btn-danger btn-sm float-right" title="Clear search history" data-ng-click="clear('Your history will be cleared')"><span class="fa fa-times"></span> Clear</button>
+                      <span class="fas fa-search"></span> Recent searches
+                      <button class="btn btn-danger btn-sm float-right" title="Clear search history" data-ng-click="clear('Your history will be cleared')"><span class="fas fa-times"></span> Clear</button>
                     </h3>
                   </div>
                   <div class="card-body">
@@ -78,7 +78,7 @@
 
                 <div class="card" data-ng-show="searchHistoryEmpty || !<@fb.HasSearchHistory />">
                   <div class="card-header">
-                    <h3><span class="fa fa-search"></span> Recent searches</h3>
+                    <h3><span class="fas fa-search"></span> Recent searches</h3>
                   </div>
                   <div class="card-body">
                     <p class="text-muted">Your search history is empty.</p>
@@ -106,10 +106,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <a href="#" data-ng-click="hideCart()"><span class="fa fa-arrow-left"></span> Back to results</a>
+            <a href="#" data-ng-click="hideCart()"><span class="fas fa-arrow-left"></span> Back to results</a>
             <h2 class="text-center">
-              <span class="fa fa-star"></span> Shortlist
-              <button class="btn btn-danger btn-sm" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="fa fa-times"></span> Clear</button>
+              <span class="fas fa-star"></span> Shortlist
+              <button class="btn btn-danger btn-sm" title="Clear selection" data-ng-click="clear('Your selection will be cleared')"><span class="fas fa-times"></span> Clear</button>
             </h2>
 
             <div class="row search-results mt-3">
@@ -139,7 +139,7 @@
 
                           <div class="card-header">
                             <h4>
-                              <a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="fa fa-times"></small></a>
+                              <a title="Remove" data-ng-click="remove(item.indexUrl)" href="javascript:;"><small class="fas fa-times"></small></a>
                               <a data-ng-href="{{item.indexUrl}}">{{item.title|truncate:70}}</a>
                             </h4>
                             <div class="card-subtitle text-muted">
