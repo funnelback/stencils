@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	<p>Provides helpers for building Facebook components.</p>
 	<p>This includes helpers for Facebook results that extend the data model depending on the content type.</p>

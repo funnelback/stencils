@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	<p>Provides helpers for building courses components.</p>
 	<p>This includes helpers for courses Media ... there is actually nothing useful in here for now.</p>

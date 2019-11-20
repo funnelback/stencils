@@ -1,10 +1,5 @@
 <#ftl encoding="utf-8" />
-
-<#--
-   Funnelback App: Core
-   By: <Name>
-   Description: <Description>
--->
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 
 <#--
   Sets HTML encoding as the default for this file only - use <#noescape>...</#noescape> around anything which should not be escaped.
