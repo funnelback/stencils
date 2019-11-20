@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	This contains the stardard out of the box macros refactored into Model-View-Control framework
 	required for Stencils.
