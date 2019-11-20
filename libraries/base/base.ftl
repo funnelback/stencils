@@ -127,7 +127,7 @@
 <#macro Blending>
   <#if (response.resultPacket.QSups)!?size &gt; 0>
     <blockquote class="blockquote">
-      <span class="fa fa-info-circle"></span>
+      <span class="fas fa-info-circle"></span>
       Your query has been expanded to <strong><#list response.resultPacket.QSups as qsup> ${qsup.query}<#if qsup_has_next>, </#if></#list></strong>.
       &nbsp;Search for <a href="?${QueryString}&amp;qsup=off" title="Turn off query expansion"><em>${question.originalQuery}</em></a> instead.
     </blockquote>
@@ -140,7 +140,7 @@
 <#macro Spelling>
     <#if (response.resultPacket.spell)??>
       <div class="search-spelling">
-        <span class="fa fa-question-circle"></span>
+        <span class="fas fa-question-circle"></span>
         Did you mean <em><a href="${question.collection.configuration.value("ui.modern.search_link")}?${response.resultPacket.spell.url}" title="Spelling suggestion">${response.resultPacket.spell.text}</a></em>?
       </div>
     </#if>
@@ -319,7 +319,7 @@
         <#-- First page -->
         <#if response.customData.stencilsPaging.previousUrl??>
           <li class="page-item">
-            <a class="page-link" href="${response.customData.stencilsPaging.previousUrl}"><span class="fa fa-caret-left"></span> Prev</a>
+            <a class="page-link" href="${response.customData.stencilsPaging.previousUrl}"><span class="fas fa-caret-left"></span> Prev</a>
           </li>
         </#if>
 
@@ -335,7 +335,7 @@
         <#-- Last page -->
         <#if response.customData.stencilsPaging.nextUrl??>
           <li class="page-item">
-            <a class="page-link" href="${response.customData.stencilsPaging.nextUrl}">Next <span class="fa fa-caret-right"></span></a>
+            <a class="page-link" href="${response.customData.stencilsPaging.nextUrl}">Next <span class="fas fa-caret-right"></span></a>
           </li>
         </#if>
 

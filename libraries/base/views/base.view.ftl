@@ -1,4 +1,5 @@
 <#ftl encoding="utf-8" />
+<#-- DEPRECATED - This file has been deprecated. Please avoid using this file going forward -->
 <#---
 	This contains basic utility views which can be used across all stencils and general implementations.
 
@@ -86,7 +87,7 @@
 	<#local nestedClean><@core_controller.StripHtml><#nested></@core_controller.StripHtml></#local>
 	
 	<a href="#" data-toggle="tooltip" title="${nestedClean}">
-		<i class="fa fa-question-circle"></i>
+		<i class="fas fa-question-circle"></i>
 		<span class="sr-only">Help</span>
 	</a>
 </#macro>
@@ -332,7 +333,7 @@
 <div class="panel panel-default stencils-progressive-disclosure">
 	<div class="panel-heading" data-mh="group-heading-${base_controller.resultsColumnsIndex!}">
 		<small class="text-muted">
-			<i class="fa fa-pencil"></i> Published
+			<i class="fas fa-pencil-alt"></i> Published
 			<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if>
 			<#-- ResultAuthor -->
 			<#if core_controller.result.metaData.a??>
@@ -498,12 +499,12 @@
 			</#if>
 
 			<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-				<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+				<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 			</a>
 
 			<#-- Open modal -->
 			<button class="btn btn-primary" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-				<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+				<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 			</button>
 
 			<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -538,10 +539,10 @@
 				stencils-progressive-disclosure__hiddenBlock-showOnHover stencils-animation--fade-in-on-hover" >
 					 <span class="stencils-popout__hide-when-selected">Expand</span>
 					 <span class="stencils-hide stencils-popout__show-when-selected">Close</span>
-					 <i class="fa fa-expand"></i>
+					 <i class="far fa-expand"></i>
 			</div>
 			<small class="text-muted">
-				<i class="fa fa-pencil"></i> Published
+				<i class="fas fa-pencil-alt"></i> Published
 				<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if>
 				<#-- ResultAuthor -->
 				<#if core_controller.result.metaData.a??>
@@ -700,7 +701,7 @@
 
 				<#-- Open modal -->
 				<button class="btn btn-default stencils-print__hide" data-toggle="modal" data-target="#result-modal-${core_controller.result.rank!}" title="Expanded view">
-					<i class="fa fa-newspaper-o"></i> <span class="sr-only">Expanded view</span>
+					<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 				</button>
 
 				<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
@@ -713,7 +714,7 @@
 				</#if>
 
 				<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default stencils-print__show-title" title="'${core_controller.result.liveUrl!}'">
-					<i class="fa fa-external-link"></i> <span >View</span>
+					<i class="fas fa-external-link-alt"></i> <span >View</span>
 				</a>
 			</div>
 			<#-- /ResultTools -first column -->
@@ -738,7 +739,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<small class="text-muted">
-							<i class="fa fa-pencil"></i> Published
+							<i class="fas fa-pencil-alt"></i> Published
 							<#if core_controller.result.date??><span data-moment="relative" data-moment-datetime="${core_controller.result.date?datetime?string.iso}">${core_controller.result.date?date?string("d MMM yyyy")}</span></#if>
 							<#-- ResultAuthor -->
 							<#if core_controller.result.metaData.a??>
@@ -904,7 +905,7 @@
 							</#if>
 
 							<a href="${core_controller.result.clickTrackingUrl!}" class="btn btn-default" title="View '${core_controller.result.liveUrl!}'">
-								<i class="fa fa-external-link"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
+								<i class="fas fa-external-link-alt"></i> <span class="sr-only">View '${core_controller.result.liveUrl!}</span>
 							</a>
 
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -933,7 +934,7 @@
 -->
 <#macro PrintFriendlyBtn>
 	<!-- base.view.ftl :: PrintResults -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl cgis=["form=printFriendly"]/>"><i class="fa fa-print"></i> Print friendly</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl cgis=["form=printFriendly"]/>"><i class="fas fa-print"></i> Print friendly</a>
 </#macro>
 
 <#---
@@ -954,7 +955,7 @@
 -->
 <#macro CompareBtn group="">
 	<!-- base.view.ftl :: CompareBtn -->
-	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl	cgis=["form=compare"]/>" data-compare-btn="${group!}"><i class="fa fa-exchange"></i> Compare</a>
+	<a class="btn btn-default" href="<@base_controller.CreateSearchUrl	cgis=["form=compare"]/>" data-compare-btn="${group!}"><i class="fas fa-exchange-alt"></i> Compare</a>
 </#macro>
 
 <#---
@@ -1023,7 +1024,7 @@
 				<li>
 					<a href="${base_controller.paginationFirstUrl}" rel="prev">
 						
-						<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+						<i class="fas fa-angle-double-left" aria-hidden="true"></i>
 						
 						<span class="sr-only">Go to the</span>
 						First
@@ -1094,7 +1095,7 @@
 						<span class="sr-only">Go to the</span>
 						Last
 						<span class="sr-only">search result page</span>
-						<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						<i class="fas fa-angle-double-right" aria-hidden="true"></i>
 					</a>
 				</li>
 				</@base_controller.PaginationLast>
