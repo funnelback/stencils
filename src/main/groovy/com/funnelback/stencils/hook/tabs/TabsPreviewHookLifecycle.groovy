@@ -23,7 +23,7 @@ import com.funnelback.stencils.hook.support.HookLifecycle
 class TabsPreviewHookLifecycle implements HookLifecycle {
 
 	/** Key where the preview links will be stored in the custom data map */
-	static final String CUSTOM_DATA_NAMESPACE = "stencilsTabsPreview"
+	static final String CUSTOM_DATA_NAMESPACE = "stencilsTabsPreviewLink"
 
 	/** Name of the facet containing the tabs */
 	static final String TABS_FACET_NAME = "Tabs"
@@ -36,7 +36,7 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 
 	/**
 	 * Injects the "more link" into each extra search. The "more link"
-	 * will provide the user a different way to navigate to a tab
+	 * will provide the user a different way to navigate to a particular tab
 	 *  
 	 * @param transaction
 	 */
@@ -56,6 +56,8 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 				
         int separator = key.lastIndexOf(".")
         
+				// Config is expected in the following format:
+				// stencils.tabs.preview.<extra search name>=<tab name>
 				if (separator >= 0 ) {
 					String extraSearchID = key.substring(separator + 1)
 					String tabName = profileConfig.get(key)
@@ -65,8 +67,8 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 				else {
 					// Warn the user if the key is invalid
 					log.warn("'${key}' is invalid");
-					log.warn("Expected format the key is '<${prefix}>.<int>.")
-					log.warn("e.g '${prefix}.1")
+					log.warn("Expected format the key is '${CONFIG_KEY_PREFIX}.<extra search name>=<tab name>")
+					log.warn("e.g '${CONFIG_KEY_PREFIX}.events=All Events")
 				}
 
 				result
@@ -85,9 +87,9 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 				def extraSearch = transaction.extraSearches[extraSearchID]
 
 				// Add more links to the extra search	only if facets have been defined			
-				if(transaction?.response?.facets) {
+				if( transaction?.response && transaction?.response?.facets) {
 					String moreLink = getMoreLink(tabName, profileConfig, transaction.response.facets)
-					extraSearch.customData.put(CUSTOM_DATA_NAMESPACE, moreLink)
+					extraSearch.response.customData.put(CUSTOM_DATA_NAMESPACE, moreLink)
 				}
 			}
 	}
@@ -107,14 +109,15 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 		}
 
 		// Get individual facet category which is the target of the more link
-		def tabFacetCategory = tabFacet.categories.findAll {
-			it.values.find { it.label.toUpperCase() == tabName.toUpperCase() }
-		}
-		.collect {
-			it.values
-		}
-		.flatten()
-		.find()
+		def tabFacetCategory = tabFacet.categories
+			.findAll {
+				it.values.find { it.label.toUpperCase() == tabName.toUpperCase() }
+			}
+			.collect {
+				it.values
+			}
+			.flatten()
+			.find()
 
 		return tabFacetCategory.toggleUrl
 	}
