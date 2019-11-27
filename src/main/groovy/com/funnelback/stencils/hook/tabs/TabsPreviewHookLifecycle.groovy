@@ -99,7 +99,7 @@ class TabsPreviewHookLifecycle implements HookLifecycle {
 	 *
 	 * @param tabName - The name of the tab in which the user will be redirected to
 	 * @param profileConfig - The config at the profile level
-	 * @param facetedNavigationConfig - The faceted navigation for the collection
+	 * @param facet - The facets which contains the tabs
 	 *
 	 **/
 	public String getMoreLink(String tabName, def profileConfig, def facets) {
