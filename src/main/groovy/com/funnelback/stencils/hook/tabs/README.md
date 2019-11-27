@@ -12,6 +12,33 @@ Call the Stencils hook in your `hook_pre_process.groovy` script, and configure t
 stencils.tabs.default=Courses
 ```
 
+# Providing a preview of a tab
+
+Tabs provides a good user experience for filtering large amount of information. One downside
+of using tab is that the user does not have much context on the content of each tab. This
+can cause hesitation in users with minimal technical experience causing them to ignore
+tabs altogether; tab blindness.
+
+To provide the user with more confidence, a preview of tabs can be shown using tab preview hook. This provides the user with more information so that they can decide of the tab suits their need. The preview hook also provides an alternative means to navigate to a tab.
+
+## Usage
+
+- Create an extra search which represents that target tab
+- Call the Stencils hook in your `hook_post_process.groovy` script, and configure the target tab to preview in
+`collection.cfg` or `profile.cfg`: `stencils.tabs.preview.<extra search id>=<name of target tab>`
+
+### Example
+
+Given
+- We have a meta collection called `membership-meta`
+- We have a collection of events called `events-web`
+- On the meta collection, we have an extra search which points to the collection of `events-web` called `events`
+- On the meta collection, we have a tab facets which has a facet category called `Events` which filters results to documents from `events-web`
+
+The configuration for creating a tab preview which provides results from the events tab would be:
+
+`stencils.tabs.preview.events=Events`
+
 # Tabs Stencil Public UI Hooks (pre v15.12)
 
 :warning: This applies only pre-15.12, as Tabs are natively supported since 15.12.
