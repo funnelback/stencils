@@ -32,7 +32,7 @@
 
 <#-- 
   Provides preview of a tab. This allows the user to see 
-  a sample of the results on anothe tab without having to click
+  a sample of the results on another tab without having to click
   back and forwards. It also improvides the user flow by providing
   a link to navigate to the target tab.
 -->
