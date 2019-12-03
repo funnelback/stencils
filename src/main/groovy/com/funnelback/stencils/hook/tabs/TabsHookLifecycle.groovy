@@ -36,12 +36,14 @@ import com.funnelback.stencils.hook.support.HookLifecycle
 @Log4j2
 class TabsHookLifecycle implements HookLifecycle {
 
+    static final String STENCIL_NAME = "Tabs"
+
     /** Key holding the Gscope numbers */
     static final String GSCOPE_KEY = "stencils.tabs.full_facet.gscope"
 
     /** Separator for the Gscope numbers */
     static final String GSCOPE_VALUE_SEPARATOR = ","
-
+    
     /** Key holding the Metadata names */
     static final String METADATA_KEY_PREFIX = "stencils.tabs.full_facet.metadata."
 
@@ -160,7 +162,7 @@ class TabsHookLifecycle implements HookLifecycle {
      *  <li>Copy the "selected" status from the main search into the extra search</li>
      * </ul>
      *
-     * <p>The first is is needed so that constraints specific to a tab (e.g. "Course type = On Campus") is not preserved
+     * <p>The first is needed so that constraints specific to a tab (e.g. "Course type = On Campus") is not preserved
      * when switching to another tab (e.g. "People") as it is likely to return zero results</p>
      *
      * <p>The second is convenient so that the "All" tab is just present as a regular tab, without

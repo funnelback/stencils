@@ -18,7 +18,9 @@ import com.funnelback.stencils.hook.noresults.NoResultsHookLifecycle
 import com.funnelback.stencils.hook.people.PeopleHookLifecycle
 import com.funnelback.stencils.hook.support.HookLifecycle
 import com.funnelback.stencils.hook.tabs.TabsHookLifecycle
+import com.funnelback.stencils.hook.tabs.TabsPreviewHookLifecycle
 import com.funnelback.stencils.hook.extrasearch.ExtraSearchHookLifecycle
+
 
 import groovy.util.logging.Log4j2
 
@@ -53,6 +55,7 @@ class StencilHooks {
         new ContextualNavigationHookLifecycle(),
         new FacetsHookLifecycle(),
         new TabsHookLifecycle(),
+        new TabsPreviewHookLifecycle(),
         // FacetsCustomSort needs to run after Tabs, as Tabs injects an "All" value in the facets,
         // which are then sorted
         new FacetsCustomSortHookLifecycle(),
@@ -60,7 +63,7 @@ class StencilHooks {
         new NoResultsHookLifecycle(),
         new PeopleHookLifecycle(),
         new FacebookHookLifecycle(),
-        new ExtraSearchHookLifecycle()
+        new ExtraSearchHookLifecycle()        
     ]
     
     /**

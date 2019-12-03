@@ -29,4 +29,34 @@
     </#if>
   </#list>
 </#macro>
+
+<#-- 
+  Provides preview of a tab. This allows the user to see 
+  a sample of the results on another tab without having to click
+  back and forwards. It also improvides the user flow by providing
+  a link to navigate to the target tab.
+-->
+<#macro Preview extraSearchName title="" tabDisplayName=""  parentQuestion=question>
+  <#assign parentQuestion = question>
+  <@fb.ExtraResults name=extraSearchName>
+    <#if (response.resultPacket.results)!?has_content>
+      <div class="col-md-3 search-tab-preview text-muted mb-3">
+        <h4>${title!}</h4>
+        <ol class="list-unstyled">
+          <#list (response.resultPacket.results)![] as result>
+            <@base.Result result=result question=parentQuestion/>
+          </#list>
+        </ol>
+
+        <#if (response.customData.stencilsTabsPreviewLink)!?has_content>
+          
+          <#assign searchLink = question.getCurrentProfileConfig().get("ui.modern.search_link")!>
+          <#assign previewLink = response.customData.stencilsTabsPreviewLink!>
+          
+          <a href="${searchLink}${previewLink}" title="See more results for ${tabDisplayName!}">See more results for ${tabDisplayName!} </a>
+        </#if>
+      </div>
+    </#if>
+  </@fb.ExtraResults>
+</#macro>
 <#-- vim: set expandtab ts=2 sw=2 sts=2 :-->
