@@ -261,46 +261,33 @@
           <#nested>
         </#if>
 
-        <#-- Displays the result based on the configured template -->
-        <@Result result=result />
+        <#-- Get result template depending on collection name -->
+        <#assign resultDisplayLibrary = question.getCurrentProfileConfig().get("stencils.template.result.${result.collection}")!"" />
+
+        <#-- If not defined, attempt to get it depending on the gscopes the result belong to -->
+        <#if !resultDisplayLibrary?has_content>
+          <#list (result.gscopesSet)![] as gscope>
+            <#assign resultDisplayLibrary = question.collection.configuration.value("stencils.template.result.${gscope}")!"" />
+            <#if resultDisplayLibrary?has_content>
+              <#break>
+            </#if>
+          </#list>
+        </#if>
+
+        <#if .main[resultDisplayLibrary]??>
+          <@.main[resultDisplayLibrary].Result result=result />
+        <#elseif .main["project"]??>
+          <#-- Default Result macro in current namespace -->
+          <@.main["project"].Result result=result />
+        <#else>
+          <div class="alert alert-danger" role="alert">
+            <strong>Result template not found</strong>: Template <code>&lt;@<#if resultDisplayLibrary?has_content>${resultDisplayLibrary}<#else>(default namespace)</#if>.Result /&gt;</code>
+            not found for result from collection <em>${result.collection}</em>.
+          </div>
+        </#if>
       </#if>
     </#list>
   </ol>
-</#macro>
-
-<#--
-  Displays a search result using the the right template depending
-  on the results type and what is configured in collection.cfg
-
-  Defaults to <code>&lt;@project.Result /&gt;
-
-  @param result The search result to output
--->
-<#macro Result result question=question>
-  <#-- Get result template depending on collection name -->
-  <#assign resultDisplayLibrary = question.getCurrentProfileConfig().get("stencils.template.result.${result.collection}")!"" />
-
-  <#-- If not defined, attempt to get it depending on the gscopes the result belong to -->
-  <#if !resultDisplayLibrary?has_content>
-    <#list (result.gscopesSet)![] as gscope>
-      <#assign resultDisplayLibrary = question.getCurrentProfileConfig().get("stencils.template.result.${gscope}")!"" />
-      <#if resultDisplayLibrary?has_content>
-        <#break>
-      </#if>
-    </#list>
-  </#if>
-
-  <#if .main[resultDisplayLibrary]??>
-    <@.main[resultDisplayLibrary].Result result=result />
-  <#elseif .main["project"]??>
-    <#-- Default Result macro in current namespace -->
-    <@.main["project"].Result result=result />
-  <#else>
-    <div class="alert alert-danger" role="alert">
-      <strong>Result template not found</strong>: Template <code>&lt;@<#if resultDisplayLibrary?has_content>${resultDisplayLibrary}<#else>(default namespace)</#if>.Result /&gt;</code>
-      not found for result from collection <em>${result.collection}</em>.
-    </div>
-  </#if>
 </#macro>
 
 <#--
