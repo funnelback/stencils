@@ -267,7 +267,7 @@
         <#-- If not defined, attempt to get it depending on the gscopes the result belong to -->
         <#if !resultDisplayLibrary?has_content>
           <#list (result.gscopesSet)![] as gscope>
-            <#assign resultDisplayLibrary = question.collection.configuration.value("stencils.template.result.${gscope}")!"" />
+            <#assign resultDisplayLibrary = question.getCurrentProfileConfig().get("stencils.template.result.${gscope}")!"" />
             <#if resultDisplayLibrary?has_content>
               <#break>
             </#if>
