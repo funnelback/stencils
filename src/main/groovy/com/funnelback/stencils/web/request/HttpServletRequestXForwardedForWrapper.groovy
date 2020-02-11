@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequestWrapper
  * Class to manipulate the X-Forwarded-For header of an HTTP request
  *
  * Allows removal of the first or last value of the X-Forwarded-For
+ * or removal of all values but the first
  */
 @Log4j2
 class HttpServletRequestXForwardedForWrapper extends HttpServletRequestWrapper {
@@ -22,7 +23,9 @@ class HttpServletRequestXForwardedForWrapper extends HttpServletRequestWrapper {
         /** Remove first value of the X-Forwarded-For */
         RemoveFirst,
         /** Remove last value of the X-Forwarded-For */
-        RemoveLast
+        RemoveLast,
+        /** Keep only the first value of the X-Forwarded-For */
+        KeepFirst,
     }
 
     /** Mode of operation */
@@ -55,6 +58,8 @@ class HttpServletRequestXForwardedForWrapper extends HttpServletRequestWrapper {
                         case Mode.RemoveLast:
                             newValue = value.tokenize(",").init().join(",")
                             break
+                        case Mode.KeepFirst:
+                            newValue = value.tokenize(",").first()
                     }
 
                     log.debug("Changed ${XFF_HEADER} value from '{}' to '{}'", value, newValue)
