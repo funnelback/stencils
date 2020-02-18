@@ -8,7 +8,7 @@ went through before reaching the Funnelback backend server.
 In a complex scenario, a request can go through multiple hops:
 1. Proxy server of the client, to the CMS
 2. CMS to the Funnelback load balancer (partial HTML example)
-4. Funnelback load balancer to the actual backend server
+3. Funnelback load balancer to the actual backend server
 
 In this example, the X-Forwarded-For would have 3 values:
 1. The IP address of the client proxy (1.2.3.4)
@@ -60,6 +60,19 @@ class GroovyServletFilterHookPublicUIImpl extends GroovyServletFilterHook {
     }
 }
 ```  
+
+## Modes
+
+This script provides three (3) modes that can be used. All modes only apply if there are multiple
+IP addresses in the X-Forwarded-For header. If there is only one IP address in the X-Forwarded-For
+header, it is not affected by this script.
+
+1. Remove First - Removes the first IP address in the chain.\
+In the usage example above, the mode argument to pass is: `HttpServletRequestXForwardedForWrapper.Mode.RemoveFirst`
+2. Remove Last - Removes the last IP address in the chain.\
+In the usage example above, the mode argument to pass is: `HttpServletRequestXForwardedForWrapper.Mode.RemoveLast`
+3. Keep First - Removes all IP addresses in the chain except for the first.\
+In the usage example above, the mode argument to pass is: `HttpServletRequestXForwardedForWrapper.Mode.KeepFirst`
 
 ## Considerations
 
