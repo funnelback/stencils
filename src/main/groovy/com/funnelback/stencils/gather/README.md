@@ -14,12 +14,12 @@ This script allows Funnelback to gather a file from an SFTP server using a custo
 
 | Configuration Key      | Required? | Description                                                   |
 | ---------------------- | --------- | ------------------------------------------------------------- |
-| sftp.gather.hostname   | Yes       | Hostname of the FTP server.                                   |
-| sftp.gather.username   | Yes       | Username to authenticate with                                 |
-| sftp.gather.password   | Yes       | Password to authenticate with                                 |
-| sftp.gather.file       | Yes       | Full filepath of the document to gather                       |
-| sftp.gather.use_store  | No        | 'false' to not use the Funnelback record store (see 1. below) |
-| sftp.gather.stored_url | No        | URL to save the gathered document with (see 2. below)         |
+| stencils.gather.sftp.hostname   | Yes       | Hostname of the FTP server.                                   |
+| stencils.gather.sftp.username   | Yes       | Username to authenticate with                                 |
+| stencils.gather.sftp.password   | Yes       | Password to authenticate with                                 |
+| stencils.gather.sftp.file       | Yes       | Full filepath of the document to gather                       |
+| stencils.gather.sftp.use_store  | No        | 'false' to not use the Funnelback record store (see 1. below) |
+| stencils.gather.sftp.stored_url | No        | URL to save the gathered document with (see 2. below)         |
 
 1. By default, the Funnelback record store is used to store the gathered file, which allows filtering and some other features of Funnelback to be used on the data. If the file to gather is a plain XML file, the store can be skipped and the indexer will just index the raw XML file.
 2. Funnelback requires all indexed documents to have a URL. If the document will be split later (for example, a JSON file converted to XML then split along an X-Path), each record would get its own URL later and thus this URL of the overall document doesn't matter. If not supplied, a dummy URL will be used.

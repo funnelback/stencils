@@ -34,12 +34,12 @@ def collectionName = args[1]
 Config config =  new NoOptionsConfig(searchHome, collectionName)
 
 // Validate required fields are in collection configuration
-def HOSTNAME_CONFIG = 'sftp.gather.hostname'
-def USERNAME_CONFIG = 'sftp.gather.username'
-def PASSWORD_CONFIG = 'sftp.gather.password'
-def FILE_CONFIG = 'sftp.gather.file'
-def USE_STORE_CONFIG = 'sftp.gather.use_store'
-def STORED_URL_CONFIG = 'sftp.gather.stored_url'
+def HOSTNAME_CONFIG = 'stencils.gather.sftp.hostname'
+def USERNAME_CONFIG = 'stencils.gather.sftp.username'
+def PASSWORD_CONFIG = 'stencils.gather.sftp.password'
+def FILE_CONFIG = 'stencils.gather.sftp.file'
+def USE_STORE_CONFIG = 'stencils.gather.sftp.use_store'
+def STORED_URL_CONFIG = 'stencils.gather.sftp.stored_url'
 
 def mandatoryConfigurations = [HOSTNAME_CONFIG, USERNAME_CONFIG, PASSWORD_CONFIG, FILE_CONFIG]
 mandatoryConfigurations.each { configKey ->
