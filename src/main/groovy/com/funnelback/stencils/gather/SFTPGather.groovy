@@ -22,6 +22,7 @@ import com.google.common.collect.ArrayListMultimap
 // SSH Library
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.Session
 
 if (args.length < 2) {
     println 'Usage: custom_gather.groovy $SEARCH_HOME $COLLECTION_NAME'
@@ -54,19 +55,23 @@ def jsch = new JSch()
 def outFile = new File(searchHome, "data/${collectionName}/offline/data/data.xml")
 
 // Set up the SSH connection
-def session = jsch.getSession(config.value(USERNAME_CONFIG), config.value(HOSTNAME_CONFIG))
-session.password = config.value(PASSWORD_CONFIG)
-session.setConfig("StrictHostKeyChecking", "no") // Avoid having to add the public key to ~/.known_hosts
-session.connect()
+Session session
+ChannelSftp sftp
+try {
+    session = jsch.getSession(config.value(USERNAME_CONFIG), config.value(HOSTNAME_CONFIG))
+    session.password = config.value(PASSWORD_CONFIG)
+    session.setConfig("StrictHostKeyChecking", "no") // Avoid having to add the public key to ~/.known_hosts
+    session.connect()
 
 // Retrieve the file via SFTP
-config.setProgressMessage("Downloading ${config.value(FILE_CONFIG)} from remote SFTP server")
-def sftp = (ChannelSftp) session.openChannel("sftp")
-sftp.connect()
-sftp.get(config.value(FILE_CONFIG), outFile.absolutePath)
-sftp.exit()
-
-session.disconnect()
+    config.setProgressMessage("Downloading ${config.value(FILE_CONFIG)} from remote SFTP server")
+    sftp = (ChannelSftp) session.openChannel("sftp")
+    sftp.connect()
+    sftp.get(config.value(FILE_CONFIG), outFile.absolutePath)
+} finally {
+    if (sftp) sftp.exit()
+    if (session) session.disconnect()
+}
 
 def message = "Downloaded ${outFile.length()} bytes from ${config.value(HOSTNAME_CONFIG)} to ${outFile.absolutePath}"
 config.setProgressMessage(message)
@@ -83,20 +88,21 @@ if (!(config.value(USE_STORE_CONFIG) == 'false')) {
         .asXmlStore()
 
     store.open()
+    try {
+        def metadata = ArrayListMultimap.create()
+        // Set the Content-Type for XML
+        metadata.put("Content-Type", "text/xml")
 
-    def metadata = ArrayListMultimap.create()
-    // Set the Content-Type for XML
-    metadata.put("Content-Type", "text/xml")
+        // Create a Document instance from the downloaded file
+        def xmlContent = XMLUtils.fromFile(outFile)
+        def storedUrl = config.value(STORED_URL_CONFIG) ?: "${collectionName}/datafile"
+        def record = new XmlRecord(xmlContent, storedUrl)
+        store.add(record, metadata)
 
-    // Create a Document instance from the downloaded file
-    def xmlContent = XMLUtils.fromFile(outFile)
-    def storedUrl = config.value(STORED_URL_CONFIG) ?: "${collectionName}/datafile"
-    def record = new XmlRecord(xmlContent, storedUrl)
-    store.add(record, metadata)
-
-    // Delete the raw XML file because it's now in the store
-    outFile.delete()
-
-    // Close the store to end the gather process
-    store.close()
+        // Delete the raw XML file because it's now in the store
+        outFile.delete()
+    } finally {
+        // Close the store to end the gather process
+        store.close()
+    }
 }
