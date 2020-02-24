@@ -60,6 +60,7 @@ session.setConfig("StrictHostKeyChecking", "no") // Avoid having to add the publ
 session.connect()
 
 // Retrieve the file via SFTP
+config.setProgressMessage("Downloading ${config.value(FILE_CONFIG)} from remote SFTP server")
 def sftp = (ChannelSftp) session.openChannel("sftp")
 sftp.connect()
 sftp.get(config.value(FILE_CONFIG), outFile.absolutePath)
@@ -67,8 +68,10 @@ sftp.exit()
 
 session.disconnect()
 
+def message = "Downloaded ${outFile.length()} bytes from ${config.value(HOSTNAME_CONFIG)} to ${outFile.absolutePath}"
+config.setProgressMessage(message)
 println ""
-println "Downloaded ${outFile.length()} bytes from ${config.value(HOSTNAME_CONFIG)} to ${outFile.absolutePath}"
+println message
 println ""
 
 // The default behavior is to use the store, a config setting must be used to override this default
