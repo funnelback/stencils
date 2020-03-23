@@ -91,6 +91,7 @@ dependencies {
          * dependency.
         */ 
         "us.codecraft:xsoup:0.3.1",
+        "com.jcraft:jsch:0.1.55",
 
     )
 }
