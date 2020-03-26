@@ -107,7 +107,7 @@
     <span class="search-counts-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
     <span class="search-counts-page-end">${response.resultPacket.resultsSummary.currEnd}</span> of
     <span class="search-counts-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-    <#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong>
+    <#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong> <#list response.resultPacket.QSups as qsup>or <strong>${qsup.query}</strong><#if qsup_has_next>, </#if></#list>
   </#if>
 
   <#if (response.resultPacket.resultsSummary.partiallyMatching!0) != 0>
