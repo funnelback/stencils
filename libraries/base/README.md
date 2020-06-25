@@ -2,6 +2,15 @@
 
 Configuration options for base templates can be set in the collection's `collection.cfg` file or in the profile's `profile.cfg` file. The following settings are allowed:
 
+## base.ftl
+
+The `base.ftl` file allows configuring different result styles based on either collections `stencils.template.result.collection-name=template-name` or gscopes `stencils.template.result.gscope_name=template_name`. Examples 
+
+```
+stencils.template.result.yvcc-courses=courses
+stencils.template.result.catalog=programs
+```
+
 ## client_includes.ftl
 
 ```

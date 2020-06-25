@@ -180,7 +180,7 @@
           class: 'btn btn-secondary float-right'
         }
       });
-      var flbSessionHistory = new Funnelback.SessionHistory({
+      new Funnelback.SessionHistory({
         collection: '${question.collection.id}',
         currentSearchHistorySelectors: ['.session-history-search-results'],
         currentClickHistorySelectors: ['.session-history-click-results']

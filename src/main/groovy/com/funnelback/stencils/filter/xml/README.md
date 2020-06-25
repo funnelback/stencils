@@ -41,9 +41,9 @@ The specific XML element to wrap in HTML is configured via `collection.cfg`:
 stencils.filter.xml.html_wrapper.xpath=//description
 ```
 
-## Notes
+# XML Filter Notes
 
-This filter will only apply to XML documents, but it can be used with JSON too
+These filters will only apply to XML documents, but can be used with JSON too
 by converting the JSON to XML with the built-in filters:
 
 ```
