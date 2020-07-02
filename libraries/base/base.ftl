@@ -29,7 +29,7 @@
   @param class Optional <code>class</code> attribute to use on the &lt;form&gt; tag
 -->
 <#macro SearchForm preserveTab=true class="">
-  <form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET"<#if class?has_content> class="${class}"</#if>>
+  <form action="${question.getCurrentProfileConfig().get("ui.modern.search_link")}" method="GET"<#if class?has_content> class="${class}"</#if>>
     <input type="hidden" name="collection" value="${question.collection.id}">
 
     <#list ["enc", "form", "scope", "lang", "profile"] as parameter>
@@ -107,7 +107,7 @@
     <span class="search-counts-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
     <span class="search-counts-page-end">${response.resultPacket.resultsSummary.currEnd}</span> of
     <span class="search-counts-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-    <#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong>
+    <#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong> <#list response.resultPacket.QSups as qsup>or <strong>${qsup.query}</strong><#if qsup_has_next>, </#if></#list>
   </#if>
 
   <#if (response.resultPacket.resultsSummary.partiallyMatching!0) != 0>
@@ -267,7 +267,7 @@
         <#-- If not defined, attempt to get it depending on the gscopes the result belong to -->
         <#if !resultDisplayLibrary?has_content>
           <#list (result.gscopesSet)![] as gscope>
-            <#assign resultDisplayLibrary = question.collection.configuration.value("stencils.template.result.${gscope}")!"" />
+            <#assign resultDisplayLibrary = question.getCurrentProfileConfig().get("stencils.template.result.${gscope}")!"" />
             <#if resultDisplayLibrary?has_content>
               <#break>
             </#if>

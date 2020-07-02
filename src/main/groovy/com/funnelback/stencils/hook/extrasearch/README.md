@@ -42,3 +42,14 @@ stencils.tabs.extra_searches.Courses=events
 stencils.tabs.extra_searches.Events=events
 stencils.tabs.extra_searches.Social media=events
 ```
+
+Note: The extra search functionality provided by this script requires that a tab is explicitly selected.
+It is highly recommended to specify the default tab by using the following configuration:
+```
+stencils.tabs.default=<name of tab>
+e.g.
+
+stencils.tabs.default=All Results
+```
+
+Please see "[Pre-select a tab by default](../tabs/README.md)" for more information.
