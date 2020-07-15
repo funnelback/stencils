@@ -143,9 +143,11 @@
 </#macro>
 
 <#macro Configuration>
+  <#local host=httpRequest.getHeader('host')>
   <script type="text/javascript">
     window.addEventListener('DOMContentLoaded', function() {
       new Funnelback.SessionCart({
+        apiBase: 'https://${host}/',
         collection: '${question.collection.id}',
         iconPrefix: '',
         cartCount: {
@@ -181,6 +183,7 @@
         }
       });
       new Funnelback.SessionHistory({
+        apiBase: 'https://${host}/',
         collection: '${question.collection.id}',
         currentSearchHistorySelectors: ['.session-history-search-results'],
         currentClickHistorySelectors: ['.session-history-click-results']
