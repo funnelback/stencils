@@ -1,4 +1,4 @@
-package com.funnelback
+package com.funnelback.stencils.gather
 
 import com.funnelback.common.config.Config
 import com.funnelback.common.io.store.RawBytesRecord
