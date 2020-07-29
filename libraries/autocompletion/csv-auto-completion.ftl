@@ -3,14 +3,14 @@
   Template to generate CSV completions for the Concierge based
   on the indexed document metadata
 -->
-<#assign stopWordsList><#include "/share/lang/${question.collection.configuration.value('stencils.auto-completion.stop-words', 'en')}_stopwords"></#assign>
+<#assign stopWordsList><#include "/share/lang/${question.getCurrentProfileConfig().get('stencils.auto-completion.stop-words')!'en'}_stopwords"></#assign>
 <#assign stopWords = stopWordsList?split("[\r\n]", "r")>
-<#assign actionType = question.collection.configuration.value("stencils.auto-completion.action-type")!"U">
+<#assign actionType = question.getCurrentProfileConfig().get("stencils.auto-completion.action-type")!"U">
+<#assign triggers = question.getCurrentProfileConfig().get("stencils.auto-completion.triggers")!?split(",")>
 
 <#list (response.resultPacket.results)![] as result>
     <#if result.class.simpleName != "TierBar">
-        <#-- Read the list of triggers to generate from collection.cfg. Can be just the result title, or any metadata field -->
-        <#list question.collection.configuration.value("stencils.auto-completion.triggers")!?split(",") as metaDataOrTitle>
+        <#list triggers as metaDataOrTitle>
             <#if (metaDataOrTitle == "title" && result.title?has_content) || result.metaData[metaDataOrTitle]!?has_content>
                 <#assign field = result.title>
                 <#if metaDataOrTitle != "title">
@@ -60,7 +60,7 @@
 
 <#-- Generates a single CSV line, for a trigger, data to display and URL to navigate to -->
 <#macro csvLine trigger data action actionType>
-"${trigger}",100,${data},J,"${escapeCsv(question.collection.configuration.value("stencils.auto-completion.category")!)}",,"${escapeCsv(action)}",${actionType}
+"${trigger}",100,${data},J,"${escapeCsv(question.getCurrentProfileConfig().get("stencils.auto-completion.category")!)}",,"${escapeCsv(action)}",${actionType}
 </#macro>
 
 <#-- Escapes a String suitably for CSV -->
