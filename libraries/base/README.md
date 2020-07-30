@@ -25,3 +25,23 @@ stencils.client_includes.[header/footer].timeout=(time to wait for the resource,
 stencils.client_includes.[header/footer].removeByCssSelectors=(list of jSoup selectors to remove elements)
 stencils.client_includes.[header/footer].expiry=(time to hold HTML in cache, in seconds)
 ```
+
+## history_cart.ftl
+
+The Funnelback API endpoints for the cart, search history, and click history are (respectively):
+`/s/cart.json`, `/s/search-history.json`, and `/s/click-history.json`.
+
+In an embedded HTML integration, the cart and history asynchronous HTTP request may be proxied through the client's back-end to the Funnelback server to correctly pass the sessions cookie. The API base is likely not the same, it can be configured in the profile or collection configuration settings as follows:
+
+```
+stencils.sessions.cart.api_base=<proxy endpoint for cart in client back-end>
+stencils.sessions.history.search.api_base=<proxy endpoint for search history in client back-end>
+stencils.sessions.history.click.api_base=<proxy endpoint for click history in client back-end>
+```
+
+For example, proxy endpoints in a Wordpress CMS might be located at:
+```
+stencils.sessions.cart.api_base=/search/wp-json/funnelback/v1/cart
+stencils.sessions.history.search.api_base=/search/wp-json/funnelback/v1/search-history
+stencils.sessions.history.click.api_base=/search/wp-json/funnelback/v1/click-history
+```
