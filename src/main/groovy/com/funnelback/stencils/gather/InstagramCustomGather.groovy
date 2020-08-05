@@ -1,4 +1,4 @@
-package com.funnelback
+package com.funnelback.stencils.gather
 
 import com.funnelback.common.config.Config
 import com.funnelback.common.io.store.RawBytesRecord
@@ -18,7 +18,7 @@ class InstagramCustomGather {
         'ACCESS_TOKEN': 'stencils.instagram.user-access-token',
         'MEDIA_FIELDS': 'stencils.instagram.media-fields',
     ]
-    String MEDIA_FIELDS_DEFAULT_VALUE = 'media_type,media_url,timestamp,caption,permalink,thumbnail_url'
+    String MEDIA_FIELDS_DEFAULT_VALUE = 'media_type,media_url,timestamp,caption,permalink,thumbnail_url,username'
     JsonSlurper jsonSlurper = new JsonSlurper()
 
     /**
@@ -39,30 +39,38 @@ class InstagramCustomGather {
     }
 
     /**
-     * Get the username from the /me endpoint
-     *
-     * Response format:
-     * { username: "..." }
-     *
-     * @return User ID corresponding to the User Access Token
+     * Refresh the user access token
+     * Long-lived tokens have a life of 60 days before expiring, there are no never-expiring tokens
+     * Refresh the token via API and write the new value to the collection configuration
      */
-    String getUsername() {
-        URL userNode = new URL("https://graph.instagram.com/me?access_token=${userAccessToken}&fields=id,username")
-        // HTTP GET request and parse JSON
-        def userNodeResponse = jsonSlurper.parse(userNode)
 
-        String username = userNodeResponse.username
-        if (!username) {
-            throw new RuntimeException("Unable to determine username")
+    InstagramCustomGather refreshToken(File searchHome, String collection) {
+        URL refreshUrl = new URL("https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${userAccessToken}")
+        def response
+        try {
+            response = jsonSlurper.parse(refreshUrl)
+        } catch (Exception exception) {
+            println "Error refreshing access token.\n"
+            throw exception
         }
-        return username
+        if (response?.access_token) {
+            println "Old token: ${userAccessToken}"
+            userAccessToken = response.access_token
+            println "New token: ${userAccessToken}"
+            def collectionCfg = new File(searchHome, "conf/${collection}/collection.cfg")
+            def configText = collectionCfg.text
+            def pattern = ~/(?m)^instagram\.user-access-token=(.+)$/
+            def matcher = configText =~ pattern
+            if (matcher.find()) {
+                collectionCfg.text = configText.replaceAll(pattern, "instagram.user-access-token=${userAccessToken}")
+            }
+        } else {
+            throw new RuntimeException("Refreshing access token failed.\nResponse:\n${JsonOutput.toJson(response)}")
+        }
+        return this
     }
 
     void gather() {
-        // username isn't returned in the media endpoint, so needs to be injected into each media record
-        String username = getUsername()
-        config.setProgressMessage("Gathering posts for ${username}...")
-
         // Allow configuration of the media fields to request and fallback on a default value
         String userMediaFields = config.value(CONFIG_KEYS['MEDIA_FIELDS'], MEDIA_FIELDS_DEFAULT_VALUE)
 
@@ -88,14 +96,13 @@ class InstagramCustomGather {
                 // Iterate through response data and add JSON records to the store
                 myMediaEdgeResponse.data.each { userMediaData ->
                     String url = userMediaData.permalink
-                    userMediaData.username = username  // inject the username into the record
                     byte[] bytes = JsonOutput.toJson(userMediaData).getBytes('UTF-8')
 
                     RawBytesRecord record = new RawBytesRecord(bytes, url)
                     ArrayListMultimap<String,String> metadata = ArrayListMultimap.create()
                     store.add(record, metadata)
                 }
-                config.setProgressMessage("Gathered ${numRecords} posts for ${username}...")
+                config.setProgressMessage("Gathered ${numRecords} posts...")
 
                 // Stop if there is no "next" URL
                 if (!myMediaEdgeResponse?.paging?.next) {
@@ -108,14 +115,17 @@ class InstagramCustomGather {
             // Ensure the store is closed
             store.close()
         }
-
+        
         config.setProgressMessage("Finished gathering user media, gathered ${numRecords} records.")
     }
 
     // main method is run when the custom gather is started
     static void main(String[] args) {
+        File searchHome = new File(args[0])
+        String collection = args[1]
         new InstagramCustomGather()
-            .init(new File(args[0]), args[1])
+            .init(searchHome, collection)
+            .refreshToken(searchHome, collection)
             .gather()
     }
 }

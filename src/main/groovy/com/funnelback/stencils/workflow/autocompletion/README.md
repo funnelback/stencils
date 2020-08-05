@@ -13,7 +13,7 @@ words to be generated.
 
 ### Configuration
 
-Call the workflow in the `collection.cfg` file:
+Call the workflow in the collection configuration settings:
 
 ```
 post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/partializeCSVAutoCompletion.groovy -i /path/to/input.csv -o /path/to/output.csv
@@ -37,15 +37,20 @@ The concierge then needs to be configured to hit the specific profile on the spe
 
 * Create a profile `auto-completion` on the collection by creating the folders `conf/$COLLECTION/auto-completion`, `conf/$COLLECTION/auto-completion_preview`
 * Create a FTL template in this profile named `auto-completion.ftl`: `conf/$COLLECTION/auto-completion/auto-completion.ftl`. This template should generate CSV data
-* Edit the `collection.cfg` file:
+* Edit the collection configuration settngs:
 
+```
+post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy -c $COLLECTION_NAME -p auto-completion -v $CURRENT_VIEW
+```
+
+* Edit the collection or profile configuration settings:
 ```
 stencils.auto-completion.triggers=title,firstName,lastName
 stencils.auto-completion.action-type=Q
 ui.modern.form.auto-completion.content_type=text/plain
-post_index_command=$GROOVY_COMMAND $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils/workflow/autocompletion/generateCSVAutoCompletion.groovy -c $COLLECTION_NAME -p auto-completion -v $CURRENT_VIEW
 ```
 
+- Multiple profiles can be used to generate separate autocompletion CSV datasets, if so, set the triggers / action types at the profile level and add a command for each profile to the `post_index_command` in the collection configuration settings.
 - The triggers configure which metadata fields in the results will be used as completion trigger
 - The action type configures what to do when a suggestion is clicked on. The default (`U`) will navigate to the suggestion URL. `Q` will run a search with the suggestion title.
 - `text/plain` is not strictly needed but is nice to have when testing the template. `$COLLECTION_NAME` and `$CURRENT_VIEW` will be automatically expanded by Funnelback

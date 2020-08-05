@@ -2,7 +2,8 @@ import com.funnelback.common.config.CollectionId
 import com.funnelback.common.config.Config
 import com.funnelback.common.config.NoOptionsConfig
 import com.funnelback.http.cookies.SimpleCookieJar
-import com.funnelback.http.forminteraction.FormInteractionConfigParsing
+import com.funnelback.http.forminteraction.model.InCrawlFormInteractionStep
+import com.funnelback.http.forminteraction.model.PreCrawlFormInteractionStep
 import com.funnelback.http.forminteraction.InCrawlFormInteractionInterceptor
 import com.funnelback.http.forminteraction.RefreshablePreCrawlFormInteractionInterceptor
 import okhttp3.Cookie
@@ -66,24 +67,32 @@ OkHttpClient.Builder builder = new OkHttpClient.Builder()
 SimpleCookieJar cookieJar = new SimpleCookieJar()
 builder.cookieJar(cookieJar)
 
+
+
 // Add a pre-crawl form interaction step for the login form with the username/password
-Set<FormInteractionConfigParsing.FormInteractionStep> configuredPreCrawlInteractions = new HashSet<>()
+def preCrawlParameters = [
+    'UserName': URLEncoder.encode(USERNAME, 'UTF-8'),
+    'password': URLEncoder.encode(PASSWORD, 'UTF-8'),
+]
+
+Set<PreCrawlFormInteractionStep> configuredPreCrawlInteractions = new HashSet<>()
 configuredPreCrawlInteractions.add(
-    new FormInteractionConfigParsing.FormInteractionStep(
+    new PreCrawlFormInteractionStep(
         START_URL,
         1,
-        "parameters:[UserName=${URLEncoder.encode(USERNAME, "UTF-8")}&password=${URLEncoder.encode(PASSWORD, "UTF-8")}]"
+        preCrawlParameters
     )
 )
 
 // Add an in-crawl form interaction step for the SAML POST response form that browsers send a POST by clicking the form
 // with Javascript.
-Set<FormInteractionConfigParsing.FormInteractionStep> configuredInCrawlInteractions = new HashSet<>()
+LinkedHashMap<String, String> inCrawlParameters = []
+
+Set<InCrawlFormInteractionStep> configuredInCrawlInteractions = new HashSet<>()
 configuredInCrawlInteractions.add(
-    new FormInteractionConfigParsing.FormInteractionStep(
+    new InCrawlFormInteractionStep(
         POST_RESPONSE_PAGE,
-        1,
-        "parameters:[]"
+        inCrawlParameters
     )
 )
 
