@@ -143,9 +143,11 @@
 </#macro>
 
 <#macro Configuration>
+  <#local host=httpRequest.getHeader('host')>
   <script type="text/javascript">
     window.addEventListener('DOMContentLoaded', function() {
       new Funnelback.SessionCart({
+        apiBase: '${question.getCurrentProfileConfig().get("stencils.sessions.cart.api_base")!"https://${host}/s/cart.json"}',
         collection: '${question.collection.id}',
         iconPrefix: '',
         cartCount: {
@@ -181,6 +183,8 @@
         }
       });
       new Funnelback.SessionHistory({
+        searchApiBase: '${question.getCurrentProfileConfig().get("stencils.sessions.history.search.api_base")!"https://${host}/s/search-history.json"}',
+        clickApiBase: '${question.getCurrentProfileConfig().get("stencils.sessions.history.click.api_base")!"https://${host}/s/click-history.json"}',
         collection: '${question.collection.id}',
         currentSearchHistorySelectors: ['.session-history-search-results'],
         currentClickHistorySelectors: ['.session-history-click-results']

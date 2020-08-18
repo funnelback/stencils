@@ -6,9 +6,20 @@ This custom gather script uses the Instagram Basic Display API to gather posts f
 
 ### Usage
 
-In a `custom` collection, copy the `InstagramCustomGather.groovy` script into the collection directory as a `custom_gather.groovy` file, and configure the collection as described below.
+In a `custom` collection, create the `custom_gather.groovy` script as below.
 
-Additionally, the Instagram API endpoint produced a JSON response, which must be converted into XML to index in Funnelback.
+```groovy
+import com.funnelback.stencils.gather.InstagramCustomGather
+
+File searchHome = new File(args[0])
+String collection = args[1]
+new InstagramCustomGather()
+    .init(searchHome, collection)
+    .refreshToken(searchHome, collection)
+    .gather()
+```
+
+Additionally, the Instagram API endpoint produces a JSON response, which must be converted into XML to index in Funnelback.
 
 See [JSON to XML filter](https://docs.funnelback.com/develop/programming-options/document-filtering/builtin-filters-JSONToXML.html).
 
@@ -27,7 +38,9 @@ The default value of the `stencils.instagram.media-fields` configuration option 
 
 The Instagram [User Token Generator](https://developers.facebook.com/docs/instagram-basic-display-api/overview#user-token-generator) can be used to generate a User Access Token. By using this method, the app within the Facebook developer portal does not need elevated permissions or require going through App Review to use the Basic Display API to read its own data.
 
-NOTE: This script currently can only process one User Access Token. The script could be extended in the future to take a comma-separated list of User Access Token.
+User Access Tokens must be long-lived (valid for 60 days). This gather script programmatically refreshes the token before each use, which produces a new token valid for another 60 days.
+
+NOTE: This script currently can only process one User Access Token. The script could be extended in the future to take a comma-separated list of User Access Tokens.
 
 ### Sample Output
 
