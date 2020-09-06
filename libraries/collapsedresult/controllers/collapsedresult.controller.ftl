@@ -78,7 +78,7 @@
 -->
 <#macro CollapsedUrl><#compress>
 
-	<#local searchLink = "${question.collection.configuration.value('ui.modern.search_link')}">
+	<#local searchLink = "${question.getCurrentProfileConfig().get('ui.modern.search_link')}">
 	<#local searchQuery = "${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${.namespace.collapsed.signature}&amp;fmo=on&amp;collapsing=off" >
 	<#local url = "${searchLink}?${searchQuery}" >
 

@@ -204,7 +204,7 @@
 -->
 <#macro Url><#compress>
 	<#if (.namespace.tabValue.queryStringParam)!?has_content>
-		<#assign urlStem = question.collection.configuration.value("ui.modern.search_link") + "?">
+		<#assign urlStem = question.getCurrentProfileConfig().get("ui.modern.search_link") + "?">
 		<#assign parameters = ["collection", "profile", "form", "query", "admin"]>
 
 		<#assign tabMenuUrl = base_controller.buildQueryString(parameters, urlStem)>
@@ -388,7 +388,7 @@
 	<#local paramName = "f." + tabGroup + "|" + code>
 
 	<#-- Generate the more link -->
-	<#local searchLink = question.collection.configuration.value("ui.modern.search_link") + "?">
+	<#local searchLink = question.getCurrentProfileConfig().get("ui.modern.search_link") + "?">
 	<#local moreLink = base_controller.buildQueryString(params, searchLink) + "&" + paramName!?url + "=" + value!?url>
 
 	${moreLink}

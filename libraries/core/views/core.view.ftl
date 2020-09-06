@@ -70,7 +70,7 @@
 		Include the required session scripts only if they have been specified
 		in the collection.cfg
 	-->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${GlobalResourcesPrefix}js/funnelback-session.js"></script>
@@ -242,7 +242,7 @@
 	<!-- core.view.ftl :: ViewModeBanner -->
 	<@core_controller.AdminUIOnly>
 		<#local style="padding: 5px; font-family: Verdana; text-align: right; border: solid 2px #aaa; font-size: small;" />
-		<#local returnTo=ContextPath+"/"+question.collection.configuration.value("ui.modern.search_link")+"?"+QueryString />
+		<#local returnTo=ContextPath+"/"+question.getCurrentProfileConfig().get("ui.modern.search_link")+"?"+QueryString />
 		<#if question.profile?ends_with("_preview")>
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
@@ -392,7 +392,7 @@
 			<#-- Display the search form used to conduct the query against Funnelback -->
 			<@SearchForm>
 				<div class="input-group">
-					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
+					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.getCurrentProfileConfig().get('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
@@ -409,7 +409,7 @@
 	<!-- core.view.ftl :: AfterSearchForm -->
 	<@SearchForm class="navbar-form navbar-left form-inline">
 		<div class="form-group">
-			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
+			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.getCurrentProfileConfig().get('service_name')}... ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
 		</div>
 		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
 
@@ -454,7 +454,7 @@
 
 			<#-- Display the various search tools -->
 			<ul class="nav navbar-nav navbar-right">
-				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+				<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 					<li data-ng-class="{active: isDisplayed('cart')}">
 						<a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.CORE_NAVBAR_CART_TITLE_SUFFIX)!"item(s) in your selection"}">
 							<span class="glyphicon glyphicon-shopping-cart"></span>
@@ -471,7 +471,7 @@
 							${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}</a>
 						</li>
 						<#-- Search history menu item -->
-						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+						<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 							<li data-ng-class="{active: isDisplayed('history')}">
 								<a href="#" data-ng-click="toggleHistory()" title="${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search history"}">
 									${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search History"}
@@ -514,28 +514,28 @@
               <li role="presentation" class="dropdown-header">${(response.translations.CORE_LANGUAGE_EXAMPLES)!'Examples'}</li>
 
 							<#-- Language options -->
-							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
+							<li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
               <#--
 								Malaysian
-								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
+								<li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
 							-->
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ja_JP" title="Japanese"><span lang="ja">日本語</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ja_JP" title="Japanese"><span lang="ja">日本語</span></a></li>
               <li role="presentation" class="divider"></li>
               <#--
 								Other language which will be completed
 	              <li role="presentation" class="dropdown-header">Extended</li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
 
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
           		-->
               </#noescape>
             </ul>
@@ -856,7 +856,7 @@
 -->
 <#macro QueryHistory>
 	<!-- core.view.ftl :: QueryHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size gt 0>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session.searchHistory?? && session.searchHistory?size gt 0>
 		<#-- Build a list of previous queries -->
 		<#assign qsSignature = computeQueryStringSignature(QueryString) />
 		<#if session.searchHistory?? && (session.searchHistory?size gt 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
@@ -879,7 +879,7 @@
 							</#list>
 							</#compress></#local>
 							<li>
-								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"<#else>title="${prettyTime(h.searchDate!)}"</#if> href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
+								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"<#else>title="${prettyTime(h.searchDate!)}"</#if> href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
 								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></#if>
 							</li>
 						</#if>
@@ -900,7 +900,7 @@
 -->
 <#macro SearchHistory>
 	<!-- core.controller.ftl :: SearchHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<div id="search-history-info" data-ng-cloak data-ng-show="isDisplayed('history')">
 			<div class="row">
 				<div class="col-md-12">
@@ -983,7 +983,7 @@
 
 <#macro CartSection>
 	<!-- core.controller.ftl :: Cart -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
 			<div class="row">
 				<div class="col-md-12">
@@ -1700,7 +1700,7 @@
 </#macro>
 
 <#macro ResultSessionCartTrigger labels="" titles="" icons="pushpin|remove" >
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<a href="#" data-ng-click="toggle()" data-cart-link data-css="${icons!}" title="{{label}}" class="stencils-print__hide">
 			<small class="glyphicon glyphicon-{{css}}"></small>
 		</a>
@@ -1721,7 +1721,7 @@
 
 
 <#macro ResultSessionHistoryClick icon="glyphicon glyphicon-time">
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 		<small class="text-warning stencils-print__hide">
 			<span class="${icon!}"></span>
 			<a title="${(response.translations.CORE_RESULT_SESSION_HISTORY_TITLE)!'Click history'}" href="#" class="text-warning" data-ng-click="toggleHistory()">

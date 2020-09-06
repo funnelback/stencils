@@ -3,7 +3,7 @@
   Template to generate CSV completions for the Concierge based
   on the indexed document metadata
 -->
-<#assign stopWordsList><#include "/share/lang/${question.getCurrentProfileConfig().get('stencils.auto-completion.stop-words')!'en'}_stopwords.ftl"></#assign>
+<#assign stopWordsList><#include "/share/lang/${question.getCurrentProfileConfig().get('stencils.auto-completion.stop-words')!'en'}_stopwords"></#assign>
 <#assign stopWords = stopWordsList?split("[\r\n]", "r")>
 <#assign actionType = question.getCurrentProfileConfig().get("stencils.auto-completion.action-type")!"U">
 <#assign triggers = question.getCurrentProfileConfig().get("stencils.auto-completion.triggers")!?split(",")>

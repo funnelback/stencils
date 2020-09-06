@@ -128,7 +128,7 @@
 	@param URL URL to append CGI parameters to. Defaults to ui.modern.search_link. (optional)
 	@return string
 -->
-<#macro CreateSearchUrl cgis=[] append=true url=question.collection.configuration.value("ui.modern.search_link")>
+<#macro CreateSearchUrl cgis=[] append=true url=question.getCurrentProfileConfig().get("ui.modern.search_link")>
 	<#compress>
 
 		<#local query = QueryString key ="">
@@ -339,7 +339,7 @@
   <#compress>
 	<#-- generate the link that can be used to reset all of the facets -->
 	<#if question.selectedCategoryValues?has_content>
-	  <#assign clearAllFacetsLink = question.collection.configuration.value("ui.modern.search_link")+"?"+removeParam(QueryString, question.  selectedCategoryValues?keys+["start_rank","facetScope"])/>
+	  <#assign clearAllFacetsLink = question.getCurrentProfileConfig().get("ui.modern.search_link")+"?"+removeParam(QueryString, question.  selectedCategoryValues?keys+["start_rank","facetScope"])/>
 	  ${clearAllFacetsLink}
 	</#if>
   </#compress>
@@ -405,7 +405,7 @@
 	@param columnsNumber - set this column number as default column number
 	@param cgi - The cgi paramater this is linked to. leave as empty to not have it linked
 -->
-<#macro ResultsColumns columnsNumber=question.collection.configuration.value("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns" result=core_controller.result>
+<#macro ResultsColumns columnsNumber=question.getCurrentProfileConfig().get("stencils.base.results_columns.results_columns_number")!"2" cgi="resultsColumns" result=core_controller.result>
 
 	<#-- Define attributes -->
 	<#assign resultsColumnsCgi = cgi in .namespace>
@@ -512,7 +512,7 @@
 	Constructor for share tools
 -->
 <#macro ShareTools>
-<#if (question.collection.configuration.value("stencils.base.share_tools"))?has_content && question.collection.configuration.value("stencils.base.share_tools") = "enabled" >
+<#if (question.getCurrentProfileConfig().get("stencils.base.share_tools"))?has_content && question.getCurrentProfileConfig().get("stencils.base.share_tools") = "enabled" >
 	<#assign shareToolsID in .namespace><@ShareToolsID /></#assign>
 	<#nested>
 </#if>
@@ -522,7 +522,7 @@
 	Get the ID for the share tools plugin
  -->
 <#macro ShareToolsID><#compress>
-${question.collection.configuration.value("stencils.base.share_tools.id")}
+${question.getCurrentProfileConfig().get("stencils.base.share_tools.id")}
 </#compress></#macro>
 <#-- @end --><#-- / Category - Share tools -->
 
@@ -679,7 +679,7 @@ ${question.collection.configuration.value("stencils.base.share_tools.id")}
 <#function PaginationGetFirstUrl>
 	<#if response?exists && response.resultPacket?exists && response.resultPacket.resultsSummary?exists>
 		<#if response.resultPacket.resultsSummary.prevStart?exists>
-			<#return question.collection.configuration.value("ui.modern.search_link") + "?" + removeParam(QueryString, "start_rank") />
+			<#return question.getCurrentProfileConfig().get("ui.modern.search_link") + "?" + removeParam(QueryString, "start_rank") />
 		</#if>
 	</#if>
 	<#return "">
@@ -692,7 +692,7 @@ ${question.collection.configuration.value("stencils.base.share_tools.id")}
 	<#if response?exists && response.resultPacket?exists && response.resultPacket.resultsSummary?exists>
 		<#if response.resultPacket.resultsSummary.nextStart?exists>
 			<#assign lastStartRank = response.resultPacket.resultsSummary.totalMatching - response.resultPacket.resultsSummary.numRanks + 1  />
-			<#return question.collection.configuration.value("ui.modern.search_link") + "?" + changeParam(QueryString, "start_rank", lastStartRank) />
+			<#return question.getCurrentProfileConfig().get("ui.modern.search_link") + "?" + changeParam(QueryString, "start_rank", lastStartRank) />
 		</#if>
 	</#if>
 	<#return "">
