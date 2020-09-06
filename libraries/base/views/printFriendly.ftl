@@ -43,12 +43,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="robots" content="nofollow">
 		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-		<title><@core_controller.AfterSearchOnly>${question.inputParameterMap["query"]!}<@core_controller.IfDefCGI name="query">,&nbsp;</@core_controller.IfDefCGI></@core_controller.AfterSearchOnly><@core_controller.cfg>service_name</@core_controller.cfg> -	Funnelback Search</title>
+		<title><@core_controller.AfterSearchOnly>${question.inputParameters["query"]?first!}<@core_controller.IfDefCGI name="query">,&nbsp;</@core_controller.IfDefCGI></@core_controller.AfterSearchOnly><@core_controller.cfg>service_name</@core_controller.cfg> -	Funnelback Search</title>
 
 		<@base_view.printCSS />
 </head>
 <body>
-	<h1><@core_controller.AfterSearchOnly>${question.inputParameterMap["query"]!}<@core_controller.IfDefCGI name="query">,&nbsp;</@core_controller.IfDefCGI></@core_controller.AfterSearchOnly><@core_controller.cfg>service_name</@core_controller.cfg> -	Funnelback Search</h1>
+	<h1><@core_controller.AfterSearchOnly>${question.inputParameters["query"]?first!}<@core_controller.IfDefCGI name="query">,&nbsp;</@core_controller.IfDefCGI></@core_controller.AfterSearchOnly><@core_controller.cfg>service_name</@core_controller.cfg> -	Funnelback Search</h1>
 
 	<@base_view.PrintMessage />
 

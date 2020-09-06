@@ -96,9 +96,8 @@
 -->
 <#macro cfg><#compress>
 	<#local key><#nested></#local>
-	<#if key?? && key != ""
-		&& question.collection.configuration.value(key)??>
-		${question.collection.configuration.value(key)}
+	<#if key?? && key != "" && question.currentProfileConfig.get(key)??>
+		${question.currentProfileConfig.get(key)}
 	</#if>
 </#compress></#macro>
 
@@ -114,9 +113,7 @@
 	@param name Name of the parameter to test.
 -->
 <#macro IfDefCGI name><#compress>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap?keys?seq_contains(name)>
+	<#if question.inputParameters?keys?seq_contains(name)>
 		<#nested>
 	</#if>
 </#compress></#macro>
@@ -133,9 +130,7 @@
 	@param name Name of the parameter to test.
 -->
 <#macro IfNotDefCGI name><#compress>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap?keys?seq_contains(name)>
+	<#if !question.inputParameters?keys?seq_contains(name)>
 	<#else>
 		<#nested>
 	</#if>
@@ -148,11 +143,9 @@
 -->
 <#macro cgi><#compress>
 	<#local key><#nested></#local>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap[key]??>
+	<#if question.inputParameters?keys?seq_contains(key)>
 		<#-- Return first element only, to mimic Perl UI behavior -->
-		${question.inputParameterMap[key]?html!}
+		${question.inputParameters[key]?first?html!}
 	</#if>
 </#compress></#macro>
 
@@ -308,8 +301,8 @@
 
 	<#-- Get the selected value -->
 	<#local selectedValue = defaultValue />
-	<#if question.inputParameterMap[name]?? && question.inputParameterMap[name] != "">
-		<#local selectedValue = question.inputParameterMap[name] />
+	<#if question.inputParameters?keys?seq_contains(name) && question.inputParameters[name]?size gt 0>
+		<#local selectedValue = question.inputParameters[name]?first />
 	</#if>
 
 	<#assign selectSelectedValue = selectedValue in .namespace>

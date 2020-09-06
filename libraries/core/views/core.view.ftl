@@ -347,20 +347,20 @@
 
 <#--- Display the search form used to conduct the query against Funnelback -->
 <#macro SearchForm attrs...>
-	<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
-		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+	<form action="${question.currentProfileConfig.get("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
+		<input type="hidden" name="collection" value="${question.collection.id!}">
+		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameters["enc"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameters["form"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameters["scope"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameters["lang"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameters["lang.ui"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.profile!}"></@core_controller.IfDefCGI>
 		<#nested />
 	</form>
 </#macro>
 
 <#--- Display the query field -->
-<#macro SearchFormQuery name="query" type="text" value=question.inputParameterMap[name]!'' attrs...>
+<#macro SearchFormQuery name="query" type="text" value=question.inputParameters[name]?first!'' attrs...>
 	<input name="${name}" type="${type}" value="${value}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
 </#macro>
 
@@ -718,7 +718,7 @@
 			<label class="control-label col-md-4" for="num_ranks">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_TITLE)!'Results'}</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
+					<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameters["num_ranks"]?first!10}" class="form-control input-sm">
 					<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIX)!'per page'}</span>
 				</div>
 			</div>
@@ -734,7 +734,7 @@
 			<div class="col-md-8">
 				<div class="input-group">
 					<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="${(response.translations.CORE_ADVANCED_SEARCH_LOCATE_ME_MSG)!'Locate me!'}" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
-					<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
+					<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameters["origin"]?first!}" class="form-control input-sm">
 				</div>
 			</div>
 		</div>
@@ -742,7 +742,7 @@
 			<label class="control-label col-md-4" for="maxdist">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_TITLE)!'Distance'}</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
+					<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameters["maxdist"]?first!}" class="form-control input-sm">
 					<span class="input-group-addon">
 						${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_SUFFIX)!'km'}
 					</span>
@@ -758,19 +758,19 @@
 		<div class="form-group">
 			<label for="meta_t" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_TITLE)!'Title'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
+				<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameters["meta_t"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="meta_a" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_TITLE)!'Author'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
+				<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameters["meta_a"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="meta_s" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_TITLE)!'Subject'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
+				<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameters["meta_s"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
@@ -798,25 +798,25 @@
 		<div class="form-group">
 			<label class="col-md-4 control-label" for="query-advanced">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_TITLE)!'Any'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+				<input type="text" id="query-advanced" name="query" value="${question.inputParameters["query"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_and" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_TITLE)!'All'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+				<input type="text" id="query_and" name="query_and" value="${question.inputParameters["query_and"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_TITLE)!'Phrase'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
+				<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameters["query_phrase"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_not" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_TITLE)!'Not'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
+				<input type="text" id="query_not" name="query_not" value="${question.inputParameters["query_not"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
 			</div>
 		</div>
 	</fieldset>
@@ -828,13 +828,13 @@
 		<div class="form-group">
 			<label class="control-label col-md-4" for="scope">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_TITLE)!'Domain'}</label>
 			<div class="col-md-8">
-				<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
+				<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameters["scope"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-4" for="meta_v">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_TITLE)!'Path'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
+				<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameters["meta_v"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 	</fieldset>
@@ -1184,11 +1184,11 @@
 -->
 <#macro Scope>
 	<!-- core.view.ftl :: Scope -->
-	<#if question.inputParameterMap["scope"]!?length != 0>
+	<#if question.inputParameters?keys?seq_contains("scope") && question.inputParameters["scope"]?size gt 0>
 		<div class="breadcrumb">
 			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> ${(response.translations.CORE_SCOPE_PREFIX)!'Scope'}:</span>
-			<@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate>
-			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["profile"]??>&amp;profile=${question.inputParameterMap["profile"]!}</#if><#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
+			<@core_controller.Truncate length=80>${question.inputParameters["scope"]?first!}</@core_controller.Truncate>
+			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameters["scope"]?first!}" href="?collection=${question.collection.id!}<#if question.inputParameters?keys?seq_contains("profile")>&amp;profile=${question.profile!}</#if><#if question.inputParameters?keys?seq_contains("form")>&amp;form=${question.inputParameters["form"]?first!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
 				<span class="glyphicon glyphicon-remove text-muted"></span>
 			</a>
 		</div>
@@ -1217,7 +1217,7 @@
 			<span id="search-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
 			<span id="search-page-end">${response.resultPacket.resultsSummary.currEnd}</span> ${(response.translations.CORE_COUNT_OF)!'of'}
 			<span id="search-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")>
+			<#if question.inputParameters["s"]?size gt 0 && question.inputParameters["s"]?seq_contains("?:")>
 				<em>${(response.translations.CORE_COUNT_COLLAPSED)!'collapsed'}</em>
 			</#if>
 			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean /></strong>
@@ -1325,7 +1325,7 @@
 		<p>${(response.translations.CORE_ZERO_RESULT_YOUR_SEARCH_FOR)!'Your search for'} <strong>${question.originalQuery!}</strong> ${(response.translations.CORE_ZERO_RESULT_DID_NOT_RETURN_MSG)!'did not return any results'}. ${(response.translations.CORE_ZERO_RESULT_ENSURE_MSG)!'Please ensure that you:'}</p>
 		<ul>
 			<li>${(response.translations.CORE_ZERO_RESULT_ADVANCED_OPERATORS_MSG)!'are not using any advanced search operators like + - | " etc.'}</li>
-			<li>${(response.translations.CORE_ZERO_RESULT_EXPECT_THIS_DOCUMENT_MSG)!'expect this document to exist within the'} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.CORE_ZERO_RESULT_AND_WITHIN)!'and within'} <em><@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
+			<li>${(response.translations.CORE_ZERO_RESULT_EXPECT_THIS_DOCUMENT_MSG)!'expect this document to exist within the'} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.CORE_ZERO_RESULT_AND_WITHIN)!'and within'} <em><@core_controller.Truncate length=80>${question.inputParameters["scope"]?first!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
 			<li>${(response.translations.CORE_ZERO_RESULT_HAVE_PERMISSION_MSG)!'have permission to see any documents that may match your query'}</li>
 		</ul>
 	</#if>

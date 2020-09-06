@@ -177,14 +177,14 @@
 
  -->
 <#macro IfDefCGIEquals name="" value="" trueIfEmpty=false>
-	<#if question?exists && question.inputParameterMap?exists && question.inputParameterMap?keys?seq_contains(name)>
-		<#local result = question.inputParameterMap[name] >
-		<#if result="">
+	<#if question.inputParameters?keys?seq_contains(name)>
+		<#local result = question.inputParameters[name] >
+		<#if result?size == 0>
 			<#if trueIfEmpty>
 				<#nested>
 			</#if>
 		<#else>
-			<#if result?matches(value)>
+			<#if result?seq_contains(value)>
 				<#nested>
 			</#if>
 		</#if>
@@ -203,9 +203,9 @@
 	@returns string
  -->
 <#macro GetCGIValue name="" default=""><#compress>
-	<#if question?exists && question.inputParameterMap?exists && question.inputParameterMap?keys?seq_contains(name)>
-		<#local result = question.inputParameterMap[name] >
-		<#if result="">
+	<#if question.inputParameters?keys?seq_contains(name)>
+		<#local  result = question.inputParameters[name]>
+		<#if result?size == 0>
 			${default}
 		<#else>
 			${result}
