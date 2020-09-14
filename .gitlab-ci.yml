@@ -1,6 +1,5 @@
-image: docker-hub.squiz.net/stencils/stencils:latest
-
 build:
+    image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils-15.24.0.x
     cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:
@@ -9,3 +8,4 @@ build:
         - ./gradlew build
     tags:
         - docker
+        - shared
