@@ -5,7 +5,7 @@
   @param result Result to display the link for
 -->
 <#macro LastVisitedLink result>
-  <#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(result.indexUrl)??>
+  <#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(result.indexUrl)??>
     <small class="text-success search-last-visited session-history-link"> 
       <button title="Click history" tabindex="0" class="btn-link text-success session-history-show border-0">
         <span class="far fa-clock"></span>
@@ -19,7 +19,7 @@
   Display the click and search history
 -->
 <#macro SearchHistory>
-  <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+  <#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
     <section id="search-history" class="search-history mb-3">
       <div class="container">
         <div class="row">
@@ -112,7 +112,7 @@
   the result is coming from (based on the <code>C</code> metadata).
 -->
 <#macro Cart>
-  <#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+  <#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
     <section id="search-cart" class="search-cart"></section>
   </#if>
 </#macro>

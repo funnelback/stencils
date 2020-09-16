@@ -111,7 +111,7 @@
 			</ul>
 		</div>
 
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 			<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
 				<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
 			</button>
@@ -126,7 +126,7 @@
 			<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 		</button>
 
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+		<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 			<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
 				<small class="text-warning">
 					<span class="glyphicon glyphicon-time"></span>
@@ -174,7 +174,7 @@
 			</ul>
 		</div>
 
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+		<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 			<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
 				<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
 			</button>
@@ -186,7 +186,7 @@
 
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-		<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+		<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 			<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
 				<small class="text-warning">
 					<span class="glyphicon glyphicon-time"></span>
@@ -1130,7 +1130,7 @@
 -->
 <#macro Cart>
 	<!-- core.controller.ftl :: Cart -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
 			<div class="row">
 				<div class="col-md-12">

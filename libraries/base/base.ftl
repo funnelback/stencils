@@ -33,7 +33,7 @@
     <input type="hidden" name="collection" value="${question.collection.id}">
 
     <#list ["enc", "form", "scope", "lang", "profile"] as parameter>
-      <@s.IfDefCGI name=parameter><input type="hidden" name="${parameter}" value="${question.inputParameterMap[parameter]!}"></@s.IfDefCGI>
+      <@s.IfDefCGI name=parameter><input type="hidden" name="${parameter}" value="${question.inputParameters[parameter]?first!}"></@s.IfDefCGI>
     </#list>
 
     <#if preserveTab>
@@ -68,11 +68,11 @@
   "shuffle": "Shuffle"} >
   <div class="dropdown float-right">
     <button class="btn btn-light btn-sm dropdown-toggle" id="search-sort" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="text-muted">Sort:</span> ${options[question.inputParameterMap["sort"]!]}
+      <span class="text-muted">Sort:</span> ${options[question.inputParameters["sort"]?first!]}
     </button>
     <div class="dropdown-menu" aria-labelledby="search-sort">
       <#list options as key, value>
-        <a class="dropdown-item" title="Sort by ${value}" href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString, "sort")}&sort=${key}">${value}</a>
+        <a class="dropdown-item" title="Sort by ${value}" href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(QueryString, "sort")}&sort=${key}">${value}</a>
       </#list>
     </div>
   </div>
@@ -86,11 +86,11 @@
 <#macro LimitDropdown limits=[10, 20, 50]>
   <div class="dropdown float-right ml-1">
     <button class="btn btn-light btn-sm dropdown-toggle" id="search-limit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="text-muted">Limit:</span> ${question.inputParameterMap["num_ranks"]!"10"}
+      <span class="text-muted">Limit:</span> ${question.inputParameters["num_ranks"]?first!"10"}
     </button>
     <div class="dropdown-menu" aria-labelledby="search-limit">
       <#list limits as limit>
-        <a class="dropdown-item" title="Limit to ${limit} results" href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString, "num_ranks")}&num_ranks=${limit}">${limit} results</a>
+        <a class="dropdown-item" title="Limit to ${limit} results" href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(QueryString, "num_ranks")}&num_ranks=${limit}">${limit} results</a>
       </#list>
     </div>
   </div>
@@ -107,7 +107,7 @@
     <span class="search-counts-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
     <span class="search-counts-page-end">${response.resultPacket.resultsSummary.currEnd}</span> of
     <span class="search-counts-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-    <#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong> <#list response.resultPacket.QSups as qsup>or <strong>${qsup.query}</strong><#if qsup_has_next>, </#if></#list>
+    <#if question.inputParameters?keys?seq_contains("s") && question.inputParameters["s"]?seq_contains("?:")><em>collapsed</em> </#if>search results for <strong><@s.QueryClean></@s.QueryClean></strong> <#list response.resultPacket.QSups as qsup>or <strong>${qsup.query}</strong><#if qsup_has_next>, </#if></#list>
   </#if>
 
   <#if (response.resultPacket.resultsSummary.partiallyMatching!0) != 0>
@@ -141,7 +141,7 @@
     <#if (response.resultPacket.spell)??>
       <div class="search-spelling">
         <span class="fas fa-question-circle"></span>
-        Did you mean <em><a href="${question.collection.configuration.value("ui.modern.search_link")}?${response.resultPacket.spell.url}" title="Spelling suggestion">${response.resultPacket.spell.text}</a></em>?
+        Did you mean <em><a href="${question.currentProfileConfig.get("ui.modern.search_link")}?${response.resultPacket.spell.url}" title="Spelling suggestion">${response.resultPacket.spell.text}</a></em>?
       </div>
     </#if>
 </#macro>
@@ -155,7 +155,7 @@
     <p>Your search for <strong><@s.QueryClean /></strong> did not return any results. Please ensure that you:</p>
     <ul>
       <li>are not using any advanced search operators like + - | " etc.</li>
-      <li>expect this document to exist within the <em><@s.cfg>service_name</@s.cfg></em> collection <@s.IfDefCGI name="scope"> and within <em><@s.Truncate length=80>${question.inputParameterMap["scope"]!}</@s.Truncate></em></@s.IfDefCGI></li>
+      <li>expect this document to exist within the <em><@s.cfg>service_name</@s.cfg></em> collection <@s.IfDefCGI name="scope"> and within <em><@s.Truncate length=80>${question.inputParameters["scope"]?first!}</@s.Truncate></em></@s.IfDefCGI></li>
       <li>have permission to see any documents that may match your query</li>
     </ul>
   </#if>

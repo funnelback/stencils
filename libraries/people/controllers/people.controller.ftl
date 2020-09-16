@@ -51,7 +51,7 @@
     @return true if the letter is currently selected, false otherwise
 -->
 <#function isLetterSelected letter>
-    <#return question.inputParameterMap["f.Initial|stencilsPeopleInitial"]! == letter>
+    <#return question.inputParameters["f.Initial|stencilsPeopleInitial"]?first! == letter>
 </#function>
 
 <#---
@@ -60,7 +60,7 @@
     @return true if no letters are currently selected, false otherwise
 -->
 <#function noLetterSelected>
-    <#return !question.inputParameterMap?keys?seq_contains("f.Initial|stencilsPeopleInitial")>
+    <#return !question.inputParameters?keys?seq_contains("f.Initial|stencilsPeopleInitial")>
 </#function>
 
 <#---
@@ -68,7 +68,7 @@
     being run
 -->
 <#macro BrowsingMode>
-    <#if !question.inputParameterMap?keys?seq_contains("query") && question.selectedFacets?size lte 0>
+    <#if !question.inputParameters?keys?seq_contains("query") && question.selectedFacets?size lte 0>
         <#nested>
     </#if>
 </#macro>
@@ -77,7 +77,7 @@
     Execute nested code if the user is currently searching (query or letter selection)
 -->
 <#macro SearchingMode>
-    <#if question.inputParameterMap?keys?seq_contains("query") || question.selectedFacets?size gt 0>
+    <#if question.inputParameters?keys?seq_contains("query") || question.selectedFacets?size gt 0>
         <#nested>
     </#if>
 </#macro>

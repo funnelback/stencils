@@ -74,7 +74,7 @@
         
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-sortmode">
             <#if people_controller.noLetterSelected()>
-                <li role="menuitem" <#if !question.inputParameterMap["sort"]??>class="active"</#if>><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["start_rank","sort"])}"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Relevance</a></li>
+                <li role="menuitem" <#if !question.inputParameters?keys?seq_contains("sort")>class="active"</#if>><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(QueryString,["start_rank","sort"])}"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span> Relevance</a></li>
             </#if>
             
             <#local sortModes = {
@@ -89,7 +89,7 @@
             } />
             
             <#list sortModes?keys as sortMode>
-                <li role="menuitem" <#if question.inputParameterMap["sort"]! == sortModes[sortMode]>class="active"</#if>><a href="${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(QueryString,["start_rank","sort"])}&sort=${sortModes[sortMode]}">${sortMode}</a></li>
+                <li role="menuitem" <#if question.inputParameters["sort"]?first! == sortModes[sortMode]>class="active"</#if>><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(QueryString,["start_rank","sort"])}&sort=${sortModes[sortMode]}">${sortMode}</a></li>
             </#list>
         </ul>
     </div>

@@ -70,7 +70,7 @@
 		Include the required session scripts only if they have been specified
 		in the collection.cfg
 	-->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular.js"></script>
 		<script src="${GlobalResourcesPrefix}thirdparty/angular-1.0.7/angular-resource.js"></script>
 		<script src="${GlobalResourcesPrefix}js/funnelback-session.js"></script>
@@ -242,7 +242,7 @@
 	<!-- core.view.ftl :: ViewModeBanner -->
 	<@core_controller.AdminUIOnly>
 		<#local style="padding: 5px; font-family: Verdana; text-align: right; border: solid 2px #aaa; font-size: small;" />
-		<#local returnTo=ContextPath+"/"+question.collection.configuration.value("ui.modern.search_link")+"?"+QueryString />
+		<#local returnTo=ContextPath+"/"+question.getCurrentProfileConfig().get("ui.modern.search_link")+"?"+QueryString />
 		<#if question.profile?ends_with("_preview")>
 			<div id="funnelback_form_mode" style="background-color: lightblue; ${style}">
 				<span id="publish_link"></span>
@@ -347,20 +347,20 @@
 
 <#--- Display the search form used to conduct the query against Funnelback -->
 <#macro SearchForm attrs...>
-	<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
-		<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
-		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameterMap["lang"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameterMap["lang.ui"]!}"></@core_controller.IfDefCGI>
-		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+	<form action="${question.currentProfileConfig.get("ui.modern.search_link")}" method="GET" role="search" <@core_controller.attrsShow attrs=attrs />>
+		<input type="hidden" name="collection" value="${question.collection.id!}">
+		<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameters["enc"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameters["form"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameters["scope"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang"><input type="hidden" name="lang" value="${question.inputParameters["lang"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="lang.ui"><input type="hidden" name="lang.ui" value="${question.inputParameters["lang.ui"]?first!}"></@core_controller.IfDefCGI>
+		<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.profile!}"></@core_controller.IfDefCGI>
 		<#nested />
 	</form>
 </#macro>
 
 <#--- Display the query field -->
-<#macro SearchFormQuery name="query" type="text" value=question.inputParameterMap[name]!'' attrs...>
+<#macro SearchFormQuery name="query" type="text" value=question.inputParameters[name]?first!'' attrs...>
 	<input name="${name}" type="${type}" value="${value}" accesskey="q" <@core_controller.attrsShow attrs=attrs />>
 </#macro>
 
@@ -392,7 +392,7 @@
 			<#-- Display the search form used to conduct the query against Funnelback -->
 			<@SearchForm>
 				<div class="input-group">
-					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
+					<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_INITIAL_FORM_SEARCH)!'Search'} ${question.getCurrentProfileConfig().get('service_name')}... - ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'}  ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control input-lg query" />
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-primary input-lg"><span class="glyphicon glyphicon-search"></span> ${(response.translations.CORE_INITIAL_FORM_SEARCH)!"Search"}</button>
 					</div>
@@ -409,7 +409,7 @@
 	<!-- core.view.ftl :: AfterSearchForm -->
 	<@SearchForm class="navbar-form navbar-left form-inline">
 		<div class="form-group">
-			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.collection.configuration.value('service_name')}... ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
+			<@SearchFormQuery required="required" id="query" title="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" placeholder="${(response.translations.CORE_AFTER_FORM_SEARCH)!'Search'} ${question.getCurrentProfileConfig().get('service_name')}... ${(response.translations.CORE_SEARCH_POWERED_BY_PREFIX)!'powered by'} ${(response.translations.CORE_FUNNELBACK_COMPANY_NAME)!'Funnelback'}" class="form-control query" data__ng__disabled="isDisplayed('cart') || isDisplayed('history')" />
 		</div>
 		<button type="submit" class="btn btn-primary" data-ng-disabled="isDisplayed('cart') || isDisplayed('history')"><span class="glyphicon glyphicon-search"></span> Search</button>
 
@@ -454,7 +454,7 @@
 
 			<#-- Display the various search tools -->
 			<ul class="nav navbar-nav navbar-right">
-				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+				<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 					<li data-ng-class="{active: isDisplayed('cart')}">
 						<a href="#" data-ng-click="toggleCart()" title="{{cart.length}} ${(response.translations.CORE_NAVBAR_CART_TITLE_SUFFIX)!"item(s) in your selection"}">
 							<span class="glyphicon glyphicon-shopping-cart"></span>
@@ -471,7 +471,7 @@
 							${(response.translations.CORE_NAVBAR_ADVANCED_SEARCH_TITLE)!'Advanced search'}</a>
 						</li>
 						<#-- Search history menu item -->
-						<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+						<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 							<li data-ng-class="{active: isDisplayed('history')}">
 								<a href="#" data-ng-click="toggleHistory()" title="${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search history"}">
 									${(response.translations.CORE_NAVBAR_SEARCH_HISTORY_TITLE)!"Search History"}
@@ -514,28 +514,28 @@
               <li role="presentation" class="dropdown-header">${(response.translations.CORE_LANGUAGE_EXAMPLES)!'Examples'}</li>
 
 							<#-- Language options -->
-							<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
+							<li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}"><span lang="en">English</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=de_DE&amp;lang=de" title="German"><span lang="de">Deutsch</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=es_ES&amp;lang=es" title="Spanish"><span lang="es">Español</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=fr_FR&amp;lang=fr" title="French"><span lang="fr">Français</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=nl_NL&amp;lang=nl" title="Dutch"><span lang="nl">Nederlands</span></a></li>
               <#--
 								Malaysian
-								<li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
+								<li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ml&amp;lang=ml" title="Malaysian"><span lang="ml">Bahasa Malaysia</span></a></li>
 							-->
-              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ja_JP" title="Japanese"><span lang="ja">日本語</span></a></li>
+              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ja_JP" title="Japanese"><span lang="ja">日本語</span></a></li>
               <li role="presentation" class="divider"></li>
               <#--
 								Other language which will be completed
 	              <li role="presentation" class="dropdown-header">Extended</li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zhm" title="Chinese (Simplified)"><span lang="zhs">简体中文</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=zht&amp;lang=zht" title="Chinese (Traditional)"><span lang="zht">繁體中文</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=pl&amp;lang=pl" title="Polish"><span lang="pl">Polski</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=vt&amp;lang=vt" title="Vietnamese"><span lang="vt">Tiếng Việt</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ko&amp;lang=ko" title="Korean"><span lang="ko">한국어</span></a></li>
 
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
-	              <li><a href="${question.collection.configuration.value("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=ar&amp;lang=ar" title="Arabic"><span lang="ar">العربية</span></a></li>
+	              <li><a href="${question.getCurrentProfileConfig().get("ui.modern.search_link")?html}?${removeParam(QueryString,["lang.ui","lang"])?html}&amp;lang.ui=th&amp;lang=th" title="Thai"><span lang="th">ไทย</span></a></li>
           		-->
               </#noescape>
             </ul>
@@ -718,7 +718,7 @@
 			<label class="control-label col-md-4" for="num_ranks">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_TITLE)!'Results'}</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameterMap["num_ranks"]!10}" class="form-control input-sm">
+					<input type="number" min="1" id="num_ranks" name="num_ranks" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_PlACEHOLDER_MSG)!''}" value="${question.inputParameters["num_ranks"]?first!10}" class="form-control input-sm">
 					<span class="input-group-addon">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_NUM_RANKS_SUFFIX)!'per page'}</span>
 				</div>
 			</div>
@@ -734,7 +734,7 @@
 			<div class="col-md-8">
 				<div class="input-group">
 					<span class="input-group-btn"><a class="btn btn-info search-geolocation btn-sm" title="${(response.translations.CORE_ADVANCED_SEARCH_LOCATE_ME_MSG)!'Locate me!'}" ><span class="glyphicon glyphicon-map-marker"></span></a></span>
-					<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameterMap["origin"]!}" class="form-control input-sm">
+					<input type="text" id="origin" name="origin" pattern="-?[0-9\.]+,-?[0-9\.]+" title="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_ORIGIN_PlACEHOLDER_MSG)!'Longitude, Latitude'}" value="${question.inputParameters["origin"]?first!}" class="form-control input-sm">
 				</div>
 			</div>
 		</div>
@@ -742,7 +742,7 @@
 			<label class="control-label col-md-4" for="maxdist">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_TITLE)!'Distance'}</label>
 			<div class="col-md-8">
 				<div class="input-group">
-					<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameterMap["maxdist"]!}" class="form-control input-sm">
+					<input type="number" min="0" id="maxdist" name="maxdist" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_PlACEHOLDER_MSG)!'e.g. 10'}" value="${question.inputParameters["maxdist"]?first!}" class="form-control input-sm">
 					<span class="input-group-addon">
 						${(response.translations.CORE_ADVANCED_SEARCH_FIELD_DISTANCE_SUFFIX)!'km'}
 					</span>
@@ -758,19 +758,19 @@
 		<div class="form-group">
 			<label for="meta_t" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_TITLE)!'Title'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameterMap["meta_t"]!}" class="form-control input-sm">
+				<input type="text" id="meta_t" name="meta_t" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_TITLE_PLACEHOLDER_MSG)!'e.g. A Midsummer Night\'s Dream'}" value="${question.inputParameters["meta_t"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="meta_a" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_TITLE)!'Author'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameterMap["meta_a"]!}" class="form-control input-sm">
+				<input type="text" id="meta_a" name="meta_a" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_AUTHOR_PLACEHOLDER_MSG)!'e.g. William Shakespeare'}" value="${question.inputParameters["meta_a"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="meta_s" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_TITLE)!'Subject'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameterMap["meta_s"]!}" class="form-control input-sm">
+				<input type="text" id="meta_s" name="meta_s" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SUBJECT_PLACEHOLDER_MSG)!'e.g. comedy'}" value="${question.inputParameters["meta_s"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
@@ -798,25 +798,25 @@
 		<div class="form-group">
 			<label class="col-md-4 control-label" for="query-advanced">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_TITLE)!'Any'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query-advanced" name="query" value="${question.inputParameterMap["query"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+				<input type="text" id="query-advanced" name="query" value="${question.inputParameters["query"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_and" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_TITLE)!'All'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_and" name="query_and" value="${question.inputParameterMap["query_and"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
+				<input type="text" id="query_and" name="query_and" value="${question.inputParameters["query_and"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_AND_PLACEHOLDER_MSG)!'e.g. juliet where thou love'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_phrase" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_TITLE)!'Phrase'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameterMap["query_phrase"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
+				<input type="text" id="query_phrase" name="query_phrase" value="${question.inputParameters["query_phrase"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_PHRASE_PLACEHOLDER_MSG)!'e.g. to be or not to be'}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="query_not" class="col-md-4 control-label">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_TITLE)!'Not'}</label>
 			<div class="col-md-8">
-				<input type="text" id="query_not" name="query_not" value="${question.inputParameterMap["query_not"]!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
+				<input type="text" id="query_not" name="query_not" value="${question.inputParameters["query_not"]?first!}" class="form-control input-sm" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_QUERY_NOT_PLACEHOLDER_MSG)!'e.g. brutus othello'}">
 			</div>
 		</div>
 	</fieldset>
@@ -828,13 +828,13 @@
 		<div class="form-group">
 			<label class="control-label col-md-4" for="scope">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_TITLE)!'Domain'}</label>
 			<div class="col-md-8">
-				<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameterMap["scope"]!}" class="form-control input-sm">
+				<input type="text" id="scope" name="scope" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_SCOPE_PlACEHOLDER_MSG)!'e.g. example.com'}" value="${question.inputParameters["scope"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-md-4" for="meta_v">${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_TITLE)!'Path'}</label>
 			<div class="col-md-8">
-				<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameterMap["meta_v"]!}" class="form-control input-sm">
+				<input type="text" id="meta_v" name="meta_v" placeholder="${(response.translations.CORE_ADVANCED_SEARCH_FIELD_PATH_PlACEHOLDER_MSG)!'/plays/romeo-juliet'}" value="${question.inputParameters["meta_v"]?first!}" class="form-control input-sm">
 			</div>
 		</div>
 	</fieldset>
@@ -856,7 +856,7 @@
 -->
 <#macro QueryHistory>
 	<!-- core.view.ftl :: QueryHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session.searchHistory?? && session.searchHistory?size gt 0>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session.searchHistory?? && session.searchHistory?size gt 0>
 		<#-- Build a list of previous queries -->
 		<#assign qsSignature = computeQueryStringSignature(QueryString) />
 		<#if session.searchHistory?? && (session.searchHistory?size gt 1 || session.searchHistory[0].searchParamsSignature != qsSignature)>
@@ -879,7 +879,7 @@
 							</#list>
 							</#compress></#local>
 							<li>
-								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"<#else>title="${prettyTime(h.searchDate!)}"</#if> href="${question.collection.configuration.value("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
+								<a <#if facetDescription != ""> data-toggle="tooltip" data-placement="bottom" title="${facetDescription}"<#else>title="${prettyTime(h.searchDate!)}"</#if> href="${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${h.searchParams!}">${h.originalQuery!} <small>(${h.totalMatching!})</small></a>
 								<#if facetDescription != ""><i class="glyphicon glyphicon-filter"></i></#if>
 							</li>
 						</#if>
@@ -900,7 +900,7 @@
 -->
 <#macro SearchHistory>
 	<!-- core.controller.ftl :: SearchHistory -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<div id="search-history-info" data-ng-cloak data-ng-show="isDisplayed('history')">
 			<div class="row">
 				<div class="col-md-12">
@@ -983,7 +983,7 @@
 
 <#macro CartSection>
 	<!-- core.controller.ftl :: Cart -->
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<div id="search-cart" data-ng-cloak data-ng-show="isDisplayed('cart')" data-ng-controller="CartCtrl">
 			<div class="row">
 				<div class="col-md-12">
@@ -1184,11 +1184,11 @@
 -->
 <#macro Scope>
 	<!-- core.view.ftl :: Scope -->
-	<#if question.inputParameterMap["scope"]!?length != 0>
+	<#if question.inputParameters?keys?seq_contains("scope") && question.inputParameters["scope"]?size gt 0>
 		<div class="breadcrumb">
 			<span class="text-muted"><span class="glyphicon glyphicon-resize-small"></span> ${(response.translations.CORE_SCOPE_PREFIX)!'Scope'}:</span>
-			<@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate>
-			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameterMap["scope"]!}" href="?collection=${question.inputParameterMap["collection"]!}<#if question.inputParameterMap["profile"]??>&amp;profile=${question.inputParameterMap["profile"]!}</#if><#if question.inputParameterMap["form"]??>&amp;form=${question.inputParameterMap["form"]!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
+			<@core_controller.Truncate length=80>${question.inputParameters["scope"]?first!}</@core_controller.Truncate>
+			<a class="button btn-xs" title="${(response.translations.CORE_SCOPE_REMOVE_PREFIX)!'Remove scope'}: ${question.inputParameters["scope"]?first!}" href="?collection=${question.collection.id!}<#if question.inputParameters?keys?seq_contains("profile")>&amp;profile=${question.profile!}</#if><#if question.inputParameters?keys?seq_contains("form")>&amp;form=${question.inputParameters["form"]?first!}</#if>&amp;query=<@core_controller.UrlEncode><@core_controller.QueryClean /></@core_controller.UrlEncode>">
 				<span class="glyphicon glyphicon-remove text-muted"></span>
 			</a>
 		</div>
@@ -1217,7 +1217,7 @@
 			<span id="search-page-start">${response.resultPacket.resultsSummary.currStart}</span> -
 			<span id="search-page-end">${response.resultPacket.resultsSummary.currEnd}</span> ${(response.translations.CORE_COUNT_OF)!'of'}
 			<span id="search-total-matching">${response.resultPacket.resultsSummary.totalMatching?string.number}</span>
-			<#if question.inputParameterMap["s"]?? && question.inputParameterMap["s"]?contains("?:")>
+			<#if question.inputParameters["s"]?size gt 0 && question.inputParameters["s"]?seq_contains("?:")>
 				<em>${(response.translations.CORE_COUNT_COLLAPSED)!'collapsed'}</em>
 			</#if>
 			${(response.translations.CORE_COUNT_SEARCH_THAT_MATCH_MSG)!'search results for'} <strong><@core_controller.QueryClean /></strong>
@@ -1325,7 +1325,7 @@
 		<p>${(response.translations.CORE_ZERO_RESULT_YOUR_SEARCH_FOR)!'Your search for'} <strong>${question.originalQuery!}</strong> ${(response.translations.CORE_ZERO_RESULT_DID_NOT_RETURN_MSG)!'did not return any results'}. ${(response.translations.CORE_ZERO_RESULT_ENSURE_MSG)!'Please ensure that you:'}</p>
 		<ul>
 			<li>${(response.translations.CORE_ZERO_RESULT_ADVANCED_OPERATORS_MSG)!'are not using any advanced search operators like + - | " etc.'}</li>
-			<li>${(response.translations.CORE_ZERO_RESULT_EXPECT_THIS_DOCUMENT_MSG)!'expect this document to exist within the'} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.CORE_ZERO_RESULT_AND_WITHIN)!'and within'} <em><@core_controller.Truncate length=80>${question.inputParameterMap["scope"]!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
+			<li>${(response.translations.CORE_ZERO_RESULT_EXPECT_THIS_DOCUMENT_MSG)!'expect this document to exist within the'} <em><@core_controller.cfg>service_name</@core_controller.cfg></em> collection <@core_controller.IfDefCGI name="scope"> ${(response.translations.CORE_ZERO_RESULT_AND_WITHIN)!'and within'} <em><@core_controller.Truncate length=80>${question.inputParameters["scope"]?first!}</@core_controller.Truncate></em></@core_controller.IfDefCGI></li>
 			<li>${(response.translations.CORE_ZERO_RESULT_HAVE_PERMISSION_MSG)!'have permission to see any documents that may match your query'}</li>
 		</ul>
 	</#if>
@@ -1700,7 +1700,7 @@
 </#macro>
 
 <#macro ResultSessionCartTrigger labels="" titles="" icons="pushpin|remove" >
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 		<a href="#" data-ng-click="toggle()" data-cart-link data-css="${icons!}" title="{{label}}" class="stencils-print__hide">
 			<small class="glyphicon glyphicon-{{css}}"></small>
 		</a>
@@ -1721,7 +1721,7 @@
 
 
 <#macro ResultSessionHistoryClick icon="glyphicon glyphicon-time">
-	<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+	<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 		<small class="text-warning stencils-print__hide">
 			<span class="${icon!}"></span>
 			<a title="${(response.translations.CORE_RESULT_SESSION_HISTORY_TITLE)!'Click history'}" href="#" class="text-warning" data-ng-click="toggleHistory()">

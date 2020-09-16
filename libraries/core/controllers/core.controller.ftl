@@ -70,7 +70,7 @@
 <#macro OpenSearchTitle><#compress>
  <#local title><#nested></#local>
 	<#if ! title?? || title == "">
-		Search  ${question.collection.configuration.value("service_name")}
+		Search  ${question.getCurrentProfileConfig().get("service_name")}
 	</#if>
 </#compress></#macro>
 
@@ -96,9 +96,8 @@
 -->
 <#macro cfg><#compress>
 	<#local key><#nested></#local>
-	<#if key?? && key != ""
-		&& question.collection.configuration.value(key)??>
-		${question.collection.configuration.value(key)}
+	<#if key?? && key != "" && question.currentProfileConfig.get(key)??>
+		${question.currentProfileConfig.get(key)}
 	</#if>
 </#compress></#macro>
 
@@ -114,9 +113,7 @@
 	@param name Name of the parameter to test.
 -->
 <#macro IfDefCGI name><#compress>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap?keys?seq_contains(name)>
+	<#if question.inputParameters?keys?seq_contains(name)>
 		<#nested>
 	</#if>
 </#compress></#macro>
@@ -133,9 +130,7 @@
 	@param name Name of the parameter to test.
 -->
 <#macro IfNotDefCGI name><#compress>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap?keys?seq_contains(name)>
+	<#if !question.inputParameters?keys?seq_contains(name)>
 	<#else>
 		<#nested>
 	</#if>
@@ -148,11 +143,9 @@
 -->
 <#macro cgi><#compress>
 	<#local key><#nested></#local>
-	<#if question??
-		&& question.inputParameterMap??
-		&& question.inputParameterMap[key]??>
+	<#if question.inputParameters?keys?seq_contains(key)>
 		<#-- Return first element only, to mimic Perl UI behavior -->
-		${question.inputParameterMap[key]?html!}
+		${question.inputParameters[key]?first?html!}
 	</#if>
 </#compress></#macro>
 
@@ -308,8 +301,8 @@
 
 	<#-- Get the selected value -->
 	<#local selectedValue = defaultValue />
-	<#if question.inputParameterMap[name]?? && question.inputParameterMap[name] != "">
-		<#local selectedValue = question.inputParameterMap[name] />
+	<#if question.inputParameters?keys?seq_contains(name) && question.inputParameters[name]?size gt 0>
+		<#local selectedValue = question.inputParameters[name]?first />
 	</#if>
 
 	<#assign selectSelectedValue = selectedValue in .namespace>
@@ -760,7 +753,7 @@
 <#macro FormChoice>
 	<#if (question.collection)!?has_content>
 		<#assign formChoiceForms = formList(question.collection.id, question.profile) in .namespace />
-		<#assign formChoiceUrl = question.collection.configuration.value("ui.modern.search_link")
+		<#assign formChoiceUrl = question.getCurrentProfileConfig().get("ui.modern.search_link")
 				+ "?collection=" + question.collection.id
 				+ "&amp;profile=" + question.profile />
 		<#nested>
@@ -1055,7 +1048,7 @@
 	<#assign facetSummarySelectedCategoryValues = question.selectedCategoryValues in .namespace>
 
 		<#if question.selectedFacets!?seq_contains(facetDefinition.name)>
-		<#assign facetSummaryClearCurrentSelectionUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, facetDefinition.allQueryStringParamNames), ["start_rank"] + facetDefinition.allQueryStringParamNames)?html}' in .namespace>
+		<#assign facetSummaryClearCurrentSelectionUrl = '${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, facetDefinition.allQueryStringParamNames), ["start_rank"] + facetDefinition.allQueryStringParamNames)?html}' in .namespace>
 
 		<#nested>
 	</#if>
@@ -1289,7 +1282,7 @@
 				<#nested>
 
 				<#if last != true>
-					<#assign facetBreadCrumbUrl = '${question.collection.configuration.value("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, def.allQueryStringParamNames), ["start_rank"] + def.allQueryStringParamNames)?html}&amp;${def.queryStringParamName}=${selectedCategoryValues[def.queryStringParamName][0]?url}' in .namespace>
+					<#assign facetBreadCrumbUrl = '${question.getCurrentProfileConfig().get("ui.modern.search_link")}?${removeParam(facetScopeRemove(QueryString, def.allQueryStringParamNames), ["start_rank"] + def.allQueryStringParamNames)?html}&amp;${def.queryStringParamName}=${selectedCategoryValues[def.queryStringParamName][0]?url}' in .namespace>
 					<@NestedFacetBreadCrumb categoryDefinitions=def.subCategories selectedCategoryValues=selectedCategoryValues>
 						<#nested>
 					</@NestedFacetBreadCrumb>
@@ -1417,7 +1410,7 @@
 	<#if facetCategoryValue??>
 		<#local paramName = facetCategoryValue.queryStringParam?split("=")[0]>
 
-		<#assign facetCategoryUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(facetScopeRemove(QueryString, paramName), ['start_rank', paramName])?html}&amp;${facetCategoryValue.queryStringParam?html}" in .namespace>
+		<#assign facetCategoryUrl = "${question.getCurrentProfileConfig().get('ui.modern.search_link')}?${removeParam(facetScopeRemove(QueryString, paramName), ['start_rank', paramName])?html}&amp;${facetCategoryValue.queryStringParam?html}" in .namespace>
 		<#assign facetCategoryLabel = facetCategoryValue.label in .namespace>
 		<#assign facetCategoryCount = facetCategoryValue.count in .namespace>
 
@@ -1539,11 +1532,11 @@
 	@provides <code>${core_controller.checkSpellingUrl}</code> <br /> <code>${core_controller.checkSpellingText}</code>
 -->
 <#macro CheckSpelling>
-	<#if (question.collection.configuration.value("spelling_enabled"))!?has_content
-		&& is_enabled(question.collection.configuration.value("spelling_enabled"))
+	<#if (question.getCurrentProfileConfig().get("spelling_enabled"))!?has_content
+		&& is_enabled(question.getCurrentProfileConfig().get("spelling_enabled"))
 		&& (response.resultPacket.spell.text)!?has_content>
 
-		<#assign checkSpellingUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${changeParam(QueryString, 'query', response.resultPacket.spell.text?url)?html}" in .namespace>
+		<#assign checkSpellingUrl = "${question.getCurrentProfileConfig().get('ui.modern.search_link')}?${changeParam(QueryString, 'query', response.resultPacket.spell.text?url)?html}" in .namespace>
 		<#assign checkSpellingText = response.resultPacket.spell.text in .namespace>
 
 		<#nested>
@@ -1833,7 +1826,7 @@
 
 	@provides <code>${core_controller.previousUrl}</code> <br /> <code>${core_controller.previousRanks}</code>
 -->
-<#macro Previous link=question.collection.configuration.value("ui.modern.search_link")>
+<#macro Previous link=question.getCurrentProfileConfig().get("ui.modern.search_link")>
 	<#if response?? && response.resultPacket?? && response.resultPacket.resultsSummary??>
 		<#if response.resultPacket.resultsSummary.prevStart??>
 			<#assign previousUrl = link + "?"
@@ -1884,7 +1877,7 @@
 
 	@provides <code>${core_controller.nextUrl}</code> <br /> <code>${core_controller.nextRanks}</code>
 -->
-<#macro Next link=question.collection.configuration.value("ui.modern.search_link")>
+<#macro Next link=question.getCurrentProfileConfig().get("ui.modern.search_link")>
 	<#if response?? && response.resultPacket?? && response.resultPacket.resultsSummary??>
 		<#if response.resultPacket.resultsSummary.nextStart??>
 			<#assign nextUrl = link + "?"
@@ -1953,7 +1946,7 @@
 
 	@provides <code>${core_controller.pageNumber}</code> <br /> <code>${core_controller.pageUrl}</code> <br /> <code>${core_controller.pageCurrent}</code>
 -->
-<#macro Page numPages=5 link=question.collection.configuration.value("ui.modern.search_link")>
+<#macro Page numPages=5 link=question.getCurrentProfileConfig().get("ui.modern.search_link")>
 	<#local rs = response.resultPacket.resultsSummary />
 	<#local pages = 0 />
 	<#if rs.fullyMatching??>
@@ -2045,7 +2038,7 @@
 
 	@provides <code>${core_controller.blendingTerms}</code> <br /> <code>${core_controller.blendingDisabledUrl}</code>
 -->
-<#macro Blending link=question.collection.configuration.value('ui.modern.search_link')>
+<#macro Blending link=question.getCurrentProfileConfig().get('ui.modern.search_link')>
 	<#if (response.resultPacket.QSups)!?has_content && response.resultPacket.QSups?size &gt; 0>
 		<#local blendingTerms = "">
 		<#list response.resultPacket.QSups as qsup>
@@ -2410,7 +2403,7 @@
 -->
 <#macro Collapsed result=.namespace.result>
 	<#if result.collapsed??>
-		<#assign collapsedUrl = "${question.collection.configuration.value('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
+		<#assign collapsedUrl = "${question.getCurrentProfileConfig().get('ui.modern.search_link')}?${removeParam(QueryString, ['start_rank'])?html}&amp;s=%3F:${result.collapsed.signature}&amp;fmo=on&amp;collapsing=off" in .namespace>
 		<#assign collapsedCount = result.collapsed.count in .namespace>
 
 		<#nested>
