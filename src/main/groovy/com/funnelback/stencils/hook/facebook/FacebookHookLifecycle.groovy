@@ -1,5 +1,7 @@
 package com.funnelback.stencils.hook.facebook
 
+import com.funnelback.publicui.search.model.padre.Result
+
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -41,25 +43,25 @@ class FacebookHookLifecycle implements HookLifecycle {
             transaction.response.customData[StencilHooks.STENCILS_FREEMARKER_METHODS]["facebookHashtagify"] = new HashtagifyFacebookMethod()
 
             transaction.response.resultPacket.results.findAll { result ->
-                return result.metaData["stencilsFacebookType"] != null
+                return result.getListMetadata().containsKey("stencilsFacebookType")
             }
             .each { result ->
-                switch (result.metaData["stencilsFacebookType"].toLowerCase()) {
+                switch (result.getListMetadata().get("stencilsFacebookType").get(0).toLowerCase()) {
                     case "post":
-                        result.customData["stencilsFacebookProfileUrl"] = generateUrlForId(result.metaData["stencilsFacebookPostUserID"])
-                        result.customData["stencilsFacebookProfileImageUrl"] = generateImageUrlForId(result.metaData["stencilsFacebookPostUserID"])
+                        result.customData["stencilsFacebookProfileUrl"] = generateUrlForId(result, "stencilsFacebookPostUserID")
+                        result.customData["stencilsFacebookProfileImageUrl"] = generateImageUrlForId(result, "stencilsFacebookPostUserID")
                         break
                         
                     case "page":
-                        result.customData["stencilsFacebookPageImageUrl"] = generateImageUrlForId(result.metaData["stencilsFacebookPageID"])
+                        result.customData["stencilsFacebookPageImageUrl"] = generateImageUrlForId(result, "stencilsFacebookPageID")
                         break
                         
                     case "event":
-                        result.customData["stencilsFacebookProfileUrl"] = generateUrlForId(result.metaData["stencilsFacebookEventUserID"])
-                        result.customData["stencilsFacebookProfileImageUrl"] = generateImageUrlForId(result.metaData["stencilsFacebookEventUserID"])
+                        result.customData["stencilsFacebookProfileUrl"] = generateUrlForId(result, "stencilsFacebookEventUserID")
+                        result.customData["stencilsFacebookProfileImageUrl"] = generateImageUrlForId(result, "stencilsFacebookEventUserID")
                         
-                        def startDate = parseFacebookDateTime(result.metaData["stencilsFacebookEventStartDateTime"])
-                        def endDate = parseFacebookDateTime(result.metaData["stencilsFacebookEventEndDateTime"])
+                        def startDate = parseFacebookDateTime(result, "stencilsFacebookEventStartDateTime")
+                        def endDate = parseFacebookDateTime(result, "stencilsFacebookEventEndDateTime")
                         result.customData["stencilsFacebookEventStartDate"] = startDate
                         result.customData["stencilsFacebookEventEndDate"] =  endDate
                         result.customData["stencilsFacebookEventIsPast"] = isEventPast(startDate, endDate)
@@ -71,44 +73,59 @@ class FacebookHookLifecycle implements HookLifecycle {
     }
 
     /**
-     * Generate a Facebook URL for an id
-     * @param id Id to generate an URL for
+     * Generate a Facebook URL for a result based on ID
+     * @param result
+     * @param metadataName Metadata class name to extract ID from to generate an URL for
      * @return URL, or the input value if it was null or empty string
      */
-    static String generateUrlForId(String id) {
-        if (!id) {
-            return id
+    static String generateUrlForId(Result result, String metadataName) {
+        if (result.getListMetadata().containsKey(metadataName)) {
+            String id = result.getListMetadata().get(metadataName).get(0)
+            if (!id) {
+                return id
+            }
+            return "//www.facebook.com/${id}"
         }
-        return "//www.facebook.com/${id}"
+        return null
     }
 
     /**
-     * Generate a Facebook Graph Image URL for an id
-     * @param id Id to generate an URL for
+     * Generate a Facebook Graph Image URL for a result based on ID
+     * @param result
+     * @param metadataName Metadata class name to extract ID from to generate an URL for
      * @return URL, or the input value if it was null or empty string
      */
-    static String generateImageUrlForId(String id) {
-        if (!id) {
-            return id
+    static String generateImageUrlForId(Result result, String metadataName) {
+        if (result.getListMetadata().containsKey(metadataName)) {
+            String id = result.getListMetadata().get(metadataName).get(0)
+            if (!id) {
+                return id
+            }
+            return "//graph.facebook.com/${id}/picture"
         }
-        return "//graph.facebook.com/${id}/picture"
+        return null
     }
-    
+
     /**
      * Parse a Facebook event date+time into a Date instance
+     * @param result
      * @param text Date to parse
      * @return Parsed date, or the input value if it couldn't be parsed
      */
-    static Object parseFacebookDateTime(String text) {
-        if (!text) {
-            return text
+    static Object parseFacebookDateTime(Result result, String metadataName) {
+        if (result.getListMetadata().containsKey(metadataName)) {
+            String text = result.getListMetadata().get(metadataName).get(0)
+            if (!text) {
+                return text
+            }
+
+            try {
+                return Date.from(ZonedDateTime.parse(text, DATETIME_FORMATTER).toInstant())
+            } catch (DateTimeParseException e) {
+                return text
+            }
         }
-        
-        try {
-            return Date.from(ZonedDateTime.parse(text, DATETIME_FORMATTER).toInstant())
-        } catch (DateTimeParseException e) {
-            return text
-        }
+        return null
     }
     
     /**

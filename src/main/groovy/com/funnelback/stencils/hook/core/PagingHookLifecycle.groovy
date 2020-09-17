@@ -2,9 +2,9 @@ package com.funnelback.stencils.hook.core
 
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
 import com.funnelback.publicui.utils.QueryStringUtils
-import com.funnelback.stencils.hook.StencilHooks
 import com.funnelback.stencils.hook.support.HookLifecycle
-import com.funnelback.stencils.util.DatamodelUtils
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 
 /**
  * <p>Hook functions for the paging within the Core Stencil</p>
@@ -41,8 +41,7 @@ class PagingHookLifecycle implements HookLifecycle {
      */
     @Override
     void postDatafetch(SearchTransaction transaction) {
-        if (transaction.question.hasProperty("customData")
-                && transaction?.response?.resultPacket?.resultsSummary) {
+        if (transaction.question.hasProperty("customData") && transaction?.response?.resultPacket?.resultsSummary) {
 
             def pagingControls = new PagingControls([
                     firstUrl   : getFirstPageUrl(transaction),
@@ -62,8 +61,8 @@ class PagingHookLifecycle implements HookLifecycle {
      * @return URL of the first page
      */
     String getFirstPageUrl(SearchTransaction transaction) {
-        def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-        qs.remove(START_RANK)
+        ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+        qs.removeAll(START_RANK)
         return QueryStringUtils.toString(qs, true)
     }
 
@@ -77,13 +76,8 @@ class PagingHookLifecycle implements HookLifecycle {
     String getPreviousPageUrl(SearchTransaction transaction) {
         def summary = transaction.response.resultPacket.resultsSummary
         if (summary.prevStart) {
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-            if (summary.prevStart == 1) {
-                // The previous page is the first one, just remove start_rank
-                qs.remove(START_RANK)
-            } else {
-                qs[START_RANK] = [summary.prevStart.toString()]
-            }
+            ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+            updateStartRank(qs, summary.prevStart)
             return QueryStringUtils.toString(qs, true)
         } else {
             return null
@@ -100,8 +94,8 @@ class PagingHookLifecycle implements HookLifecycle {
     String getNextPageUrl(SearchTransaction transaction) {
         def summary = transaction.response.resultPacket.resultsSummary
         if (summary.nextStart) {
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-            qs[START_RANK] = [summary.nextStart.toString()]
+            ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+            updateStartRank(qs, summary.nextStart)
             return QueryStringUtils.toString(qs, true)
         } else {
             return null
@@ -157,12 +151,8 @@ class PagingHookLifecycle implements HookLifecycle {
         // Build our list of pages between our first and last
         for (int pageNumber = firstPage; pageNumber < lastPage + 1; pageNumber++) {
             def startRank = ((pageNumber - 1) * summary.numRanks + 1)
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-            if (startRank == 1) {
-                qs.remove(START_RANK)
-            } else {
-                qs[START_RANK] = [startRank.toString()]
-            }
+            ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+            updateStartRank(qs, startRank)
 
             def page = new Page([
                     number  : pageNumber,
@@ -174,4 +164,10 @@ class PagingHookLifecycle implements HookLifecycle {
         return pages
     }
 
+    private void updateStartRank(ListMultimap<String, String> qs, startRank) {
+        qs.removeAll(START_RANK);
+        if (startRank > 1) {
+            qs.put(START_RANK, startRank.toString())
+        }
+    }
 }
