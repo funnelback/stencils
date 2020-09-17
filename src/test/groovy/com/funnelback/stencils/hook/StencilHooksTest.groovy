@@ -4,6 +4,8 @@ import com.funnelback.publicui.search.model.collection.Collection.Hook
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.publicui.search.model.transaction.SearchResponse
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import org.junit.Assert
 import org.junit.Assume
 import org.junit.Test
@@ -43,8 +45,9 @@ class StencilHooksTest {
         StencilHooks.setupCustomData(null)
 
         def transaction = new SearchTransaction()
-        Assert.assertNull(transaction.response)
+        Assert.assertTrue(transaction.response.customData.isEmpty())
         StencilHooks.setupCustomData(transaction)
+        Assert.assertTrue(transaction.response.customData.containsKey(StencilHooks.STENCILS_FREEMARKER_METHODS))
     }
 
     @Test
@@ -54,38 +57,6 @@ class StencilHooksTest {
 
         Assert.assertEquals(1, transaction.response.customData.size())
         Assert.assertEquals([:], transaction.response.customData[StencilHooks.STENCILS_FREEMARKER_METHODS])
-    }
-
-    @Test
-    void testInjectQueryStringMapFromQSMapCopy() {
-        def transaction = new SearchTransaction(new SearchQuestion(), null)
-        Assume.assumeTrue("Test only valid for 15.10+", transaction.question.hasProperty('queryStringMap') != null)
-
-        transaction.question.queryStringMap = [ "param" : [ "value1", "value2" ]]
-        StencilHooks.injectQueryStringMap(transaction)
-
-        Assert.assertEquals([ "param" : [ "value1", "value2" ]], transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-    }
-
-    @Test
-    void testInjectQueryStringMapAlreadyPresent() {
-        def transaction = new SearchTransaction(new SearchQuestion(), null)
-        Assume.assumeTrue("Test only valid for 15.10+", transaction.question.hasProperty('queryStringMap') != null)
-
-        transaction.question.queryStringMap = [ "param" : [ "value1", "value2" ]]
-        transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY] = ["already": "present"]
-        StencilHooks.injectQueryStringMap(transaction)
-
-        Assert.assertEquals([ "already": "present" ], transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-    }
-
-    @Test
-    void testInjectQueryStringMapExtraSearch() {
-        def transaction = new SearchTransaction(new SearchQuestion(), null)
-        transaction.question.questionType = SearchQuestion.SearchQuestionType.EXTRA_SEARCH
-        StencilHooks.injectQueryStringMap(transaction)
-
-        Assert.assertFalse(transaction.question.customData.containsKey(StencilHooks.QUERY_STRING_MAP_KEY))
     }
 
 }

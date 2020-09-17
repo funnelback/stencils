@@ -6,13 +6,14 @@ import com.funnelback.publicui.utils.QueryStringUtils
 import com.funnelback.stencils.freemarker.method.LinkifyMethod
 import com.funnelback.stencils.hook.StencilHooks
 import com.funnelback.stencils.hook.support.HookLifecycle
-import com.funnelback.stencils.util.DatamodelUtils
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import org.springframework.web.util.UriUtils
 
 /**
  * <p>Hook functions for the Core stencil</p>
  *
- * <p>These always apply without checking if the "core" stencil is explicitely
+ * <p>These always apply without checking if the "core" stencil is explicitly
  * enabled, as we assume that if the Stencil hooks were configured in the collection
  * for any Stencil, all the core hooks should apply
  *
@@ -45,12 +46,12 @@ class CoreHookLifecycle implements HookLifecycle {
      * @param result Result to add the URL to
      */
     void addExploreUrl(SearchTransaction transaction, Result result) {
-        if (transaction.question.hasProperty("customData")) {
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-            qs.remove(START_RANK_PARAM)
-            qs.remove(DUPLICATE_START_RANK_PARAM)
-            qs["query"] = ["explore:" + result.liveUrl]
-
+        if (transaction.question.getQueryStringMapCopy().size() > 0) {
+            ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+            qs.removeAll(START_RANK_PARAM)
+            qs.removeAll(DUPLICATE_START_RANK_PARAM)
+            qs.removeAll("query")
+            qs.put("query", "explore:" + result.liveUrl)
             result.customData["stencilsCoreExploreUrl"] = QueryStringUtils.toString(qs, true)
         }
     }
@@ -61,14 +62,13 @@ class CoreHookLifecycle implements HookLifecycle {
      * @param result Result to add the URL to
      */
     void addCollapsedUrl(SearchTransaction transaction, Result result) {
-        if (result.collapsed && transaction.question.hasProperty("customData")) {
-            def qs = DatamodelUtils.getQueryStringMapCopy(transaction.question.customData[StencilHooks.QUERY_STRING_MAP_KEY])
-            qs.remove(START_RANK_PARAM)
-            qs.remove(DUPLICATE_START_RANK_PARAM)
-            qs["s"] = ["?:" + result.collapsed.signature]
-            qs["fmo"] = ["on"]
-            qs["collapsing"] = ["off"]
-
+        if (result.collapsed && transaction.question.getQueryStringMapCopy().size() > 0) {
+            ListMultimap<String, String> qs = ArrayListMultimap.create(transaction.question.getQueryStringMapCopy())
+            qs.removeAll(START_RANK_PARAM)
+            qs.removeAll(DUPLICATE_START_RANK_PARAM)
+            qs.put("s", "?:" + result.collapsed.signature)
+            qs.put("fmo", "on")
+            qs.put("collapsing", "off")
             result.customData["stencilsCoreCollapsedUrl"] = QueryStringUtils.toString(qs, true)
         }
     }

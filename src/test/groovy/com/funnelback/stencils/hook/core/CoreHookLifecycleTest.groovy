@@ -8,7 +8,8 @@ import com.funnelback.publicui.search.model.transaction.SearchResponse
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
 import com.funnelback.stencils.freemarker.method.LinkifyMethod
 import com.funnelback.stencils.hook.StencilHooks
-import com.funnelback.stencils.hook.facebook.FacebookHookLifecycle
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +18,7 @@ import org.mockito.Mockito
 class CoreHookLifecycleTest {
 
     def hook
-    def transaction
+    SearchTransaction transaction
 
     @Before
     void before() {
@@ -27,43 +28,34 @@ class CoreHookLifecycleTest {
         transaction.question = Mockito.mock(SearchQuestion.class)
         Mockito.when(transaction.question.profile).thenReturn("profile-id")
 
-        def questionCustomDataMap = [
-                "queryStringMap": [
-                        "collection": ["meta-collection"],
-                        "start_rank": ["12"],
-                        "duplicate_start_rank": ["32"],
-                        "query": ["CGI query"]
-                ],
-        ]
-        Mockito.when(transaction.question.customData).thenReturn(questionCustomDataMap)
+        ListMultimap<String, String> qs = ArrayListMultimap.create()
+        qs.put("collection", "client~meta-collection")
+        qs.put("start_rank", "12")
+        qs.put("duplicate_start_rank", "32")
+        qs.put("query", "CGI query")
+        Mockito.when(transaction.question.queryStringMapCopy).thenReturn(qs)
 
-        def responseCustomDataMap = [:]
-        responseCustomDataMap[StencilHooks.STENCILS_FREEMARKER_METHODS] = [:]
+        Map<String, Object> responseCustomData = new HashMap()
+        responseCustomData.put(StencilHooks.STENCILS_FREEMARKER_METHODS, [:])
         transaction.response = Mockito.mock(SearchResponse.class)
-        Mockito.when(transaction.response.customData).thenReturn(responseCustomDataMap)
+        Mockito.when(transaction.response.customData).thenReturn(responseCustomData)
 
-
-        def result = new Result()
-        result.collection = "collection1"
+        Result result = new Result()
+        result.collection = "client~collection1"
         result.liveUrl = 'http://example.org/live-url'
         result.indexUrl = 'http://example.org/index-url'
 
-        def collapsedResult = new Result()
-        collapsedResult.collection = "collection2"
+        Result collapsedResult = new Result()
+        collapsedResult.collection = "client~collection2"
         collapsedResult.liveUrl = 'http://example.org/collapsed/live-url'
         collapsedResult.indexUrl = 'http://example.org/collapsed/index-url'
         collapsedResult.collapsed = new Collapsed("signature", 42, "column")
 
-        def results = [
-                result,
-                collapsedResult
-        ]
-
+        List<Result> results = [result, collapsedResult]
         Mockito.when(transaction.response.resultPacket).thenReturn(Mockito.mock(ResultPacket.class))
         Mockito.when(transaction.response.resultPacket.results).thenReturn(results)
         Mockito.when(transaction.response.resultPacket.query).thenReturn("the query")
     }
-
 
     @Test
     void test() {
@@ -71,15 +63,16 @@ class CoreHookLifecycleTest {
 
         Assert.assertTrue(transaction.response.customData[StencilHooks.STENCILS_FREEMARKER_METHODS]["linkify"] instanceof LinkifyMethod)
 
-        def result = transaction.response.resultPacket.results[0]
+        Result result = transaction.response.resultPacket.results[0]
         Assert.assertEquals(2, result.customData.size())
-        Assert.assertEquals(result.customData["stencilsCoreExploreUrl"], "?collection=meta-collection&query=explore%3Ahttp%3A%2F%2Fexample.org%2Flive-url")
-        Assert.assertEquals(result.customData["stencilsCoreOptimiseUrl"], "/a/#/collection1:profile-id/analyse/seo-auditor/the%20query/http:%252F%252Fexample.org%252Findex-url")
+        Assert.assertEquals("?collection=client%7Emeta-collection&query=explore%3Ahttp%3A%2F%2Fexample.org%2Flive-url", result.customData["stencilsCoreExploreUrl"])
+        Assert.assertEquals("/a/#/client~collection1:profile-id/analyse/seo-auditor/the%20query/http:%252F%252Fexample.org%252Findex-url", result.customData["stencilsCoreOptimiseUrl"])
 
-        def collapsedResult = transaction.response.resultPacket.results[1]
+        Result collapsedResult = transaction.response.resultPacket.results[1]
         Assert.assertEquals(2, result.customData.size())
-        Assert.assertEquals(collapsedResult.customData["stencilsCoreExploreUrl"], "?collection=meta-collection&query=explore%3Ahttp%3A%2F%2Fexample.org%2Fcollapsed%2Flive-url")
-        Assert.assertEquals(collapsedResult.customData["stencilsCoreOptimiseUrl"], "/a/#/collection2:profile-id/analyse/seo-auditor/the%20query/http:%252F%252Fexample.org%252Fcollapsed%252Findex-url")
-        Assert.assertEquals(collapsedResult.customData["stencilsCoreCollapsedUrl"], "?collection=meta-collection&query=CGI+query&s=%3F%3Asignature&fmo=on&collapsing=off")
+        Assert.assertEquals("?collection=client%7Emeta-collection&query=explore%3Ahttp%3A%2F%2Fexample.org%2Fcollapsed%2Flive-url", collapsedResult.customData["stencilsCoreExploreUrl"])
+        Assert.assertEquals("/a/#/client~collection2:profile-id/analyse/seo-auditor/the%20query/http:%252F%252Fexample.org%252Fcollapsed%252Findex-url", collapsedResult.customData["stencilsCoreOptimiseUrl"])
+        Assert.assertEquals("?fmo=on&collection=client%7Emeta-collection&s=%3F%3Asignature&collapsing=off&query=CGI+query", collapsedResult.customData["stencilsCoreCollapsedUrl"])
     }
+
 }

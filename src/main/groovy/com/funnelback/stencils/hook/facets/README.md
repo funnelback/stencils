@@ -17,25 +17,13 @@ stencils.facets.rename.Author.jdoe=John Doe
 
 The facet name and value are case sensitive.
 
-## Improved Facet data model for pre v15.12
+## Custom sort
 
-:warning: This applies only pre-15.12, as this type of facets is natively supported since 15.12.
-
-The Facets Datamodel Stencils provides:
-
-* An alternative facets data model stored in `response.customData.stencilsFacets`
-* An alternative list of selected facet values stored in `response.customData.stencilsFacetsSelectedValues`
-* Support for manually sorting facet values of the alternative data model via `collection.cfg`
+The Facet Custom Sort Stencils provide a way to sort facet categories in specific order based on provided configuration. 
 
 ### Configuration
 
-Set `stencils=facets` in `collection.cfg`.
-
-This will trigger the generation of the alternative data model and list of selected values.
-
-#### Custom sort
-
-To configure the custom sort, use `stencils.faceted_navigation.custom_sort.<facet name>.<order>=<value>`.
+The configuration is done in `profile.cfg`  because faceted navigation is configured within a profile. To configure the custom sort, use `stencils.faceted_navigation.custom_sort.<facet name>.<order>=<value>`.
 
 For example to sort a `Tabs` facet and force the order ["All", "Staff", "Events", "Social"], use the following configuration:
 

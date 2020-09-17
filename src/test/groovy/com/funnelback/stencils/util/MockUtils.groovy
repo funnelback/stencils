@@ -12,14 +12,13 @@ class MockUtils {
 
     /**
      * Mock a search result with the given metadata
-     * @param metaData Metadata to assign to the result
+     * @param metadataMap Metadata to assign to the result
      * @return Result
      */
-    static Result mockResult(Map metaData) {
+    static Result mockResult(Map metadataMap) {
         def result = new Result()
-        result.metaData << metaData
-        
+        metadataMap.forEach({ k, v -> result.getListMetadata().put(k, v) })
         return result
     }
-    
+
 }

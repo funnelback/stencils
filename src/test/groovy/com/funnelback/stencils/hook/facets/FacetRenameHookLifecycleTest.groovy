@@ -1,8 +1,13 @@
 package com.funnelback.stencils.hook.facets
 
 import com.funnelback.common.config.Config
+import com.funnelback.common.facetednavigation.models.FacetConstraintJoin
+import com.funnelback.common.facetednavigation.models.FacetSelectionType
+import com.funnelback.common.facetednavigation.models.FacetValues
+import com.funnelback.common.facetednavigation.models.FacetValuesOrder
 import com.funnelback.publicui.search.model.profile.ServerConfigReadOnlyWhichAlsoHasAStringGetMethod
 import com.funnelback.publicui.search.model.transaction.Facet
+import com.funnelback.publicui.search.model.transaction.Facet.CategoryValue;
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.publicui.search.model.transaction.SearchResponse
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
@@ -15,7 +20,7 @@ class FacetRenameHookLifecycleTest {
 
     def hook
     def profileConfig
-    def transaction
+    SearchTransaction transaction
 
     @Before
     void before() {
@@ -29,28 +34,8 @@ class FacetRenameHookLifecycleTest {
         transaction = new SearchTransaction(question, new SearchResponse())
 
         // Prepare 2 facets, "Author" and "Publisher" with the same values
-
-        def cat1 = new Facet.Category("Category 1", null)
-        cat1.values << new Facet.CategoryValue("john", "john label", 1, "", "", false)
-        cat1.values << new Facet.CategoryValue("jack", "jack label", 1, "", "", false)
-        cat1.values << new Facet.CategoryValue("william", "william label", 1, "", "", false)
-
-        def facet1 = new Facet("Author")
-        facet1.categories << cat1
-
-        def cat2 = new Facet.Category("Category 2", null)
-        cat2.values << new Facet.CategoryValue("john", "john label", 1, "", "", false)
-        cat2.values << new Facet.CategoryValue("jack", "jack label", 1, "", "", false)
-        cat2.values << new Facet.CategoryValue("william", "william label", 1, "", "", false)
-
-        // Add a nested category on Publisher
-        def subCat = new Facet.Category("Sub-Category", null)
-        subCat.values << new Facet.CategoryValue("nested1", "nested1 label", 1, "", "", false)
-        subCat.values << new Facet.CategoryValue("nested2", "nested2 label", 1, "", "", false)
-        cat2.categories << subCat
-
-        def facet2 = new Facet("Publisher")
-        facet2.categories << cat2
+        def facet1 = facetWithName("Author")
+        def facet2 = facetWithName("Publisher")
 
         transaction.response.facets << facet1 << facet2
     }
@@ -61,92 +46,70 @@ class FacetRenameHookLifecycleTest {
         Mockito.when(profileConfig.rawKeys).thenReturn([] as Set)
         hook.postProcess(transaction)
 
-        Assert.assertEquals("john label", transaction.response.facets[0].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[0].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[0].categories[0].values[2].label)
-
-        Assert.assertEquals("john label", transaction.response.facets[1].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[1].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[1].categories[0].values[2].label)
+        testFacet(transaction.getResponse().getFacets().get(0), "Author", "john label", "jack label", "william label")
+        testFacet(transaction.getResponse().getFacets().get(1), "Publisher", "john label", "jack label", "william label")
     }
 
     @Test
     void testRenameNonExistentFacet() {
         // Rename config for another facet
-        Mockito.when(profileConfig.rawKeys).thenReturn([
-                "${FacetRenameHookLifecycle.CONFIG_PREFIX}.Date.1998"
-        ] as Set)
+        Mockito.when(profileConfig.rawKeys).thenReturn(["${FacetRenameHookLifecycle.CONFIG_PREFIX}.Date.1998"] as Set)
         Mockito.when(profileConfig.get(FacetRenameHookLifecycle.CONFIG_PREFIX + ".Date.1998")).thenReturn("'98")
 
         hook.postProcess(transaction)
 
-        Assert.assertEquals("john label", transaction.response.facets[0].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[0].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[0].categories[0].values[2].label)
-
-        Assert.assertEquals("john label", transaction.response.facets[1].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[1].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[1].categories[0].values[2].label)
+        testFacet(transaction.getResponse().getFacets().get(0), "Author", "john label", "jack label", "william label")
+        testFacet(transaction.getResponse().getFacets().get(1), "Publisher", "john label", "jack label", "william label")
     }
 
     @Test
     void testRenameNonExistentValue() {
         // Rename config a valid facet, but the value to rename is not found
-        Mockito.when(profileConfig.rawKeys).thenReturn([
-                "${FacetRenameHookLifecycle.CONFIG_PREFIX}.Author.other label"
-        ] as Set)
+        Mockito.when(profileConfig.rawKeys).thenReturn(["${FacetRenameHookLifecycle.CONFIG_PREFIX}.Author.other label"] as Set)
         Mockito.when(profileConfig.get(FacetRenameHookLifecycle.CONFIG_PREFIX + ".Author.other label")).thenReturn("OTHER")
 
         hook.postProcess(transaction)
 
-        Assert.assertEquals("john label", transaction.response.facets[0].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[0].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[0].categories[0].values[2].label)
-
-        Assert.assertEquals("john label", transaction.response.facets[1].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[1].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[1].categories[0].values[2].label)
+        testFacet(transaction.getResponse().getFacets().get(0), "Author", "john label", "jack label", "william label")
+        testFacet(transaction.getResponse().getFacets().get(1), "Publisher", "john label", "jack label", "william label")
     }
 
     @Test
     void testRenameAuthor() {
-        Mockito.when(profileConfig.rawKeys).thenReturn([
-                "${FacetRenameHookLifecycle.CONFIG_PREFIX}.Author.jack label"
-        ] as Set)
+        // Rename config for "Author" facet
+        Mockito.when(profileConfig.rawKeys).thenReturn(["${FacetRenameHookLifecycle.CONFIG_PREFIX}.Author.jack label"] as Set)
         Mockito.when(profileConfig.get(FacetRenameHookLifecycle.CONFIG_PREFIX + ".Author.jack label")).thenReturn("roger label")
 
         hook.postProcess(transaction)
 
         // Author should have been renamed
-        Assert.assertEquals("john label", transaction.response.facets[0].categories[0].values[0].label)
-        Assert.assertEquals("roger label", transaction.response.facets[0].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[0].categories[0].values[2].label)
-
+        testFacet(transaction.getResponse().getFacets().get(0), "Author", "john label", "roger label", "william label")
         // Publisher should not have been renamed
-        Assert.assertEquals("john label", transaction.response.facets[1].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[1].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[1].categories[0].values[2].label)
+        testFacet(transaction.getResponse().getFacets().get(1), "Publisher", "john label", "jack label", "william label")
     }
 
-    @Test
-    void testRenameSubCategory() {
-        Mockito.when(profileConfig.rawKeys).thenReturn([
-                "${FacetRenameHookLifecycle.CONFIG_PREFIX}.Publisher.nested2 label"
-        ] as Set)
-        Mockito.when(profileConfig.get(FacetRenameHookLifecycle.CONFIG_PREFIX + ".Publisher.nested2 label")).thenReturn("nested rename")
-
-        hook.postProcess(transaction)
-
-        Assert.assertEquals("john label", transaction.response.facets[0].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[0].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[0].categories[0].values[2].label)
-
-        Assert.assertEquals("john label", transaction.response.facets[1].categories[0].values[0].label)
-        Assert.assertEquals("jack label", transaction.response.facets[1].categories[0].values[1].label)
-        Assert.assertEquals("william label", transaction.response.facets[1].categories[0].values[2].label)
-
-        Assert.assertEquals("nested1 label", transaction.response.facets[1].categories[0].categories[0].values[0].label)
-        Assert.assertEquals("nested rename", transaction.response.facets[1].categories[0].categories[0].values[1].label)
+    private void testFacet(facet, name, label1, label2, label3) {
+        Assert.assertEquals(name, facet.name)
+        Assert.assertEquals(label1, facet.allValues.get(0).label)
+        Assert.assertEquals(label2, facet.allValues.get(1).label)
+        Assert.assertEquals(label3, facet.allValues.get(2).label)
     }
 
+    private Facet facetWithName(name) {
+        def facet = new Facet(name,
+                FacetSelectionType.SINGLE,
+                FacetConstraintJoin.AND,
+                FacetValues.FROM_SCOPED_QUERY,
+                new ArrayList<>(Arrays.asList(FacetValuesOrder.LABEL_ASCENDING, FacetValuesOrder.COUNT_DESCENDING)))
+        facet.getAllValues().addAll(Arrays.asList(
+                categoryWithLabel("john label", "john", 1),
+                categoryWithLabel("jack label", "jack", 1),
+                categoryWithLabel("william label", "william", 1)
+        ))
+        return facet
+    }
+
+    private CategoryValue categoryWithLabel(String label, String data, int count) {
+        return new CategoryValue(data, label, count, false, "", "", 0)
+    }
 }

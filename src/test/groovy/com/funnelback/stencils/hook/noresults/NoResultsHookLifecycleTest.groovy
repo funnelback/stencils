@@ -5,8 +5,9 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 
-import com.funnelback.publicui.search.model.collection.Collection
+import com.funnelback.common.config.CollectionId
 import com.funnelback.common.config.Config
+import com.funnelback.publicui.search.model.collection.Collection
 import com.funnelback.publicui.search.model.transaction.SearchQuestion
 import com.funnelback.publicui.search.model.transaction.SearchTransaction
 
@@ -24,7 +25,7 @@ class NoResultsHookLifecycleTest {
         transaction = new SearchTransaction()
         transaction.question = Mockito.mock(SearchQuestion.class)
         
-        Mockito.when(transaction.question.collection).thenReturn(new Collection("mock", config))
+        Mockito.when(transaction.question.collection).thenReturn(new Collection(new CollectionId("client~mock"), config))
         Mockito.when(config.value(NoResultsHookLifecycle.NO_RESULTS_QUERY_KEY, NoResultsHookLifecycle.DEFAULT_NO_RESULTS_QUERY)).thenReturn("no-results-query")
     }
     
