@@ -16,7 +16,7 @@ For example:
 If `description` is mapped as a regular metadata, the HTML content `...<strong>biology</strong>...`
 will not be parsed and the `strong` word will appear in results summary.
 
-Instead, the description filed should be mapped as an [inner HTML document](https://docs.funnelback.com/15.24/customise/standard-options/xml-documents.html#inner-html-or-xml-documents), which can be configured within the collection's XML processing settings.
+Instead, the description field should be mapped as an [inner HTML document](https://docs.funnelback.com/15.24/customise/standard-options/xml-documents.html#inner-html-or-xml-documents), which can be configured within the collection's XML processing settings.
 
 However PADRE will still not parse the content as HTML unless the document is
 considered to be HTML, meaning it needs to be insider `<html>...</html>` tags.
