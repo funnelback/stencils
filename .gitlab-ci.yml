@@ -1,15 +1,3 @@
-build FB v15.24:
-    image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils-15.24.0.x
-    cache:
-        key: ${CI_COMMIT_REF_SLUG}
-        paths:
-            - /root/.gradle
-    script:
-        - ./gradlew build
-    tags:
-        - docker
-        - shared
-
 build FB master:
     image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils-master
     cache:
