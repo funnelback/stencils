@@ -8,6 +8,7 @@ import com.funnelback.filter.api.documents.BytesDocument
 import com.funnelback.filter.api.documents.NoContentDocument
 import com.funnelback.filter.api.filters.BytesDocumentFilter
 import com.funnelback.filter.api.filters.PreFilterCheck
+import com.funnelback.stencils.util.XmlUtils
 import groovy.util.logging.Log4j2
 
 import javax.xml.parsers.DocumentBuilderFactory
@@ -36,7 +37,7 @@ class XmlElementHtmlWrapperFilter implements BytesDocumentFilter {
     static final String CONFIG_KEY_XPATH = "stencils.filter.xml.html_wrapper.xpath"
 
     /** DocumentBuilder to parse our XML */
-    def documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+    def documentBuilder = new XmlUtils().getSecureDocumentBuilder()
     /** XPath to evaluate the XPath expression */
     def xPath = XPathFactory.newInstance().newXPath()
     /** Transformer to serialize the XML object back into a String */
