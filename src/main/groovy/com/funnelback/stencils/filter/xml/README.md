@@ -49,3 +49,9 @@ by converting the JSON to XML with the built-in filters:
 ```
 filter.classes=ForceJSONMime:JSONToXML:ForceXMLMime:com.funnelback.stencils.filter.xml.XmlElementHtmlWrapperFilter
 ```
+
+# Security
+
+To prevent [XXE vulnerabilities](https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing),
+the XML handling is restricted in some respects. In particular, XML documents with DOCTYPE declarations
+will not be accepted for processing.
