@@ -46,8 +46,8 @@
 	@return component collection config names. (comma separated )
  -->
 <#macro ConfigFacebookCollections><#compress>
-<#if question.collection.configuration.value("stencils.social.collections.facebook")?? >
-${question.collection.configuration.value("stencils.social.collections.facebook")}
+<#if question.getCurrentProfileConfig().get("stencils.social.collections.facebook")?? >
+${question.getCurrentProfileConfig().get("stencils.social.collections.facebook")}
 </#if>
 </#compress></#macro>
 
@@ -67,8 +67,8 @@ ${question.collection.configuration.value("stencils.social.collections.facebook"
 	@return component collection config names. (comma separated )
  -->
 <#macro ConfigTwitterCollections><#compress>
-<#if question.collection.configuration.value("stencils.social.collections.twitter")?? >
-${question.collection.configuration.value("stencils.social.collections.twitter")}
+<#if question.getCurrentProfileConfig().get("stencils.social.collections.twitter")?? >
+${question.getCurrentProfileConfig().get("stencils.social.collections.twitter")}
 </#if>
 </#compress></#macro>
 
@@ -88,8 +88,8 @@ ${question.collection.configuration.value("stencils.social.collections.twitter")
 	@return component collection config names. (comma separated )
  -->
 <#macro ConfigFlickrCollections><#compress>
-<#if question.collection.configuration.value("stencils.social.collections.flickr")?? >
-${question.collection.configuration.value("stencils.social.collections.flickr")}
+<#if question.getCurrentProfileConfig().get("stencils.social.collections.flickr")?? >
+${question.getCurrentProfileConfig().get("stencils.social.collections.flickr")}
 </#if>
 </#compress></#macro>
 
@@ -109,8 +109,8 @@ ${question.collection.configuration.value("stencils.social.collections.flickr")}
 	@return component collection config names. (comma separated )
  -->
 <#macro ConfigYoutubeCollections><#compress>
-<#if question.collection.configuration.value("stencils.social.collections.youtube")?? >
-${question.collection.configuration.value("stencils.social.collections.youtube")}
+<#if question.getCurrentProfileConfig().get("stencils.social.collections.youtube")?? >
+${question.getCurrentProfileConfig().get("stencils.social.collections.youtube")}
 </#if>
 </#compress></#macro>
 

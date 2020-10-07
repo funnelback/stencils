@@ -1,5 +1,7 @@
 package com.funnelback.stencils.hook.facebook
 
+import com.funnelback.publicui.search.model.padre.Result
+
 import java.text.SimpleDateFormat
 
 import org.junit.Assert
@@ -7,6 +9,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 
+import com.funnelback.common.config.CollectionId
 import com.funnelback.common.config.Config
 import com.funnelback.publicui.search.model.collection.Collection
 import com.funnelback.publicui.search.model.padre.ResultPacket
@@ -22,8 +25,8 @@ class FacebookHookLifecycleTest {
 
     def hook
     def config
-    def transaction
-    def results
+    SearchTransaction transaction
+    List<Result> results
 
     @Before
     void before() {
@@ -61,7 +64,7 @@ class FacebookHookLifecycleTest {
         Mockito.when(transaction.response.customData).thenReturn(customData)
 
         Mockito.when(config.value(StencilHooks.STENCILS_KEY, "")).thenReturn("facebook")
-        Mockito.when(transaction.question.collection).thenReturn(new Collection("mock", config))
+        Mockito.when(transaction.question.collection).thenReturn(new Collection(new CollectionId("client~mock"), config))
     }
 
     @Test
@@ -98,44 +101,44 @@ class FacebookHookLifecycleTest {
         ],
         results[1].customData)
 
-        Assert.assertEquals([
-            "stencilsFacebookPageImageUrl": "//graph.facebook.com/page-id/picture"
-        ],
-        results[2].customData)
+        Assert.assertEquals(["stencilsFacebookPageImageUrl": "//graph.facebook.com/page-id/picture"], results[2].customData)
         
         Assert.assertTrue(results[3].customData.isEmpty())
         
         Assert.assertTrue(transaction.response.customData[StencilHooks.STENCILS_FREEMARKER_METHODS]["facebookHashtagify"] instanceof TemplateMethodModelEx)
-
     }
-
 
     @Test
     void testGenerateProfileForId() {
-        Assert.assertNull(FacebookHookLifecycle.generateUrlForId(null))
-        Assert.assertEquals("", FacebookHookLifecycle.generateUrlForId(""))
-        Assert.assertEquals("//www.facebook.com/12345", FacebookHookLifecycle.generateUrlForId("12345"))
-        Assert.assertEquals("//www.facebook.com/abcde", FacebookHookLifecycle.generateUrlForId("abcde"))
+        Assert.assertNull(FacebookHookLifecycle.generateUrlForId(MockUtils.mockResult([:]), "test"))
+        Assert.assertEquals("", FacebookHookLifecycle.generateUrlForId(MockUtils.mockResult([test: ""]), "test"))
+        Assert.assertEquals("//www.facebook.com/12345", FacebookHookLifecycle
+                .generateUrlForId(MockUtils.mockResult([test: "12345"]), "test"))
+        Assert.assertEquals("//www.facebook.com/abcde", FacebookHookLifecycle
+                .generateUrlForId(MockUtils.mockResult([test: "abcde"]), "test"))
     }
 
     @Test
     void testGenerateImageUrlForId() {
-        Assert.assertNull(FacebookHookLifecycle.generateImageUrlForId(null))
-        Assert.assertEquals("", FacebookHookLifecycle.generateImageUrlForId(""))
-        Assert.assertEquals("//graph.facebook.com/12345/picture", FacebookHookLifecycle.generateImageUrlForId("12345"))
-        Assert.assertEquals("//graph.facebook.com/abcde/picture", FacebookHookLifecycle.generateImageUrlForId("abcde"))
+        Assert.assertNull(FacebookHookLifecycle.generateImageUrlForId(MockUtils.mockResult([:]), "test"))
+        Assert.assertEquals("", FacebookHookLifecycle.generateImageUrlForId(MockUtils.mockResult([test: ""]), "test"))
+        Assert.assertEquals("//graph.facebook.com/12345/picture", FacebookHookLifecycle
+                .generateImageUrlForId(MockUtils.mockResult([test: "12345"]), "test"))
+        Assert.assertEquals("//graph.facebook.com/abcde/picture", FacebookHookLifecycle
+                .generateImageUrlForId(MockUtils.mockResult([test: "abcde"]), "test"))
     }
 
     @Test
     void testParseFacebookDateTime() {
-        Assert.assertNull(FacebookHookLifecycle.parseFacebookDateTime(null))
-        Assert.assertEquals("", FacebookHookLifecycle.parseFacebookDateTime(""))
-        Assert.assertEquals("invalid date", FacebookHookLifecycle.parseFacebookDateTime("invalid date"))
+        Assert.assertNull(FacebookHookLifecycle.parseFacebookDateTime(MockUtils.mockResult([:]), "test"))
+        Assert.assertEquals("", FacebookHookLifecycle.parseFacebookDateTime(MockUtils.mockResult(["test": ""]), "test"))
+        Assert.assertEquals("invalid date", FacebookHookLifecycle
+                .parseFacebookDateTime(MockUtils.mockResult(["test": "invalid date"]), "test"))
         Assert.assertEquals(
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z").parse("2015-01-02 12:34:56.700 PST"),
-                FacebookHookLifecycle.parseFacebookDateTime("2015-01-02 12:34:56.7 PST"))
+                FacebookHookLifecycle.parseFacebookDateTime(MockUtils.mockResult(["test": "2015-01-02 12:34:56.7 PST"]), "test"))
     }
-    
+
     @Test
     void testEventIsPast() {
         Assert.assertFalse(FacebookHookLifecycle.isEventPast(null, null))

@@ -30,8 +30,8 @@ class FacetRenameHookLifecycle implements HookLifecycle {
         if (isFacetRenameConfigured && transaction?.response?.facets) {
             // Iterate over each facet and each category, and apply the rename
             transaction.response.facets.each() { facet ->
-                facet.categories.each() { category ->
-                    renameCategory(transaction.question.currentProfileConfig, category, facet.name)
+                facet.getAllValues().each() { categoryValue ->
+                    renameCategory(transaction.question.currentProfileConfig, categoryValue, facet.name)
                 }
             }
         }
@@ -40,21 +40,13 @@ class FacetRenameHookLifecycle implements HookLifecycle {
     /**
      * Rename values of a facet category if there is a relevant profile.cfg setting
      * @param config Profile configuration
-     * @param category Category to rename the values of
+     * @param categoryValue Category to rename the values of
      * @param facetName Name of the facet the category belong to
      */
-    void renameCategory(config, Facet.Category category, String facetName) {
-        // Process each value of this category
-        category.values.forEach() { value ->
-            def rename = config.get("${CONFIG_PREFIX}.${facetName}.${value.label}")
-            if (rename) {
-                value.label = rename
-            }
-        }
-
-        // Recursively process the sub-categories of this category, for hierarchical facets
-        category.categories.each() { subCategory ->
-            renameCategory(config, subCategory, facetName)
+    void renameCategory(config, Facet.CategoryValue categoryValue, String facetName) {
+        def rename = config.get("${CONFIG_PREFIX}.${facetName}.${categoryValue.label}")
+        if (rename) {
+            categoryValue.label = rename
         }
     }
 }

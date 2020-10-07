@@ -381,13 +381,13 @@
 			<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 			&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 				<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-					<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-							<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+					<form action="${question.getCurrentProfileConfig().get("ui.modern.search_link")}" method="GET" role="search">
+							<input type="hidden" name="collection" value="${question.collection.id!}">
 							<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-							<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameters["enc"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameters["form"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameters["scope"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.profile!}"></@core_controller.IfDefCGI>
 							<div class="row">
 								<div class="col-md-4">
 								<div class="input-group input-sm">
@@ -492,7 +492,7 @@
 				</ul>
 			</div>
 
-			<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+			<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 				<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
 					<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
 				</button>
@@ -507,7 +507,7 @@
 				<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 			</button>
 
-			<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+			<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 				<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
 					<small class="text-warning">
 						<span class="glyphicon glyphicon-time"></span>
@@ -593,13 +593,13 @@
 			<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 			&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 				<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-					<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-							<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+					<form action="${question.getCurrentProfileConfig().get("ui.modern.search_link")}" method="GET" role="search">
+							<input type="hidden" name="collection" value="${question.collection.id!}">
 							<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-							<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-							<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameters["enc"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameters["form"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameters["scope"]?first!}"></@core_controller.IfDefCGI>
+							<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.profile!}"></@core_controller.IfDefCGI>
 							<div class="row">
 								<div class="col-md-4">
 								<div class="input-group input-sm">
@@ -693,7 +693,7 @@
 					</ul>
 				</div>
 
-				<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+				<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 					<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default stencils-print__hide">
 						<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to cart</span>
 					</button>
@@ -704,7 +704,7 @@
 					<i class="far fa-newspaper"></i> <span class="sr-only">Expanded view</span>
 				</button>
 
-				<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+				<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 					<a title="Click history" href="#" class="text-warning btn btn-default stencils-print__hide" data-ng-click="toggleHistory()">
 						<small class="text-warning">
 							<span class="glyphicon glyphicon-time"></span>
@@ -786,13 +786,13 @@
 							<#if question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"]??
 							&& question.collection.quickLinksConfiguration["quicklinks.domain_searchbox"] == "true">
 								<#if core_controller.result.quickLinks.domain?matches("^[^/]*/?[^/]*$", "r")>
-									<form action="${question.collection.configuration.value("ui.modern.search_link")}" method="GET" role="search">
-											<input type="hidden" name="collection" value="${question.inputParameterMap["collection"]!}">
+									<form action="${question.getCurrentProfileConfig().get("ui.modern.search_link")}" method="GET" role="search">
+											<input type="hidden" name="collection" value="${question.collection.id!}">
 											<input type="hidden" name="meta_u_sand" value="${core_controller.result.quickLinks.domain}">
-											<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameterMap["enc"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameterMap["form"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameterMap["scope"]!}"></@core_controller.IfDefCGI>
-											<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.inputParameterMap["profile"]!}"></@core_controller.IfDefCGI>
+											<@core_controller.IfDefCGI name="enc"><input type="hidden" name="enc" value="${question.inputParameters["enc"]?first!}"></@core_controller.IfDefCGI>
+											<@core_controller.IfDefCGI name="form"><input type="hidden" name="form" value="${question.inputParameters["form"]?first!}"></@core_controller.IfDefCGI>
+											<@core_controller.IfDefCGI name="scope"><input type="hidden" name="scope" value="${question.inputParameters["scope"]?first!}"></@core_controller.IfDefCGI>
+											<@core_controller.IfDefCGI name="profile"><input type="hidden" name="profile" value="${question.profile!}"></@core_controller.IfDefCGI>
 											<div class="row">
 												<div class="col-md-4">
 												<div class="input-group input-sm">
@@ -898,7 +898,7 @@
 								</ul>
 							</div>
 
-							<#if question.collection.configuration.valueAsBoolean("ui.modern.session")>
+							<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean>
 								<button data-ng-click="toggle()" data-cart-link data-css="pushpin|remove" title="{{label}}" class="btn btn-default">
 									<small class="glyphicon glyphicon-{{css}}"></small> <span class="sr-only">Save to Cart</span>
 								</button>
@@ -910,7 +910,7 @@
 
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-							<#if question.collection.configuration.valueAsBoolean("ui.modern.session") && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
+							<#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(core_controller.result.indexUrl)??>
 								<a title="Click history" href="#" class="text-warning btn btn-default" data-ng-click="toggleHistory()">
 									<small class="text-warning">
 										<span class="glyphicon glyphicon-time"></span>

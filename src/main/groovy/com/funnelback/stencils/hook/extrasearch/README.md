@@ -1,7 +1,7 @@
 # Enable extra searches on a per tab basis
 
 The extra search hook can be used to enable or disable extra searches 
-based on the the selected tab.  
+based on the selected tab.  
 
 ## Usage
 

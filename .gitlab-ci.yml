@@ -1,5 +1,5 @@
-build:
-    image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils-15.24.0.x
+build FB master:
+    image: docker-hub.squiz.net/funnelback-rnd/gitlab-ci-docker:stencils-master
     cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:
