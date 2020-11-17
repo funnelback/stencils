@@ -11,6 +11,7 @@ Some templates can be configured using settings in the collection.cfg. These tem
 
 * [Base Templates](base/)
 * [Tabs](tabs/)
+* [Autocompletion](autocompletion/)
 
 ## v1 Libraries
 
