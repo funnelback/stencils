@@ -20,13 +20,13 @@
                 <#list field?split("|") as singleValue>
                     <#assign data>
                     {
-                        "title": "${result.title?json_string}",
+                        "title": "${fixCommaBug(result.title)?json_string}",
                         <#if result.date?has_content>
                           "date": "${result.date?date?string.short?json_string}",
                         </#if>
                         "metaData": {
                           <#list result.metaData!{} as key, value>
-                            "${key?json_string}": "${value?replace("|", ", ")?replace("\"", "\\\"")?json_string}"<#if key_has_next>,</#if>
+                            "${key?json_string}": "${fixCommaBug(value)?replace("|", ", ")?replace("\"", "\\\"")?json_string}"<#if key_has_next>,</#if>
                           </#list>
                         }
                     }
@@ -66,4 +66,16 @@
 <#-- Escapes a String suitably for CSV -->
 <#function escapeCsv str>
     <#return str!?chop_linebreak?trim?replace("\\", "\\\\")?replace("\"", "\\\"")?replace(",", "\\,") />
+</#function>
+
+<#--
+Addresses the bug where spaces following a comma are removed by replacing the proceeding space with a &nbsp;
+See https://jira.squiz.net/browse/FUN-6468
+-->
+<#function fixCommaBug val>
+  <#if (question.currentProfileConfig.get("stencils.auto-completion.preserve-spaces")!"")?lower_case == "true">
+    <#return val?replace(", ", ",&nbsp;")>
+  <#else>
+    <#return val>
+  </#if>
 </#function>
