@@ -41,6 +41,7 @@ window.Funnelback.Handlebars.registerHelper({
      * 
      * {{ this }} is substituted with the current item in the list
      * 
+     * Example input:
      * metaData.courseTerm == "Spring|Summer|Fall"
      * 
      * Simple usage:
@@ -49,7 +50,7 @@ window.Funnelback.Handlebars.registerHelper({
      * --> <ul><li>Spring</li><li>Summer</li><li>Fall</li></ul>
      * 
      * Use a different delimiter:
-     * <ul>{{#list metaData.courseTerm delimiter=","}}<li>{{ this }}</li>{{/list}}</ul>
+     * <ul>{{#list metaData.courseTermCommas delimiter=","}}<li>{{ this }}</li>{{/list}}</ul>
      * --> <ul><li>Spring</li><li>Summer</li><li>Fall</li></ul>
      * 
      * Join with commas:
@@ -58,11 +59,14 @@ window.Funnelback.Handlebars.registerHelper({
      * 
      * Multiple substitution:
      * {{#list metaData.courseTerm}}<a href="https://example.com/{{ this }}">{{ this }}</a>{{/list}}
-     * 
+     * --> 
+     * <a href="https://example.com/Spring">Spring</a>
+     * <a href="https://example.com/Summer">Summer</a>
+     * <a href="https://example.com/Fall">Fall</a>
      */
     list: function (list, options) {
-        const delimiter = options.hash.delimiter || '|'
-        const joinWith = options.hash.joinWith || ''
-        return list.split(delimiter).map(item => options.fn(item)).join(joinWith)
+      const delimiter = options.hash.delimiter || '|'
+      const joinWith = options.hash.joinWith || ''
+      return list.split(delimiter).map(item => options.fn(item)).join(joinWith)
     },
 });
