@@ -118,7 +118,7 @@
 </#macro>
 
 <#macro CartTemplate>
-  <script id="cart-template" type="text/x-handlebar-template">
+  <script id="cart-template" type="text/x-handlebars-template">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -140,6 +140,31 @@
       </div>
     </div>
   </script>
+</#macro>
+
+<#macro DefaultCartItemTemplate>
+<script id="cart-template-default" type="text/x-handlebars-template">
+<div class="card search-result-default">
+  <div class="card-header cart-item-trigger-parent">
+    <h4>
+      <a href="{{indexUrl}}">{{#truncate 70}}{{title}}{{/truncate}}</a>
+    </h4>
+    <div class="card-subtitle text-muted">
+      <cite>{{#cut "https://"}}{{indexUrl}}{{/cut}}</cite>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      {{#if metaData.image}}<img class="img-fluid float-right" alt="{{result.title}}" src="{{metaData.image}}">{{/if}}
+
+      {{#if metaData.c}}
+        {{#if metaData.date}}<small class="text-muted">{{ metaData.date }}:&nbsp;</small>{{/if}}
+        {{metaData.c}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+</script>
 </#macro>
 
 <#macro Configuration>
