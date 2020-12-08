@@ -20,6 +20,11 @@ Stencils are built with [Gradle](https://gradle.org/). For this reason, the main
 * Create a symbolic link for the Groovy libraries:
 
 ```
+cd $SEARCH_HOME/share/
+git clone git@gitlab.squiz.net:stencils/stencils.git
+```
+
+```
 # Linux
 ln -s $SEARCH_HOME/share/stencils/src/main/groovy/com/funnelback/stencils $SEARCH_HOME/lib/java/groovy/com/funnelback/stencils
 
