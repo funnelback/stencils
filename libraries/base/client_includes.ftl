@@ -37,6 +37,7 @@
       url=profileConfig.get("stencils.client_includes.${elementName}.url")
       start=profileConfig.get("stencils.client_includes.${elementName}.start")
       end=profileConfig.get("stencils.client_includes.${elementName}.end")
+      expiry=profileConfig.get("stencils.client_includes.${elementName}.expiry")
       convertRelative=(profileConfig.get("stencils.client_includes.${elementName}.relative")!"true")?boolean
       username=profileConfig.get("stencils.client_includes.${elementName}.username")
       password=profileConfig.get("stencils.client_includes.${elementName}.password")
