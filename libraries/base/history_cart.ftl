@@ -6,7 +6,7 @@
 -->
 <#macro LastVisitedLink result>
   <#if question.getCurrentProfileConfig().get("ui.modern.session")?boolean && session?? && session.getClickHistory(result.indexUrl)??>
-    <small class="text-success search-last-visited session-history-link"> 
+    <small class="text-success search-last-visited session-history-link">
       <button title="Click history" tabindex="0" class="btn-link text-success session-history-show border-0">
         <span class="far fa-clock"></span>
         Last visited ${prettyTime(session.getClickHistory(result.indexUrl).clickDate)}
@@ -52,7 +52,7 @@
                     </ul>
                   </div>
                 </div>
-              
+
                 <div class="card session-history-click-empty">
                   <div class="card-header">
                     <h3><span class="fa fa-heart"></span> Recently clicked results</h3>
@@ -61,12 +61,12 @@
                     <p class="text-muted">Your click history is empty.</p>
                   </div>
                 </div>
-              
+
               </div>
 
               <#-- Search history -->
               <div class="col-md-6">
-              
+
                 <div class="card session-history-search-results">
                   <div class="card-header">
                     <h3>
@@ -78,14 +78,14 @@
                     <ul class="list-unstyled">
                       <#list session.searchHistory as h>
                         <li>
-                          <a href="?${h.searchParams}">${h.originalQuery!} <small>(${h.totalMatching})</small></a> &middot; 
+                          <a href="?${h.searchParams}">${h.originalQuery!} <small>(${h.totalMatching})</small></a> &middot;
                           <span class="text-info">${prettyTime(h.searchDate)}</span>
                         </li>
                       </#list>
                     </ul>
                   </div>
                 </div>
-              
+
                 <div class="card session-history-search-empty">
                   <div class="card-header">
                     <h3><span class="fa fa-search"></span> Recent searches</h3>
@@ -94,7 +94,7 @@
                     <p class="text-muted">Your search history is empty.</p>
                   </div>
                 </div>
-              
+
               </div>
 
             </div>
@@ -118,7 +118,7 @@
 </#macro>
 
 <#macro CartTemplate>
-  <script id="cart-template" type="text/x-handlebar-template">
+  <script id="cart-template" type="text/x-handlebars-template">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -140,6 +140,31 @@
       </div>
     </div>
   </script>
+</#macro>
+
+<#macro DefaultCartItemTemplate>
+<script id="cart-template-default" type="text/x-handlebars-template">
+<div class="card search-result-default">
+  <div class="card-header cart-item-trigger-parent">
+    <h4>
+      <a href="{{indexUrl}}">{{#truncate 70}}{{title}}{{/truncate}}</a>
+    </h4>
+    <div class="card-subtitle text-muted">
+      <cite>{{#cut "https://"}}{{indexUrl}}{{/cut}}</cite>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-text">
+      {{#if listMetadata.image.[0]}}<img class="img-fluid float-right" alt="{{result.title}}" src="{{listMetadata.image.[0]}}">{{/if}}
+
+      {{#if listMetadata.c.[0]}}
+        {{#if listMetadata.date.[0]}}<small class="text-muted">{{ listMetadata.date.[0] }}:&nbsp;</small>{{/if}}
+        {{listMetadata.c.[0]}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+</script>
 </#macro>
 
 <#macro Configuration>
