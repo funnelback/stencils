@@ -1,6 +1,7 @@
 package com.funnelback.stencils.gather
 
 import com.funnelback.common.config.Config
+import com.funnelback.common.config.CollectionId
 import com.funnelback.common.io.store.RawBytesRecord
 import com.funnelback.common.io.store.RawBytesStore
 import com.funnelback.common.io.store.bytes.RawBytesStoreFactory
@@ -28,7 +29,7 @@ class InstagramCustomGather {
      * @return instance of InstagramCustomGather to be called in a chain
      */
     InstagramCustomGather init(File searchHome, String collection) {
-        config = ConfigFactory.createNoOptionsConfigWithLogging(searchHome, collection)
+        config = ConfigFactory.createNoOptionsConfigWithLogging(searchHome, new CollectionId(collection))
         userAccessToken = config.value(CONFIG_KEYS['ACCESS_TOKEN'])
         if (!userAccessToken) {
             throw new RuntimeException("Configuration key ${CONFIG_KEYS['ACCESS_TOKEN']} must be set.")
