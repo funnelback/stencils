@@ -31,6 +31,7 @@ class SocialDateFilter implements StringDocumentFilter {
     static final CONFIG_PREFIX = "stencils.filter.social.drop"
     static final CHRONO_UNIT = "${CONFIG_PREFIX}.unit"
     static final CHRONO_AMOUNT = "${CONFIG_PREFIX}.amount"
+    static final RECORD_TYPE = "${CONFIG_PREFIX}.record_type"
 
     /** Slurper to parse the social media record */
     def xmlSlurper = new XmlSlurper()
@@ -44,6 +45,9 @@ class SocialDateFilter implements StringDocumentFilter {
     /** Date format for Facebook */
     static final def FACEBOOK_DATE_FORMAT_EVENT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S z")
     static final def FACEBOOK_DATE_FORMAT_POST = DateTimeFormatter.ofPattern("E MMM d HH:mm:ss z yyyy")
+
+    /** Date format for Instagram */
+    static final def INSTAGRAM_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ")
 
     @Override
     PreFilterCheck canFilter(NoContentDocument noContentDocument, FilterContext filterContext) {
@@ -75,7 +79,7 @@ class SocialDateFilter implements StringDocumentFilter {
 
         // Find the date, depending of the social media platform
         def date = null
-        switch (xml.name()) {
+        switch (xml?.name()) {
             case TwitterXmlRecord.class.name:
                 date = ZonedDateTime.parse(xml.createdDate.text(), TWITTER_DATE_FORMAT)
                 break
@@ -86,10 +90,18 @@ class SocialDateFilter implements StringDocumentFilter {
                     date = ZonedDateTime.parse(xml.postCreatedTime.text(), FACEBOOK_DATE_FORMAT_POST)
                 }
                 break
+            default:
+                def recordType = filterContext.getConfigValue(RECORD_TYPE).orElse("")
+                if (recordType == "instagram") {
+                    date = ZonedDateTime.parse(xml.timestamp.text(), INSTAGRAM_DATE_FORMAT)
+                }
+                break
         }
 
         // Check if date is in range
-        if (date != null && date.isBefore(minDate)) {
+        if (date == null) {
+            log.error("Unable to determine date for {}", stringDocument.URI)
+        } else if (date.isBefore(minDate)) {
             output = []
             log.info("Dropping {} ({} is older than than {} {}: {})", stringDocument.URI, date, chronoAmount, chronoUnit.name().toLowerCase(), minDate)
         } else {

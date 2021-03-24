@@ -85,15 +85,36 @@ class SocialDateFilterTest {
                 .cloneWithStringContent(DocumentType.MIME_XML_TEXT, post)
         }
 
+        // Build fake Instagram posts
+        def instagramPosts = [now, future, pastWeek, pastMonth].collect { date ->
+            """<?xml version="1.0" encoding="utf-8"?>
+              <json>
+                <media_type>IMAGE</media_type>
+                <caption>Happy Veterans Day from FLC.</caption>
+                <permalink>https://www.instagram.com/p/R5TpikKcqb/</permalink>
+                <timestamp>${SocialDateFilter.INSTAGRAM_DATE_FORMAT.format(date)}</timestamp>
+              </json>"""
+        }.collect { post ->
+            MockDocuments.mockEmptyStringDoc()
+                .cloneWithURI(new URI("https://www.example.org"))
+                .cloneWithStringContent(DocumentType.MIME_XML_TEXT, post)
+        }
+
         // Configure collection.cfg
         def context = MockFilterContext.emptyContext
         context.setConfigValue(SocialDateFilter.CHRONO_AMOUNT, amount.toString())
         context.setConfigValue(SocialDateFilter.CHRONO_UNIT, unit)
 
+        def instagramContext = MockFilterContext.emptyContext
+        instagramContext.setConfigValue(SocialDateFilter.CHRONO_AMOUNT, amount.toString())
+        instagramContext.setConfigValue(SocialDateFilter.CHRONO_UNIT, unit)
+        instagramContext.setConfigValue(SocialDateFilter.RECORD_TYPE, "instagram")
+
         // Filter all our docs
         def tweetsOutput = []
         def fbEventsOutput = []
         def fbPostsOutput = []
+        def instagramPostsOutput = []
         tweets.each() { tweet ->
             tweetsOutput += new SocialDateFilter().filterAsStringDocument(tweet, context).filteredDocuments
         }
@@ -103,10 +124,14 @@ class SocialDateFilterTest {
         fbPosts.each() { post ->
             fbPostsOutput += new SocialDateFilter().filterAsStringDocument(post, context).filteredDocuments
         }
+        instagramPosts.each { post ->
+            instagramPostsOutput += new SocialDateFilter().filterAsStringDocument(post, instagramContext).filteredDocuments
+        }
 
         Assert.assertEquals("Invalid number of tweets returned for ${amount} ${unit}", numDocs, tweetsOutput.size())
         Assert.assertEquals("Invalid number of facebook events returned for ${amount} ${unit}", numDocs, fbEventsOutput.size())
         Assert.assertEquals("Invalid number of facebook posts returned for ${amount} ${unit}", numDocs, fbPostsOutput.size())
+        Assert.assertEquals("Invalid number of instagram posts returned for ${amount} ${unit}", numDocs, instagramPostsOutput.size())
     }
 
 }
