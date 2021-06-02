@@ -60,7 +60,7 @@
 
 <#-- Generates a single CSV line, for a trigger, data to display and URL to navigate to -->
 <#macro csvLine trigger data action actionType>
-"${trigger}",100,${data},J,"${escapeCsv(question.getCurrentProfileConfig().get("stencils.auto-completion.category")!)}",,"${escapeCsv(action)}",${actionType}
+"${trigger}",100,${data},J,"${escapeCsv(question.getCurrentProfileConfig().get("stencils.auto-completion.category")!)}",,"${action}",${actionType}
 </#macro>
 
 <#-- Escapes a String suitably for CSV -->
