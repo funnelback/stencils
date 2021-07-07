@@ -26,7 +26,7 @@
                         </#if>
                         "metaData": {
                           <#list result.metaData!{} as key, value>
-                            "${key?json_string}": "${fixCommaBug(value)?replace("|", ", ")?replace("\"", "\\\"")?json_string}"<#if key_has_next>,</#if>
+                            "${key?json_string}": "${fixCommaBug(value!?replace("|", ", ")!?replace("\"", "\\\""))?json_string}"<#if key_has_next>,</#if>
                           </#list>
                         }
                     }
